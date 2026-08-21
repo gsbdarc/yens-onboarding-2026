@@ -1,0 +1,87 @@
+/* Yens Onboarding 2026 — theme overrides on top of just-the-docs.
+   Trimmed from the 4-day course's stylesheet: the quest-log, party-card, and
+   leaderboard rules are gone along with the features they styled. */
+
+/* ── Entrance page: days on the left, skills on the right, rows aligned ── */
+.day-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem 1.5rem;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+@media (max-width: 650px) { .day-layout { grid-template-columns: 1fr; } }
+
+.day-skills {
+  font-size: 0.88em;
+  color: #666;
+  line-height: 1.7;
+}
+
+.day-card {
+  border: 1px solid var(--border-color, #dde);
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  background: var(--sidebar-color, #f8f9fa);
+}
+.day-card h3 { margin-top: 0; font-size: 1em; }
+.day-card p { margin: 0.25rem 0 0; font-size: 0.88em; color: #555; }
+
+/* Wrap long plain-text code blocks (e.g. Claude Code prompt examples) so they
+   wrap instead of scrolling off-screen. Command blocks (language-bash) are
+   left to scroll, since wrapping a command mid-token hurts readability. */
+.language-plaintext.highlighter-rouge pre.highlight {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* Hint / spoiler collapsibles (<details>) in lesson content default to a plain
+   browser triangle that clashes with the theme. Render them as a full-width
+   "accordion": a gray summary bar with a chevron that rotates open, and the
+   revealed content boxed beneath it. */
+.main-content details {
+  border: 1px solid #e1e4ea;
+  border-radius: 8px;
+  margin: 0.9rem 0;
+  overflow: hidden;              /* clips the summary bar to the rounded box */
+}
+.main-content details > summary {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  cursor: pointer;
+  padding: 0.6rem 0.9rem;
+  background: #f3f4f7;
+  color: #2c3e50;
+  font-weight: 600;
+  list-style: none;              /* drop the default disclosure triangle... */
+}
+.main-content details > summary::-webkit-details-marker { display: none; }  /* ...incl. Safari */
+.main-content details > summary::before {
+  content: "\25b8";              /* ▸ our own chevron, rotates when open */
+  display: inline-block;
+  color: #6a7280;
+  transition: transform 0.15s ease;
+}
+.main-content details > summary:hover { background: #e9ecf2; }
+.main-content details[open] > summary {
+  border-bottom: 1px solid #e1e4ea;
+  margin: 0 -0.9rem;             /* pull the bar back out to the box edges... */
+}
+.main-content details[open] > summary::before { transform: rotate(90deg); }
+.main-content details[open] { padding: 0 0.9rem 0.9rem; }  /* ...so only the content is inset */
+
+/* ── Aside callout ────────────────────────────────────────────────────────
+   Declared as grey-dk in _config.yml because the theme's callout SCSS needs a
+   $<color>-300 variable to exist, and grey-lt's is #e6e1e8 — invisible as a
+   title on white. That leaves it identical to the Demo box, so recolour it
+   here: an aside is tangential, and should read quieter than the page around
+   it rather than competing with the callouts that carry instructions. */
+.main-content blockquote.aside,
+.main-content p.aside {
+  border-color: #dcdfe5;
+  border-left-color: #6a7280;    /* the same muted grey as the SVG labels */
+  background: #fafbfc;
+}
+.main-content blockquote.aside::before,
+.main-content p.aside::before { color: #6a7280; }

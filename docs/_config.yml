@@ -1,0 +1,81 @@
+# Site-wide settings for Yens Onboarding 2026
+#
+# This file is NOT auto-reloaded by `jekyll serve` — restart the server
+# after changing anything here.
+
+title: "Yens Onboarding 2026"
+tagline: "Stanford GSB · Research computing & AI for new PhD students and faculty"
+author: GSB DARC Team
+description: >-
+  A two-day hands-on onboarding to research computing and AI tools at Stanford GSB:
+  the Yens cluster, Git, Python environments, Stanford's AI API Gateway,
+  Slurm batch jobs, and AI coding tools.
+
+baseurl: '/yens-onboarding-2026'
+url: 'https://gsbdarc.github.io'
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - vendor
+  - .bundle
+
+# Theme (use the gem directly — we're not on the legacy github-pages stack)
+theme: just-the-docs
+color_scheme: light
+search_enabled: true
+heading_anchors: true
+
+highlighter: rouge
+
+# Pretty permalinks (e.g. /day1/ instead of /day1.html)
+permalink: pretty
+
+aux_links:
+  GSB RCpedia:
+    - 'https://rcpedia.stanford.edu'
+
+# Just-the-Docs callouts
+callouts:
+  tip:
+    title: Tip
+    color: green
+  warning:
+    title: Warning
+    color: red
+  important:
+    title: Important
+    color: blue
+  note:
+    title: Note
+    color: purple
+  exercise:
+    title: Exercise
+    color: blue
+  optional:
+    title: Optional
+    color: yellow
+  demo:
+    title: Demo
+    color: grey-dk
+  # Tangential material — worth knowing, not needed to follow the page.
+  # grey-dk only satisfies the theme's SCSS (it needs a $<color>-300 variable);
+  # the muted colour it actually renders in is set in assets/css/course.css,
+  # so an aside reads as quieter than the demo box it would otherwise match.
+  aside:
+    title: Aside
+    color: grey-dk
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  startings: []
+  blanklines: false
+  profile: false
