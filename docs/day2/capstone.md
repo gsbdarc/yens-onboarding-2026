@@ -84,9 +84,10 @@ scale, GPUs and local LLMs, and LLM-as-a-judge.
 
 - **Compute environments** — CPU cores, RAM, and storage, and how laptop vs. Yens vs. cloud trade off.
 - **Profiling** — measuring a script's time, CPU, and RAM with `time`, `userload`, and `htop`; telling **serial from parallel** and **CPU-bound from I/O-bound** work.
-- **Reading real cluster data** — exploring a live monitoring snapshot, and per-user vs. whole-node limits.
 - **Slurm** — why a scheduler exists; reading the queue and partitions (`squeue`, `sinfo`, QoS caps).
 - **Running jobs** — writing a Slurm script from scratch, submitting/monitoring/cancelling, reading `.out`/`.err` logs, and **debugging failed jobs** (code bug vs. OOM vs. timeout).
+- **Claude skills** — distilling the Yens conventions from a job you just ran into a reusable skill.
+- **Job arrays** — one script, one `--array` flag, every filing at once; and why that beats a loop.
 - **Resource estimation & scaling** — profiling a small run, estimating a bigger one, and checking your estimate against what the job actually used.
 - **Reproducibility** — a README a colleague (or future you) can actually rerun.
 

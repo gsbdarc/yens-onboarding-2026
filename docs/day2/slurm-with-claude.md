@@ -18,10 +18,11 @@ The best skills come from work you've already gotten right. The pattern is alway
 2. **Ask Claude to make a skill** from what you just accomplished.
 3. **Invoke the skill** on the next, similar task — and watch it follow your conventions.
 
-You'll do this twice, for the two kinds of knowledge that go into your work:
+There are two kinds of knowledge worth capturing this way, and they live in
+different places:
 
 - **How the Yens work** — partitions, resource requests, `%j` log naming, email. True for *every* job you run on the cluster, so it belongs in a **global** skill. You'll distill it from the job you *just* ran.
-- **How this project does things** — its figure house style, where results go, which script does what. Specific to *this* pipeline, so it belongs in a **project** skill. You'll distill it from a figure you make.
+- **How this project does things** — its figure house style, where results go, which script does what. Specific to *this* pipeline, so it belongs in a **project** skill. That one is in the optional practice at the bottom.
 
 You'll always **review what Claude writes** — you're the one who submits and checks the work.
 
@@ -60,12 +61,12 @@ Where that directory lives decides the skill's **scope**:
 
 *Same `.claude/skills/` layout, two different homes: the **global** skill in `~/.claude/` follows you into every project; the **project** skill in the repo's `.claude/` is committed and ships to anyone who clones it.*
 
-You'll make one of each.
+You'll write the global one below; the project one is optional practice.
 
-## Exercise: Write Two Skills for Claude
+## Exercise: Write a Skill for Claude
 
 {: .important }
-> **Task:** Have Claude write two skills — a **global** Yen skill and a **project** plotting skill — then invoke each on a new task.
+> **Task:** Have Claude distil a **global** Yen skill from the Slurm job you just ran by hand, then invoke it on a fresh job.
 
 You'll do this from Claude Code running on the Yens. Load the module and launch it inside your repo:
 
@@ -75,7 +76,7 @@ cd ~/yens-onboarding-2026
 claude
 ```
 
-### 1. A global skill — distilled from the job you just ran
+### A global skill — distilled from the job you just ran
 
 You already got a batch Slurm script working by hand. Rather than describe the Yen conventions from scratch, point Claude at that script and have it **capture the reusable parts** (step 2 of the pattern):
 
@@ -109,13 +110,15 @@ Then invoke it (step 3) on a fresh job. Claude Code turns each skill's folder na
 
 > /yen-slurm write a Slurm job for a new run and save it as `slurm/extract_form_3_batch_claude.slurm`
 
-**Submit and review:** the conventions should come straight from the skill, matching what you hand-wrote. But the global skill is repo-agnostic — it says nothing about *how this project plots a figure*. That's a **project** specific: the next skill.
+**Submit and review:** the conventions should come straight from the skill, matching what you hand-wrote. But the global skill is repo-agnostic — it says nothing about *how this project plots a figure*. That's project-specific knowledge, and it belongs in a project skill — the optional practice below.
 
 {: .note }
 > 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
 
 
-### 2. A project skill — your figure house style
+## Optional Practice
+
+**A project skill — your figure house style**
 
 Skills shine when Claude follows *your* world's conventions instead of generic defaults — a house style so every figure comes out consistent.
 
@@ -152,7 +155,7 @@ It should come out in the same house style automatically — that's the skill do
 
 ---
 
-## Optional Practice
+---
 {: .note }
 > Finished early? Try this one.
 
