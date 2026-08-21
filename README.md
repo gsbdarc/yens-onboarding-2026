@@ -26,14 +26,19 @@ unstructured text into validated structured records, then scaling it across the 
 
 ```
 docs/           the course website (Jekyll + just-the-docs, published by GitHub Actions)
+  prework.md    Canvas pre-work checklist + the prereq dependency map
   day1/         Day 1 sections
   day2/         Day 2 sections
-  reference/    pre-work, plus material cut from class for time
-  agenda.md     instructor run-of-show for both days
+  reference/    pre-work reading, plus material cut from class for time
 data/           SEC filings, the filing URL list, and the Potion Brawl demo project
 scripts/        staged teaching scripts (extraction, profiling)
 slurm/          example and deliberately-broken Slurm scripts
-.instructor/    instructor-only: setup, Canvas spec, answer keys (not published)
+.instructor/    instructor-only, NOT published:
+  agenda.md         run-of-show for both days + measured section timings
+  day{1,2}-teaching-plan.md
+  prereq-triage.md  the 9:00 "who is going to be stuck" check
+  canvas-modules.md spec for the Canvas pre-work, quizzes, and assignments
+  *.key.md          answer keys
 ```
 
 ## Running the Site Locally
@@ -48,4 +53,4 @@ bundle exec jekyll serve
 
 Condensed from the four-day
 [gsbdarc/gsb-research-computing-ai-skills](https://github.com/gsbdarc/gsb-research-computing-ai-skills).
-See [`docs/agenda.md`](docs/agenda.md) for what was cut and where it went.
+See [`.instructor/agenda.md`](.instructor/agenda.md) for the run-of-show, the measured section timings, and what was cut.

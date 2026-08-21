@@ -11,6 +11,20 @@ permalink: /day1/claude-code/
 
 You've set up Git and made your first commit by hand. Claude Code is a tool that can do that kind of work for you — and much more. This section covers what it is, how it works, how to get it through Stanford, and what data you can and can't give it.
 
+{: .important }
+> **This page is split in two, and the first half is pre-work.**
+>
+> **Read before Day 1** — everything from *Meet Claude Code* down to *Claude Code acts as
+> you*: what it is, the models, permission modes, tokens, context, memory, skills, and the
+> data rules. Two questions on the Canvas pre-work quiz come from it. It takes about 15
+> minutes.
+>
+> **In class** — we start at [Take It for a Spin](#take-it-for-a-spin) and stay on the
+> keyboard. We will not re-teach the concepts above, so the mode names and the data rule
+> won't mean much if you skip the reading.
+>
+> Come back to the first half whenever you need it — that's what it's for.
+
 ---
 
 ## Meet Claude Code
@@ -190,6 +204,11 @@ That has a blunt consequence: **Claude Code can do anything you can do.** It can
 > Treat it like handing your keyboard to a fast, capable assistant. Use **plan mode** when you want to see the plan before anything happens, review actions that are hard to undo (deleting files, force-pushing, sending data off your machine), and don't point it at anything you wouldn't do yourself.
 
 ---
+
+# In Class
+
+Everything above is pre-work reading. Everything below is what we do together, on the
+keyboard, in about 25 minutes.
 
 ## Take It for a Spin
 

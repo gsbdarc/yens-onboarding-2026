@@ -11,7 +11,13 @@ permalink: /day1/capstone/
 One filing proves the code runs. Ten filings prove it's a pipeline — and surface the
 things a single happy-path run never does.
 
-**About 15 minutes.** Everything you need you already built this morning.
+Everything you need you already built this morning — this runs straight on from the
+extraction section, as one continuous block.
+
+{: .important }
+> **You are not expected to finish this in the room.** It is the required assignment
+> between the two days, and it's on Canvas. Day 2 opens by *profiling* the script you
+> produce here, so this is the one piece of homework you cannot skip.
 
 ---
 

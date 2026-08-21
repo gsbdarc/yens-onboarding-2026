@@ -36,31 +36,17 @@ The rest of this page answers the **Where** question — understanding the resou
 
 ---
 
-## Under the Hood
-
-In Days 1 and 2, you wrote a Python script and ran it on the Yens interactively. But what is actually inside the machine running your code?
-
-Inside every computer — your laptop, a Yen node, a cloud server — there are the same few physical components. The diagram below shows a Yen server opened up: the **CPU** is the processor chip, **cores** are the individual workers inside it (each runs code independently), and **RAM** is the fast memory the CPU reads from while working.
-
-![Server hardware diagram showing CPU, cores, and RAM]({{ site.baseurl }}/assets/images/server-hardware-cpu-ram.png)
-
-Today we'll understand what each of these does when your script is running — and why they determine how fast (or slow) your code goes.
-
-| Component | What it is |
-|-----------|-----------|
-| **CPU** | The processor chip — executes your code |
-| **CPU core** | An individual worker inside the CPU — each runs independently |
-| **RAM** | Fast memory the CPU reads from and writes to while working — limited in size |
-| **Storage (disk / file system)** | Where your files live when nothing is running — large but slow |
-| **I/O (Input/Output)** | Moving data from disk into RAM (read) and writing results back to disk (write) — the slowest step |
-
----
-
 ## Three Places Your Code Can Run
 
-Every machine you will run research code on — your laptop, a Yen, a cloud instance —
-is built from the same five parts. What changes between them is how much of each you
-get, and who else is competing for it.
+Yesterday you wrote a Python script and ran it on the Yens interactively. But what is
+actually inside the machine running your code?
+
+Every machine you will run research code on — your laptop, a Yen, a cloud instance — is
+built from the same few physical parts. The photo below shows a Yen server opened up.
+What changes between environments is how much of each part you get, and who else is
+competing for it.
+
+![Server hardware diagram showing CPU, cores, and RAM]({{ site.baseurl }}/assets/images/server-hardware-cpu-ram.png)
 
 | Component | What it is |
 |-----------|-----------|

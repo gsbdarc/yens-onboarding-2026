@@ -59,7 +59,7 @@ real task → `module load python` → venv + `requirements.txt` → Potion Braw
 read logs → all three `fix_me*.slurm` → author the `yen-slurm` skill → an array job →
 `sacct` for actuals.
 
-**Timing.** Time each section against `docs/agenda.md`. If a block overruns, move an
+**Timing.** Time each section against `.instructor/agenda.md`. If a block overruns, move an
 exercise to `docs/reference/` — do not shave the breaks. Two 10-minute breaks in a
 3-hour morning is already the minimum.
 

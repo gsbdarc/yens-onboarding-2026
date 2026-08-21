@@ -11,8 +11,10 @@ checkboxes, and no leaderboard.
 
 ## 1 — Pre-work module (due the day before Day 1)
 
-This module is load-bearing. It buys roughly 50 minutes of Day 1, which is what makes a
-two-day version fit at all. Publish it at least a week ahead.
+This module is load-bearing. Measured against the four-day cohort's clock it buys back
+roughly **80 minutes** of Day 1 — the 60-minute CLI + bulk-file-operations hour they
+flagged as too long, ~15 minutes of Claude Code concepts, and ~7 minutes of GitHub token
+creation. That is what makes a two-day version fit. Publish it at least a week ahead.
 
 ### Items
 
@@ -27,9 +29,19 @@ two-day version fit at all. Publish it at least a week ahead.
    Chase anyone who has not submitted this **48 hours before Day 1**. A login that fails
    on the morning of Day 1 costs that person most of Day 1, and it cannot be fixed in the
    room.
-5. **Reading: [Command Line Basics](https://gsbdarc.github.io/yens-onboarding-2026/reference/command-line-basics/)** — do the exercises, don't just read.
-6. **Reading: [Bulk File Operations](https://gsbdarc.github.io/yens-onboarding-2026/reference/bulk-file-operations/)** — generates its own dataset locally; nothing to download.
-7. **Quiz: Command line basics** (8 questions, unlimited attempts, must score 8/8).
+5. **Assignment (completion): Create a GitHub access token.** ⭐ *New — this was a measured bottleneck.*
+   Use the pre-filled link in [Before You Arrive](https://gsbdarc.github.io/yens-onboarding-2026/prework/):
+   classic token, scopes `repo` + `workflow` + `read:org`, 1-year expiry. Tell them to save
+   it where they can reach it on Day 1. **Do not ask them to submit the token itself** —
+   just confirm they have one. In the four-day run, doing this live made the Git section
+   take 20 minutes because the whole room serialised on it.
+6. **Reading: [Command Line Basics](https://gsbdarc.github.io/yens-onboarding-2026/reference/command-line-basics/)** — do the exercises, don't just read. *(~25 min)*
+7. **Reading: [Bulk File Operations](https://gsbdarc.github.io/yens-onboarding-2026/reference/bulk-file-operations/)** — generates its own dataset locally; nothing to download. *(~25 min)*
+8. **Reading: [Working with Claude Code](https://gsbdarc.github.io/yens-onboarding-2026/day1/claude-code/) — the pre-read half only.** ⭐ *New.*
+   Everything from *Meet Claude Code* down to *Claude Code acts as you*; they stop at the
+   *In Class* heading. This is what buys Claude Code a full 25 minutes of hands-on time
+   instead of the rushed lecture the four-day cohort got. *(~15 min)*
+9. **Quiz: Pre-work check** (10 questions, unlimited attempts, must score 10/10).
 
 ### Quiz question bank
 
@@ -41,6 +53,30 @@ two-day version fit at all. Publish it at least a week ahead.
 6. `ls */*.txt | cut -d'_' -f2 | sort | uniq -c` — what does this produce? *(a count of files per value of the second underscore-separated field)*
 7. Why must you `sort` before `uniq -c`? *(`uniq` only collapses **adjacent** identical lines)*
 8. In the pre-work dataset you found XOM's 2021 Form 4 files missing. Which command surfaced it? *(the `cut … | sort | uniq -c | sort -n` count, showing 8 where every other pair had 12)*
+9. *(Claude Code)* In **auto** permission mode, what can Claude Code do without stopping to ask you? *(edit files and run commands — the whole task end to end. Contrast with plan mode, which changes nothing until you approve.)*
+10. *(Claude Code)* Name one category of data you must never put in Claude Code's context, and say why the tool won't stop you. *(PII, PHI, or NDA/licensed data. Claude Code acts as you and has your permissions — the governance boundary is your judgement, not a technical control.)*
+
+---
+
+## 1.5 — Between-days assignment: finish the Day 1 capstone
+
+**Required, not optional.** Due before Day 2 starts.
+
+Day 1's last block starts the capstone in class — extraction across 10 filings, a README
+section, and a commit. Most people will not finish it in the room; the four-day cohort's
+capstones consistently ran 60+ minutes. So it finishes here.
+
+- **Deliverable:** a push to their fork containing ~10 JSON files in `results/` and a
+  README section covering what the script does, how to run it, where output lands, and
+  anything odd they noticed.
+- **Why it's required:** Day 2 opens at 9:05 by *profiling* `extract_form_3_batch.py`.
+  Without a working script there is no first hour for them.
+- **Grading:** completion. Check that `results/` has files and the README has the four
+  parts. The interesting answers are in "anything odd you noticed" — read those, they tell
+  you where the room is.
+
+Day 2's 9:00 recap slot exists to catch anyone who didn't manage it. Have a known-good
+branch ready to hand them so they aren't locked out of the profiling section.
 
 ---
 

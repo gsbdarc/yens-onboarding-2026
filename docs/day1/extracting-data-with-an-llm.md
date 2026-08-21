@@ -2,7 +2,7 @@
 layout: default
 title: "Extracting Data with an LLM"
 parent: "Day 1 — Foundations & AI"
-nav_order: 8
+nav_order: 9
 permalink: /day1/extracting-data-with-an-llm/
 ---
 
@@ -148,7 +148,7 @@ Experiment: try changing the system prompt. What happens if you ask for more fie
 
 A notebook is great for exploration, and that's what you just did: you tried a prompt, looked at the answer, and adjusted. But a notebook is a poor place to *keep* working logic. It runs only while you're sitting there clicking, and a cluster job has nobody to click.
 
-So the same logic moves into a **script**: a `.py` file that runs start to finish on its own. Your repo ships three of them, and they are the same program three times over, each one adding exactly one idea:
+So the same logic moves into a **script**: a `.py` file that runs start to finish on its own. Your repo ships three of them, and they are the same program three times over, each adding exactly one idea:
 
 | Stage | Script | What it adds |
 |-------|--------|--------------|
@@ -156,101 +156,39 @@ So the same logic moves into a **script**: a `.py` file that runs start to finis
 | **2** | `extract_form_3_step2_logged.py` | `logging`, and saving the result to a file |
 | **3** | `extract_form_3_one_file.py` | A schema, so bad output fails loudly |
 
-Nothing to type and nothing to paste. You'll **run** each one, read the few lines that changed, and finish holding the script Day 2 picks up.
+Nothing to type and nothing to paste. **Run the first two, then read the diff** — the diff is the lesson.
 
 {: .note }
 > 📁 **These live in `scripts/`, and you run them from the repo root** — not from `day1/`. That's why the paths inside them read `data/sec_filings/...` with no `../` in front. Remember from [Running Python on the Yens]({{ '/day1/python-on-the-yens/' | relative_url }}): a relative path is relative to **wherever you're standing**, so where you run a script decides which files it can find.
 
-Activate your venv and go to the repo root:
-
 ```bash
 source ~/yens-onboarding-2026/.venv/bin/activate
 cd ~/yens-onboarding-2026
+
+python3 scripts/extract_form_3_step1_basic.py    # same answer as the notebook, then forgotten
+python3 scripts/extract_form_3_step2_logged.py   # same answer, but kept
+
+cat results/form3_Cheniere_Energy_Inc.txt        # the answer, saved
+cat form3_extract.log                            # what happened, timestamped
 ```
 
----
-
-#### Stage 1: the notebook's logic, in a file
-
-Open it and read it — it's about a dozen lines of actual code, and you've seen all of them in your notebook:
-
-```bash
-cat scripts/extract_form_3_step1_basic.py
-python3 scripts/extract_form_3_step1_basic.py
-```
-
-You get the same `NAME | ROLE` answer the notebook gave you. Same call, same prompt, new container.
-
-Notice what it does **not** do: it prints the answer and forgets it. Close the terminal and the result is gone. That's the gap stage 2 fills.
-
----
-
-#### Stage 2: say what you're doing, and keep the answer
-
-Two things change when code stops being watched by a human.
-
-**How it reports progress.** In a notebook you watch cell output live. A script often runs unattended — in the background, or as a cluster job whose output you read hours later — so instead of scattering `print()` calls, use Python's built-in **`logging`**. It stamps every message with a timestamp and a severity level, and you can turn it up or down without touching the rest of your code.
-
-Point it at **two places at once**: your screen, so you can watch, and a **log file**, so you don't have to. The file handler *appends*, so runs accumulate rather than overwrite. After a morning of edits you have a timestamped history of every attempt — which is the record you go back to when a result looks wrong and you need to know what you actually ran.
-
-**Where it puts the answer.** A script's terminal output scrolls away the moment you close the window, and a cluster job has no screen at all. So the script **writes its result to a file**. That file is the real product of the run: the thing you reopen tomorrow, hand to a collaborator, or feed into the next step.
-
-Run it, then look at what it left behind:
-
-```bash
-python3 scripts/extract_form_3_step2_logged.py
-cat results/form3_Cheniere_Energy_Inc.txt   # the answer, saved
-cat form3_extract.log                       # what happened, timestamped
-```
-
-Now see precisely what changed since stage 1 — let the computer tell you instead of hunting for it by eye:
+Stage 1 prints the answer and forgets it — close the terminal and the result is gone. Stage 2 fixes exactly that, in two ways. Let the computer show you how:
 
 ```bash
 diff scripts/extract_form_3_step1_basic.py scripts/extract_form_3_step2_logged.py
 ```
 
-Lines marked `>` are new. You should find only three ideas in there: the `logging` setup, a `FILING` constant hoisted to the top, and the block that writes the output file.
+Lines marked `>` are new, and there are only three ideas in there:
+
+- **`logging` instead of `print()`.** A script often runs unattended — in the background, or as a cluster job whose output you read hours later. Logging stamps every message with a time and a severity, writes to *both* your screen and a file, and **appends**, so runs accumulate into a timestamped history of what you actually ran.
+- **A `FILING` constant hoisted to the top.** Anything you expect to change between runs belongs where you can find it without reading the whole file.
+- **A block that writes the result to a file**, named after the filing — so two runs on two filings leave two results instead of one silently overwriting the other.
 
 {: .note }
 > 💡 **Two kinds of output, two different lifetimes.** `results/form3_*.txt` is **your data** — you keep it, you commit it, it outlives the run. `form3_extract.log` is a **diary of the process** — useful for a week, then disposable, which is why `*.log` is already in the repo's `.gitignore`. On Day 2, when these run as cluster jobs, the logs are what you read to see what happened and the result files are what you collect.
 
 {: .note }
-> 💡 **Why `FILING` sits at the top.** Anything you expect to change between runs belongs in a constant where you can find it without reading the whole file. Naming the output after it means two runs on two filings leave two results instead of one silently overwriting the other.
-
----
-
-#### Exercise: point it at a different company
-
-Cheniere Energy is one of five filings in that folder. See the rest:
-
-```bash
-ls data/sec_filings/
-```
-
-Open `scripts/extract_form_3_step2_logged.py`, change the single line near the top, and save:
-
-```python
-FILING = "FLOWSERVE_CORP"
-```
-
-Run it again and look at what's in `results/` now:
-
-```bash
-python3 scripts/extract_form_3_step2_logged.py
-ls results/form3_*
-cat results/form3_FLOWSERVE_CORP.txt
-```
-
-A different insider, a different role, and **both** result files are still there. Now read the log:
-
-```bash
-cat form3_extract.log
-```
-
-Both runs are in it, in order, timestamped. Notice the `Sending N characters` line differs between them, because the two filings aren't the same length. That's the log doing its job: not just "it worked," but a record of *what each run actually did*.
-
-{: .note }
-> 💡 Hold that thought. If swapping one filing is a single variable, then processing all five is a `for` loop around the same code. That's exactly the move you'll make on Day 2, at a scale where you'd never edit by hand.
+> 💡 If swapping one filing is a single variable, then processing all five is a `for` loop around the same code. That's the move you make in the capstone, at a scale where you'd never edit by hand.
 
 ---
 
@@ -364,6 +302,33 @@ Read that message closely: the JSON *inside* the fence is perfectly good and the
 ---
 
 ## Optional Practice
+
+**Swap the filing by hand**
+
+Before the capstone loops over ten filings, try the one-at-a-time version to see why a loop is worth it.
+
+```bash
+ls data/sec_filings/
+```
+
+Open `scripts/extract_form_3_step2_logged.py`, change the single line near the top, and save:
+
+```python
+FILING = "FLOWSERVE_CORP"
+```
+
+Run it again and look at what's in `results/` now:
+
+```bash
+python3 scripts/extract_form_3_step2_logged.py
+ls results/form3_*
+cat results/form3_FLOWSERVE_CORP.txt
+cat form3_extract.log
+```
+
+A different insider, a different role, and **both** result files are still there. Both runs are in the log, in order, timestamped — and the `Sending N characters` line differs between them, because the two filings aren't the same length. That's the log doing its job: not just "it worked," but a record of *what each run actually did*.
+
+---
 {: .note }
 > Finished early? Try any of these.
 

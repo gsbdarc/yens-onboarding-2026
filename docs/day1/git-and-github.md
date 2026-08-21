@@ -180,14 +180,22 @@ cd yens-onboarding-2026
 
 **Step 3 — Authenticate with GitHub (one time)**
 
-Pushing to your fork has to prove it's really you. You'll create a **Personal Access Token (PAT)** — a single-purpose password for the command line — and hand it to the **GitHub CLI** (`gh`) once. After that git just works. There's no browser on the Yens, so a token is the simplest way in.
+Pushing to your fork has to prove it's really you. You do that with a **Personal Access Token (PAT)** — a single-purpose password for the command line — handed to the **GitHub CLI** (`gh`) once. After that, git just works. There's no browser on the Yens, so a token is the simplest way in.
 
-*Create the token — do this in your browser, on your laptop:*
+**You created this token in the Canvas pre-work.** Have it to hand now.
+
+<details markdown="1">
+<summary>Didn't do the pre-work, or lost the token? Create one now (2 min)</summary>
+
+Do this in your browser, on your laptop:
 
 1. Open this pre-filled link: **[Create your token](https://github.com/settings/tokens/new?scopes=repo,workflow,read:org&description=yen-repo-workflow)**. It's a **classic** token with the three scopes you need already checked — **`repo`** (push to your fork), **`workflow`** (lets you push changes to the GitHub Actions files), and **`read:org`** (lets the GitHub CLI sign you in) — and named `yen-repo-workflow`.
 2. Set the **expiration** to **1 year** — long enough to reuse this token for your research work well beyond this course, with an automatic backstop if it's ever forgotten or leaked.
 3. Click **Generate token**, then **copy it right away** — GitHub shows it only once.
 
+</details>
+
+{: .warning }
 > Treat the token like a password: don't commit it, don't paste it into a file, don't share it. If it ever leaks, delete it on GitHub and make a new one.
 
 *Give the token to `gh` — on the Yens:*

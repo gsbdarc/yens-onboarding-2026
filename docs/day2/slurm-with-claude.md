@@ -67,6 +67,11 @@ You'll write the global one below; the project one is optional practice.
 
 {: .important }
 > **Task:** Have Claude distil a **global** Yen skill from the Slurm job you just ran by hand, then invoke it on a fresh job.
+>
+> Your instructor drives this one on screen. Follow along if you like, but watching is
+> enough — the point is the *pattern* (do the work, then distil it into a skill), not the
+> typing. The project-skill version in the optional practice below is the one to do
+> yourself, at your own pace.
 
 You'll do this from Claude Code running on the Yens. Load the module and launch it inside your repo:
 
