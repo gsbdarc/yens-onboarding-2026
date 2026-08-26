@@ -9,7 +9,7 @@ permalink: /reference/llm-as-a-judge/
 # LLM-as-a-Judge
 
 {: .note }
-> **This is an optional extension assignment**, offered on Canvas. It builds
+> **This is an optional extension**, to work through on your own. It builds
 > directly on [Extracting Data with an LLM]({{ '/day1/extracting-data-with-an-llm/' | relative_url }})
 > and needs nothing from Day 2. Budget about an hour.
 

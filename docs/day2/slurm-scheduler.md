@@ -31,7 +31,7 @@ Use the interactive Yens for: exploring data, testing code, runs where you're wa
 
 ## When the Interactive Yens Aren't Enough
 
-In the live demo earlier you saw what happens when many users share the same node — CPU cores get taken, RAM fills up, and everyone slows down. The interactive Yens hit the same limits:
+You just saw what happens when many users share the same node — CPU cores get taken, RAM fills up, and everyone slows down. The interactive Yens hit the same limits:
 
 - **All the CPU cores are busy** — someone else is using all available cores on the node; your script crawls
 - **The node is out of RAM** — another user's job already claimed most of the memory; yours may crash or get killed
@@ -93,7 +93,7 @@ Instead of running your script directly on a shared node, you submit it to the s
 ## Exercise: Peek at the Queue
 
 {: .important }
-> **Task:** Look at the live Slurm queue to see what jobs are waiting or running right now.
+> **Mandatory.** **Task:** Look at the live Slurm queue to see what jobs are waiting or running right now.
 
 ```bash
 squeue
@@ -170,11 +170,11 @@ sinfo
 
 ---
 
-## Optional Practice
+## Bonus
 {: .note }
-> Finished early? Try any of these.
+> **Done with the mandatory exercises?** First, check whether anyone at your table is stuck — explaining it is how it sticks. Then pick anything below.
 
-**Optional practice — Add a `longsqueue` alias**
+**Bonus — Add a `longsqueue` alias**
 
 The default `squeue` output is sparse. Pass a custom format to see what each job actually requested — CPU cores, memory, and time limit:
 
@@ -194,7 +194,7 @@ source ~/.bash_profile
 Now run `longsqueue` — you should see the full resource picture of every job in the queue.
 
 
-**Optional practice — Inspect any job with scontrol**
+**Bonus — Inspect any job with scontrol**
 
 Pick any job from `squeue` and look up its full details:
 
@@ -210,7 +210,7 @@ Find these fields in the output:
 This works on any job — yours or someone else's — as long as it is still in the queue or running.
 
 
-**Optional practice — Compare partitions**
+**Bonus — Compare partitions**
 
 Run `sinfo -p gpu` and `sinfo -p normal` to compare node counts and time limits. `sinfo` doesn't show the per-user resource **caps** — those come from each partition's QoS, so check `sacctmgr show qos gpu` vs `sacctmgr show qos normal` (or the [current partitions and their limits](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits)). Can you explain when you'd request one over the other for a job?
 

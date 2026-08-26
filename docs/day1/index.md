@@ -17,11 +17,10 @@ that same script across the cluster.
 **9:00–12:00, with breaks at 10:00 and 11:00.**
 
 {: .important }
-> Today assumes the **[Canvas pre-work]({{ '/prework/' | relative_url }})**: a working
-> terminal, a confirmed Yens login, a GitHub account **and access token**, a Claude
-> account, the two command-line pages, and the Claude Code concepts pre-read. The
-> [dependency map]({{ '/prework/#what-depends-on-what' | relative_url }}) shows which
-> section each item unblocks. If something is missing, flag it in the first ten minutes
+> Today assumes only the two accounts from **[Before You Arrive]({{ '/prework/' | relative_url }})**:
+> a GitHub account and Claude through Stanford. Everything else — the terminal, the Yens
+> login, the access token — we do together, starting now. If either account is missing,
+> flag it in the first ten minutes
 > rather than falling behind.
 
 ---
@@ -41,9 +40,10 @@ Work through them in order — each builds on the one before.
 | [AI Agents & Data Privacy]({{ '/day1/ai-agents-and-data-privacy/' | relative_url }}) | 💬 Discussion | What agents send where, how to classify your data, and how to keep a pipeline defensible |
 | [Managing API Keys]({{ '/day1/api-keys/' | relative_url }}) | 💻 Hands-on | Load a key from `.env`, keep it out of git, and know why a committed key is a leaked key |
 | [Extracting Data with an LLM]({{ '/day1/extracting-data-with-an-llm/' | relative_url }}) | 💻 Hands-on | Your first API call, then structured fields out of a real SEC filing — validated with Pydantic |
-| [Day 1 Capstone]({{ '/day1/capstone/' | relative_url }}) | 🔑 Capstone | Scale to 10 filings, document it, commit. **Continues as a Canvas assignment** |
+| [Day 1 Capstone]({{ '/day1/capstone/' | relative_url }}) | 🔑 Capstone | Scale to 10 filings, document it, commit. **Keep going on your own afterwards** |
 
 {: .note }
 > The last two run as **one continuous block**: the guided build flows straight into
-> scaling it. You are not expected to finish the capstone in the room — it is the
-> required assignment between the two days, and Day 2 opens by profiling what it produces.
+> scaling it. You are not expected to finish the capstone in the room — carry on with it in
+> your own time. Day 2 does not depend on it: it profiles the copy of the batch script
+> that ships in the repo, so everyone starts Day 2 from the same working code.

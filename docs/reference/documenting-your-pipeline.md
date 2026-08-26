@@ -83,5 +83,5 @@ Ask Claude Code to read your README as if it were a labmate seeing this pipeline
 ---
 
 {: .note }
-> **Go further — let Claude keep the record.** You don't have to write all of this by hand. You can have Claude draft the README straight from the code and then **review** it, or go a step further and keep a **research log** — a running record of what you ran, when, and where the results landed — that Claude updates each time you launch a job (see the `claude -p` batch-mode idea in [Writing a Slurm Job with Claude]({{ '/day2/slurm-with-claude/#optional-practice' | relative_url }})). Documentation only earns its keep if it helps *you* later, so keep whatever form is most useful for your research and drop the rest.
+> **Go further — let Claude keep the record.** You don't have to write all of this by hand. You can have Claude draft the README straight from the code and then **review** it, or go a step further and keep a **research log** — a running record of what you ran, when, and where the results landed — that Claude updates each time you launch a job (see the `claude -p` batch-mode idea in [Writing a Slurm Job with Claude]({{ '/day2/slurm-with-claude/#claude-in-one-shot' | relative_url }})). Documentation only earns its keep if it helps *you* later, so keep whatever form is most useful for your research and drop the rest.
 

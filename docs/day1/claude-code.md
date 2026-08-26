@@ -16,8 +16,7 @@ You've set up Git and made your first commit by hand. Claude Code is a tool that
 >
 > **Read before Day 1** — everything from *Meet Claude Code* down to *Claude Code acts as
 > you*: what it is, the models, permission modes, tokens, context, memory, skills, and the
-> data rules. Two questions on the Canvas pre-work quiz come from it. It takes about 15
-> minutes.
+> data rules. It takes about 15 minutes.
 >
 > **In class** — we start at [Take It for a Spin](#take-it-for-a-spin) and stay on the
 > keyboard. We will not re-teach the concepts above, so the mode names and the data rule

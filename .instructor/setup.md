@@ -18,16 +18,18 @@ staging entirely. Dropping the leaderboard removed the fork-roster sync.
       ```bash
       scontrol show reservation class_day2
       ```
-- [ ] **Publish the Canvas pre-work module.** See `canvas-modules.md`. It needs at least
-      a week of lead time, because the Yens-access item can take days to resolve.
+- [ ] **Email the two pre-work items** — a GitHub account and Claude via Stanford. See
+      `docs/prework.md`. Send it at least a week out: Claude approval goes through
+      ServiceNow, and Yens access can take days.
 - [ ] **Request a shared Stanford AI API Gateway key** for the cohort, or confirm each
       attendee can request their own. See `docs/day1/stanford-ai-services.md`.
 
 ## One week before
 
-- [ ] **Chase the Yens-access item on Canvas.** Anyone who has not submitted the
-      `whoami` output does not have a working login. This is the highest-value thing you
-      do all week — it is unrecoverable inside a 3-hour morning.
+- [ ] **Chase Yens access by name.** There is no LMS to collect a completion check this
+      year, so ask the cohort directly who does *not* yet have an account. This is the
+      highest-value thing you do all week — a missing account is unrecoverable inside a
+      3-hour morning, and it is the only prereq that is.
 - [ ] **Walk both days end to end on the Yens yourself**, against the reservation. See
       *Dry run* below. Do not skip this; the four-day course shipped with a dead link and
       a `.slurm` file the docs told students to edit that did not exist.
@@ -57,11 +59,14 @@ real task → `module load python` → venv + `requirements.txt` → Potion Braw
 **Day 2:** profile `mystery_script.py` in two terminals → profile the batch script →
 `squeue`/`sinfo` → write a `.slurm` by hand → `sbatch --reservation=class_day2` →
 read logs → all three `fix_me*.slurm` → author the `yen-slurm` skill → an array job →
-`sacct` for actuals.
+`sacct` for actuals → **the GPU bonus** (`sbatch slurm/gpu_check.slurm`, no reservation
+flag; confirm `nvidia-smi` output lands in `logs/gpu_check_*.out`).
 
 **Timing.** Time each section against `.instructor/agenda.md`. If a block overruns, move an
-exercise to `docs/reference/` — do not shave the breaks. Two 10-minute breaks in a
-3-hour morning is already the minimum.
+exercise to `docs/reference/` — do not shave the breaks. Two 10-minute breaks in a 3-hour
+morning is already the minimum on **Day 1**. **Day 2 has no scheduled breaks at all** —
+tables break inside the work blocks — so watch for a room that has not moved in an hour and
+call one anyway.
 
 ---
 
@@ -83,7 +88,7 @@ the README and the failure inspection rather than a target output.
 
 ## Optional: the local-LLM assignment
 
-Only needed if you offer the local-LLM extension on Canvas. See `ollama/`, and read
+Only needed if you want to run the local-LLM material live. See `ollama/`, and read
 `ollama/dry-run-2026-08-02.md` first — particularly the "not verified" section and the
 note that `ensure_ollama_server.sh` holds the GPU for its full `WALLTIME` whether it is
 being queried or not.

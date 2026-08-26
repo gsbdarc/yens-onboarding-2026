@@ -2,7 +2,7 @@
 layout: default
 title: "Where to Go Next"
 parent: "Day 2 — The Cluster"
-nav_order: 8
+nav_order: 9
 permalink: /day2/where-to-go-next/
 ---
 
@@ -53,6 +53,6 @@ Everything you ran over these two days is in your fork. Future projects can star
 - **More data, same pipeline:** swap the input list in your Slurm array script
 - **Different model:** change `base_url` and `model` — the rest is identical
 - **New dataset type:** adapt your Pydantic schema, rerun the pipeline
-- **Need a GPU:** add `--gres=gpu:1` (and the GPU partition) to your Slurm script — see [How to Run LLMs on the Yens]({{ '/reference/running-llms-on-the-yens/' | relative_url }})
+- **Need a GPU:** add `--gres=gpu:1` (and the GPU partition) to your Slurm script — see [GPUs]({{ '/day2/gpus/' | relative_url }}) and [How to Run LLMs on the Yens]({{ '/reference/running-llms-on-the-yens/' | relative_url }})
 
 The course site stays up, and the [Reference]({{ '/reference/' | relative_url }}) section holds everything we could not fit into two mornings.

@@ -14,9 +14,10 @@ first time, then learn how storage is organized: where your files live, how much
 space you have, and what software is available.
 
 {: .note }
-> This section assumes you did the Canvas pre-work — a working terminal, and the
-> `whoami` check that confirmed your Yens account is live. If your login does not
-> work, put up a red sticky now rather than reading ahead.
+> **This is your first login, and we do it together.** All you need is a terminal — the
+> built-in **Terminal** app on macOS, or [Git Bash](https://git-scm.com/downloads) on
+> Windows. If your login does not work, put up a red sticky now rather than reading ahead:
+> a Yens account that was never provisioned is the one thing we cannot fix in the room.
 
 ---
 

@@ -127,7 +127,7 @@ the cluster is busy, you feel it.
 > collaboration easy — and it also means everyone is hitting the same storage at once.
 
 A **node** is one physical server, with its own CPU and RAM, independent of the others.
-That distinction matters tomorrow: a job asking for more cores than any single node has
+That distinction matters later today: a job asking for more cores than any single node has
 will never start, however much the cluster has in total.
 
 ### The Cloud — Rented
@@ -148,13 +148,13 @@ it faster than the queue will give it to you.
 
 ---
 
-## Exercise: Class Participation
+## Discussion
 
 {: .important }
-> **Task:** Take part in the class demo and discussion — laptop vs. Yens vs. cloud.
+> **Follow along.** We'll talk through the tradeoffs together — laptop vs. Yens vs. cloud.
 
 <details markdown="1">
-<summary>❓ After the demo — discuss these</summary>
+<summary>❓ Questions to discuss</summary>
 
 - What are the tradeoffs between your laptop, the Yens, and the cloud?
 - What happens when many researchers all run jobs at once on the shared Yens?
@@ -164,11 +164,11 @@ it faster than the queue will give it to you.
 
 ---
 
-## Optional Practice
+## Bonus
 {: .note }
-> Finished early? Try any of these.
+> **Done with the mandatory exercises?** First, check whether anyone at your table is stuck — explaining it is how it sticks. Then pick anything below.
 
-**Optional practice — Know your own machine**
+**Bonus — Know your own machine**
 
 **Work with Claude** to figure out how to check your own laptop's CPU core count and RAM — tell it what operating system you're on and have it walk you through finding each one. Then enter your specs below to see just how much bigger one Yen node is (**yen1 has 256 cores and 1 TB of RAM**).
 
@@ -220,7 +220,7 @@ You don't need a fancy prompt. For example:
 </script>
 
 
-**Optional practice — Price a cloud instance**
+**Bonus — Price a cloud instance**
 
 **Work with Claude** to find on-demand pricing for a cloud VM comparable to a Yen node — 256 cores and 1 TB of RAM, for example on AWS. Then use the calculator below — enter the VM's specs and the price per hour you found — to estimate what your Day 1 extraction job would cost to run there for an hour. Grant budgets aren't infinite; this is a real judgment call you'll make in your own research.
 

@@ -111,7 +111,11 @@ The task number is what makes this general. Every task runs the identical script
 
 ---
 
-## Exercise
+## Exercise: Run 100 Filings Through an Array
+
+{: .important }
+> **Mandatory.** **Task:** Process 100 SEC filings with a job array — one Python script that
+> handles a single filing, plus a Slurm script that launches it 100 times.
 
 Now over to you. Your job is the following: process and extract information from 100 SEC filings using a job array. The filings are hosted online, and `data/aws_links.csv` — already in your cloned repo, alongside `scripts/` and `slurm/` — provides the URLs of all of them for you to query.
 
@@ -258,15 +262,63 @@ python scripts/extract_array.py "$SLURM_ARRAY_TASK_ID"
 Then submit it and watch it run. `watch` re-runs a command every couple of seconds, so you can see the tasks start in parallel and drop off as they finish:
 
 ```bash
-sbatch slurm/extract_array.slurm
+sbatch --reservation=class_day2 slurm/extract_array.slurm
 watch squeue --me
 ```
 
 The new thing to notice is the job IDs: an array shows up as many rows sharing one ID, with a task number after it — `12345678_1`, `12345678_2`, and so on — each moving through the same `PD` → `R` → gone lifecycle you watched in [The Slurm Scheduler]({{ '/day2/slurm-scheduler/' | relative_url }}). Once it's done, check the per-task logs in `logs/` and the results in `results/`.
 
+{: .note }
+> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
+
 ---
 
-## Optional Practice: Combine the Results into One CSV
+## Why a Job Array Beats a Loop
+
+Earlier today you did this same work with a `for` loop inside a single job. Two things change:
+
+- **The filings are processed at the same time, rather than one after another.** The loop worked through them in sequence on one core; a job array hands them to whatever cores are free — including in ["waves"]({{ '/reference/parallelization/' | relative_url }}) when there are more filings than cores.
+- **A failure costs you one filing, not the rest of the run.** `extract_form_3_batch.py` has no error handling, so an exception at filing 40 ends the script and filings 41 to 100 never run at all. In a job array, task 40 fails and the other 99 finish regardless.
+
+What doesn't change is how much you have to keep track of. It's still one job ID, one `squeue` line to watch and one `scancel` to stop the lot — now with per-task sub-IDs underneath.
+
+---
+
+## Exercise: Avoiding Wasteful Computation
+
+{: .important }
+> **Mandatory.** **Task:** Make each array task skip work it has already done, then resubmit
+> the same array and watch it finish in seconds.
+
+A job array limits the *damage* of a failure, as we just saw — but you still have to redo whatever failed. A node reboots, a task hits its time limit, the API times out, and a handful of your 100 come back empty. Rerunning the whole array to catch them wastes compute, and with a paid API, money.
+
+The fix is to make each task safe to run again. Before doing any work, a task should check whether its output already exists and exit if it does. Now if you resubmit the *same* array after a partial failure, the finished tasks stop immediately; only the missing ones do real work.
+
+Add this check to your script, then resubmit the array you just ran.
+
+<details markdown="1">
+<summary>💡 Hint — one way to do it</summary>
+
+```python
+# already done? skip — makes the array safe to resubmit after a partial failure
+if output_path.exists():
+    print(f"{output_path} already exists — skipping")
+    sys.exit(0)
+```
+
+</details>
+
+Nothing has been deleted, so every task should find its output and exit at once — the whole array finishing in seconds rather than minutes is the sign it worked.
+
+{: .note }
+> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
+
+---
+
+## Bonus: Combine the Results into One CSV
+
+{: .note }
+> **Done with the mandatory exercises?** First, check whether anyone at your table is stuck — explaining it is how it sticks. Then pick anything below.
 
 The array leaves you a directory of JSON files, one per filing. For analysis you want a single table instead — one row per filing, one column per field.
 
@@ -302,41 +354,6 @@ print(f"Wrote {len(df)} rows to {OUTPUT_CSV}")
 A failed task simply left no file, so it never turns up in the glob and nothing crashes. That's also why the count matters: if `len(df)` is less than 100, some tasks didn't finish.
 
 </details>
-
----
-
-## Why a Job Array Beats a Loop
-
-Earlier today you did this same work with a `for` loop inside a single job. Two things change:
-
-- **The filings are processed at the same time, rather than one after another.** The loop worked through them in sequence on one core; a job array hands them to whatever cores are free — including in ["waves"]({{ '/reference/parallelization/' | relative_url }}) when there are more filings than cores.
-- **A failure costs you one filing, not the rest of the run.** `extract_form_3_batch.py` has no error handling, so an exception at filing 40 ends the script and filings 41 to 100 never run at all. In a job array, task 40 fails and the other 99 finish regardless.
-
-What doesn't change is how much you have to keep track of. It's still one job ID, one `squeue` line to watch and one `scancel` to stop the lot — now with per-task sub-IDs underneath.
-
----
-
-## Exercise: Avoiding Wasteful Computation
-
-A job array limits the *damage* of a failure, as we just saw — but you still have to redo whatever failed. A node reboots, a task hits its time limit, the API times out, and a handful of your 100 come back empty. Rerunning the whole array to catch them wastes compute, and with a paid API, money.
-
-The fix is to make each task safe to run again. Before doing any work, a task should check whether its output already exists and exit if it does. Now if you resubmit the *same* array after a partial failure, the finished tasks stop immediately; only the missing ones do real work.
-
-Add this check to your script, then resubmit the array you just ran.
-
-<details markdown="1">
-<summary>💡 Hint — one way to do it</summary>
-
-```python
-# already done? skip — makes the array safe to resubmit after a partial failure
-if output_path.exists():
-    print(f"{output_path} already exists — skipping")
-    sys.exit(0)
-```
-
-</details>
-
-Nothing has been deleted, so every task should find its output and exit at once — the whole array finishing in seconds rather than minutes is the sign it worked.
 
 ---
 

@@ -47,7 +47,7 @@ Before we run anything, let's make sure we have the vocabulary for the resources
 ## Exercise: Run Your Script
 
 {: .important }
-> **Task:** Run your Day 1 extraction script on the Yens interactively and think about its resource footprint.
+> **Mandatory.** **Task:** Run the single-filing extraction script on the Yens interactively and think about its resource footprint.
 
 If you're not already connected, SSH in:
 
@@ -109,7 +109,7 @@ You are going to run a script you have never seen before and figure out what res
 *Two terminals on the **same** Yen node: one runs the script, the other watches it live.*
 
 {: .important }
-> **Task:** Run `mystery_script.py` and measure its resource usage in real time using two terminals — both on the **same Yen node**.
+> **Mandatory.** **Task:** Run `mystery_script.py` and measure its resource usage in real time using two terminals — both on the **same Yen node**.
 
 **Step 1 — Note which Yen you are on.**
 
@@ -220,12 +220,12 @@ You saw about **4 `python` processes** in `htop` and roughly **4 Cores** in `use
 
 ---
 
-## Exercise: Profile Your Day 1 Script
+## Exercise: Profile the Batch Script
 
 {: .important }
-> **Task:** Profile your real Day 1 batch script on 10 filings using the same two-terminal technique.
+> **Mandatory.** **Task:** Profile the real batch script on 10 filings using the same two-terminal technique.
 
-Now apply the same technique to your **real Day 1 workload**. `extract_form_3_batch.py` runs the same Form 3 extraction you did on Day 1 with `extract_form_3_one_file.py` — but loops over many filings instead of one. Process **10 filings** and profile it.
+Now apply the same technique to a **real workload**. `scripts/extract_form_3_batch.py` — committed in the repo, so everyone has it — runs the same Form 3 extraction you did on Day 1 with `extract_form_3_one_file.py`, but loops over many filings instead of one. Process **10 filings** and profile it. (If you finished the Day 1 capstone and have your own batch script, profile that one instead — the numbers are what matter, not whose script produced them.)
 
 First, open the script so you know what you're profiling — `cat scripts/extract_form_3_batch.py` (or open it in JupyterHub).
 
@@ -318,7 +318,7 @@ Two more things worth knowing:
 ## Exercise: Document Your Script's Resource Needs
 
 {: .important }
-> **Task:** Write down the resources you measured for the 10-filing run in your README.
+> **Mandatory.** **Task:** Write down the resources you measured for the 10-filing run in your README.
 
 Now that you've profiled **10 filings**, write down what you measured. Open the `README.md` in your repo and add a **Resource Profile** section:
 
@@ -344,11 +344,11 @@ Fill in the actual numbers from your `time`, `userload`, and `htop` output.
 
 ---
 
-## Optional Practice
+## Bonus
 {: .note }
-> Finished early? Try any of these.
+> **Done with the mandatory exercises?** First, check whether anyone at your table is stuck — explaining it is how it sticks. Then pick anything below.
 
-**Optional practice — Vectorized vs. Non-Vectorized**
+**Bonus — Vectorized vs. Non-Vectorized**
 
 One quick way to speed up scientific Python is **vectorization** — doing the math on a whole array in one operation instead of looping element-by-element in Python. The array operation runs in fast, pre-compiled code, so it's often 10–100× faster. We ship a script that computes the same sum of squares both ways — profile it and see the difference.
 
@@ -366,7 +366,7 @@ watch userload
 Both versions produce the identical result; the script prints how much faster the vectorized one was (often 10× or more). Notice the slow Python loop pins a core the whole time, while the NumPy version finishes almost before you can look at Terminal 2.
 
 
-**Optional practice — Change the number of cores**
+**Bonus — Change the number of cores**
 
 Open `scripts/mystery_script.py` and change `num_cores = 4` to a different number — try **1**, or **8**. Then **profile it again** with the same two-terminal setup: run `time python scripts/mystery_script.py` in Terminal 1, and watch it in Terminal 2 with `watch userload` (or `htop -u SUNetID`).
 
@@ -378,7 +378,7 @@ Document what changes and discuss with your neighbor:
 - Does the resource usage match the number you set?
 
 
-**Optional practice — Prompt caching**
+**Bonus — Prompt caching**
 
 Run the 10 filings, then delete the results and run them again:
 
