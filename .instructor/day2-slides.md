@@ -14,90 +14,149 @@ below is made against that spread.
 
 ## The principle behind the split
 
-**Prose and discussion go on a slide. Anything with a keyboard stays in the work block.**
+**Lectures are concepts and graphics. Anything with a keyboard — or any syntax — stays in
+the work block.**
 
-Six chunks of Day 2 are currently pure reading sitting *inside* the work blocks, competing
-with hands-on time. They are already-written lecture material — nothing new to author:
+Every slide answers one question: *what is this, and why do we do it.* No commands, no flags,
+no script anatomy. The website carries the how, and students read it during the block while we
+circulate.
 
-| Where it is now | Belongs in |
+Two things follow from that.
+
+**First, the material is already written.** These chunks of Day 2 are pure concept sitting
+*inside* the work blocks today, competing with hands-on time:
+
+| Concept prose currently in a work block | Goes to |
 |---|---|
 | `compute-environments.md` — the whole page bar two widget bonuses | Lecture 1 |
-| `profiling.md:68–87` — Questions 1–3, deliberately unanswerable before the technique | Lecture 1 |
 | `slurm-scheduler.md:13–91` — ~80 lines of concept before the first command | Lecture 1 |
-| `job-arrays.md:16–110` — the two `hello` demos, the fan-out diagram, the off-by-one warning | Lecture 2 |
-| `job-arrays.md:276–285` — "Why a Job Array Beats a Loop" | Lecture 2 |
-| `capstone.md:21` — the I/O-bound framing that sets up the estimate | Lecture 2 |
+| `profiling.md:170–174` — the Profiling / Serial / Parallel definitions box | Lecture 1 |
+| `slurm-with-claude.md:20–24` — the three-step skill pattern | Lecture 1 |
+| `parallelization.md:16–120` — independence and "embarrassingly parallel" | Lecture 2 |
+| `job-arrays.md:43–110` — fan-out, and arrays as *one* way to parallelize | Lecture 2 |
+| `why-local-llms.md:98–142` — the local vs. Gateway vs. third-party framework | Lecture 2 |
 
 Moving these to the front of the room recovers roughly **20 minutes of hands-on time**.
 
-The website keeps all of it in depth — students re-read the pages during the block. Nothing
-is deleted from the site; the slides are the spine, the pages are the reference.
+**Second, use the diagrams — the repo has 34 of them, four animated.** Of the 13 slides
+below, **9 use an SVG that already exists**, 2 are simple tables, and only 2 need a new
+graphic drawn. Every reference below was checked against the file.
+
+Nothing is deleted from the website. The slides are the spine; the pages are the reference.
 
 ---
 
 ## Lecture 1 (9:00–9:20) — "Where your code runs, and who decides"
 
-Six slides, ~3 minutes each. One idea per slide.
+**Seven concept slides, ~3 min each.** Order follows the natural narrative: what the machine
+is → how you measure it → who allocates it → what happens when it breaks.
 
-| # | Slide | Why it earns a slide | Reuse |
+Two merges keep this inside 20 minutes: *profiling — what it means* and *why we do this* are
+one slide plus its payoff (2 and 3), and *interactive vs Slurm* and *what is Slurm* are a
+single arc (4).
+
+| # | Concept — *what is it, why do we do it* | Min | Graphic |
 |---|---|---|---|
-| 1 | **Three things every script needs: cores, RAM, time** | The vocabulary for the whole morning. Nothing after this lands without it | `compute-environments.md:39` onward + the disk→RAM→CPU animation |
-| 2 | **Why not just run it right here?** Five shared interactive Yens, per-user caps, a 256-core node you don't own | Makes the scheduler a *fairness* mechanism rather than bureaucracy | `slurm-scheduler.md:13–56` |
-| 3 | **Measure, don't guess.** *Do you know what your script uses right now? How would you find out?* | The best hook on the day. Already written as three questions nobody in the room can answer yet — ask them, let it be awkward, don't answer | `profiling.md:68–87` |
-| 4 | **`real` vs `user`** — and what a gap between them tells you | The idea that makes profiling more than button-pushing. Sets up I/O-bound vs CPU-bound without naming it yet | `profiling.md:155–174` |
-| 5 | **The queue** — submit → `PD` → `R` → logs. **Show the live queue** | A busy queue teaches `PD` better than any diagram. If the queue is empty, say so and use the diagram | job-lifecycle SVG at `slurm-scheduler.md:123` |
-| 6 | **Anatomy of `#SBATCH`** — the money slide | They will refer back to this for the next 70 minutes. **Put one valid `--time` and one valid `--mem` value on it** — the docs never show an example, and it is the most common first error | annotated SVG at `slurm-job.md:148` |
+| 1 | **What is the cluster?** 17 nodes, one shared file system, and you are a guest on shared hardware | 3 | `day1/connect-to-the-yens.md:52` — SSH → interactive tier → scheduled tier. Storage tiers at `:156`; `server-hardware-cpu-ram.png` for scale |
+| 2 | **What is profiling?** Measuring what your code actually consumes — time, cores, RAM — instead of guessing | 3 | `compute-environments.md:75` — disk → RAM → CPU, **animated** |
+| 3 | **Why do we profile?** You have to declare what you need. Ask too little and the job dies; ask too much and you wait longer and waste shared capacity. Measuring is the only way to know | 3 | **Draw this one** — 3 panels: *too little → job dies* · *too much → wait + waste* · *measured → right-sized*. Trivial to draw, and this is the hinge slide |
+| 4 | **Interactive Yens vs. Slurm — why use one over the other?** Shared-now vs. dedicated-later. And what Slurm *is*: an orchestrator you declare your needs to, which decides when and where | 3 | `slurm-scheduler.md:55` — submit from a shared Yen → scheduler → dedicated compute node, **animated** |
+| 5 | **What are partition limits, and why do they exist?** Different queues, different caps. Caps are a fairness mechanism, not bureaucracy | 2 | Small table: *partition · what it's for · has a time cap · has a per-user cap.* **Concept only — no numbers** |
+| 6 | **What is debugging a failed job, and why does it matter?** A job that vanished is not a job that worked. The cluster writes down what went wrong — your job is to go read it | 3 | `slurm-scheduler.md:124` — the job lifecycle, PD → R → done → **logs**. The logs box at the end is the whole slide |
+| 7 | **What is a skill, and why capture one?** You just worked out the conventions the hard way. Write them down once and Claude follows them next time | 2 | `slurm-with-claude.md:44` — global `~/.claude/` vs. project `.claude/` |
 
-**Close with the preview:** *by 10:30 you will have submitted a job, read its logs, and
-fixed a broken one.* Self-paced work needs a stated finish line, and lectures usually skip it.
+**Close with the preview** — one line, no slide: *by 10:30 you will have submitted a job, read
+its logs, and fixed a broken one.* Self-paced work needs a stated finish line.
 
-**Say out loud, don't put on a slide**
+### Notes for delivery
 
-- The **login node vs. compute node** distinction, at slide 2. One sentence. It causes more
-  downstream confusion than anything else on Day 2.
-- **How to edit a file on the Yens.** The first two places students must edit a file
-  (`profiling.md:323` and `:371`) name no editor at all; the JupyterHub recipe doesn't appear
-  until `slurm-job.md:62`. Say it once at the start of the block: JupyterHub file browser, or
-  `nano` if they know it.
-- **`SUNetID` and `JOBID` are placeholders, not literal text.** The docs make this point
-  beautifully for `JOBID` once and never for `SUNetID`, which appears literally in about
-  fourteen commands.
-
-**If Lecture 1 overruns**, compress slide 1 — it's the most familiar material in the room.
-Protect slides 4 and 6; block 1 depends on both.
+- **Slide 3 is the hinge of the morning.** It is what makes profiling feel necessary rather
+  than academic, and every `#SBATCH` number in block 1 traces back to believing it.
+  `slurm-scheduler.md:88–89` is this slide already written as one sentence.
+- **Slide 5 needs no real numbers**, which is the point of keeping it conceptual — the docs
+  defer to RCpedia for actual caps, and those drift. Teach that caps exist and where to look
+  them up.
+- **Say out loud, not on a slide:** login node vs. compute node (one sentence at slide 4 — it
+  causes more downstream confusion than anything else on Day 2); how to edit a file on the
+  Yens; and that `SUNetID`/`JOBID` in the docs are placeholders, not literal text.
+- **If you overrun**, compress slide 1 — cluster hardware is the most familiar material in the
+  room. Protect 3 and 6.
 
 ---
 
 ## Lecture 2 (10:30–10:50) — "Scaling out"
 
-Seven slides. Slide 5 is a deliberate trap, not an oversight.
+**Six concept slides.** The GPU half is two slides rather than one: "what type of LLM work"
+is a genuinely separate idea from "what hardware exists", and it happens to be the
+best-documented content in the repo.
 
-| # | Slide | Why it earns a slide | Reuse |
+| # | Concept — *what is it, why do we do it* | Min | Graphic |
 |---|---|---|---|
-| 1 | **Your loop is a choice, not a law** — 100 filings one at a time, or 100 at once | Frames the block as a decision they own | `job-arrays.md:43–47` |
-| 2 | **What qualifies: independence.** The embarrassingly-parallel test | The one concept that transfers to their own research | `reference/parallelization.md`, condensed hard |
-| 3 | **Three shapes** — one job/many cores · many jobs/one core · both | The 2×2. Enough to place any workload they meet later | `reference/parallelization.md` summary table |
-| 4 | **The array.** One script, `--array`, and `$SLURM_ARRAY_TASK_ID` is the *only* difference between tasks | Show `hello.slurm` and `hello_array.slurm` side by side — **they differ by one line.** That single diff is the whole mechanism | `job-arrays.md:20–72`, fan-out SVG |
-| 5 | **The off-by-one.** Tasks count from 1, Python lists from 0. **Name it, do not solve it** | Warn them so it's recognisable when it bites. Defusing it removes the lesson — the failure is silent, which is exactly what makes it worth meeting once | `job-arrays.md:109–110` |
-| 6 | **Why an array beats a loop** — failure isolation, one job ID, waves | Pure prose today, sitting in the work block | `job-arrays.md:276–285` |
-| 7 | **estimate → request → run → check** — and why the guess gets written down **first** | The transferable discipline, and the capstone's entire point | `capstone.md:21–31` |
+| 1 | **What is parallelization, and when does it help?** Only when the pieces are **independent**. It never makes one task faster — it makes many finish sooner | 4 | `parallelization.md:23` (one burner) → `:63` (four burners), **animated**. The grilled-cheese analogy is the best conceptual graphic in the repo |
+| 2 | **What shapes does parallelism come in?** One job many cores · many jobs one core · both | 3 | Four existing diagrams: `parallelization.md:169` · `:209` · `:255` · `:303` |
+| 3 | **What is a Slurm array?** One script, submitted once, run as many independent tasks — **one way to parallelize, not the only one** | 3 | `job-arrays.md:80` — one array script fans out into many tasks |
+| 4 | **Why estimate before you run?** Committing to a number first is what turns a run into a measurement | 2 | No existing graphic — reuse the Day 2 map, or skip the visual |
+| 5 | **What are GPUs for, and what do we have?** Arithmetic-heavy parallel work — and **VRAM is the ceiling**: it decides which models you can load *at all* | 4 | The three-tier table at `running-llms-on-the-yens.md:150–154` — A30 24 GB · A40 48 GB · H200 141 GB |
+| 6 | **Where does LLM work belong?** Local weights vs. the Stanford Gateway vs. a third-party API | 4 | `why-local-llms.md:27` (calling an API sends your data away) → `:63` (running it yourself keeps it local), **both animated** |
 
 **Close with the preview:** *100 filings, then check yourself against `sacct`.*
 
-**Say out loud, don't put on a slide**
+### Notes for delivery
 
-- **`slurm/hello_array.slurm` is already in their repo.** It is a complete, correct array
-  template — `--array=1-4`, `%A_%a` log naming, and the `mkdir -p logs` reminder in its
-  header. The page pastes its *contents* into a demo block and never names the path, so
-  nobody knows the file exists. Telling them to `cp` it is the single cheapest thing that
-  makes block 2 reachable for the whole room.
-- **`MaxRSS` is in kilobytes and shows up on the `.batch` row.** The capstone turns entirely
-  on comparing it against the estimate, and the docs never explain the column.
-- **`mkdir -p logs` before submitting an array.** `logs/` is gitignored, so it doesn't exist
-  after a clone, and Slurm resolves `--output` at submit time. Without it, all 100 tasks fail
-  and leave no log to explain why.
+- **Slide 3's framing is already in the docs** at `job-arrays.md:12` — "there are a few ways
+  to run work in parallel on a cluster; for embarrassingly parallel jobs like ours, a standard
+  tool is a Slurm job array." Keep that hedge; arrays are not the only answer.
+- **Name the off-by-one on slide 3, and do not solve it.** Tasks count from 1, Python lists
+  from 0. Warning makes it recognisable when it bites in the block; defusing it removes the
+  lesson.
+- **Slide 6 needs almost no authoring** — `why-local-llms.md:129–134` is a ready-made
+  three-way table (where your data goes · cost · which models · best for), with the rule of
+  thumb at `:142`: *restricted data → local, no exceptions.* Its sharpest point is at
+  `:109–113`: the frontier proprietary models cannot run on the Yens at all, so the real
+  choice is never "any model, local or cloud" — it is a proprietary model in the cloud, or an
+  open-weight model you run yourself. Pair it with the counterweights at `:121` (the API still
+  wins on capability) so it does not read as a sales pitch.
+- **If you overrun**, merge slides 1 and 2.
 
-**If Lecture 2 overruns**, merge slides 2 and 3. Protect slides 5 and 7.
+### ⚠ Two limits on the GPU slides
+
+**1. "What models fit in 24 / 48 / 141 GB" does not exist in the repo.** The tier table says
+only "small models, embeddings" / "mid-size models" / "large models" — no model names, no
+parameter counts. The one VRAM-to-model claim anywhere is an instructor script comment
+(`llama3.2:1b` ≈ 1.3 GB quantised, fits an A30).
+
+If you want a concrete "what fits" slide, you are authoring it, and the honest version has to
+say **weights are not the whole story: context length consumes VRAM too.** The dry-run notes
+flag exactly this — the 262144-token default context was derived on a 141 GiB H200, and a
+24 GiB A30 defaults far lower. SEC filings are long, so this is the trap most likely to bite
+someone later. The safer slide keeps to the concept: *VRAM is the ceiling, here are the three
+tiers*, and promises no specific model.
+
+**2. No performance claim is supportable.** `.instructor/ollama/dry-run-2026-08-02.md:59–63`
+states it plainly: *"No GPU-vs-CPU timing. The runtime contrast the demo rests on is
+unmeasured."* The repo holds exactly one tokens-per-second figure — 13 tok/s — and it is
+**CPU-only**, from a before/after bug fix, not a GPU comparison. There are zero GPU figures.
+So no "N× faster", no tok/s, no latency numbers. `query_server.py` exists to measure this; the
+measurement has never been run.
+
+Three smaller traps if a command does reach a slide: node names and per-node counts
+(`yen-gpu1` 4×A30, `yen-gpu2/3` 4×A40, `yen-gpu4` 2×H200 = 14) are **instructor-only** and
+student pages have just the tier table and "14 in total" — and 14 is a snapshot to re-check
+with `sinfo -p gpu`; `curl --json` does **not** work on the Yens (curl 7.81.0, the flag landed
+in 7.82.0); and the one verified chat request used `llama3.2:3b` while every student-facing
+default is `llama3.2:1b`.
+
+### Two things to be deliberate about
+
+**Skills (L1 #7) and GPUs (L2 #5–6) are Bonus-only exercises** — about 9 of the 40 lecture
+minutes go to material most students will not practise today. That is coherent: skills-as-demo
+was the original Day 2 treatment, and GPUs are explicitly a preview. But frame both the same
+way out loud: *"you won't do this today — here's what it's for and where it lives."*
+
+**Slide 4 exists to protect the capstone.** The capstone is a Main exercise whose whole
+discipline is *write your estimate down before you submit*; without two minutes of concept
+here, that instruction arrives cold on the page 40 minutes later. It is the cheapest insurance
+on the day — and the first thing to cut if you want the GPU time back.
 
 ---
 
