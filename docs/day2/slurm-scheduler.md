@@ -135,18 +135,18 @@ Every `PD` job is waiting for a node with the resources it requested. When Slurm
   <rect x="150" y="40" width="112" height="76" rx="10" fill="#f3f4f7" stroke="#d5d8e2" stroke-width="1.5"/>
   <text x="206" y="72" text-anchor="middle" font-size="17" font-weight="700" fill="#6a7280">PD</text>
   <text x="206" y="91" text-anchor="middle" font-size="12" fill="#6a7280">queued</text>
-  <text x="206" y="107" text-anchor="middle" font-size="11" fill="#9aa4b0">waiting for a node</text>
+  <text x="206" y="107" text-anchor="middle" font-size="11" fill="#6b7280">waiting for a node</text>
   <rect x="288" y="40" width="112" height="76" rx="10" fill="#eef5ff" stroke="#e67e22" stroke-width="2"/>
   <text x="344" y="72" text-anchor="middle" font-size="17" font-weight="700" fill="#b3611a">R</text>
   <text x="344" y="91" text-anchor="middle" font-size="12" fill="#5b6472">running</text>
-  <text x="344" y="107" text-anchor="middle" font-size="11" fill="#9aa4b0">on a compute node</text>
+  <text x="344" y="107" text-anchor="middle" font-size="11" fill="#6b7280">on a compute node</text>
   <rect x="426" y="40" width="112" height="76" rx="10" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
   <text x="482" y="72" text-anchor="middle" font-size="16" font-weight="700" fill="#1f2937">completed</text>
   <text x="482" y="93" text-anchor="middle" font-size="12" fill="#6a7280">job finishes</text>
   <rect x="564" y="40" width="112" height="76" rx="10" fill="#f3f4f7" stroke="#d5d8e2" stroke-width="1.5"/>
   <text x="620" y="72" text-anchor="middle" font-size="17" font-weight="700" fill="#1f2937">logs</text>
   <text x="620" y="91" text-anchor="middle" font-size="12" fill="#6a7280">.out / .err</text>
-  <text x="620" y="107" text-anchor="middle" font-size="11" fill="#9aa4b0">in logs/</text>
+  <text x="620" y="107" text-anchor="middle" font-size="11" fill="#6b7280">in logs/</text>
   <g>
     <path d="M58,16 L78,16 L68,32 Z" fill="#0072B2"><animateTransform attributeName="transform" type="translate" values="0,0; 0,5; 0,0" dur="0.9s" repeatCount="indefinite"/></path>
     <animateTransform attributeName="transform" type="translate" values="0,0; 0,0; 138,0; 138,0; 276,0; 276,0; 414,0; 414,0; 552,0; 552,0; 0,0" keyTimes="0; 0.06; 0.22; 0.28; 0.44; 0.50; 0.66; 0.72; 0.88; 0.94; 1" dur="10s" repeatCount="indefinite" calcMode="linear"/>

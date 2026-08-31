@@ -75,7 +75,7 @@ the processor, the rest is quick:
   <title id="hwflow-title">How your data moves: disk to RAM to CPU</title>
   <desc id="hwflow-desc">A packet of data loops from Storage to RAM to the CPU and back to Storage. Reading from disk into RAM is slow, and writing results back to disk is slow too; the CPU reaches data in RAM quickly.</desc>
   <defs><marker id="bk-hw" markerWidth="9" markerHeight="9" refX="6.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#c0392b"/></marker></defs>
-  <text x="12" y="20" font-size="14" font-weight="700" letter-spacing="0.4" fill="#8a94a6">🖥  HOW YOUR DATA MOVES: DISK → RAM → CPU</text>
+  <text x="12" y="20" font-size="14" font-weight="700" letter-spacing="0.4" fill="#6b7280">🖥  HOW YOUR DATA MOVES: DISK → RAM → CPU</text>
   <line x1="80" y1="56" x2="520" y2="56" stroke="#cdd4e6" stroke-width="2" stroke-dasharray="4 5"/>
   <text x="190" y="46" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">read — slow (~milliseconds)</text>
   <text x="410" y="46" text-anchor="middle" font-size="13" font-weight="700" fill="#3f4f74">fast (~nanoseconds)</text>
