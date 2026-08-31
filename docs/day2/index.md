@@ -47,7 +47,7 @@ Three things need to be in place. **Say so now if any of them are missing:**
 
 1. Your fork, cloned to the Yens at `~/yens-onboarding-2026`
 2. A virtual environment at `~/yens-onboarding-2026/.venv`, with `requirements.txt` installed
-3. A `.env` holding your Stanford AI API Gateway key, and `.env` in `.gitignore`
+3. A `.env` holding your `ANTHROPIC_API_KEY`, and `.env` in `.gitignore`
 
 Today profiles `scripts/extract_form_3_batch.py`, which is committed in the repo — everyone
 starts from the same working script. If your own version from Day 1 runs, profile that one

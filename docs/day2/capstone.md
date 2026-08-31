@@ -18,7 +18,7 @@ permalink: /day2/capstone/
 
 All day you've profiled and run **10 filings**. The capstone: scale to **100** — and **estimate what it needs *before* you run it**.
 
-**Step back — what are we actually doing?** Each "filing" is a real **SEC Form 3**; your script hands it to the **Stanford AI API**, which reads it and returns the structured fields. Scaling to 100 doesn't change that shape: the batch still walks the filings **one at a time**, making one blocking API call per filing and waiting for the answer before starting the next. That's why this job is **I/O-bound** — as you saw in profiling, the wall-clock time grows with the number of filings while RAM and CPU stay about flat.
+**Step back — what are we actually doing?** Each "filing" is a real **SEC Form 3**; your script hands it to the **Anthropic API**, which reads it and returns the structured fields. Scaling to 100 doesn't change that shape: the batch still walks the filings **one at a time**, making one blocking API call per filing and waiting for the answer before starting the next. That's why this job is **I/O-bound** — as you saw in profiling, the wall-clock time grows with the number of filings while RAM and CPU stay about flat.
 
 ### 1. Estimate the resources for 100 filings — and write it down first
 
@@ -28,7 +28,7 @@ You're running the same loop, just over 100 files instead of 10. Think about wha
 
 **Before you submit anything**, write in your `README.md`: which resources you think will **scale** with the number of filings processed and which will stay about flat — and **why** — along with your CPU, RAM, and wall-clock **estimate for 100**. Committing to a number *before* you run it is the whole point.
 
-**Zoom out:** *the task hasn't changed — you're still sending each SEC Form 3 filing to the Stanford AI API to extract its structured fields. There are just **100** of them now, processed one after another in a loop. You're sizing the resources for that loop.*
+**Zoom out:** *the task hasn't changed — you're still sending each SEC Form 3 filing to the Anthropic API to extract its structured fields. There are just **100** of them now, processed one after another in a loop. You're sizing the resources for that loop.*
 
 ### 2. Write a Slurm script for the batch
 

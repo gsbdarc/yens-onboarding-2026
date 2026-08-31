@@ -120,7 +120,7 @@ source .venv/bin/activate
 >
 > | Package | Used for |
 > |---|---|
-> | `openai` | Calling the Stanford AI API (LLM extraction) |
+> | `anthropic` | Calling the Anthropic API (LLM extraction) |
 > | `python-dotenv` | Loading your API key from `.env` |
 > | `pydantic` | Validating and structuring the LLM output |
 > | `pandas` | Tabular data |

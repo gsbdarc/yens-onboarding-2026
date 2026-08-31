@@ -301,7 +301,7 @@ Is this script **serial** or **parallel**?
 <details markdown="1">
 <summary>✅ Check your answer</summary>
 
-- **Cores and % Mem barely moved.** The job spends almost all its time **waiting on the Stanford API** to answer, not computing — so it barely touches the CPU. That makes it an **I/O-bound** job (waiting on the network), unlike the mystery script, which was **CPU-bound** (doing math). It also handles one filing at a time, so memory stays low no matter how many you run.
+- **Cores and % Mem barely moved.** The job spends almost all its time **waiting on the Anthropic API** to answer, not computing — so it barely touches the CPU. That makes it an **I/O-bound** job (waiting on the network), unlike the mystery script, which was **CPU-bound** (doing math). It also handles one filing at a time, so memory stays low no matter how many you run.
 - **`real` is large, `user` is small.** `real` (wall-clock) is big because you waited on the API; `user` (actual CPU time) is tiny because the CPU had little to do. That gap — `real` ≫ `user` — is the fingerprint of a job that mostly waits.
 
 A typical run: `real 0m22.5s`, `user 0m1.9s`, `sys 0m0.5s` — about 2 seconds of real work, ~20 seconds spent waiting. In `htop` you'll see just **one `python` process**, and **under 1 Core** in `userload`.
@@ -378,7 +378,7 @@ Document what changes and discuss with your neighbor:
 - Does the resource usage match the number you set?
 
 
-**Bonus — Prompt caching**
+**Bonus — Run it twice**
 
 Run the 10 filings, then delete the results and run them again:
 
@@ -393,9 +393,12 @@ Compare the two `real` times — **was the second run different? If so, how, and
 <details markdown="1">
 <summary>✅ Check your answer</summary>
 
-Yes — the second run is noticeably faster, even though you cleared the output files. The Stanford AI Playground supports **prompt caching**: when a request repeats a large chunk the model has already processed (here, the system prompt and the filings you just sent), it reuses that cached work instead of re-reading it — so it answers faster and cheaper.
+Probably not by much — and **which run is faster will vary**. Nothing about the work changed: the script sends the same 10 filings, one at a time, and waits for each answer. Almost all of that `real` time is the API thinking, which is **latency you don't control** and which drifts run to run with load on the other end.
 
-Read more: [AI API Gateway FAQs](https://uit.stanford.edu/service/ai-api-gateway/faqs).
+That is the useful lesson, and it bites in the capstone. **A single timing is weak evidence.** If you size a job off one measurement you are partly sizing off noise, so run it twice before you trust a number — and when you request `--time` in a Slurm script, leave headroom above your best measurement rather than pinning it to the fastest run you saw.
+
+{: .note }
+> **What about prompt caching?** It's real, and it's worth knowing about — an API can cache a chunk of a prompt it has already processed and skip re-reading it. But it doesn't help here, for two reasons. On Anthropic it is **opt-in**: you mark the reusable chunk with `cache_control`, and this script doesn't. And even if it did, there's nothing to reuse — the bulk of every request is a **different filing**, and the one part that does repeat (the system prompt) is far too short to be cacheable. Caching pays off when many requests share a **large** prefix, which is not the shape of this job. See [Anthropic's prompt caching docs](https://platform.claude.com/docs/en/build-with-claude/prompt-caching).
 
 </details>
 

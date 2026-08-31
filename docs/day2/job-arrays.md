@@ -96,7 +96,7 @@ We can see that specifying your job as an **array** tells Slurm to launch your o
   <rect x="330" y="119" width="264" height="44" rx="8" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
   <text x="462" y="135" font-size="12" fill="#2c3e50" text-anchor="middle">task 3</text>
   <text x="462" y="150" font-size="8" fill="#6a7280" text-anchor="middle">determined by your code <tspan font-weight="700">and</tspan> SLURM_ARRAY_TASK_ID</text>
-  <text x="462" y="188" font-size="16" fill="#9aa2b1" text-anchor="middle">⋮</text>
+  <text x="462" y="188" font-size="16" fill="#6b7280" text-anchor="middle">⋮</text>
   <rect x="330" y="199" width="264" height="44" rx="8" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
   <text x="462" y="215" font-size="12" fill="#2c3e50" text-anchor="middle">task N</text>
   <text x="462" y="230" font-size="8" fill="#6a7280" text-anchor="middle">determined by your code <tspan font-weight="700">and</tspan> SLURM_ARRAY_TASK_ID</text>
@@ -122,7 +122,7 @@ Now over to you. Your job is the following: process and extract information from
 You'll end up with two files: a new Python script that handles a single filing, and a Slurm script to launch it as an array — either a new one, or the `slurm/extract_form_3_batch.slurm` you wrote earlier today, adapted.
 
 {: .note }
-> **Use `gemini-2.5-flash-lite` here, not Day 1's `gpt-5.2`.** Day 1's rule was *iterate cheap, then spend where it counts*. Here the arithmetic flips: the same call runs a hundred times, and cost and speed are now the thing you're managing. You get the rougher model in exchange, and handling that is part of the rest of today's work.
+> **Use `claude-haiku-4-5` here, not a frontier model like Day 1's `gpt-5.2`.** Day 1's rule was *iterate cheap, then spend where it counts*. Here the arithmetic flips: the same call runs a hundred times, and cost and speed are now the thing you're managing. You get the cheaper, faster model in exchange for some accuracy, and handling that is part of the rest of today's work.
 
 Work through it in four steps.
 
@@ -177,23 +177,20 @@ That `- 1` is the off-by-one from the warning above: the tasks count from 1, the
 
 This is the script you wrote on Day 1, `scripts/extract_form_3_one_file.py`, with two changes.
 
-It fetches the filing over the network rather than reading a fixed path off disk, since step 1 gives you a URL. And it calls `gemini-2.5-flash-lite` rather than the `gpt-5.2`.
+It fetches the filing over the network rather than reading a fixed path off disk, since step 1 gives you a URL. And it calls Anthropic directly with `claude-haiku-4-5`, so the reply is validated against `Form3Filing` by the API instead of by you after the fact.
 
 ```python
 import json
 import os
 
 import requests
-from openai import OpenAI
+import anthropic
 from pydantic import BaseModel
 from typing import List
 from dotenv import load_dotenv
 
 load_dotenv()
-client = OpenAI(
-    base_url="https://aiapi-prod.stanford.edu/v1",
-    api_key=os.getenv("STANFORD_API_KEY"),
-)
+client = anthropic.Anthropic()   # reads ANTHROPIC_API_KEY from the environment
 
 
 class Form3Filing(BaseModel):
@@ -214,24 +211,23 @@ Extract the following fields:
 - company_cik: The CIK number of the issuer (from issuerCik or COMPANY DATA).
 - filing_date: The filing date (prefer signatureDate or FILED AS OF DATE).
 
-Return valid JSON matching the schema exactly.
 Return a SINGLE JSON object, not a list. Do not wrap it in an array.
 """
 
 # `filing` is the URL you picked in step 1 — fetch it over the network
 filing_text = requests.get(filing).text
 
-api_response = client.chat.completions.create(
-    model="gemini-2.5-flash-lite",
-    response_format={"type": "json_object"},
-    messages=[
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": filing_text},
-    ],
+# output_format sends Form3Filing along as a schema the reply has to match
+api_response = client.messages.parse(
+    model="claude-haiku-4-5",
+    max_tokens=4096,
+    system=system_prompt,
+    messages=[{"role": "user", "content": filing_text}],
+    output_format=Form3Filing,
 )
 
-# validate the reply against the schema before trusting it
-result = Form3Filing.model_validate_json(api_response.choices[0].message.content)
+# already validated against the schema, so this is a Form3Filing instance
+result = api_response.parsed_output
 ```
 
 </details>
