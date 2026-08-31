@@ -56,7 +56,7 @@ Where that directory lives decides the skill's **scope**:
   <text x="372" y="36" font-size="16" font-weight="700" fill="#1f2937">📦 PROJECT skill</text>
   <text x="372" y="58" font-size="12.5" fill="#6a7280">the repo's own .claude/ (no ~/)</text>
   <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#3a4452">
-    <text x="372" y="90">gsb-…-ai-skills/</text>
+    <text x="372" y="90">yens-onboarding-2026/</text>
     <text x="372" y="112">└─ .claude/skills/</text>
     <text x="372" y="134">      └─ form3-plots/</text>
     <text x="372" y="156">            └─ SKILL.md</text>
