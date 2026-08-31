@@ -42,9 +42,9 @@ Yesterday you wrote a Python script and ran it on the Yens interactively. But wh
 actually inside the machine running your code?
 
 Every machine you will run research code on — your laptop, a Yen, a cloud instance — is
-built from the same few physical parts. The photo below shows a Yen server opened up.
-What changes between environments is how much of each part you get, and who else is
-competing for it.
+built from the same few physical parts. The image below is an AI rendering of a Yen server
+opened up. What changes between environments is how much of each part you get, and who
+else is competing for it.
 
 ![Server hardware diagram showing CPU, cores, and RAM]({{ site.baseurl }}/assets/images/server-hardware-cpu-ram.png)
 
