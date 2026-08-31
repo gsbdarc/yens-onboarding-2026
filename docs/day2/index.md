@@ -13,8 +13,6 @@ Yesterday's script works, on one filing at a time, on a shared machine. Today yo
 find out what it actually costs to run, hand it to a scheduler, and scale it across
 the cluster — then write the README that makes it rerunnable.
 
-**9:00–12:00.**
-
 ---
 
 ## How Today Works
@@ -24,10 +22,10 @@ pace while we circulate.
 
 | Clock | |
 |---|---|
-| 9:00–9:20 | Lecture — where your code runs, and who decides |
+| 9:00–9:20 | Lecture — CPU, RAM, and the queue |
 | 9:20–10:30 | **Work block 1** — profile it, then hand it to Slurm |
 | 10:30–10:50 | Lecture — scaling out |
-| 10:50–11:50 | **Work block 2** — scale it, then size it |
+| 10:50–11:50 | **Work block 2** — job arrays, then the capstone |
 | 11:50–12:00 | Wrap-up and questions |
 
 Each section is marked **Mandatory** or **Bonus**. Do the mandatory ones in order — they
@@ -51,9 +49,9 @@ Three things need to be in place. **Say so now if any of them are missing:**
 2. A virtual environment at `~/yens-onboarding-2026/.venv`, with `requirements.txt` installed
 3. A `.env` holding your Stanford AI API Gateway key, and `.env` in `.gitignore`
 
-You do **not** need to have finished the Day 1 capstone. Today profiles
-`scripts/extract_form_3_batch.py`, which is committed in the repo — everyone starts from
-the same working script. If your own version from Day 1 runs, profile that one instead.
+Today profiles `scripts/extract_form_3_batch.py`, which is committed in the repo — everyone
+starts from the same working script. If your own version from Day 1 runs, profile that one
+instead.
 
 ---
 
