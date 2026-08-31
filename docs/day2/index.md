@@ -63,7 +63,7 @@ instead.
 | [Profiling Resource Usage]({{ '/day2/profiling/' | relative_url }}) | 💻 Mandatory | Measure a script's time, CPU, and memory instead of guessing at them |
 | [The Slurm Scheduler]({{ '/day2/slurm-scheduler/' | relative_url }}) | 💻 Mandatory | Why a shared cluster needs a scheduler; read the live queue and the partitions |
 | [Writing & Submitting a Slurm Job]({{ '/day2/slurm-job/' | relative_url }}) | 💻 Mandatory | Write a batch script line by line; submit, monitor, cancel, and debug a real job |
-| [Writing a Slurm Job with Claude]({{ '/day2/slurm-with-claude/' | relative_url }}) | ⭐ Bonus | Distil the Yens conventions you just learned into a reusable Claude skill |
+| [Writing a Slurm Job with Claude]({{ '/day2/slurm-with-claude/' | relative_url }}) | ⭐ Bonus | Distill the Yens conventions you just learned into a reusable Claude skill |
 | [Slurm Job Arrays]({{ '/day2/job-arrays/' | relative_url }}) | 💻 Mandatory | One script, one `--array` flag, every filing processed at once |
 | [Day 2 Capstone]({{ '/day2/capstone/' | relative_url }}) | 🔑 Mandatory | Estimate the resources for a bigger run, submit it, then check your estimate against `sacct` |
 | [GPUs]({{ '/day2/gpus/' | relative_url }}) | ⭐ Bonus | Request a GPU, see what you landed on, and work out whether your job wanted one |

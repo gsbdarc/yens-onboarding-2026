@@ -71,9 +71,9 @@ You'll write the global one first, then the project one.
 ## Write a Global Skill
 
 {: .important }
-> **Task:** Have Claude distil a **global** Yen skill from the Slurm job you just ran by hand, then invoke it on a fresh job.
+> **Task:** Have Claude distill a **global** Yen skill from the Slurm job you just ran by hand, then invoke it on a fresh job.
 >
-> Work through this at your own pace. The point is the *pattern* — do the work, then distil
+> Work through this at your own pace. The point is the *pattern* — do the work, then distill
 > it into a skill — so if you only get as far as reading the `SKILL.md` Claude writes, you
 > have got the idea.
 

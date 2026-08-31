@@ -80,7 +80,7 @@ Then take your pick:
 | Bonus | Where |
 |---|---|
 | The remaining `fix_me` puzzles — the highest-value bonus on the day, because reading a failed job's logs is the skill you need first | [Writing & Submitting a Slurm Job]({{ '/day2/slurm-job/#bonus' | relative_url }}) |
-| Distil today's Slurm conventions into a reusable Claude skill | [Writing a Slurm Job with Claude]({{ '/day2/slurm-with-claude/' | relative_url }}) |
+| Distill today's Slurm conventions into a reusable Claude skill | [Writing a Slurm Job with Claude]({{ '/day2/slurm-with-claude/' | relative_url }}) |
 | Ask Slurm for a GPU and work out whether your job actually wanted one | [GPUs]({{ '/day2/gpus/' | relative_url }}) |
 | Merge the array's per-filing JSON into one CSV | [Job Arrays]({{ '/day2/job-arrays/#bonus-combine-the-results-into-one-csv' | relative_url }}) |
 | Local LLMs, LLM-as-a-judge, parallelization in depth, `scp` | [Reference]({{ '/reference/' | relative_url }}) |
