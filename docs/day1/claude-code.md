@@ -197,7 +197,7 @@ Claude Code does **not** sort safe data from sensitive. It sends whatever you le
 
 When Claude Code runs a command, edits a file, or pushes to GitHub, it does so with **your** credentials and **your** permissions. To the Yens, to GitHub, to anything it touches, the action looks exactly like *you* did it — there is no way for those systems to tell you apart from Claude acting on your behalf.
 
-That has a blunt consequence: **Claude Code can do anything you can do.** It can read, change, or delete any file you can, run any command you could run, and reach any system your account can reach. You can *ask* it to steer clear of something — "don't touch the `data/` folder," "never force-push" — and it will try, but that's a request, not a boundary the system enforces. Nothing outside your own judgment stops it.
+That has a blunt consequence: **Claude Code can do anything you can do.** It can read, change, or delete any file you can, run any command you could run, and reach any system your account can reach. You can *ask* it to steer clear of something — "don't touch the `data/` folder," "never force-push" — and it will try, but that's a request, not a boundary the system enforces.
 
 {: .warning }
 > Treat it like handing your keyboard to a fast, capable assistant. Use **plan mode** when you want to see the plan before anything happens, review actions that are hard to undo (deleting files, force-pushing, sending data off your machine), and don't point it at anything you wouldn't do yourself.
