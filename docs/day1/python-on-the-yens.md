@@ -2,7 +2,7 @@
 layout: default
 title: "Running Python on the Yens"
 parent: "Day 1 — Foundations & AI"
-nav_order: 4
+nav_order: 5
 permalink: /day1/python-on-the-yens/
 ---
 

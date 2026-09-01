@@ -2,7 +2,7 @@
 layout: default
 title: "Day 1 Capstone"
 parent: "Day 1 — Foundations & AI"
-nav_order: 10
+nav_order: 11
 permalink: /day1/capstone/
 ---
 

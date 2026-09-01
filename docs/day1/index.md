@@ -34,6 +34,7 @@ Work through them in order — each builds on the one before.
 | [Connecting to the Yens]({{ '/day1/connect-to-the-yens/' | relative_url }}) | 💻 Hands-on | Log in over SSH, and find your way around cluster storage, quotas, and software modules |
 | [Git & GitHub for Research]({{ '/day1/git-and-github/' | relative_url }}) | 💻 Hands-on | Fork, clone, branch, commit, push — and why a research project wants version control |
 | [Working with Claude Code]({{ '/day1/claude-code/' | relative_url }}) | 📖 Pre-read + 💻 hands-on | Concepts are pre-work; in class you set it up, learn the controls, and give it a real task |
+| [Part 1 Checkpoint]({{ '/day1/part1-checkpoint/' | relative_url }}) | ✅ Checkpoint | Ten minutes proving the six things everything after the break depends on actually work |
 | [Running Python on the Yens]({{ '/day1/python-on-the-yens/' | relative_url }}) | 💻 Hands-on | How `$PATH` decides which `python3` answers, and the three ways to run Python |
 | [Python Environments]({{ '/day1/python-environments/' | relative_url }}) | 💻 Hands-on | Build an isolated venv and rebuild a whole project from its `requirements.txt` |
 | [Stanford's AI Services]({{ '/day1/stanford-ai-services/' | relative_url }}) | 🖊️ Concept + demo | The AI Playground vs. the API Gateway, and which data-risk levels each is cleared for |
@@ -41,6 +42,11 @@ Work through them in order — each builds on the one before.
 | [Managing API Keys]({{ '/day1/api-keys/' | relative_url }}) | 💻 Hands-on | Load a key from `.env`, keep it out of git, and know why a committed key is a leaked key |
 | [Extracting Data with an LLM]({{ '/day1/extracting-data-with-an-llm/' | relative_url }}) | 💻 Hands-on | Your first API call, then structured fields out of a real SEC filing — validated with Pydantic |
 | [Day 1 Capstone]({{ '/day1/capstone/' | relative_url }}) | 🔑 Capstone | Scale to 10 filings, document it, commit. **Keep going on your own afterwards** |
+
+{: .note }
+> **The first four are Part 1**, and they run to the 10:00 break. The checkpoint closes
+> it: everything after the break assumes all six of its items work, so it is worth the
+> ten minutes while the room is still there to help.
 
 {: .note }
 > The last two run as **one continuous block**: the guided build flows straight into

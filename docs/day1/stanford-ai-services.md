@@ -2,7 +2,7 @@
 layout: default
 title: "Stanford's AI Services"
 parent: "Day 1 — Foundations & AI"
-nav_order: 6
+nav_order: 7
 permalink: /day1/stanford-ai-services/
 ---
 
