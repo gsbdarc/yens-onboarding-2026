@@ -184,11 +184,13 @@
   border: 1px solid #e8e3db;
   border-radius: 6px;
 }
-/* Inline code shouldn't look like a miniature block — no border, just tint. */
-.main-content p > code,
-.main-content li > code,
-.main-content td > code,
-.main-content h1 code, .main-content h2 code, .main-content h3 code {
+/* Inline code shouldn't look like a miniature block — no border, just tint.
+   Mirrors the theme's own `:not(pre, figure) > code` selector rather than
+   listing parent elements: inline code turns up inside <strong>, <em> and
+   links as often as directly inside a <p>, and enumerating parents misses one
+   every time — **`/compact`** kept the theme's bordered default while the
+   plain `/compact` beside it in the same sentence did not. */
+.main-content :not(pre, figure) > code {
   border: 0;
   padding: 0.12em 0.32em;
   border-radius: 3px;
