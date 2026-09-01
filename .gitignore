@@ -29,3 +29,8 @@ data/potion_brawl/output/
 # results/ stays tracked -- the docs tell students to commit their extractions there.
 logs/
 *.log
+
+# Slides live in Google Drive, not git.
+# The build scripts here are deliberately untracked too -- they exist on disk
+# only, so keep a copy elsewhere if they matter.
+.instructor/slides/
