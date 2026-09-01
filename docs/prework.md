@@ -7,9 +7,6 @@ permalink: /prework/
 
 # Before You Arrive
 
-**Two accounts. That's it.** Both are free, both take a few minutes of your own time, and
-neither needs you to touch a terminal.
-
 You do **not** need to log in to the Yens, install anything, or read anything before Day 1.
 We start from scratch in the room.
 
@@ -47,7 +44,7 @@ rather than on the morning.
 
 ### If something is missing when you arrive
 
-| What's missing | What happens |
+| Missing | What happens on the day |
 |---|---|
 | **Yens access** | This is the one we can't fix in the room. Tell us at 9:00 and we'll pair you with someone for the day — you'll get every concept and can redo the hands-on work that evening |
 | **Claude account** | Everything except Claude Code itself works without it. We'll pair you up |
