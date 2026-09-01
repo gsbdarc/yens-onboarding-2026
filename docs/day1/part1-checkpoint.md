@@ -12,14 +12,15 @@ Everything before the first break was setup. Nothing you have built yet does any
 research — but from here on, every section assumes all of it works.
 
 This checkpoint is how you find out. It is six things, in one continuous run, and it
-should take about ten minutes. Do it **before the break**, so that if something is
-broken there is someone in the room to fix it with you.
+should take about ten minutes — budget for it, because it is the last thing in the hour
+before the 10:00 break, and it is the point of the hour. Do it **before you start
+Part 2**, while there is still someone circulating who can fix whatever is broken.
 
 {: .important }
-> **A red sticky here is the cheapest one you will ever put up.** Every section after
-> the break — Python environments, API keys, the extraction script, tomorrow's cluster
-> jobs — builds directly on this. A login that half-works costs you ten minutes now and
-> the rest of the morning later.
+> **A red sticky here is the cheapest one you will ever put up.** Everything in Part 2 —
+> Python environments, API keys, the extraction script, tomorrow's cluster jobs — builds
+> directly on this. A login that half-works costs you ten minutes now and the rest of the
+> morning later.
 
 ---
 
@@ -76,8 +77,8 @@ whoami              # am I logged in as myself?
 ```
 
 {: .warning }
-> **This is the one that can't be fixed in the room.** If you cannot log in, it is an
-> account problem, not a typo — put up a red sticky now. You will pair with someone for
+> **This is the one you cannot fix yourself.** If you cannot log in, it is an account
+> problem, not a typo — put up a red sticky now. You will pair with someone for
 > the rest of the day and can redo the hands-on work that evening.
 
 ### 3 — git and Claude are configured
@@ -175,19 +176,19 @@ but not *why*, tell it so and have it try again.
 
 ---
 
-## Before the Break
+## Before You Move On
 
 {: .note }
 > 🟢 **Green sticky** = all six ran &nbsp;&nbsp; 🔴 **Red sticky** = one of them didn't
 >
-> Put the sticky up before you get coffee, not after. The break is when we have time to
-> come to you.
+> Put the sticky up before you take a break, not after — an instructor can come to you
+> while you are away from the keyboard anyway.
 
 If you are green on all six, you have a working research setup: a machine you can reach,
 an identity it recognises, a way to move data to it, and a version-controlled place to
 put the results — plus an assistant that can operate all of it on your behalf.
 
-Everything after the break is what you *do* with that.
+Everything in Part 2 is what you *do* with that.
 
 {: .aside }
 > Nothing here is specific to this course. The same six are what a new collaborator on

@@ -12,15 +12,15 @@ permalink: /day1/claude-code/
 You've set up Git and made your first commit by hand. Claude Code is a tool that can do that kind of work for you — and much more. This section covers what it is, how it works, how to get it through Stanford, and what data you can and can't give it.
 
 {: .important }
-> **This page is split in two, and the first half is pre-work.**
+> **This page is concepts first, then hands-on.**
 >
-> **Read before Day 1** — everything from *Meet Claude Code* down to *Claude Code acts as
-> you*: what it is, the models, permission modes, tokens, context, memory, skills, and the
-> data rules. It takes about 15 minutes.
+> **Read** — everything from *Meet Claude Code* down to *Claude Code acts as you*: what it
+> is, the models, permission modes, tokens, context, memory, skills, and the data rules.
+> About 15 minutes, and it is worth doing before you arrive if you can.
 >
-> **In class** — we start at [Take It for a Spin](#take-it-for-a-spin) and stay on the
-> keyboard. We will not re-teach the concepts above, so the mode names and the data rule
-> won't mean much if you skip the reading.
+> **Then do** — [Take It for a Spin](#take-it-for-a-spin) onwards is all keyboard. It
+> assumes the reading rather than repeating it, so the mode names and the data rule won't
+> mean much if you skip ahead.
 >
 > Come back to the first half whenever you need it — that's what it's for.
 
@@ -28,11 +28,11 @@ You've set up Git and made your first commit by hand. Claude Code is a tool that
 
 ## Meet Claude Code
 
-In **Version Control with Git** you worked through fork, clone, branch, commit, and push by hand. That was the point: you now know what each step *means*. From here on, you don't have to type it yourself.
+In **Git & GitHub for Research** you worked through fork, clone, branch, commit, and push by hand. That was the point: you now know what each step *means*. From here on, you don't have to type it yourself.
 
 **Claude Code** is an AI assistant that lives in your terminal: you describe what you want in plain English, and it does the work — running commands, editing files, and handling git for you.
 
-You just saw *why* keeping your work in GitHub is worth the trouble (see [Version Control with Git]({{ '/day1/git-and-github/' | relative_url }})) — and those are exactly the habits Claude Code can handle for you. You will **not** memorize the commands for any of it. You say *"log this as an issue"* or *"try this on a branch,"* and Claude Code does it — the right way — because it follows a **skill** we wrote for research.
+You just saw *why* keeping your work in GitHub is worth the trouble (see [Git & GitHub for Research]({{ '/day1/git-and-github/' | relative_url }})) — and those are exactly the habits Claude Code can handle for you. You will **not** memorize the commands for any of it. You say *"log this as an issue"* or *"try this on a branch,"* and Claude Code does it — the right way — because it follows a **skill** we wrote for research.
 
 **Getting access.** You don't need a personal account. Stanford runs **Claude for Education** — a secure, university-managed environment — and it's **free for everyone at Stanford**.
 
@@ -40,7 +40,7 @@ You just saw *why* keeping your work in GitHub is worth the trouble (see [Versio
 - **How to get it.** The **Standard tier is free** for all active faculty, students, postdocs, and staff with a SUNet ID. (A **Premium tier** is available if you have a PTA — a Stanford billing account your lab may hold.) Free still means you request it once, through **ServiceNow** (Stanford's IT request website) — it's a quick approval, not a purchase.
 
 {: .note }
-> Full details and the request links live at [uit.stanford.edu/service/claude](https://uit.stanford.edu/service/claude). Your instructor can point you to the exact sign-up link in class.
+> Full details and the request links live at [uit.stanford.edu/service/claude](https://uit.stanford.edu/service/claude) — request it there yourself; approval is quick but not instant, so start it before you need it.
 
 ---
 
@@ -204,17 +204,20 @@ That has a blunt consequence: **Claude Code can do anything you can do.** It can
 
 ---
 
-# In Class
+# Hands-On
 
-Everything above is pre-work reading. Everything below is what we do together, on the
-keyboard, in about 25 minutes.
+Everything above is reading; everything below is on the keyboard. Budget about **20
+minutes**, and work through it in order — each step assumes the one before it. If you are
+running short, [Take It for a Spin](#take-it-for-a-spin) and
+[The github-for-research Skill](#the-github-for-research-skill) are the two that Part 2
+and the checkpoint actually need.
 
 ## Take It for a Spin
 
 {: .important }
 > **Do this now.** On the Yens, load Claude Code, sign in through Stanford, and give it a first real task. This is the one Claude Code step everyone should complete.
 
-You've been working on the Yens all along — Claude Code runs there too. Connect the way you did in [Connecting to a Cluster]({{ '/day1/connect-to-the-yens/' | relative_url }}) if you're not already on:
+You've been working on the Yens all along — Claude Code runs there too. Connect the way you did in [Connecting to the Yens]({{ '/day1/connect-to-the-yens/' | relative_url }}) if you're not already on:
 
 ```bash
 ssh SUNetID@yen.stanford.edu
@@ -354,7 +357,7 @@ Now ask the same things in plain English — and notice the first sentence:
 {: .important }
 > **Optional practice:** Have Claude Code make a real change to your course site — switch it to **dark mode** — and open a pull request. A bonus walks the same change the way a pro would: inspect, plan, then act.
 
-Optional — the Day 1 capstone only needs the exercise from Version Control with Git. This is extra practice.
+Optional — the Day 1 capstone only needs the exercise from Git & GitHub for Research. This is extra practice.
 
 <details markdown="1">
 <summary>Make a real change: dark mode</summary>

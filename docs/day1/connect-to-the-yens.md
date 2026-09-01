@@ -10,14 +10,18 @@ permalink: /day1/connect-to-the-yens/
 
 SSH lets you connect from your laptop to a remote computer and run commands there
 as if you were sitting at it. In this section you will log in to the Yens for the
-first time, then learn how storage is organized: where your files live, how much
-space you have, and what software is available.
+first time. Where your files go once you are there is the next section,
+[Your Data on the Yens]({{ '/day1/your-data/' | relative_url }}).
 
-{: .note }
-> **This is your first login, and we do it together.** All you need is a terminal — the
+{: .important }
+> **Do this section first — give it about 10 minutes.** Everything else in Day 1 runs on
+> the Yens, so nothing later will work until this does. All you need is a terminal: the
 > built-in **Terminal** app on macOS, or [Git Bash](https://git-scm.com/downloads) on
-> Windows. If your login does not work, put up a red sticky now rather than reading ahead:
-> a Yens account that was never provisioned is the one thing we cannot fix in the room.
+> Windows.
+>
+> If your login does not work, put up a red sticky rather than reading ahead. An account
+> that was never provisioned is the one problem on this page you cannot solve on your own —
+> flag it and an instructor will come to you.
 
 ---
 
@@ -33,7 +37,7 @@ Your laptop is fine for writing code and running small tests. But research compu
 | Data is restricted (IRB, NDA) | Must stay on Stanford systems | Yens are Stanford-managed infrastructure |
 | Collaborating with your PI | "Can you send me the data?" | PI already has access to `/yen/projects/` |
 
-The Yens are available to all researchers at GSB — faculty, PhD students, post-docs, and research staff alike. Today we learn how to use them effectively.
+The Yens are available to all researchers at GSB — faculty, PhD students, post-docs, and research staff alike. This section is where you start using them.
 
 {: .note }
 > *"My regression on the full sample took 14 hours. My laptop died at hour 6. I lost everything. Two days later I reran it on the Yens and went to sleep. It finished while I was gone."* — Ben

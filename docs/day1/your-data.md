@@ -122,7 +122,7 @@ Three questions worth being able to answer before you move on:
 1. **Which of your three locations has the most room?** It will not be home.
 2. **If your laptop died tonight, which of your files on the Yens would survive?** Everything
    in home and projects. Nothing in scratch.
-3. **Where should the SEC filings you process this morning end up?** In your cloned repo, in
+3. **Where should the SEC filings you process later today end up?** In your cloned repo, in
    home — they are small, and they are part of a project under version control.
 
 {: .warning }
