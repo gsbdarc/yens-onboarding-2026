@@ -31,7 +31,8 @@ Work through them in order — each builds on the one before.
 
 | Section | Format | What you'll learn |
 |---|---|---|
-| [Connecting to the Yens]({{ '/day1/connect-to-the-yens/' | relative_url }}) | 💻 Hands-on | Log in over SSH, and find your way around cluster storage, quotas, and software modules |
+| [Connecting to the Yens]({{ '/day1/connect-to-the-yens/' | relative_url }}) | 💻 Hands-on | Log in over SSH, and understand what a remote server is and why research uses one |
+| [Your Data on the Yens]({{ '/day1/your-data/' | relative_url }}) | 💻 Hands-on | Home, projects and scratch — which are backed up, how to check your quota, and what's eating it |
 | [Git & GitHub for Research]({{ '/day1/git-and-github/' | relative_url }}) | 💻 Hands-on | Fork, clone, branch, commit, push — and why a research project wants version control |
 | [Working with Claude Code]({{ '/day1/claude-code/' | relative_url }}) | 📖 Pre-read + 💻 hands-on | Concepts are pre-work; in class you set it up, learn the controls, and give it a real task |
 | [Part 1 Checkpoint]({{ '/day1/part1-checkpoint/' | relative_url }}) | ✅ Checkpoint | Ten minutes proving the six things everything after the break depends on actually work |
@@ -44,7 +45,7 @@ Work through them in order — each builds on the one before.
 | [Day 1 Capstone]({{ '/day1/capstone/' | relative_url }}) | 🔑 Capstone | Scale to 10 filings, document it, commit. **Keep going on your own afterwards** |
 
 {: .note }
-> **The first four are Part 1**, and they run to the 10:00 break. The checkpoint closes
+> **The first five are Part 1**, and they run to the 10:00 break. The checkpoint closes
 > it: everything after the break assumes all six of its items work, so it is worth the
 > ten minutes while the room is still there to help.
 

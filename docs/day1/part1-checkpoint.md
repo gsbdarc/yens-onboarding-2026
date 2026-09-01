@@ -2,7 +2,7 @@
 layout: default
 title: "Part 1 Checkpoint"
 parent: "Day 1 — Foundations & AI"
-nav_order: 4
+nav_order: 5
 permalink: /day1/part1-checkpoint/
 ---
 

@@ -2,7 +2,7 @@
 layout: default
 title: "Git & GitHub for Research"
 parent: "Day 1 — Foundations & AI"
-nav_order: 2
+nav_order: 3
 permalink: /day1/git-and-github/
 ---
 
