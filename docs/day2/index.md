@@ -13,20 +13,8 @@ Yesterday's script works, on one filing at a time, on a shared machine. Today yo
 find out what it actually costs to run, hand it to a scheduler, and scale it across
 the cluster — then write the README that makes it rerunnable.
 
----
-
-## How Today Works
-
-Same shape as yesterday: a short lecture, then a long block where you work at your own
-pace while we circulate.
-
-| Clock | |
-|---|---|
-| 9:00–9:20 | Lecture — CPU, RAM, and the queue |
-| 9:20–10:30 | **Work block 1** — profile it, then hand it to Slurm |
-| 10:30–10:50 | Lecture — scaling out |
-| 10:50–11:50 | **Work block 2** — job arrays, then the capstone |
-| 11:50–12:00 | Wrap-up and questions |
+**9:00–12:00.** Same shape as yesterday: a short lecture, then a long block where you work
+at your own pace while we circulate.
 
 Each section is marked **Mandatory** or **Bonus**. Do the mandatory ones in order — they
 build on each other, and the numbers you write down in one are the inputs to the next.
@@ -34,10 +22,14 @@ build on each other, and the numbers you write down in one are the inputs to the
 **Take your own breaks** inside the work blocks. There is no whole-room break today;
 stand up and get coffee when your table reaches a natural stopping point.
 
-{: .important }
-> **If you finish the mandatory exercises early, check whether anyone at your table is
-> stuck before you move on to the bonus material.** Explaining a thing you just learned is
-> the fastest way to find out whether you actually learned it.
+---
+
+## The Two Parts
+
+| Part | Clock | What it is |
+|---|---|---|
+| [Part 1 — Measure & Submit]({{ '/day2/part1/' | relative_url }}) | 9:00–10:30 | What the script actually costs in CPU, RAM and time — then hand it to the scheduler |
+| [Part 2 — Scale & Ship]({{ '/day2/part2/' | relative_url }}) | 10:30–12:00 | One job becomes every filing at once; predict a bigger run's cost, then check the prediction |
 
 ---
 
@@ -53,18 +45,7 @@ Today profiles `scripts/extract_form_3_batch.py`, which is committed in the repo
 starts from the same working script. If your own version from Day 1 runs, profile that one
 instead.
 
----
-
-## Sections
-
-| Section | Format | What you'll learn |
-|---|---|---|
-| [Compute Environments]({{ '/day2/compute-environments/' | relative_url }}) | 💬 Lecture + discussion | CPU, RAM, and storage — and how your laptop, the Yens, and the cloud trade off |
-| [Profiling Resource Usage]({{ '/day2/profiling/' | relative_url }}) | 💻 Mandatory | Measure a script's time, CPU, and memory instead of guessing at them |
-| [The Slurm Scheduler]({{ '/day2/slurm-scheduler/' | relative_url }}) | 💻 Mandatory | Why a shared cluster needs a scheduler; read the live queue and the partitions |
-| [Writing & Submitting a Slurm Job]({{ '/day2/slurm-job/' | relative_url }}) | 💻 Mandatory | Write a batch script line by line; submit, monitor, cancel, and debug a real job |
-| [Writing a Slurm Job with Claude]({{ '/day2/slurm-with-claude/' | relative_url }}) | ⭐ Bonus | Distill the Yens conventions you just learned into a reusable Claude skill |
-| [Slurm Job Arrays]({{ '/day2/job-arrays/' | relative_url }}) | 💻 Mandatory | One script, one `--array` flag, every filing processed at once |
-| [Day 2 Capstone]({{ '/day2/capstone/' | relative_url }}) | 🔑 Mandatory | Estimate the resources for a bigger run, submit it, then check your estimate against `sacct` |
-| [GPUs]({{ '/day2/gpus/' | relative_url }}) | ⭐ Bonus | Request a GPU, see what you landed on, and work out whether your job wanted one |
-| [Where to Go Next]({{ '/day2/where-to-go-next/' | relative_url }}) | 📣 Wrap-up | Slack, RCpedia, and where to ask for help |
+{: .important }
+> **If you finish the mandatory exercises early, check whether anyone at your table is
+> stuck before you move on to the bonus material.** Explaining a thing you just learned is
+> the fastest way to find out whether you actually learned it.

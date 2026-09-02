@@ -1,7 +1,8 @@
 ---
 layout: default
 title: "Connecting to the Yens"
-parent: "Day 1 — Foundations & AI"
+parent: "Part 1 — Setup"
+grand_parent: "Day 1 — Foundations & AI"
 nav_order: 1
 permalink: /day1/connect-to-the-yens/
 ---

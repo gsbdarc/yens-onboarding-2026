@@ -1,7 +1,8 @@
 ---
 layout: default
 title: "Compute Environments"
-parent: "Day 2 — The Cluster"
+parent: "Part 1 — Measure & Submit"
+grand_parent: "Day 2 — The Cluster"
 nav_order: 1
 permalink: /day2/compute-environments/
 ---

@@ -1,7 +1,8 @@
 ---
 layout: default
 title: "Your Data on the Yens"
-parent: "Day 1 — Foundations & AI"
+parent: "Part 1 — Setup"
+grand_parent: "Day 1 — Foundations & AI"
 nav_order: 2
 permalink: /day1/your-data/
 ---

@@ -1,8 +1,9 @@
 ---
 layout: default
 title: "Day 2 Capstone"
-parent: "Day 2 — The Cluster"
-nav_order: 7
+parent: "Part 2 — Scale & Ship"
+grand_parent: "Day 2 — The Cluster"
+nav_order: 2
 permalink: /day2/capstone/
 ---
 

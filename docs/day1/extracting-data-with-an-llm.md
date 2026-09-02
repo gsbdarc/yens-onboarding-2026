@@ -1,8 +1,9 @@
 ---
 layout: default
 title: "Extracting Data with an LLM"
-parent: "Day 1 — Foundations & AI"
-nav_order: 11
+parent: "Part 2 — Python & AI"
+grand_parent: "Day 1 — Foundations & AI"
+nav_order: 6
 permalink: /day1/extracting-data-with-an-llm/
 ---
 

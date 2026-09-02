@@ -1,7 +1,8 @@
 ---
 layout: default
 title: "The Slurm Scheduler"
-parent: "Day 2 — The Cluster"
+parent: "Part 1 — Measure & Submit"
+grand_parent: "Day 2 — The Cluster"
 nav_order: 3
 permalink: /day2/slurm-scheduler/
 ---

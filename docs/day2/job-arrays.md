@@ -1,8 +1,9 @@
 ---
 layout: default
 title: "Slurm Job Arrays"
-parent: "Day 2 — The Cluster"
-nav_order: 6
+parent: "Part 2 — Scale & Ship"
+grand_parent: "Day 2 — The Cluster"
+nav_order: 1
 permalink: /day2/job-arrays/
 ---
 

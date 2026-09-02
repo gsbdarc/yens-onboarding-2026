@@ -1,7 +1,8 @@
 ---
 layout: default
 title: "Part 1 Checkpoint"
-parent: "Day 1 — Foundations & AI"
+parent: "Part 1 — Setup"
+grand_parent: "Day 1 — Foundations & AI"
 nav_order: 5
 permalink: /day1/part1-checkpoint/
 ---

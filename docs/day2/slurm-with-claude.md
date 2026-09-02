@@ -1,7 +1,8 @@
 ---
 layout: default
 title: "Writing a Slurm Job with Claude"
-parent: "Day 2 — The Cluster"
+parent: "Part 1 — Measure & Submit"
+grand_parent: "Day 2 — The Cluster"
 nav_order: 5
 permalink: /day2/slurm-with-claude/
 ---

@@ -1,8 +1,9 @@
 ---
 layout: default
 title: "Where to Go Next"
-parent: "Day 2 — The Cluster"
-nav_order: 9
+parent: "Part 2 — Scale & Ship"
+grand_parent: "Day 2 — The Cluster"
+nav_order: 4
 permalink: /day2/where-to-go-next/
 ---
 

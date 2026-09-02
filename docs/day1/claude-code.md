@@ -1,7 +1,8 @@
 ---
 layout: default
 title: "Working with Claude Code"
-parent: "Day 1 — Foundations & AI"
+parent: "Part 1 — Setup"
+grand_parent: "Day 1 — Foundations & AI"
 nav_order: 4
 permalink: /day1/claude-code/
 ---
