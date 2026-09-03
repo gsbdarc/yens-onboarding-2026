@@ -74,36 +74,45 @@ the processor, the rest is quick:
 <svg viewBox="0 2 600 220" role="img" aria-labelledby="hwflow-title hwflow-desc" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:820px;height:auto;margin:0.75rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="hwflow-title">How your data moves: disk to RAM to CPU</title>
   <desc id="hwflow-desc">A packet of data loops from Storage to RAM to the CPU and back to Storage. Reading from disk into RAM is slow, and writing results back to disk is slow too; the CPU reaches data in RAM quickly.</desc>
-  <defs><marker id="bk-hw" markerWidth="9" markerHeight="9" refX="6.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#c0392b"/></marker></defs>
+  <defs><marker id="bk-hw" markerWidth="9" markerHeight="9" refX="6.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#c0392b"/></marker><marker id="fw-hw" markerWidth="9" markerHeight="9" refX="6.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#8fa3c4"/></marker></defs>
   <text x="12" y="20" font-size="14" font-weight="700" letter-spacing="0.4" fill="#6b7280">🖥  HOW YOUR DATA MOVES: DISK → RAM → CPU</text>
-  <line x1="80" y1="56" x2="520" y2="56" stroke="#cdd4e6" stroke-width="2" stroke-dasharray="4 5"/>
-  <text x="190" y="46" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">read — slow (~milliseconds)</text>
-  <text x="410" y="46" text-anchor="middle" font-size="13" font-weight="700" fill="#3f4f74">fast (~nanoseconds)</text>
+  <line x1="80" y1="56" x2="292" y2="56" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 5" marker-end="url(#bk-hw)"/>
+  <line x1="308" y1="56" x2="514" y2="56" stroke="#8fa3c4" stroke-width="1.25" stroke-dasharray="2 4" marker-end="url(#fw-hw)"/>
+  <line x1="80" y1="62" x2="80" y2="84" stroke="#dfe4ef" stroke-width="1"/>
+  <line x1="300" y1="62" x2="300" y2="84" stroke="#dfe4ef" stroke-width="1"/>
+  <line x1="520" y1="62" x2="520" y2="84" stroke="#dfe4ef" stroke-width="1"/>
+  <text x="190" y="44" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">read into RAM · ~200 µs</text>
+  <text x="410" y="44" text-anchor="middle" font-size="13" font-weight="700" fill="#3f4f74">RAM to a core · ~100 ns</text>
   <rect x="20" y="84" width="120" height="60" rx="10" fill="#eef1f8" stroke="#cdd4e6" stroke-width="1.5"/>
   <text x="80" y="111" text-anchor="middle" font-size="16" font-weight="700" fill="#2c3e50">Storage</text>
-  <text x="80" y="130" text-anchor="middle" font-size="12" fill="#6a7280">disk — large, slow</text>
+  <text x="80" y="130" text-anchor="middle" font-size="12" fill="#6a7280">where your files sit</text>
   <rect x="240" y="84" width="120" height="60" rx="10" fill="#eef1f8" stroke="#cdd4e6" stroke-width="1.5"/>
   <text x="300" y="111" text-anchor="middle" font-size="16" font-weight="700" fill="#2c3e50">RAM</text>
-  <text x="300" y="130" text-anchor="middle" font-size="12" fill="#6a7280">fast, limited</text>
+  <text x="300" y="130" text-anchor="middle" font-size="12" fill="#6a7280">what the job holds</text>
   <rect x="460" y="84" width="120" height="60" rx="10" fill="#eef1f8" stroke="#cdd4e6" stroke-width="1.5"/>
   <text x="520" y="106" text-anchor="middle" font-size="16" font-weight="700" fill="#2c3e50">CPU</text>
   <rect x="487" y="116" width="12" height="12" rx="2" fill="#cdd4e6"/><rect x="503" y="116" width="12" height="12" rx="2" fill="#cdd4e6"/><rect x="519" y="116" width="12" height="12" rx="2" fill="#cdd4e6"/><rect x="535" y="116" width="12" height="12" rx="2" fill="#cdd4e6"/>
   <text x="520" y="140" text-anchor="middle" font-size="12" fill="#6a7280">cores do the work</text>
-  <line x1="520" y1="174" x2="90" y2="174" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#bk-hw)"/>
-  <text x="305" y="168" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">write back — slow (~milliseconds)</text>
+  <line x1="520" y1="174" x2="90" y2="174" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 5" marker-end="url(#bk-hw)"/>
+  <text x="305" y="168" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">write results back · ~200 µs</text>
   <g>
     <circle cx="80" cy="56" r="8" fill="#0072B2"><animate attributeName="r" values="8;10;8" dur="1s" repeatCount="indefinite"/></circle>
-    <animateTransform attributeName="transform" type="translate" values="0,0; 0,0; 220,0; 220,0; 440,0; 440,0; 440,118; 0,118; 0,0" keyTimes="0; 0.04; 0.38; 0.44; 0.52; 0.58; 0.63; 0.96; 1" dur="8s" repeatCount="indefinite" calcMode="linear"/>
+    <animateTransform attributeName="transform" type="translate" values="0,0; 0,0; 220,0; 220,0; 440,0; 440,0; 440,118; 0,118; 0,0" keyTimes="0; 0.05; 0.45; 0.52; 0.56; 0.64; 0.70; 0.97; 1" dur="8s" repeatCount="indefinite" calcMode="linear"/>
   </g>
-  <text x="300" y="212" text-anchor="middle" font-size="13.5" fill="#6a7280">Data crawls from disk into RAM (the slow step); the CPU reads it fast from RAM.</text>
+  <text x="300" y="212" text-anchor="middle" font-size="13.5" fill="#6a7280">Both disk legs cost about 1,000× more than reaching RAM.</text>
 </svg>
 
 {: .warning }
-> **Reading from disk is slow — by a factor of about a million.** Your CPU reaches data
-> in RAM in nanoseconds; a disk read takes milliseconds. If your dataset does not fit in
-> RAM all at once, your script keeps going back to disk mid-computation, and *that* is
-> what makes a job crawl. This is why knowing how much RAM your script needs matters —
-> on the cluster, and on your laptop too.
+> **Reading from storage is slow — by a factor of about a thousand.** Your CPU reaches
+> data in RAM in roughly 100 nanoseconds; a request to Yen storage lands in the
+> few-hundred-microsecond range. That cost is paid *per request*, so a few large reads
+> beat many small reads or writes. And if your dataset does not fit in RAM all at once,
+> your script keeps going back to storage mid-computation, and *that* is what makes a job
+> crawl. This is why knowing how much RAM your script needs matters — on the cluster, and
+> on your laptop too.
+>
+> Yen storage is all-flash (VAST), so the drives are not the bottleneck; the network
+> between your node and the storage is.
 
 ---
 
