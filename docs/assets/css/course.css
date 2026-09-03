@@ -14,18 +14,18 @@
 
 .day-skills {
   font-size: 0.88em;
-  color: #666;
+  color: #605c56;
   line-height: 1.7;
 }
 
 .day-card {
-  border: 1px solid var(--border-color, #dde);
+  border: 1px solid #e4e0da;
   border-radius: 8px;
   padding: 1rem 1.2rem;
-  background: var(--sidebar-color, #f8f9fa);
+  background: #f7f5f2;
 }
 .day-card h3 { margin-top: 0; font-size: 1em; }
-.day-card p { margin: 0.25rem 0 0; font-size: 0.88em; color: #555; }
+.day-card p { margin: 0.25rem 0 0; font-size: 0.88em; color: #55524d; }
 
 /* Wrap long plain-text code blocks (e.g. Claude Code prompt examples) so they
    wrap instead of scrolling off-screen. Command blocks (language-bash) are
@@ -40,7 +40,7 @@
    "accordion": a gray summary bar with a chevron that rotates open, and the
    revealed content boxed beneath it. */
 .main-content details {
-  border: 1px solid #e1e4ea;
+  border: 1px solid #e4e0da;
   border-radius: 8px;
   margin: 0.9rem 0;
   overflow: hidden;              /* clips the summary bar to the rounded box */
@@ -51,8 +51,8 @@
   gap: 0.55rem;
   cursor: pointer;
   padding: 0.6rem 0.9rem;
-  background: #f3f4f7;
-  color: #2c3e50;
+  background: #f2efe9;
+  color: #3a3733;
   font-weight: 600;
   list-style: none;              /* drop the default disclosure triangle... */
 }
@@ -63,9 +63,9 @@
   color: #6a7280;
   transition: transform 0.15s ease;
 }
-.main-content details > summary:hover { background: #e9ecf2; }
+.main-content details > summary:hover { background: #eae5dd; }
 .main-content details[open] > summary {
-  border-bottom: 1px solid #e1e4ea;
+  border-bottom: 1px solid #e4e0da;
   margin: 0 -0.9rem;             /* pull the bar back out to the box edges... */
 }
 .main-content details[open] > summary::before { transform: rotate(90deg); }
@@ -79,9 +79,126 @@
    it rather than competing with the callouts that carry instructions. */
 .main-content blockquote.aside,
 .main-content p.aside {
-  border-color: #dcdfe5;
+  border-color: #e0dbd3;
   border-left-color: #6a7280;    /* the same muted grey as the SVG labels */
-  background: #fafbfc;
+  background: #faf8f5;
 }
 .main-content blockquote.aside::before,
 .main-content p.aside::before { color: #6a7280; }
+
+/* ══ Deck-matching theme ═══════════════════════════════════════════════════
+   Colour and type variables live in _sass/custom/setup.scss, which compiles
+   into the theme itself. What's left here is the handful of things the theme
+   has no variable for. */
+
+/* ── Headings: serif, to match the deck's slide titles ────────────────────
+   The theme sets h1 to weight 300, which is anaemic in a serif. Source Serif
+   4 is loaded at 600/700 only, so name those explicitly rather than letting
+   the browser synthesise a light weight. */
+.main-content h1,
+.main-content h2,
+.main-content h3,
+.main-content h4,
+.main-content h5,
+.main-content h6,
+.side-bar .site-title {
+  font-family: "Source Serif 4", georgia, "Times New Roman", serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* h4 is uppercased and letterspaced by the theme — a serif reads badly that
+   small and wide, so keep it in the sans and lean on the tracking instead. */
+.main-content h4 {
+  font-family: "Source Sans 3", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #55524d;
+}
+
+/* The deck puts a short cardinal rule under every slide title. Same device
+   here, on the page title only — repeating it under every h2 would turn a
+   long lesson page into a ladder. */
+.main-content h1:first-of-type {
+  margin-bottom: 1.4rem;
+}
+/* Drawn as a pseudo-element, not a border on the h1. The deck's rule is a
+   fixed-length stub rather than a full-width line, and constraining the
+   heading box itself to get that would wrap every title of more than three
+   words. */
+.main-content h1:first-of-type::after {
+  content: "";
+  display: block;
+  width: 7rem;
+  height: 3px;
+  margin-top: 0.55rem;
+  background: #a4001d;
+}
+
+/* ── Sidebar section accents ──────────────────────────────────────────────
+   Day 1, Day 2 and Reference each get their spine colour from the deck's
+   Agenda. Matching on the permalink means the stripe follows the section's
+   whole subtree, so the colour tells you where you are three pages deep.
+   Falls back to no stripe (not a broken one) if :has() is unavailable.
+   The stripe is set on the link as well as the li because the *active*
+   page's link paints its own background over the parent's inset shadow,
+   which would drop the stripe from exactly the section you're reading. */
+.site-nav .nav-list-item:has(> a[href$="/prework/"]),
+.site-nav .nav-list-link[href$="/prework/"] { box-shadow: inset 3px 0 0 #8c1515; }
+.site-nav .nav-list-item:has(> a[href$="/day1/"]),
+.site-nav .nav-list-link[href$="/day1/"] { box-shadow: inset 3px 0 0 #006c80; }
+.site-nav .nav-list-item:has(> a[href$="/day2/"]),
+.site-nav .nav-list-link[href$="/day2/"] { box-shadow: inset 3px 0 0 #7f2d48; }
+.site-nav .nav-list-item:has(> a[href$="/reference/"]),
+.site-nav .nav-list-link[href$="/reference/"] { box-shadow: inset 3px 0 0 #8a5e00; }
+
+/* The active page already gets bold from the theme; add the cardinal so the
+   "you are here" marker matches the rest of the brand furniture. */
+.site-nav .nav-list-link.active { color: #8c1515; }
+
+/* ── Tables ───────────────────────────────────────────────────────────────
+   Most content tables here are two-column reference grids (agendas, section
+   lists, "what's missing"). A tinted header and horizontal-only rules make
+   them read as rows rather than as a spreadsheet. */
+.main-content table {
+  border-collapse: collapse;
+  border: 1px solid #e4e0da;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.main-content thead th {
+  background: #f2efe9;
+  font-family: "Source Sans 3", system-ui, sans-serif;
+  font-weight: 700;
+  color: #2c2a27;
+  border-bottom: 2px solid #d8d2c8;
+}
+.main-content tbody td { border-top: 1px solid #eeeae3; }
+.main-content tbody tr:hover { background: #faf8f5; }
+
+/* ── Code ─────────────────────────────────────────────────────────────────
+   Code blocks now sit on the warm ground set in setup.scss; give them an
+   edge so a long block has a visible boundary against the page. */
+.main-content div.highlighter-rouge,
+.main-content pre.highlight {
+  border: 1px solid #e8e3db;
+  border-radius: 6px;
+}
+/* Inline code shouldn't look like a miniature block — no border, just tint.
+   Mirrors the theme's own `:not(pre, figure) > code` selector rather than
+   listing parent elements: inline code turns up inside <strong>, <em> and
+   links as often as directly inside a <p>, and enumerating parents misses one
+   every time — **`/compact`** kept the theme's bordered default while the
+   plain `/compact` beside it in the same sentence did not. */
+.main-content :not(pre, figure) > code {
+  border: 0;
+  padding: 0.12em 0.32em;
+  border-radius: 3px;
+  color: #7f2d48;
+}
+
+/* ── Links ────────────────────────────────────────────────────────────────
+   Cardinal on white is 8.9:1, so it carries link duty without underlines in
+   body text — but keep the underline on hover as the affordance. */
+.main-content a { text-decoration: none; }
+.main-content a:hover { text-decoration: underline; text-underline-offset: 2px; }

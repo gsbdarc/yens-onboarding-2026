@@ -1,8 +1,9 @@
 ---
 layout: default
 title: "Day 1 Capstone"
-parent: "Day 1 — Foundations & AI"
-nav_order: 10
+parent: "Part 2 — Python & AI"
+grand_parent: "Day 1 — Foundations & AI"
+nav_order: 7
 permalink: /day1/capstone/
 ---
 
@@ -15,9 +16,9 @@ Everything you need you already built this morning — this runs straight on fro
 extraction section, as one continuous block.
 
 {: .important }
-> **You are not expected to finish this in the room.** It is the required assignment
-> between the two days, and it's on Canvas. Day 2 opens by *profiling* the script you
-> produce here, so this is the one piece of homework you cannot skip.
+> **You are not expected to finish this in the room.** Carry on with it in your own time —
+> nothing to submit. Day 2 profiles a batch script just like this one, and a working copy
+> ships in the repo, so you will not be stuck tomorrow if you don't get to the end today.
 
 ---
 

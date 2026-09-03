@@ -1,7 +1,8 @@
 ---
 layout: default
 title: "Connecting to the Yens"
-parent: "Day 1 — Foundations & AI"
+parent: "Part 1 — Setup"
+grand_parent: "Day 1 — Foundations & AI"
 nav_order: 1
 permalink: /day1/connect-to-the-yens/
 ---
@@ -10,13 +11,18 @@ permalink: /day1/connect-to-the-yens/
 
 SSH lets you connect from your laptop to a remote computer and run commands there
 as if you were sitting at it. In this section you will log in to the Yens for the
-first time, then learn how storage is organized: where your files live, how much
-space you have, and what software is available.
+first time. Where your files go once you are there is the next section,
+[Your Data on the Yens]({{ '/day1/your-data/' | relative_url }}).
 
-{: .note }
-> This section assumes you did the Canvas pre-work — a working terminal, and the
-> `whoami` check that confirmed your Yens account is live. If your login does not
-> work, put up a red sticky now rather than reading ahead.
+{: .important }
+> **Do this section first — give it about 10 minutes.** Everything else in Day 1 runs on
+> the Yens, so nothing later will work until this does. All you need is a terminal: the
+> built-in **Terminal** app on macOS, or [Git Bash](https://git-scm.com/downloads) on
+> Windows.
+>
+> If your login does not work, put up a red sticky rather than reading ahead. An account
+> that was never provisioned is the one problem on this page you cannot solve on your own —
+> flag it and an instructor will come to you.
 
 ---
 
@@ -32,7 +38,7 @@ Your laptop is fine for writing code and running small tests. But research compu
 | Data is restricted (IRB, NDA) | Must stay on Stanford systems | Yens are Stanford-managed infrastructure |
 | Collaborating with your PI | "Can you send me the data?" | PI already has access to `/yen/projects/` |
 
-The Yens are available to all researchers at GSB — faculty, PhD students, post-docs, and research staff alike. Today we learn how to use them effectively.
+The Yens are available to all researchers at GSB — faculty, PhD students, post-docs, and research staff alike. This section is where you start using them.
 
 {: .note }
 > *"My regression on the full sample took 14 hours. My laptop died at hour 6. I lost everything. Two days later I reran it on the Yens and went to sleep. It finished while I was gone."* — Ben
@@ -111,7 +117,7 @@ The **CPU** is the processor chip. **Cores** are the individual workers inside i
 
 ---
 
-## Exercise 1 — Log In
+## Exercise — Log In
 
 Log in to the Yens for the first time and get your bearings.
 
@@ -141,78 +147,6 @@ pwd                               # /home/users/SUNetID
 ls /scratch/users/                # personal scratch — you will create your own folder here later
 ls /yen/projects/                 # shared project storage
 ```
-
-{: .note }
-> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
->
-> Put a sticky note on your laptop lid so instructors can see where you are.
-
----
-
-## Where Your Files Live
-
-<svg viewBox="0 0 660 200" role="img" aria-labelledby="fs-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:660px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
-  <title id="fs-title">The Yens have three main places to keep files. Your home directory is small and backed up. Project storage is shared with your team and backed up. Scratch is huge and fast but NOT backed up, so files there can be deleted — copy out anything you want to keep.</title>
-  <text x="14" y="26" font-size="12.5" font-weight="700" letter-spacing="0.4" fill="#8a94a6">📁  WHERE YOUR FILES LIVE ON THE YENS</text>
-
-  <!-- Home: backed up -->
-  <rect x="14" y="40" width="200" height="150" rx="14" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
-  <text x="30" y="74" font-size="14.5" font-weight="700" fill="#2c3e50">🏠  Your home</text>
-  <text x="30" y="98" font-size="11" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#5b6472">/home/users/SUNetID/</text>
-  <rect x="28" y="112" width="172" height="28" rx="8" fill="#e3f2e6" stroke="#b7ddba" stroke-width="1.5"/>
-  <text x="114" y="131" text-anchor="middle" font-size="12" font-weight="700" fill="#2e7d46">✓  backed up</text>
-  <text x="30" y="162" font-size="11" fill="#6a7280">personal workspace</text>
-  <text x="30" y="180" font-size="11" fill="#6a7280">small quota</text>
-
-  <!-- Projects: backed up -->
-  <rect x="230" y="40" width="200" height="150" rx="14" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
-  <text x="246" y="74" font-size="14.5" font-weight="700" fill="#2c3e50">👥  Project storage</text>
-  <text x="246" y="98" font-size="11" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#5b6472">/yen/projects/</text>
-  <rect x="244" y="112" width="172" height="28" rx="8" fill="#e3f2e6" stroke="#b7ddba" stroke-width="1.5"/>
-  <text x="330" y="131" text-anchor="middle" font-size="12" font-weight="700" fill="#2e7d46">✓  backed up</text>
-  <text x="246" y="162" font-size="11" fill="#6a7280">shared with your team</text>
-  <text x="246" y="180" font-size="11" fill="#6a7280">space is limited</text>
-
-  <!-- Scratch: NOT backed up -->
-  <rect x="446" y="40" width="200" height="150" rx="14" fill="#fff8ef" stroke="#e6cfa8" stroke-width="1.5"/>
-  <text x="462" y="74" font-size="14.5" font-weight="700" fill="#2c3e50">⚡  Scratch space</text>
-  <text x="462" y="98" font-size="11" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#5b6472">/scratch/users/SUNetID/</text>
-  <rect x="460" y="112" width="172" height="28" rx="8" fill="#fdeceb" stroke="#f0c3bd" stroke-width="1.5"/>
-  <text x="546" y="131" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">✕  NOT backed up</text>
-  <text x="462" y="162" font-size="11" fill="#6a7280">huge &amp; fast</text>
-  <text x="462" y="180" font-size="11" fill="#6a7280">copy out what you keep</text>
-</svg>
-
-Rule of thumb: the project itself — scripts, data, and outputs — lives in **projects**; your personal files live in **home** (both are backed up); **scratch** is for big temporary files you don't need to keep.
-
-{: .note }
-> **How to organize your work on the Yens:**
-> - **A project — its scripts, data, and outputs → `/yen/projects/faculty/your_project/`.** This is the shared, backed-up home for the project itself; keep raw data and outputs in **separate subfolders** (e.g. `data/` and `output/`) so they never get mixed up. Access is controlled by the project's **workgroup**: everyone in it can read and write, which is how you, your PI, and collaborators share the same files. You may belong to **several** project workgroups at once, each with its own folder under `/yen/projects/faculty/` (or `/yen/projects/students/`). See [Workgroups](https://rcpedia.stanford.edu/_policies/workgroups/) on RCpedia for who gets access and how it's managed.
-> - **Personal files → your home, `/home/users/SUNetID/`.** Things that are yours, not any one project's: authentication tokens, R or shell preferences, quick one-off experiments. Backed up, and only you can see it.
-> - **Large, temporary things → `/scratch/users/SUNetID/`.** Fast and roomy, but **not backed up** and periodically cleared. Use it for things you don't need to keep or that won't fit in your quota — a big public dataset you're exploring, or an LLM you're testing out. Copy anything worth keeping back to `/yen/projects/`.
-
-**Local disk: `/tmp`**
-
-Those three locations — home, projects, and scratch — are all on the **shared file system**: every node sees the same files. Each node *also* has its own **local disk** that is **not** shared with other nodes, and `/tmp` lives there — it's where programs often write temporary files while they run.
-
-Two things to know about `/tmp`: it's **private to that node** (a file at `/tmp` on `yen1` isn't visible on `yen2`), and it's **temporary and not backed up** (cleared automatically). Keep anything you care about — data, results — on the shared file system.
-
----
-
-## Exercise 2 — Storage and Software
-
-{: .important }
-> **Task:** Check your disk quota, then find and load a Python module.
-
-**Check your quota:**
-```bash
-gsbquota                             # shows home and scratch usage for your account
-gsbquota /yen/projects/faculty/your_project  # append a path to check usage for a project folder
-```
-
-**Browse storage in a visual file manager:**
-```bash
-gsbbrowser                # opens an interactive file size browser in the terminal
 
 {: .note }
 > 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help

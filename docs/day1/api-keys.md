@@ -1,8 +1,9 @@
 ---
 layout: default
 title: "Managing API Keys"
-parent: "Day 1 — Foundations & AI"
-nav_order: 8
+parent: "Part 2 — Python & AI"
+grand_parent: "Day 1 — Foundations & AI"
+nav_order: 5
 permalink: /day1/api-keys/
 ---
 

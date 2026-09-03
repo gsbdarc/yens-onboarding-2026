@@ -1,8 +1,9 @@
 ---
 layout: default
 title: "Slurm Job Arrays"
-parent: "Day 2 — The Cluster"
-nav_order: 6
+parent: "Part 2 — Scale & Ship"
+grand_parent: "Day 2 — The Cluster"
+nav_order: 1
 permalink: /day2/job-arrays/
 ---
 
@@ -96,7 +97,7 @@ We can see that specifying your job as an **array** tells Slurm to launch your o
   <rect x="330" y="119" width="264" height="44" rx="8" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
   <text x="462" y="135" font-size="12" fill="#2c3e50" text-anchor="middle">task 3</text>
   <text x="462" y="150" font-size="8" fill="#6a7280" text-anchor="middle">determined by your code <tspan font-weight="700">and</tspan> SLURM_ARRAY_TASK_ID</text>
-  <text x="462" y="188" font-size="16" fill="#9aa2b1" text-anchor="middle">⋮</text>
+  <text x="462" y="188" font-size="16" fill="#6b7280" text-anchor="middle">⋮</text>
   <rect x="330" y="199" width="264" height="44" rx="8" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
   <text x="462" y="215" font-size="12" fill="#2c3e50" text-anchor="middle">task N</text>
   <text x="462" y="230" font-size="8" fill="#6a7280" text-anchor="middle">determined by your code <tspan font-weight="700">and</tspan> SLURM_ARRAY_TASK_ID</text>
@@ -111,14 +112,18 @@ The task number is what makes this general. Every task runs the identical script
 
 ---
 
-## Exercise
+## Exercise: Run 100 Filings Through an Array
+
+{: .important }
+> **Mandatory.** **Task:** Process 100 SEC filings with a job array — one Python script that
+> handles a single filing, plus a Slurm script that launches it 100 times.
 
 Now over to you. Your job is the following: process and extract information from 100 SEC filings using a job array. The filings are hosted online, and `data/aws_links.csv` — already in your cloned repo, alongside `scripts/` and `slurm/` — provides the URLs of all of them for you to query.
 
 You'll end up with two files: a new Python script that handles a single filing, and a Slurm script to launch it as an array — either a new one, or the `slurm/extract_form_3_batch.slurm` you wrote earlier today, adapted.
 
 {: .note }
-> **Use `gemini-2.5-flash-lite` here, not Day 1's `gpt-5.2`.** Day 1's rule was *iterate cheap, then spend where it counts*. Here the arithmetic flips: the same call runs a hundred times, and cost and speed are now the thing you're managing. You get the rougher model in exchange, and handling that is part of the rest of today's work.
+> **Use `claude-haiku-4-5` here, not a frontier model like Day 1's `gpt-5.2`.** Day 1's rule was *iterate cheap, then spend where it counts*. Here the arithmetic flips: the same call runs a hundred times, and cost and speed are now the thing you're managing. You get the cheaper, faster model in exchange for some accuracy, and handling that is part of the rest of today's work.
 
 Work through it in four steps.
 
@@ -173,23 +178,20 @@ That `- 1` is the off-by-one from the warning above: the tasks count from 1, the
 
 This is the script you wrote on Day 1, `scripts/extract_form_3_one_file.py`, with two changes.
 
-It fetches the filing over the network rather than reading a fixed path off disk, since step 1 gives you a URL. And it calls `gemini-2.5-flash-lite` rather than the `gpt-5.2`.
+It fetches the filing over the network rather than reading a fixed path off disk, since step 1 gives you a URL. And it calls Anthropic directly with `claude-haiku-4-5`, so the reply is validated against `Form3Filing` by the API instead of by you after the fact.
 
 ```python
 import json
 import os
 
 import requests
-from openai import OpenAI
+import anthropic
 from pydantic import BaseModel
 from typing import List
 from dotenv import load_dotenv
 
 load_dotenv()
-client = OpenAI(
-    base_url="https://aiapi-prod.stanford.edu/v1",
-    api_key=os.getenv("STANFORD_API_KEY"),
-)
+client = anthropic.Anthropic()   # reads ANTHROPIC_API_KEY from the environment
 
 
 class Form3Filing(BaseModel):
@@ -210,24 +212,23 @@ Extract the following fields:
 - company_cik: The CIK number of the issuer (from issuerCik or COMPANY DATA).
 - filing_date: The filing date (prefer signatureDate or FILED AS OF DATE).
 
-Return valid JSON matching the schema exactly.
 Return a SINGLE JSON object, not a list. Do not wrap it in an array.
 """
 
 # `filing` is the URL you picked in step 1 — fetch it over the network
 filing_text = requests.get(filing).text
 
-api_response = client.chat.completions.create(
-    model="gemini-2.5-flash-lite",
-    response_format={"type": "json_object"},
-    messages=[
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": filing_text},
-    ],
+# output_format sends Form3Filing along as a schema the reply has to match
+api_response = client.messages.parse(
+    model="claude-haiku-4-5",
+    max_tokens=4096,
+    system=system_prompt,
+    messages=[{"role": "user", "content": filing_text}],
+    output_format=Form3Filing,
 )
 
-# validate the reply against the schema before trusting it
-result = Form3Filing.model_validate_json(api_response.choices[0].message.content)
+# already validated against the schema, so this is a Form3Filing instance
+result = api_response.parsed_output
 ```
 
 </details>
@@ -258,15 +259,63 @@ python scripts/extract_array.py "$SLURM_ARRAY_TASK_ID"
 Then submit it and watch it run. `watch` re-runs a command every couple of seconds, so you can see the tasks start in parallel and drop off as they finish:
 
 ```bash
-sbatch slurm/extract_array.slurm
+sbatch --reservation=class_day2 slurm/extract_array.slurm
 watch squeue --me
 ```
 
 The new thing to notice is the job IDs: an array shows up as many rows sharing one ID, with a task number after it — `12345678_1`, `12345678_2`, and so on — each moving through the same `PD` → `R` → gone lifecycle you watched in [The Slurm Scheduler]({{ '/day2/slurm-scheduler/' | relative_url }}). Once it's done, check the per-task logs in `logs/` and the results in `results/`.
 
+{: .note }
+> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
+
 ---
 
-## Optional Practice: Combine the Results into One CSV
+## Why a Job Array Beats a Loop
+
+Earlier today you did this same work with a `for` loop inside a single job. Two things change:
+
+- **The filings are processed at the same time, rather than one after another.** The loop worked through them in sequence on one core; a job array hands them to whatever cores are free — including in ["waves"]({{ '/reference/parallelization/' | relative_url }}) when there are more filings than cores.
+- **A failure costs you one filing, not the rest of the run.** `extract_form_3_batch.py` has no error handling, so an exception at filing 40 ends the script and filings 41 to 100 never run at all. In a job array, task 40 fails and the other 99 finish regardless.
+
+What doesn't change is how much you have to keep track of. It's still one job ID, one `squeue` line to watch and one `scancel` to stop the lot — now with per-task sub-IDs underneath.
+
+---
+
+## Exercise: Avoiding Wasteful Computation
+
+{: .important }
+> **Mandatory.** **Task:** Make each array task skip work it has already done, then resubmit
+> the same array and watch it finish in seconds.
+
+A job array limits the *damage* of a failure, as we just saw — but you still have to redo whatever failed. A node reboots, a task hits its time limit, the API times out, and a handful of your 100 come back empty. Rerunning the whole array to catch them wastes compute, and with a paid API, money.
+
+The fix is to make each task safe to run again. Before doing any work, a task should check whether its output already exists and exit if it does. Now if you resubmit the *same* array after a partial failure, the finished tasks stop immediately; only the missing ones do real work.
+
+Add this check to your script, then resubmit the array you just ran.
+
+<details markdown="1">
+<summary>💡 Hint — one way to do it</summary>
+
+```python
+# already done? skip — makes the array safe to resubmit after a partial failure
+if output_path.exists():
+    print(f"{output_path} already exists — skipping")
+    sys.exit(0)
+```
+
+</details>
+
+Nothing has been deleted, so every task should find its output and exit at once — the whole array finishing in seconds rather than minutes is the sign it worked.
+
+{: .note }
+> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
+
+---
+
+## Bonus: Combine the Results into One CSV
+
+{: .note }
+> **Done with the mandatory exercises?** First, check whether anyone at your table is stuck — explaining it is how it sticks. Then pick anything below.
 
 The array leaves you a directory of JSON files, one per filing. For analysis you want a single table instead — one row per filing, one column per field.
 
@@ -302,41 +351,6 @@ print(f"Wrote {len(df)} rows to {OUTPUT_CSV}")
 A failed task simply left no file, so it never turns up in the glob and nothing crashes. That's also why the count matters: if `len(df)` is less than 100, some tasks didn't finish.
 
 </details>
-
----
-
-## Why a Job Array Beats a Loop
-
-Earlier today you did this same work with a `for` loop inside a single job. Two things change:
-
-- **The filings are processed at the same time, rather than one after another.** The loop worked through them in sequence on one core; a job array hands them to whatever cores are free — including in ["waves"]({{ '/reference/parallelization/' | relative_url }}) when there are more filings than cores.
-- **A failure costs you one filing, not the rest of the run.** `extract_form_3_batch.py` has no error handling, so an exception at filing 40 ends the script and filings 41 to 100 never run at all. In a job array, task 40 fails and the other 99 finish regardless.
-
-What doesn't change is how much you have to keep track of. It's still one job ID, one `squeue` line to watch and one `scancel` to stop the lot — now with per-task sub-IDs underneath.
-
----
-
-## Exercise: Avoiding Wasteful Computation
-
-A job array limits the *damage* of a failure, as we just saw — but you still have to redo whatever failed. A node reboots, a task hits its time limit, the API times out, and a handful of your 100 come back empty. Rerunning the whole array to catch them wastes compute, and with a paid API, money.
-
-The fix is to make each task safe to run again. Before doing any work, a task should check whether its output already exists and exit if it does. Now if you resubmit the *same* array after a partial failure, the finished tasks stop immediately; only the missing ones do real work.
-
-Add this check to your script, then resubmit the array you just ran.
-
-<details markdown="1">
-<summary>💡 Hint — one way to do it</summary>
-
-```python
-# already done? skip — makes the array safe to resubmit after a partial failure
-if output_path.exists():
-    print(f"{output_path} already exists — skipping")
-    sys.exit(0)
-```
-
-</details>
-
-Nothing has been deleted, so every task should find its output and exit at once — the whole array finishing in seconds rather than minutes is the sign it worked.
 
 ---
 

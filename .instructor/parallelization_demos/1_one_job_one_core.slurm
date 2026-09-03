@@ -16,7 +16,7 @@ source .venv/bin/activate
 
 # Fail before spending API calls if the key isn't where load_dotenv() looks.
 if ! grep -q '^STANFORD_API_KEY=' .env 2>/dev/null; then
-    echo "No STANFORD_API_KEY in $PWD/.env — see docs/day2/key-vault.md" >&2
+    echo "No STANFORD_API_KEY in $PWD/.env — see docs/day1/api-keys.md" >&2
     exit 1
 fi
 

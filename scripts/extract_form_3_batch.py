@@ -9,16 +9,15 @@ os.environ.setdefault("OMP_NUM_THREADS", "1")
 import json
 import requests
 import pandas as pd
-from openai import OpenAI
+import anthropic
 from pydantic import BaseModel
 from typing import List
 from dotenv import load_dotenv
 
+# load_dotenv() puts ANTHROPIC_API_KEY from .env into the environment, which is where
+# the client looks for it by default — so the key never appears in this file.
 load_dotenv()
-client = OpenAI(
-    base_url="https://aiapi-prod.stanford.edu/v1",
-    api_key=os.getenv("STANFORD_API_KEY"),
-)
+client = anthropic.Anthropic()
 
 CSV_PATH = "data/aws_links.csv"
 RESULTS_DIR = "results"
@@ -47,7 +46,6 @@ Extract the following fields:
 - company_cik: The CIK number of the issuer (from issuerCik or COMPANY DATA).
 - filing_date: The filing date (prefer signatureDate or FILED AS OF DATE).
 
-Return valid JSON matching the schema exactly.
 Return a SINGLE JSON object, not a list. Do not wrap it in an array.
 """
 
@@ -69,17 +67,21 @@ for idx, filing_url in enumerate(urls, 1):
     response = requests.get(filing_url)
     filing_text = response.text
 
-    api_response = client.chat.completions.create(
-        # Day 2's model. Temporary: this key can't reach gpt-4o-mini.
-        model="gemini-2.5-flash-lite",
-        response_format={"type": "json_object"},
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": filing_text},
-        ],
+    # output_format hands Form3Filing to the API as a schema the reply must match, so
+    # .parsed_output comes back already validated against it.
+    api_response = client.messages.parse(
+        model="claude-haiku-4-5",
+        max_tokens=4096,
+        system=system_prompt,
+        messages=[{"role": "user", "content": filing_text}],
+        output_format=Form3Filing,
     )
 
-    result = Form3Filing.model_validate_json(api_response.choices[0].message.content)
+    result = api_response.parsed_output
+    if result is None:
+        # No structured reply to save: the model declined, or the answer ran past
+        # max_tokens before it was finished.
+        raise RuntimeError(f"no output for {filename} ({api_response.stop_reason})")
 
     with open(output_path, "w") as f:
         json.dump(result.model_dump(), f, indent=2)

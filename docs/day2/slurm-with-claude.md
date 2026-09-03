@@ -1,12 +1,18 @@
 ---
 layout: default
 title: "Writing a Slurm Job with Claude"
-parent: "Day 2 — The Cluster"
+parent: "Part 1 — Measure & Submit"
+grand_parent: "Day 2 — The Cluster"
 nav_order: 5
 permalink: /day2/slurm-with-claude/
 ---
 
 # Writing a Slurm Job with Claude
+
+{: .note }
+> ⭐ **This whole page is bonus.** Do it once the mandatory sections are done — and check
+> whether anyone at your table is stuck first. It is self-contained, so it is also a good
+> thing to come back to next week.
 
 ---
 
@@ -22,7 +28,7 @@ There are two kinds of knowledge worth capturing this way, and they live in
 different places:
 
 - **How the Yens work** — partitions, resource requests, `%j` log naming, email. True for *every* job you run on the cluster, so it belongs in a **global** skill. You'll distill it from the job you *just* ran.
-- **How this project does things** — its figure house style, where results go, which script does what. Specific to *this* pipeline, so it belongs in a **project** skill. That one is in the optional practice at the bottom.
+- **How this project does things** — its figure house style, where results go, which script does what. Specific to *this* pipeline, so it belongs in a **project** skill. That one is the second section on this page.
 
 You'll always **review what Claude writes** — you're the one who submits and checks the work.
 
@@ -51,7 +57,7 @@ Where that directory lives decides the skill's **scope**:
   <text x="372" y="36" font-size="16" font-weight="700" fill="#1f2937">📦 PROJECT skill</text>
   <text x="372" y="58" font-size="12.5" fill="#6a7280">the repo's own .claude/ (no ~/)</text>
   <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#3a4452">
-    <text x="372" y="90">gsb-…-ai-skills/</text>
+    <text x="372" y="90">yens-onboarding-2026/</text>
     <text x="372" y="112">└─ .claude/skills/</text>
     <text x="372" y="134">      └─ form3-plots/</text>
     <text x="372" y="156">            └─ SKILL.md</text>
@@ -61,17 +67,16 @@ Where that directory lives decides the skill's **scope**:
 
 *Same `.claude/skills/` layout, two different homes: the **global** skill in `~/.claude/` follows you into every project; the **project** skill in the repo's `.claude/` is committed and ships to anyone who clones it.*
 
-You'll write the global one below; the project one is optional practice.
+You'll write the global one first, then the project one.
 
-## Exercise: Write a Skill for Claude
+## Write a Global Skill
 
 {: .important }
-> **Task:** Have Claude distil a **global** Yen skill from the Slurm job you just ran by hand, then invoke it on a fresh job.
+> **Task:** Have Claude distill a **global** Yen skill from the Slurm job you just ran by hand, then invoke it on a fresh job.
 >
-> Your instructor drives this one on screen. Follow along if you like, but watching is
-> enough — the point is the *pattern* (do the work, then distil it into a skill), not the
-> typing. The project-skill version in the optional practice below is the one to do
-> yourself, at your own pace.
+> Work through this at your own pace. The point is the *pattern* — do the work, then distill
+> it into a skill — so if you only get as far as reading the `SKILL.md` Claude writes, you
+> have got the idea.
 
 You'll do this from Claude Code running on the Yens. Load the module and launch it inside your repo:
 
@@ -115,15 +120,13 @@ Then invoke it (step 3) on a fresh job. Claude Code turns each skill's folder na
 
 > /yen-slurm write a Slurm job for a new run and save it as `slurm/extract_form_3_batch_claude.slurm`
 
-**Submit and review:** the conventions should come straight from the skill, matching what you hand-wrote. But the global skill is repo-agnostic — it says nothing about *how this project plots a figure*. That's project-specific knowledge, and it belongs in a project skill — the optional practice below.
+**Submit and review:** the conventions should come straight from the skill, matching what you hand-wrote. But the global skill is repo-agnostic — it says nothing about *how this project plots a figure*. That's project-specific knowledge, and it belongs in a project skill — the next section.
 
 {: .note }
 > 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
 
 
-## Optional Practice
-
-**A project skill — your figure house style**
+## Write a Project Skill — Your Figure House Style
 
 Skills shine when Claude follows *your* world's conventions instead of generic defaults — a house style so every figure comes out consistent.
 
@@ -160,21 +163,19 @@ It should come out in the same house style automatically — that's the skill do
 
 ---
 
----
-{: .note }
-> Finished early? Try this one.
+## Claude in One Shot
 
-**Optional practice — Claude in one shot (`claude -p`)**
+*Print mode — `claude -p`.*
 
 Everything above used Claude Code **interactively**. For a quick, one-off question — or to script it — Claude also runs **non-interactively**: `claude -p "…"` (print mode) runs a single prompt, prints the answer, and exits. No session, no back-and-forth.
 
-Point it at a file — e.g. review one of the broken scripts from the [**Debug** optional practices]({{ '/day2/slurm-job/#optional-practice' | relative_url }}):
+Point it at a file — e.g. review one of the broken scripts from the [**Debug a Failed Job** exercise]({{ '/day2/slurm-job/#exercise-debug-a-failed-job' | relative_url }}):
 
 ```bash
 claude -p "review scripts/extract_form_3_one_file_broken.py and explain what it does"
 ```
 
-Or **pipe** data straight into it. On Linux, every command-line program has two text streams: **standard input** (`stdin`, the text coming *in*) and **standard output** (`stdout`, the text it prints *out*). The pipe symbol `|` connects them — it takes the `stdout` of the command on its left and feeds it as the `stdin` of the command on its right. Because `claude -p` reads from `stdin`, you can pipe a file's contents straight into Claude instead of typing them. Take a failed job's error log from the [**Debug** optional practices]({{ '/day2/slurm-job/#optional-practice' | relative_url }}) (run those first, so the `logs/fix_me_*.err` files exist) and let Claude diagnose it in one line:
+Or **pipe** data straight into it. On Linux, every command-line program has two text streams: **standard input** (`stdin`, the text coming *in*) and **standard output** (`stdout`, the text it prints *out*). The pipe symbol `|` connects them — it takes the `stdout` of the command on its left and feeds it as the `stdin` of the command on its right. Because `claude -p` reads from `stdin`, you can pipe a file's contents straight into Claude instead of typing them. Take a failed job's error log from the [**Debug a Failed Job** exercise]({{ '/day2/slurm-job/#exercise-debug-a-failed-job' | relative_url }}) (run those first, so the `logs/fix_me_*.err` files exist) and let Claude diagnose it in one line:
 
 ```bash
 cat logs/fix_me_*.err | claude -p "this Slurm job failed — explain the error and suggest a fix"

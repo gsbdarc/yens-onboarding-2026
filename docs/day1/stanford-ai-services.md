@@ -1,8 +1,9 @@
 ---
 layout: default
 title: "Stanford's AI Services"
-parent: "Day 1 — Foundations & AI"
-nav_order: 6
+parent: "Part 2 — Python & AI"
+grand_parent: "Day 1 — Foundations & AI"
+nav_order: 3
 permalink: /day1/stanford-ai-services/
 ---
 

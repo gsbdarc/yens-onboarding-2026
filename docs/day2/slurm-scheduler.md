@@ -1,7 +1,8 @@
 ---
 layout: default
 title: "The Slurm Scheduler"
-parent: "Day 2 — The Cluster"
+parent: "Part 1 — Measure & Submit"
+grand_parent: "Day 2 — The Cluster"
 nav_order: 3
 permalink: /day2/slurm-scheduler/
 ---
@@ -31,7 +32,7 @@ Use the interactive Yens for: exploring data, testing code, runs where you're wa
 
 ## When the Interactive Yens Aren't Enough
 
-In the live demo earlier you saw what happens when many users share the same node — CPU cores get taken, RAM fills up, and everyone slows down. The interactive Yens hit the same limits:
+You just saw what happens when many users share the same node — CPU cores get taken, RAM fills up, and everyone slows down. The interactive Yens hit the same limits:
 
 - **All the CPU cores are busy** — someone else is using all available cores on the node; your script crawls
 - **The node is out of RAM** — another user's job already claimed most of the memory; yours may crash or get killed
@@ -93,7 +94,7 @@ Instead of running your script directly on a shared node, you submit it to the s
 ## Exercise: Peek at the Queue
 
 {: .important }
-> **Task:** Look at the live Slurm queue to see what jobs are waiting or running right now.
+> **Mandatory.** **Task:** Look at the live Slurm queue to see what jobs are waiting or running right now.
 
 ```bash
 squeue
@@ -135,18 +136,18 @@ Every `PD` job is waiting for a node with the resources it requested. When Slurm
   <rect x="150" y="40" width="112" height="76" rx="10" fill="#f3f4f7" stroke="#d5d8e2" stroke-width="1.5"/>
   <text x="206" y="72" text-anchor="middle" font-size="17" font-weight="700" fill="#6a7280">PD</text>
   <text x="206" y="91" text-anchor="middle" font-size="12" fill="#6a7280">queued</text>
-  <text x="206" y="107" text-anchor="middle" font-size="11" fill="#9aa4b0">waiting for a node</text>
+  <text x="206" y="107" text-anchor="middle" font-size="11" fill="#6b7280">waiting for a node</text>
   <rect x="288" y="40" width="112" height="76" rx="10" fill="#eef5ff" stroke="#e67e22" stroke-width="2"/>
   <text x="344" y="72" text-anchor="middle" font-size="17" font-weight="700" fill="#b3611a">R</text>
   <text x="344" y="91" text-anchor="middle" font-size="12" fill="#5b6472">running</text>
-  <text x="344" y="107" text-anchor="middle" font-size="11" fill="#9aa4b0">on a compute node</text>
+  <text x="344" y="107" text-anchor="middle" font-size="11" fill="#6b7280">on a compute node</text>
   <rect x="426" y="40" width="112" height="76" rx="10" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
   <text x="482" y="72" text-anchor="middle" font-size="16" font-weight="700" fill="#1f2937">completed</text>
   <text x="482" y="93" text-anchor="middle" font-size="12" fill="#6a7280">job finishes</text>
   <rect x="564" y="40" width="112" height="76" rx="10" fill="#f3f4f7" stroke="#d5d8e2" stroke-width="1.5"/>
   <text x="620" y="72" text-anchor="middle" font-size="17" font-weight="700" fill="#1f2937">logs</text>
   <text x="620" y="91" text-anchor="middle" font-size="12" fill="#6a7280">.out / .err</text>
-  <text x="620" y="107" text-anchor="middle" font-size="11" fill="#9aa4b0">in logs/</text>
+  <text x="620" y="107" text-anchor="middle" font-size="11" fill="#6b7280">in logs/</text>
   <g>
     <path d="M58,16 L78,16 L68,32 Z" fill="#0072B2"><animateTransform attributeName="transform" type="translate" values="0,0; 0,5; 0,0" dur="0.9s" repeatCount="indefinite"/></path>
     <animateTransform attributeName="transform" type="translate" values="0,0; 0,0; 138,0; 138,0; 276,0; 276,0; 414,0; 414,0; 552,0; 552,0; 0,0" keyTimes="0; 0.06; 0.22; 0.28; 0.44; 0.50; 0.66; 0.72; 0.88; 0.94; 1" dur="10s" repeatCount="indefinite" calcMode="linear"/>
@@ -170,11 +171,11 @@ sinfo
 
 ---
 
-## Optional Practice
+## Bonus
 {: .note }
-> Finished early? Try any of these.
+> **Done with the mandatory exercises?** First, check whether anyone at your table is stuck — explaining it is how it sticks. Then pick anything below.
 
-**Optional practice — Add a `longsqueue` alias**
+**Bonus — Add a `longsqueue` alias**
 
 The default `squeue` output is sparse. Pass a custom format to see what each job actually requested — CPU cores, memory, and time limit:
 
@@ -194,7 +195,7 @@ source ~/.bash_profile
 Now run `longsqueue` — you should see the full resource picture of every job in the queue.
 
 
-**Optional practice — Inspect any job with scontrol**
+**Bonus — Inspect any job with scontrol**
 
 Pick any job from `squeue` and look up its full details:
 
@@ -210,7 +211,7 @@ Find these fields in the output:
 This works on any job — yours or someone else's — as long as it is still in the queue or running.
 
 
-**Optional practice — Compare partitions**
+**Bonus — Compare partitions**
 
 Run `sinfo -p gpu` and `sinfo -p normal` to compare node counts and time limits. `sinfo` doesn't show the per-user resource **caps** — those come from each partition's QoS, so check `sacctmgr show qos gpu` vs `sacctmgr show qos normal` (or the [current partitions and their limits](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits)). Can you explain when you'd request one over the other for a job?
 

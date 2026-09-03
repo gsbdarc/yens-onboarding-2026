@@ -13,8 +13,8 @@ the shell — no loops and no Python. You start with a few hundred files dumped 
 one directory, in the state a vendor delivery or an instrument export usually
 arrives in, and impose a structure on them.
 
-It is part of the **Canvas pre-work**. Work through it on your own laptop before
-Day 1; it takes about 25 minutes, and the quiz on Canvas draws directly from it.
+It is **optional background reading** — nothing in class depends on it. Work through it on
+your own laptop whenever you like; it takes about 25 minutes.
 
 {: .note }
 > This page assumes you have already done [Command Line Basics]({{ '/reference/command-line-basics/' | relative_url }}) —

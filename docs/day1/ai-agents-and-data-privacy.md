@@ -1,8 +1,9 @@
 ---
 layout: default
 title: "AI Agents & Data Privacy"
-parent: "Day 1 — Foundations & AI"
-nav_order: 7
+parent: "Part 2 — Python & AI"
+grand_parent: "Day 1 — Foundations & AI"
+nav_order: 4
 permalink: /day1/ai-agents-and-data-privacy/
 ---
 

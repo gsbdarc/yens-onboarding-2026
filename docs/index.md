@@ -20,26 +20,21 @@ travels with you.
 
 ## Before You Arrive
 
-The **Canvas pre-work is required**, and Day 1 starts from the assumption you have
-done it. It takes about an hour.
+**Two accounts, and that's all.** Neither needs a terminal, and you do not need to log in
+to the Yens before Day 1 — see [Before You Arrive]({{ '/prework/' | relative_url }}).
 
-1. **Accounts.** A [Claude account](https://uit.stanford.edu/service/claude) (Stanford
-   provides Claude for Education free to most people), a
-   [GitHub account](https://github.com/signup), and access to the Yens.
-2. **A terminal.** On **macOS**, the built-in **Terminal** app. On **Windows**,
-   install [Git Bash](https://git-scm.com/downloads).
-3. **Confirm your Yens login works** — and submit the `whoami` output on Canvas.
-   This is the single most important pre-work item. A login that fails on the morning
-   of Day 1 costs you most of Day 1.
-4. **Two reading pages, and the quiz:**
-   [Command Line Basics]({{ '/reference/command-line-basics/' | relative_url }}) and
-   [Bulk File Operations]({{ '/reference/bulk-file-operations/' | relative_url }}).
+1. **A [GitHub account](https://github.com/signup).** Free; use an existing one if you
+   have it.
+2. **[Claude, through Stanford](https://uit.stanford.edu/service/claude).** Stanford
+   provides Claude for Education free to most people. **Request it early** — approval is
+   not instant.
 
 {: .important }
 > **Yens access.** Faculty, PhD students, post-docs, and research fellows have access
 > by default; others need a SUNet ID and faculty sponsorship. See
 > [Access the Yens](https://rcpedia.stanford.edu/_getting_started/how_access_yens/) on
-> RCpedia. If your login does not work, sort it out **before** Day 1 — not on the day.
+> RCpedia. You don't need to *log in* before Day 1, but the account has to **exist** by
+> then — and getting one can take days, so check now rather than on the morning.
 
 {: .note }
 > In class: put a **🟢 green sticky** on your laptop lid when you're done with a step,
@@ -63,9 +58,10 @@ done it. It takes about an hour.
   <div class="day-skills">Resource profiling &middot; Slurm &middot; job lifecycle &amp; logs &middot; debugging failed jobs &middot; Claude skills &middot; job arrays &middot; resource estimation</div>
 </div>
 
-Both mornings run 9:00–12:00 with breaks at 10:00 and 11:00. The
-[Reference]({{ '/reference/' | relative_url }}) section holds the pre-work plus the
-material we could not fit — GPUs and local LLMs, LLM-as-a-judge, `scp`, and more.
+Both mornings run 9:00–12:00. Day 1 breaks at 10:00 and 11:00; Day 2 runs as two
+self-paced blocks, where you break when your table reaches a stopping point. The
+[Reference]({{ '/reference/' | relative_url }}) section holds the material we could not
+fit — local LLMs, LLM-as-a-judge, `scp`, and more.
 
 ---
 

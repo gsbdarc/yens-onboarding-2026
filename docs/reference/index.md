@@ -10,16 +10,16 @@ permalink: /reference/
 # Reference
 
 Two mornings is not enough time for everything in this material. These pages hold
-what we could not fit — plus the pre-work you did before Day 1, kept here so you
-can come back to it.
+what we could not fit, plus some background reading you may find useful.
 
 Nothing here is assumed in class, and nothing in class depends on it.
 
 ---
 
-## Pre-work
+## Background reading
 
-Assigned on Canvas before Day 1. Day 1 starts from the assumption you have done these.
+Optional, and nothing in class depends on them. Useful if you have never worked at a
+command line, or want to come back to it afterwards.
 
 | Page | What it covers |
 |---|---|
@@ -38,9 +38,9 @@ Slack channel is the place for questions.
 | [Parallelization Basics]({{ '/reference/parallelization/' | relative_url }}) | When parallelism helps, and the three shapes it takes on a cluster |
 | [Documenting Your Pipeline]({{ '/reference/documenting-your-pipeline/' | relative_url }}) | The README that makes a pipeline rerunnable by someone else |
 
-## Extension assignments
+## Going further
 
-Optional, offered on Canvas. Each stands alone.
+Optional, self-serve. Each stands alone — pick one up whenever you like.
 
 | Page | What it covers |
 |---|---|

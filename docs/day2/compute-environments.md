@@ -1,7 +1,8 @@
 ---
 layout: default
 title: "Compute Environments"
-parent: "Day 2 — The Cluster"
+parent: "Part 1 — Measure & Submit"
+grand_parent: "Day 2 — The Cluster"
 nav_order: 1
 permalink: /day2/compute-environments/
 ---
@@ -42,9 +43,9 @@ Yesterday you wrote a Python script and ran it on the Yens interactively. But wh
 actually inside the machine running your code?
 
 Every machine you will run research code on — your laptop, a Yen, a cloud instance — is
-built from the same few physical parts. The photo below shows a Yen server opened up.
-What changes between environments is how much of each part you get, and who else is
-competing for it.
+built from the same few physical parts. The image below is an AI rendering of a Yen server
+opened up. What changes between environments is how much of each part you get, and who
+else is competing for it.
 
 ![Server hardware diagram showing CPU, cores, and RAM]({{ site.baseurl }}/assets/images/server-hardware-cpu-ram.png)
 
@@ -75,7 +76,7 @@ the processor, the rest is quick:
   <title id="hwflow-title">How your data moves: disk to RAM to CPU</title>
   <desc id="hwflow-desc">A packet of data loops from Storage to RAM to the CPU and back to Storage. Reading from disk into RAM is slow, and writing results back to disk is slow too; the CPU reaches data in RAM quickly.</desc>
   <defs><marker id="bk-hw" markerWidth="9" markerHeight="9" refX="6.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#c0392b"/></marker></defs>
-  <text x="12" y="20" font-size="14" font-weight="700" letter-spacing="0.4" fill="#8a94a6">🖥  HOW YOUR DATA MOVES: DISK → RAM → CPU</text>
+  <text x="12" y="20" font-size="14" font-weight="700" letter-spacing="0.4" fill="#6b7280">🖥  HOW YOUR DATA MOVES: DISK → RAM → CPU</text>
   <line x1="80" y1="56" x2="520" y2="56" stroke="#cdd4e6" stroke-width="2" stroke-dasharray="4 5"/>
   <text x="190" y="46" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">read — slow (~milliseconds)</text>
   <text x="410" y="46" text-anchor="middle" font-size="13" font-weight="700" fill="#3f4f74">fast (~nanoseconds)</text>
@@ -127,7 +128,7 @@ the cluster is busy, you feel it.
 > collaboration easy — and it also means everyone is hitting the same storage at once.
 
 A **node** is one physical server, with its own CPU and RAM, independent of the others.
-That distinction matters tomorrow: a job asking for more cores than any single node has
+That distinction matters later today: a job asking for more cores than any single node has
 will never start, however much the cluster has in total.
 
 ### The Cloud — Rented
@@ -148,13 +149,13 @@ it faster than the queue will give it to you.
 
 ---
 
-## Exercise: Class Participation
+## Discussion
 
 {: .important }
-> **Task:** Take part in the class demo and discussion — laptop vs. Yens vs. cloud.
+> **Follow along.** We'll talk through the tradeoffs together — laptop vs. Yens vs. cloud.
 
 <details markdown="1">
-<summary>❓ After the demo — discuss these</summary>
+<summary>❓ Questions to discuss</summary>
 
 - What are the tradeoffs between your laptop, the Yens, and the cloud?
 - What happens when many researchers all run jobs at once on the shared Yens?
@@ -164,11 +165,11 @@ it faster than the queue will give it to you.
 
 ---
 
-## Optional Practice
+## Bonus
 {: .note }
-> Finished early? Try any of these.
+> **Done with the mandatory exercises?** First, check whether anyone at your table is stuck — explaining it is how it sticks. Then pick anything below.
 
-**Optional practice — Know your own machine**
+**Bonus — Know your own machine**
 
 **Work with Claude** to figure out how to check your own laptop's CPU core count and RAM — tell it what operating system you're on and have it walk you through finding each one. Then enter your specs below to see just how much bigger one Yen node is (**yen1 has 256 cores and 1 TB of RAM**).
 
@@ -220,7 +221,7 @@ You don't need a fancy prompt. For example:
 </script>
 
 
-**Optional practice — Price a cloud instance**
+**Bonus — Price a cloud instance**
 
 **Work with Claude** to find on-demand pricing for a cloud VM comparable to a Yen node — 256 cores and 1 TB of RAM, for example on AWS. Then use the calculator below — enter the VM's specs and the price per hour you found — to estimate what your Day 1 extraction job would cost to run there for an hour. Grant budgets aren't infinite; this is a real judgment call you'll make in your own research.
 

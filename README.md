@@ -8,7 +8,8 @@ tools. Both mornings run 9:00–12:00.
 
 **🌐 Course website:** <https://gsbdarc.github.io/yens-onboarding-2026/>
 
-Pre-assignments, quizzes, and optional extension assignments are on **Canvas**.
+There is no LMS this cohort — everything, including the optional extension material, is
+on the course website.
 
 ---
 
@@ -26,18 +27,17 @@ unstructured text into validated structured records, then scaling it across the 
 
 ```
 docs/           the course website (Jekyll + just-the-docs, published by GitHub Actions)
-  prework.md    Canvas pre-work checklist + the prereq dependency map
+  prework.md    the two things participants need before Day 1
   day1/         Day 1 sections
   day2/         Day 2 sections
-  reference/    pre-work reading, plus material cut from class for time
+  reference/    background reading, plus material cut from class for time
 data/           SEC filings, the filing URL list, and the Potion Brawl demo project
 scripts/        staged teaching scripts (extraction, profiling)
-slurm/          example and deliberately-broken Slurm scripts
+slurm/          example, GPU, and deliberately-broken Slurm scripts
 .instructor/    instructor-only, NOT published:
   agenda.md         run-of-show for both days + measured section timings
   day{1,2}-teaching-plan.md
   prereq-triage.md  the 9:00 "who is going to be stuck" check
-  canvas-modules.md spec for the Canvas pre-work, quizzes, and assignments
   *.key.md          answer keys
 ```
 

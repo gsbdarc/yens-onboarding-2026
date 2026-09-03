@@ -1,8 +1,9 @@
 ---
 layout: default
 title: "Day 2 Capstone"
-parent: "Day 2 — The Cluster"
-nav_order: 7
+parent: "Part 2 — Scale & Ship"
+grand_parent: "Day 2 — The Cluster"
+nav_order: 2
 permalink: /day2/capstone/
 ---
 
@@ -12,9 +13,13 @@ permalink: /day2/capstone/
 
 ## The Capstone — Scale to 100 filings
 
+{: .important }
+> **Mandatory.** **Task:** Estimate what a 100-filing run will cost in CPU, RAM, and time —
+> **write the estimate down first** — then run it and check yourself against `sacct`.
+
 All day you've profiled and run **10 filings**. The capstone: scale to **100** — and **estimate what it needs *before* you run it**.
 
-**Step back — what are we actually doing?** Each "filing" is a real **SEC Form 3**; your script hands it to the **Stanford AI API**, which reads it and returns the structured fields. Scaling to 100 doesn't change that shape: the batch still walks the filings **one at a time**, making one blocking API call per filing and waiting for the answer before starting the next. That's why this job is **I/O-bound** — as you saw in profiling, the wall-clock time grows with the number of filings while RAM and CPU stay about flat.
+**Step back — what are we actually doing?** Each "filing" is a real **SEC Form 3**; your script hands it to the **Anthropic API**, which reads it and returns the structured fields. Scaling to 100 doesn't change that shape: the batch still walks the filings **one at a time**, making one blocking API call per filing and waiting for the answer before starting the next. That's why this job is **I/O-bound** — as you saw in profiling, the wall-clock time grows with the number of filings while RAM and CPU stay about flat.
 
 ### 1. Estimate the resources for 100 filings — and write it down first
 
@@ -24,7 +29,7 @@ You're running the same loop, just over 100 files instead of 10. Think about wha
 
 **Before you submit anything**, write in your `README.md`: which resources you think will **scale** with the number of filings processed and which will stay about flat — and **why** — along with your CPU, RAM, and wall-clock **estimate for 100**. Committing to a number *before* you run it is the whole point.
 
-**Zoom out:** *the task hasn't changed — you're still sending each SEC Form 3 filing to the Stanford AI API to extract its structured fields. There are just **100** of them now, processed one after another in a loop. You're sizing the resources for that loop.*
+**Zoom out:** *the task hasn't changed — you're still sending each SEC Form 3 filing to the Anthropic API to extract its structured fields. There are just **100** of them now, processed one after another in a loop. You're sizing the resources for that loop.*
 
 ### 2. Write a Slurm script for the batch
 
@@ -68,12 +73,18 @@ Ask Claude Code to handle it:
 
 ## Finished Early?
 
-Go back and pick up any optional practice you skipped — the `fix_me` debugging
-puzzles in [Writing & Submitting a Slurm Job]({{ '/day2/slurm-job/' | relative_url }})
-are the highest-value ones, because reading a failed job's logs is the skill you
-will actually need first. Beyond that, the [Reference]({{ '/reference/' | relative_url }})
-section holds the material we could not fit into two mornings: job arrays at full
-scale, GPUs and local LLMs, and LLM-as-a-judge.
+**First, look around your table.** If anyone is still mid-capstone, help them — you have
+just done the thing they are stuck on, and explaining it is how it sticks.
+
+Then take your pick:
+
+| Bonus | Where |
+|---|---|
+| The remaining `fix_me` puzzles — the highest-value bonus on the day, because reading a failed job's logs is the skill you need first | [Writing & Submitting a Slurm Job]({{ '/day2/slurm-job/#bonus' | relative_url }}) |
+| Distill today's Slurm conventions into a reusable Claude skill | [Writing a Slurm Job with Claude]({{ '/day2/slurm-with-claude/' | relative_url }}) |
+| Ask Slurm for a GPU and work out whether your job actually wanted one | [GPUs]({{ '/day2/gpus/' | relative_url }}) |
+| Merge the array's per-filing JSON into one CSV | [Job Arrays]({{ '/day2/job-arrays/#bonus-combine-the-results-into-one-csv' | relative_url }}) |
+| Local LLMs, LLM-as-a-judge, parallelization in depth, `scp` | [Reference]({{ '/reference/' | relative_url }}) |
 
 {: .note }
 > **Done?** Bring any lingering questions to the instructors — now is the time to ask.
@@ -86,9 +97,11 @@ scale, GPUs and local LLMs, and LLM-as-a-judge.
 - **Profiling** — measuring a script's time, CPU, and RAM with `time`, `userload`, and `htop`; telling **serial from parallel** and **CPU-bound from I/O-bound** work.
 - **Slurm** — why a scheduler exists; reading the queue and partitions (`squeue`, `sinfo`, QoS caps).
 - **Running jobs** — writing a Slurm script from scratch, submitting/monitoring/cancelling, reading `.out`/`.err` logs, and **debugging failed jobs** (code bug vs. OOM vs. timeout).
-- **Claude skills** — distilling the Yens conventions from a job you just ran into a reusable skill.
 - **Job arrays** — one script, one `--array` flag, every filing at once; and why that beats a loop.
 - **Resource estimation & scaling** — profiling a small run, estimating a bigger one, and checking your estimate against what the job actually used.
 - **Reproducibility** — a README a colleague (or future you) can actually rerun.
+
+And if you got into the bonus material: distilling today's conventions into a reusable
+Claude skill, and what asking Slurm for a GPU does and doesn't buy you.
 
 You now have the full loop every real research pipeline needs: **estimate → request → run → check → document.**

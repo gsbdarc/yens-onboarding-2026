@@ -1,8 +1,9 @@
 ---
 layout: default
 title: "Python Environments"
-parent: "Day 1 — Foundations & AI"
-nav_order: 5
+parent: "Part 2 — Python & AI"
+grand_parent: "Day 1 — Foundations & AI"
+nav_order: 2
 permalink: /day1/python-environments/
 ---
 
