@@ -51,25 +51,25 @@ The solution: a scheduler. **Slurm** reads every job request, knows what resourc
 
 Instead of running your script directly on a shared node, you submit it to the scheduler: you specify what resources you need, Slurm runs it on a dedicated node, and you collect the results when it's done.
 
-<svg viewBox="0 0 730 108" role="img" aria-labelledby="whererun-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:730px;height:auto;margin:0.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+<svg viewBox="0 0 730 108" role="img" aria-labelledby="whererun-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:730px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="whererun-title">You submit a job from a shared interactive Yen; the Slurm scheduler runs it on a separate dedicated compute node, using that node's own cores and RAM.</title>
   <defs>
     <marker id="whererun-ah" markerWidth="10" markerHeight="10" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#e67e22"/></marker>
   </defs>
   <rect x="8" y="16" width="204" height="76" rx="12" fill="#fff8ef" stroke="#e6cfa8" stroke-width="1.5"/>
-  <text x="26" y="50" font-size="17" font-weight="700" fill="#1f2937">💻 Interactive Yen</text>
-  <text x="26" y="74" font-size="14" fill="#4b5563">yen1–yen5 · you work here</text>
+  <text x="26" y="50" font-size="17" font-weight="700" fill="#2c3e50">💻  Interactive Yen</text>
+  <text x="26" y="74" font-size="14" fill="#6a7280">yen1–yen5 · you work here</text>
   <line x1="214" y1="54" x2="272" y2="54" stroke="#e67e22" stroke-width="2.5" marker-end="url(#whererun-ah)"/>
   <text x="243" y="44" text-anchor="middle" font-size="13.5" font-weight="700" fill="#b3611a">submit</text>
   <rect x="274" y="32" width="140" height="44" rx="12" fill="#f3f4f7" stroke="#d5d8e2" stroke-width="1.5"/>
-  <text x="344" y="54" text-anchor="middle" font-size="17" font-weight="700" fill="#1f2937">Slurm</text>
-  <text x="344" y="70" text-anchor="middle" font-size="13" fill="#4b5563">the scheduler</text>
+  <text x="344" y="54" text-anchor="middle" font-size="17" font-weight="700" fill="#2c3e50">Slurm</text>
+  <text x="344" y="70" text-anchor="middle" font-size="13" fill="#6a7280">the scheduler</text>
   <line x1="416" y1="54" x2="468" y2="54" stroke="#e67e22" stroke-width="2.5" marker-end="url(#whererun-ah)"/>
   <text x="442" y="44" text-anchor="middle" font-size="13.5" font-weight="700" fill="#b3611a">runs it</text>
   <rect x="470" y="8" width="242" height="92" rx="12" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
-  <text x="486" y="38" font-size="16" font-weight="700" fill="#1f2937">🖥️ Compute Node(s)</text>
-  <text x="486" y="64" font-size="14" fill="#4b5563">your script gets dedicated</text>
-  <text x="486" y="84" font-size="14" fill="#4b5563">cores + RAM</text>
+  <text x="486" y="38" font-size="16" font-weight="700" fill="#2c3e50">🖥️  Compute Node(s)</text>
+  <text x="486" y="64" font-size="14" fill="#6a7280">your script gets dedicated</text>
+  <text x="486" y="84" font-size="14" fill="#6a7280">cores + RAM</text>
 </svg>
 
 *You submit from a shared interactive Yen, but the job runs on separate **compute node(s)** — with dedicated cores and RAM, nothing else competing.*
@@ -120,7 +120,7 @@ squeue -p gpu
 
 Every `PD` job is waiting for a node with the resources it requested. When Slurm finds a matching node — it runs.
 
-<svg viewBox="0 0 720 130" role="img" aria-labelledby="lifecycle-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:720px;height:auto;margin:1rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+<svg viewBox="0 0 720 130" role="img" aria-labelledby="lifecycle-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:720px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="lifecycle-title">A job's lifecycle: you submit it, it waits in the queue as PD, runs as R on a compute node, completes, and leaves .out and .err logs behind.</title>
   <defs>
     <marker id="lifecycle-ah" markerWidth="10" markerHeight="10" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#e67e22"/></marker>
@@ -130,7 +130,7 @@ Every `PD` job is waiting for a node with the resources it requested. When Slurm
   <line x1="400" y1="78" x2="426" y2="78" stroke="#e67e22" stroke-width="2.5" marker-end="url(#lifecycle-ah)"/>
   <line x1="538" y1="78" x2="564" y2="78" stroke="#e67e22" stroke-width="2.5" marker-end="url(#lifecycle-ah)"/>
   <rect x="12" y="40" width="112" height="76" rx="10" fill="#fff8ef" stroke="#e6cfa8" stroke-width="1.5"/>
-  <text x="68" y="72" text-anchor="middle" font-size="17" font-weight="700" fill="#1f2937">submit</text>
+  <text x="68" y="72" text-anchor="middle" font-size="17" font-weight="700" fill="#2c3e50">submit</text>
   <text x="68" y="93" text-anchor="middle" font-size="12" fill="#6a7280">your job</text>
   <rect x="150" y="40" width="112" height="76" rx="10" fill="#f3f4f7" stroke="#d5d8e2" stroke-width="1.5"/>
   <text x="206" y="72" text-anchor="middle" font-size="17" font-weight="700" fill="#6a7280">PD</text>
@@ -141,10 +141,10 @@ Every `PD` job is waiting for a node with the resources it requested. When Slurm
   <text x="344" y="91" text-anchor="middle" font-size="12" fill="#5b6472">running</text>
   <text x="344" y="107" text-anchor="middle" font-size="11" fill="#6b7280">on a compute node</text>
   <rect x="426" y="40" width="112" height="76" rx="10" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
-  <text x="482" y="72" text-anchor="middle" font-size="16" font-weight="700" fill="#1f2937">completed</text>
+  <text x="482" y="72" text-anchor="middle" font-size="16" font-weight="700" fill="#2c3e50">completed</text>
   <text x="482" y="93" text-anchor="middle" font-size="12" fill="#6a7280">job finishes</text>
   <rect x="564" y="40" width="112" height="76" rx="10" fill="#f3f4f7" stroke="#d5d8e2" stroke-width="1.5"/>
-  <text x="620" y="72" text-anchor="middle" font-size="17" font-weight="700" fill="#1f2937">logs</text>
+  <text x="620" y="72" text-anchor="middle" font-size="17" font-weight="700" fill="#2c3e50">logs</text>
   <text x="620" y="91" text-anchor="middle" font-size="12" fill="#6a7280">.out / .err</text>
   <text x="620" y="107" text-anchor="middle" font-size="11" fill="#6b7280">in logs/</text>
   <g>
@@ -213,5 +213,3 @@ This works on any job — yours or someone else's — as long as it is still in 
 **Bonus — Compare partitions**
 
 Run `sinfo -p gpu` and `sinfo -p normal` to compare node counts and time limits. `sinfo` doesn't show the per-user resource **caps** — those come from each partition's QoS, so check `sacctmgr show qos gpu` vs `sacctmgr show qos normal` (or the [current partitions and their limits](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits)). Can you explain when you'd request one over the other for a job?
-
-

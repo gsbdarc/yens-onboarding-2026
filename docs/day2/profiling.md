@@ -94,16 +94,16 @@ This page will teach you **how to estimate the resources your script is actually
 
 You are going to run a script you have never seen before and figure out what resources it uses — without reading the code. This is called **profiling**: measuring a script's time, CPU, and RAM usage as it runs. The technique: one terminal runs the script, a second terminal on the **same node** watches it live.
 
-<svg viewBox="0 0 700 132" role="img" aria-labelledby="twoterm-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:700px;height:auto;margin:1rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+<svg viewBox="0 0 700 132" role="img" aria-labelledby="twoterm-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:700px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="twoterm-title">Profiling uses two terminals on the same Yen node: Terminal 1 runs the script, Terminal 2 watches its CPU and RAM live.</title>
   <rect x="16" y="8" width="668" height="116" rx="16" fill="#f7f9fc" stroke="#bcd4f2" stroke-width="1.5" stroke-dasharray="5 4"/>
-  <text x="40" y="34" font-size="13.5" font-weight="700" letter-spacing="0.5" fill="#374151">🖥️ ONE YEN NODE · BOTH TERMINALS ON IT</text>
+  <text x="40" y="34" font-size="12.5" font-weight="700" letter-spacing="0.4" fill="#6b7280">🖥️  ONE YEN NODE · BOTH TERMINALS ON IT</text>
   <rect x="40" y="46" width="300" height="70" rx="12" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
-  <text x="60" y="76" font-size="17" font-weight="700" fill="#111827">Terminal 1 · the worker</text>
-  <text x="60" y="100" font-size="15" fill="#374151">runs the script</text>
+  <text x="60" y="76" font-size="17" font-weight="700" fill="#2c3e50">Terminal 1 · the worker</text>
+  <text x="60" y="100" font-size="15" fill="#6a7280">runs the script</text>
   <rect x="360" y="46" width="300" height="70" rx="12" fill="#fff8ef" stroke="#e6cfa8" stroke-width="1.5"/>
-  <text x="380" y="76" font-size="17" font-weight="700" fill="#111827">Terminal 2 · the observer</text>
-  <text x="380" y="100" font-size="15" fill="#374151">watches CPU + RAM live</text>
+  <text x="380" y="76" font-size="17" font-weight="700" fill="#2c3e50">Terminal 2 · the observer</text>
+  <text x="380" y="100" font-size="15" fill="#6a7280">watches CPU + RAM live</text>
 </svg>
 
 *Two terminals on the **same** Yen node: one runs the script, the other watches it live.*
@@ -401,5 +401,3 @@ That is the useful lesson, and it bites in the capstone. **A single timing is we
 > **What about prompt caching?** It's real, and it's worth knowing about — an API can cache a chunk of a prompt it has already processed and skip re-reading it. But it doesn't help here, for two reasons. On Anthropic it is **opt-in**: you mark the reusable chunk with `cache_control`, and this script doesn't. And even if it did, there's nothing to reuse — the bulk of every request is a **different filing**, and the one part that does repeat (the system prompt) is far too short to be cacheable. Caching pays off when many requests share a **large** prefix, which is not the shape of this job. See [Anthropic's prompt caching docs](https://platform.claude.com/docs/en/build-with-claude/prompt-caching).
 
 </details>
-
-

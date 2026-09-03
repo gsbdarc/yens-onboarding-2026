@@ -46,7 +46,7 @@ built from the same few physical parts. The image below is an AI rendering of a 
 opened up. What changes between environments is how much of each part you get, and who
 else is competing for it.
 
-![Server hardware diagram showing CPU, cores, and RAM]({{ site.baseurl }}/assets/images/server-hardware-cpu-ram.png)
+![Server hardware diagram showing CPU, cores, and RAM]({{ "/assets/images/server-hardware-cpu-ram.png" | relative_url }})
 
 | Component | What it is |
 |-----------|-----------|
@@ -71,7 +71,7 @@ When you run `python scripts/extract_form_3_one_file.py`, four things happen in 
 Watch the first leg. Getting data from disk into RAM is the slow one; once it's close to
 the processor, the rest is quick:
 
-<svg viewBox="0 2 600 220" role="img" aria-labelledby="hwflow-title hwflow-desc" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:820px;height:auto;margin:0.75rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+<svg viewBox="0 2 600 220" role="img" aria-labelledby="hwflow-title hwflow-desc" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:820px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="hwflow-title">How your data moves: disk to RAM to CPU</title>
   <desc id="hwflow-desc">A packet of data loops from Storage to RAM to the CPU and back to Storage. Reading from disk into RAM is slow, and writing results back to disk is slow too; the CPU reaches data in RAM quickly.</desc>
   <defs><marker id="bk-hw" markerWidth="9" markerHeight="9" refX="6.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#c0392b"/></marker><marker id="fw-hw" markerWidth="9" markerHeight="9" refX="6.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#8fa3c4"/></marker></defs>
@@ -271,5 +271,3 @@ You don't need a fancy prompt. For example:
   estimate();
 })();
 </script>
-
-
