@@ -41,12 +41,12 @@ Where that directory lives decides the skill's **scope**:
 - **Global skill** → `~/.claude/skills/<skill-name>/SKILL.md` — in your **home** directory (`~/.claude/`), so it loads in *every* project you work on. That's where the Day 1 skill lives. Best for **conventions that follow you** across projects (like how the Yens work).
 - **Project skill** → `<your-repo>/.claude/skills/<skill-name>/SKILL.md` — in the **repo's own** `.claude/` (no `~/`), so it loads only in *this* repo and, once committed, ships to anyone who clones it. Best for **repo-specific** conventions (how this project makes figures, where results land, which script to run).
 
-<svg viewBox="0 0 700 196" role="img" aria-labelledby="scope-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:700px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+<svg viewBox="0 0 700 196" role="img" aria-labelledby="scope-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:700px;height:auto;margin:0.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="scope-title">A global skill lives in your home ~/.claude/ and loads in every project; a project skill lives in the repo's own .claude/ and ships to anyone who clones it.</title>
   <rect x="16" y="8" width="330" height="180" rx="12" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
-  <text x="34" y="36" font-size="16" font-weight="700" fill="#2c3e50">🌐  GLOBAL skill</text>
+  <text x="34" y="36" font-size="16" font-weight="700" fill="#1f2937">🌐 GLOBAL skill</text>
   <text x="34" y="58" font-size="12.5" fill="#6a7280">~/.claude/ · your home directory</text>
-  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#5b6472">
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#3a4452">
     <text x="34" y="90">~/</text>
     <text x="34" y="112">└─ .claude/skills/</text>
     <text x="34" y="134">      └─ yen-slurm/</text>
@@ -54,9 +54,9 @@ Where that directory lives decides the skill's **scope**:
   </g>
   <text x="34" y="180" font-size="13" font-weight="700" fill="#b3611a">loads in EVERY project — follows you</text>
   <rect x="354" y="8" width="330" height="180" rx="12" fill="#fff8ef" stroke="#e6cfa8" stroke-width="1.5"/>
-  <text x="372" y="36" font-size="16" font-weight="700" fill="#2c3e50">📦  PROJECT skill</text>
+  <text x="372" y="36" font-size="16" font-weight="700" fill="#1f2937">📦 PROJECT skill</text>
   <text x="372" y="58" font-size="12.5" fill="#6a7280">the repo's own .claude/ (no ~/)</text>
-  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#5b6472">
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#3a4452">
     <text x="372" y="90">yens-onboarding-2026/</text>
     <text x="372" y="112">└─ .claude/skills/</text>
     <text x="372" y="134">      └─ form3-plots/</text>
@@ -195,3 +195,4 @@ cat results/*.json \
 ```
 
 Submit a batch of these and you come back to finished jobs that have already **documented themselves** — what they did, when, and what to look at — without you watching a single one run.
+
