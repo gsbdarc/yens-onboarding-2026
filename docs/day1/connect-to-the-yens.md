@@ -45,11 +45,7 @@ The Yens are available to all researchers at GSB — faculty, PhD students, post
 
 ---
 
-## What Is a Remote Server?
-
-Your laptop is powerful but limited: one machine, one location, and it has to be open and plugged in for work to run. A **remote server** is a computer you connect to over the network — it's always on, more powerful than your laptop, and your work keeps running after you close the lid.
-
-**What are the Yens?**
+## What Are the Yens?
 
 The Yens are a 17-node shared research computing cluster: 5 interactive nodes you SSH into directly, and 12 nodes accessible only through the SLURM scheduler (Day 2). All 17 nodes share the same file system — a file you write on yen1 is instantly visible on every other node.
 
