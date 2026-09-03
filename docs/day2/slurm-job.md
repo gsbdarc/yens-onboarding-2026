@@ -146,14 +146,14 @@ This runs the **10-filing batch you profiled** — `scripts/extract_form_3_batch
 
 Save the file. Here's the whole script, with its four parts labeled:
 
-<svg viewBox="0 0 700 292" role="img" aria-labelledby="anatomy-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:700px;height:auto;margin:0.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+<svg viewBox="0 0 700 292" role="img" aria-labelledby="anatomy-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:700px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="anatomy-title">The anatomy of a Slurm batch script: the shebang, the #SBATCH resource directives, the environment setup, and the run line(s) that do the work.</title>
   <rect x="16" y="10" width="440" height="272" rx="10" fill="#fbfcfe" stroke="#d5d8e2" stroke-width="1.5"/>
   <rect x="18" y="22" width="436" height="22" fill="#f3f4f7"/>
   <rect x="18" y="58" width="436" height="144" fill="#fdf0e3"/>
   <rect x="18" y="214" width="436" height="44" fill="#eaf1fb"/>
   <rect x="18" y="260" width="436" height="22" fill="#e9f5ee"/>
-  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#3a4452">
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#5b6472">
     <text x="32" y="38">#!/bin/bash</text>
     <text x="32" y="76">#SBATCH --job-name=&lt;job-name&gt;</text>
     <text x="32" y="96">#SBATCH --partition=normal</text>
@@ -168,7 +168,7 @@ Save the file. Here's the whole script, with its four parts labeled:
   </g>
   <circle cx="472" cy="33" r="6" fill="#8a94a6"/><text x="486" y="38" font-size="13.5" font-weight="700" fill="#2c3e50">shebang — the interpreter</text>
   <circle cx="472" cy="130" r="6" fill="#e67e22"/><text x="486" y="126" font-size="13.5" font-weight="700" fill="#2c3e50">#SBATCH — requests to the</text><text x="486" y="145" font-size="12.5" fill="#6a7280">scheduler (not commands)</text>
-  <circle cx="472" cy="236" r="6" fill="#3a76c4"/><text x="486" y="232" font-size="13.5" font-weight="700" fill="#2c3e50">environment setup —</text><text x="486" y="251" font-size="12.5" fill="#6a7280">cd + activate venv, on the node</text>
+  <circle cx="472" cy="236" r="6" fill="#2f6fb0"/><text x="486" y="232" font-size="13.5" font-weight="700" fill="#2c3e50">environment setup —</text><text x="486" y="251" font-size="12.5" fill="#6a7280">cd + activate venv, on the node</text>
   <circle cx="472" cy="276" r="6" fill="#2e8b57"/><text x="486" y="280" font-size="13.5" font-weight="700" fill="#2c3e50">run line(s) — your command(s)</text>
 </svg>
 
@@ -522,5 +522,3 @@ squeue --me
 You'll get a completion email in a moment. Confirm it says the job completed.
 
 </details>
-
-
