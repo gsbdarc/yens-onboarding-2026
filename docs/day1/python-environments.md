@@ -330,11 +330,11 @@ Your code plus a recorded environment produces the same result for anyone, on an
 
 ---
 
-## Optional Practice
+## Bonus
 {: .note }
 > Finished early? Try any of these.
 
-**Optional practice — Find Where Kernels Live**
+**Bonus — Find Where Kernels Live**
 
 A kernel is just a folder on disk. Track yours down:
 
@@ -345,7 +345,7 @@ jupyter kernelspec list
 This prints every registered kernel and its path (a `--user` install like yours lands in `~/.local/share/jupyter/kernels/`). `ls` the **GSB AI 2026** kernel's folder and open its `kernel.json`. Notice it points straight at your venv's Python. That link is the whole trick behind connecting a venv to JupyterHub, and it's why deleting a venv leaves a broken kernel behind until you remove its folder too.
 
 
-**Optional practice — Why You Can't Copy a Environment**
+**Bonus — Why You Can't Copy a Environment**
 
 Step 5 said never to copy a venv folder. See for yourself why. Peek inside your environment:
 

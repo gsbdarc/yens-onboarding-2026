@@ -32,7 +32,7 @@ the clock:
 
 If you are well past one of these, put up a red sticky rather than pushing on — falling
 behind quietly is the failure mode this hour is trying to avoid. If you are ahead, the
-**Optional Practice** at the end of most sections is there for you.
+**Bonus** at the end of most sections is there for you.
 
 {: .important }
 > Part 1 assumes only the two accounts from

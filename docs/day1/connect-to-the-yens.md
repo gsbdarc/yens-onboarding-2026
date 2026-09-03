@@ -151,7 +151,7 @@ ls /yen/projects/                 # shared project storage
 
 ---
 
-## Optional Practice
+## Bonus
 
 **Skip the repeated logins with SSH multiplexing**
 

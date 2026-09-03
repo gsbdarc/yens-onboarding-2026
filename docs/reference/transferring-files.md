@@ -40,7 +40,7 @@ ls /scratch/users/SUNetID/filings/AAPL/
 
 ---
 
-## Optional practice
+## Bonus
 
 **Download: copy from the Yens back to your laptop**
 

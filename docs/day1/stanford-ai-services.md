@@ -259,23 +259,23 @@ Today you're using the shared course key. If you or your PI need a personal Stan
 In the next room (Managing API Keys), you'll load the key securely from a `.env` file rather than hardcoding it.
 
 
-## Optional Practice
+## Bonus
 {: .note }
 > Finished early? Try any of these.
 >
 > 🌐 **All three happen in the <a href="https://uit.stanford.edu/aiplayground" target="_blank" rel="noopener noreferrer">AI Playground</a> chat window in your browser** — the same tab you logged into above. No code, no API key, nothing to install. You're exploring what the chat window can do before you start driving the same models from Python.
 
-**Optional practice: Save a Course Context Prompt**
+**Bonus — Save a Course Context Prompt**
 
 **In the AI Playground**, save a reusable prompt that gives the AI quick background on the class you're taking: what the course is, what you're working on, and what tools you have access to. Paste it in at the top of a new conversation instead of re-explaining yourself every time.
 
 
-**Optional practice: Compare Two Models**
+**Bonus — Compare Two Models**
 
 **In the AI Playground**, use the model picker to ask two different cutting-edge models the same Yen-specific question. Compare the answers: which one do you trust more, and why?
 
 
-**Optional practice: Customize the System Prompt**
+**Bonus — Customize the System Prompt**
 
 **In the AI Playground**, set the system prompt so the AI knows who you are, your current knowledge level, and how you like to be spoken to. Ask the same question with the system prompt empty versus filled in, and see whether the tone or depth actually changes.
 

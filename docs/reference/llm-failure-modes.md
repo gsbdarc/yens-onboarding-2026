@@ -125,7 +125,7 @@ for line in text.splitlines():
 
 ---
 
-## Optional Practice: Put a Guardrail on Your Agent
+## Bonus — Put a Guardrail on Your Agent
 
 We said above that an agentic LLM inherits whatever permissions you give it, and that some of what it can do can't be undone. **Permission rules** and **hooks** are how you draw that line.
 

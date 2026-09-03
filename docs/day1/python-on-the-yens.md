@@ -271,16 +271,16 @@ Same output, different workflow. Notebooks are good for exploration; scripts are
 
 ---
 
-## Optional Practice
+## Bonus
 {: .note }
 > Finished early? Try any of these.
 
-**Optional practice — Behold the Incantation**
+**Bonus — Behold the Incantation**
 
 The terminal could only show you `my_plot.png` as gibberish. JupyterHub can do better. In the **file browser** on the left, find `my_plot.png` and **double-click** it. It opens in an image viewer, and the plot you drew finally reveals itself, the same file, now readable because you have the right tool to look at it.
 
 
-**Optional practice — Enchant the Plot**
+**Bonus — Enchant the Plot**
 
 A plot is never finished. Back in your notebook, edit the plotting cell to make it your own, then re-run it with **Shift+Enter** and watch it change:
 

@@ -90,11 +90,11 @@ Find one thing in the data worth keeping. Add a short section to your `README.md
 
 ---
 
-## Optional Practice
+## Bonus
 {: .note }
 > Finished early? Try any of these.
 
-**Optional practice — Per-User Limits vs. the Whole Node**
+**Bonus — Per-User Limits vs. the Whole Node**
 
 Group the processes by `user` and compute total `cpu_pct` and `mem_pct` per person. Then compare two different ceilings:
 
@@ -105,7 +105,7 @@ Look both up on the [Yen user limits page](https://rcpedia.stanford.edu/_policie
 
 Is anyone close to their per-user limit? And how much of the *entire node* is actually in use? A node can sit far from full even while one user is maxed out — that's the per-user limit doing its job: keeping any one job from starving everyone else on a shared machine.
 
-**Optional practice — Watch It Live (`top`)**
+**Bonus — Watch It Live (`top`)**
 
 The CSV you've been analyzing is a **photograph** — one frozen instant, captured by a script that ran `top` once and saved the result. `top` itself is the **live view**: the same numbers, refreshing every few seconds. SSH to a Yen node and run it:
 

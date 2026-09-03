@@ -287,11 +287,11 @@ You just used `.env` for one secret: your API key. But the pattern fits anything
 
 ---
 
-## Optional Practice
+## Bonus
 {: .note }
 > Finished early? Try any of these.
 
-**Optional practice: Search for Leaked Keys**
+**Bonus — Search for Leaked Keys**
 
 The warning above says GitHub indexes public repos and automated scanners find leaked keys. See it for yourself: use [GitHub code search](https://github.com/search) to look up a well-known leaked-key pattern, like `AKIA` (an AWS access key prefix) or a generic `sk-` prefix. Don't open, save, clone, or use anything you find. Just note how many public results come back. This is exactly what those scanners are doing at scale, all day, every day.
 

@@ -310,7 +310,7 @@ bash scripts/install_github_for_research_skill.sh
 > Put a sticky note on your laptop lid so instructors can see where you are.
 
 
-### Optional practice — investigate a well-kept repo
+### Bonus — investigate a well-kept repo
 
 A repository that follows these practices is one you can actually *understand* — by hand or with Claude Code. Try both on a real Stanford project: an analysis of whether San Francisco's graffiti 311 reports fell during COVID.
 
@@ -353,10 +353,10 @@ Now ask the same things in plain English — and notice the first sentence:
 
 ---
 
-## Optional Practice — Put Claude Code to Work
+## Bonus — Put Claude Code to Work
 
 {: .important }
-> **Optional practice:** Have Claude Code make a real change to your course site — switch it to **dark mode** — and open a pull request. A bonus walks the same change the way a pro would: inspect, plan, then act.
+> **Bonus:** Have Claude Code make a real change to your course site — switch it to **dark mode** — and open a pull request. A bonus walks the same change the way a pro would: inspect, plan, then act.
 
 Optional — the Day 1 capstone only needs the exercise from Git & GitHub for Research. This is extra practice.
 
