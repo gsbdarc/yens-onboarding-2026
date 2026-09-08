@@ -20,11 +20,8 @@ Slurm.
 You do **not** need to log in to the Yens, install anything, or read anything before Day 1.
 We start from scratch in the room. Two accounts, and that is all:
 
-1. **A [GitHub account](https://github.com/signup)** — free. If you already have one, use
-   it; there is nothing to change. We create the access token you'll push with **in class**
-   on Day 1, because it takes two minutes and is easier to do together.
-2. **[Claude, through Stanford](https://uit.stanford.edu/service/claude)** — Stanford
-   provides **Claude for Education** free to most people, and we use it on both days.
+1. **A [GitHub account](https://github.com/signup)**
+2. **[Claude, through Stanford](https://uit.stanford.edu/service/claude)**
 
 {: .warning }
 > **Request Claude now, not the night before.** Approval goes through ServiceNow and is not
