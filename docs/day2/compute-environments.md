@@ -2,8 +2,8 @@
 layout: default
 title: "★ Size Your Own Machine"
 parent: "Part 1 — Measure & Submit"
-grand_parent: "Day 2 — The Cluster"
-nav_order: 4
+grand_parent: "Day 2 — The Yen-Slurm Cluster"
+nav_order: 3
 permalink: /day2/compute-environments/
 ---
 
@@ -14,8 +14,8 @@ permalink: /day2/compute-environments/
 > [Part 1 Checkpoint]({{ '/day2/part1-checkpoint/' | relative_url }}) — and check whether
 > anyone at your table is stuck first.
 
-The lecture compared your laptop, a Yen node, and the cloud in the abstract. This puts
-your own numbers in. The written version of that comparison is in
+Put your own machine's numbers against a Yen node's, and price the same work in the
+cloud. The written comparison is in
 [Compute Environments]({{ '/reference/compute-environments/' | relative_url }}).
 
 ---

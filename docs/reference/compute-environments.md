@@ -8,9 +8,8 @@ permalink: /reference/compute-environments/
 
 # Compute Environments
 
-Day 2's first lecture covers this material. This page is the written version — here so you
-can look a number back up after the room has emptied, and so the lab pages have something
-to point at when they say "the why is in the lecture".
+Reference for the hardware terms Day 2 uses — here so you can look a number back up after
+the room has emptied.
 
 Every machine you will run research code on — your laptop, a Yen, a cloud instance — is
 built from the same few physical parts. What changes between them is how much of each part
@@ -138,8 +137,8 @@ it faster than the queue will give it to you.
 ## Where This Shows Up in the Lab
 
 The three numbers every script needs — **compute time**, **cores**, and **RAM** — are the
-ones you measure in [1. Profile a Script]({{ '/day2/profiling/' | relative_url }}) and then
-declare in [2. Submit It to Slurm]({{ '/day2/slurm-job/' | relative_url }}). You cannot read
+ones you measure in [Part 1 Lab]({{ '/day2/part1-lab/' | relative_url }}) and then
+declare in [Part 1 Lab]({{ '/day2/part1-lab/' | relative_url }}). You cannot read
 them off the code; you have to measure them while it runs.
 
 For how work splits across cores and nodes, see

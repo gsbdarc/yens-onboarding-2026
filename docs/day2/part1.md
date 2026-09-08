@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Part 1 — Measure & Submit"
-parent: "Day 2 — The Cluster"
+parent: "Day 2 — The Yen-Slurm Cluster"
 nav_order: 1
 has_children: true
 has_toc: false
@@ -10,18 +10,13 @@ permalink: /day2/part1/
 
 # Part 1 — Measure & Submit
 
-Yesterday's script runs, on one filing at a time, on a machine you share with everyone
-else. This part is finding out what it actually costs — and then handing it to the
-scheduler instead of holding a terminal open.
-
-**Lecture 9:00–9:20, then the lab until 10:30.** Seventy minutes, self-paced, while we
-circulate. The lecture covers what a core, RAM and the queue actually are; this part is
-where you measure them and hand a job over.
+Yesterday's script runs, on one filing at a time, on an interactive Yen node you share
+with everyone else. This part is finding out what it actually costs — and then handing it
+to the scheduler instead of holding a terminal open.
 
 | Section | Give it about |
 |---|---|
-| [1. Profile a Script]({{ '/day2/profiling/' | relative_url }}) | 25 min |
-| [2. Submit It to Slurm]({{ '/day2/slurm-job/' | relative_url }}) | 40 min |
+| [Part 1 Lab]({{ '/day2/part1-lab/' | relative_url }}) | 65 min |
 | [Part 1 Checkpoint]({{ '/day2/part1-checkpoint/' | relative_url }}) | 5 min |
 
 If you are well past one of these, put up a red sticky rather than pushing on — falling
@@ -44,8 +39,7 @@ up and get coffee when your table reaches a natural stopping point.
 
 | Section | Format | What you'll learn |
 |---|---|---|
-| [1. Profile a Script]({{ '/day2/profiling/' | relative_url }}) | 💻 Mandatory | Measure a script's time, cores and memory instead of guessing at them |
-| [2. Submit It to Slurm]({{ '/day2/slurm-job/' | relative_url }}) | 💻 Mandatory | Read the queue, write `#SBATCH` directives by hand, submit, monitor, and debug a real job |
+| [Part 1 Lab]({{ '/day2/part1-lab/' | relative_url }}) | 💻 Mandatory | Six exercises: measure the script's cores, RAM and time, then declare them and hand the job to Slurm |
 | [Part 1 Checkpoint]({{ '/day2/part1-checkpoint/' | relative_url }}) | ✅ Checkpoint | Six checks proving the things Part 2 depends on actually work |
 | [Size Your Own Machine]({{ '/day2/compute-environments/' | relative_url }}) | ⭐ Bonus | Put your own laptop's cores and RAM against a Yen node, and price it in the cloud |
 | [Writing a Slurm Job with Claude]({{ '/day2/slurm-with-claude/' | relative_url }}) | ⭐ Bonus | Distill the Yens conventions you just learned into a reusable Claude skill |

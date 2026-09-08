@@ -2,8 +2,8 @@
 layout: default
 title: "Part 2 Checkpoint"
 parent: "Part 2 — Scale & Ship"
-grand_parent: "Day 2 — The Cluster"
-nav_order: 3
+grand_parent: "Day 2 — The Yen-Slurm Cluster"
+nav_order: 2
 permalink: /day2/part2-checkpoint/
 ---
 
@@ -27,10 +27,10 @@ right.
 
 | # | Skill | Where you learned it |
 |---|---|---|
-| 1 | Submit one script that fans out into many independent tasks | [3. Run a Job Array]({{ '/day2/job-arrays/' | relative_url }}) |
-| 2 | Make a task safe to run twice | [3. Run a Job Array]({{ '/day2/job-arrays/' | relative_url }}) |
-| 3 | Estimate a bigger run's cost — in writing, before submitting | [4. Capstone]({{ '/day2/capstone/' | relative_url }}) |
-| 4 | Compare what you asked for against what the job used | [4. Capstone]({{ '/day2/capstone/' | relative_url }}) |
+| 1 | Submit one script that fans out into many independent tasks | [Part 2 Lab]({{ '/day2/part2-lab/' | relative_url }}) |
+| 2 | Make a task safe to run twice | [Part 2 Lab]({{ '/day2/part2-lab/' | relative_url }}) |
+| 3 | Estimate a bigger run's cost — in writing, before submitting | [Part 2 Lab]({{ '/day2/part2-lab/' | relative_url }}) |
+| 4 | Compare what you asked for against what the job used | [Part 2 Lab]({{ '/day2/part2-lab/' | relative_url }}) |
 
 ---
 

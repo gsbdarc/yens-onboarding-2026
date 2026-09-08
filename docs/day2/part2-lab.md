@@ -1,27 +1,30 @@
 ---
 layout: default
-title: "3. Run a Job Array"
+title: "Part 2 Lab"
 parent: "Part 2 — Scale & Ship"
-grand_parent: "Day 2 — The Cluster"
+grand_parent: "Day 2 — The Yen-Slurm Cluster"
 nav_order: 1
-permalink: /day2/job-arrays/
+permalink: /day2/part2-lab/
 ---
 
-# 3. Run a Job Array
+# Part 2 Lab
 
-One script, one `--array` flag, every filing at once. The lecture covered why the work
-splits and what a task ID is for; this is where you submit one.
+One script, one `--array` flag, every filing at once. Each task runs the same script and
+gets a different task ID; that number is the only thing telling it which filing is its own.
 
-Start with an array that does nothing but prove it fanned out. Then do it with real work.
+Four exercises: prove an array fans out, run one over real work, make it safe to run twice,
+then size a bigger run before you submit it.
 
 {: .important }
-> **Give this about 30 minutes.** Exercise 1 takes two minutes and is worth doing even if
-> you think you can skip it — it is the shortest possible version of the thing that goes
-> wrong in exercise 2.
+> **Four mandatory exercises, about 55 minutes.** Exercise 1 takes two minutes and is worth
+> doing even if you think you can skip it — it is the shortest possible version of the thing
+> that goes wrong in exercise 2.
+>
+> Exercise 4 is the capstone, and it is the one to protect if you run short.
 
 ---
 
-## Exercise: Watch an Array Fan Out
+## 1. Watch an Array Fan Out
 
 {: .important }
 > **Mandatory.** **Task:** Submit `slurm/hello_array.slurm` unchanged, and confirm you got
@@ -90,7 +93,7 @@ The task number is what makes this general. Every task runs the identical script
 > **Counting from 1.** `--array=1-N` numbers the tasks 1, 2, … N. Slurm doesn't insist on that: numbering from 0 instead, so the tasks run 0 through N − 1, is equally valid. But starting at 1 is the convention used here, and it matters as soon as the task ID indexes something. In some languages a list of N items, `items`, is indexed 0 through N − 1, so a 1-based task ID has to be shifted — `items[task_id - 1]` rather than `items[task_id]`. Get it wrong and nothing complains up front: the first item is silently skipped, and the last task runs off the end of the list.
 ---
 
-## Exercise: Run 100 Filings Through an Array
+## 2. Run 100 Filings Through an Array
 
 {: .important }
 > **Mandatory.** **Task:** Process 100 SEC filings with a job array — one Python script that
@@ -250,14 +253,14 @@ sbatch --reservation=class_day2 slurm/extract_array.slurm
 watch squeue --me
 ```
 
-The new thing to notice is the job IDs: an array shows up as many rows sharing one ID, with a task number after it — `12345678_1`, `12345678_2`, and so on — each moving through the same `PD` → `R` → gone lifecycle you watched in [2. Submit It to Slurm]({{ '/day2/slurm-job/' | relative_url }}). Once it's done, check the per-task logs in `logs/` and the results in `results/`.
+The new thing to notice is the job IDs: an array shows up as many rows sharing one ID, with a task number after it — `12345678_1`, `12345678_2`, and so on — each moving through the same `PD` → `R` → gone lifecycle you watched in [Part 1 Lab]({{ '/day2/part1-lab/' | relative_url }}). Once it's done, check the per-task logs in `logs/` and the results in `results/`.
 
 {: .note }
 > 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
 
 ---
 
-## Exercise: Avoiding Wasteful Computation
+## 3. Make Your Tasks Rerun-Safe
 
 {: .important }
 > **Mandatory.** **Task:** Make each array task skip work it has already done, then resubmit
@@ -288,10 +291,94 @@ Nothing has been deleted, so every task should find its output and exit at once 
 
 ---
 
-## Bonus: Combine the Results into One CSV
+## 4. Capstone — Estimate, Submit, Compare
+
+{: .important }
+> **Mandatory.** **Task:** Estimate what a 100-filing run will cost in CPU, RAM, and time —
+> **write the estimate down first** — then run it and check yourself against `sacct`.
+
+All morning you have profiled and run **10 filings**. Scale to **100** — and commit to what
+it will need *before* you run it.
+
+### 1. Estimate the resources for 100 filings — and write it down first
+
+You're running the same loop, just over 100 files instead of 10. Think about what **CPU**, **RAM**, and **time** it will take. Open `scripts/extract_form_3_batch.py` (or have Claude read it) and reason it out:
+
+> Look at `scripts/extract_form_3_batch.py` and my Profiling README (the 10-filing numbers) and help me estimate the CPU, RAM, and wall-clock time this needs for 100 filings.
+
+**Before you submit anything**, write in your `README.md`: which resources you think will **scale** with the number of filings processed and which will stay about flat — and **why** — along with your CPU, RAM, and wall-clock **estimate for 100**. Committing to a number *before* you run it is the whole point.
+
+
+### 2. Write a Slurm script for the batch
+
+You already built `slurm/extract_form_3_batch.slurm` for **10 filings**. Two changes:
+
+1. In `scripts/extract_form_3_batch.py`, set `NUM_FILINGS = 100`.
+2. In the `.slurm`, re-tune `--time`, `--mem` and `--cpus-per-task` to **your estimates for
+   100**, and keep the email-notification lines so you get the completion summary.
+
+{: .warning }
+> **Confirm the edit took before you submit.** The filing count lives inside the Python
+> script, not on the `sbatch` command line — so if the edit does not save, the job still
+> succeeds and still emails you, having processed ten filings while holding a request
+> sized for a hundred. Your "actuals" then describe the wrong run, and the honest
+> conclusion is that you over-estimated by 10×.
+>
+> ```bash
+> grep NUM_FILINGS scripts/extract_form_3_batch.py
+> ```
+>
+> It should say `100`. Clear out the old results too, so what lands in `results/` is from
+> this run only: `rm -f results/*.json`.
+
+
+### 3. Submit and confirm it ran
 
 {: .note }
-> **Done with the mandatory exercises?** First, check whether anyone at your table is stuck — explaining it is how it sticks. Then pick anything below.
+> **Today only:** keep the class reservation flag — `--reservation=class_day2` — on your `sbatch` so the job runs on the reserved nodes. Drop it for your own work after today.
+
+```bash
+sbatch --reservation=class_day2 \
+  slurm/extract_form_3_batch.slurm
+squeue --me
+```
+
+Wait for the completion email. From it — and from
+`sacct -j JOBID --format=JobID,State,Elapsed,MaxRSS` — note **how long it took** and **how
+much CPU and RAM it actually used** against what you requested.
+
+Check you measured what you think you measured:
+
+```bash
+ls results/*.json | wc -l        # should be 100, not 10
+```
+
+
+### 4. Compare actual vs. your estimate
+
+Back in `README.md`, next to the estimate you wrote in step 1, add the **actual** numbers from the email and `sacct`, and note whether you **over- or under-estimated** each resource — and by how much. That comparison is the payoff; next time you'll estimate better.
+
+
+### 5. Commit and push from the Yens
+
+Ask Claude Code to handle it:
+
+> Add and commit `slurm/extract_form_3_batch.slurm` and my README changes with a message like "Day 2 Capstone: 100-filing batch", then push to my fork.
+
+
+{: .note }
+> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
+
+---
+
+---
+
+## Bonus
+{: .note }
+> **Done with all four?** First check whether anyone at your table is stuck — explaining it is how it sticks. Then pick anything below.
+
+**Bonus — Combine the results into one CSV**
+
 
 The array leaves you a directory of JSON files, one per filing. For analysis you want a single table instead — one row per filing, one column per field.
 
@@ -367,10 +454,12 @@ is missing.
 
 ---
 
-## Before You Move On
+---
 
-Next is the [Capstone]({{ '/day2/capstone/' | relative_url }}) — the same array, sized
-for a bigger run, with the estimate written down before you submit.
+## Before You Go
 
-For why the work splits the way it does, and the four shapes a job can take, see
-[Parallelization Basics]({{ '/reference/parallelization/' | relative_url }}).
+Run the [Part 2 Checkpoint]({{ '/day2/part2-checkpoint/' | relative_url }}) — four checks,
+and two of them are just reading back what you wrote here.
+
+You now have the full loop every real research pipeline needs:
+**estimate → request → run → check → document.**

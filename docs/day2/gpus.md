@@ -2,8 +2,8 @@
 layout: default
 title: "★ GPUs"
 parent: "Part 2 — Scale & Ship"
-grand_parent: "Day 2 — The Cluster"
-nav_order: 4
+grand_parent: "Day 2 — The Yen-Slurm Cluster"
+nav_order: 3
 permalink: /day2/gpus/
 ---
 

@@ -2,8 +2,8 @@
 layout: default
 title: "Part 1 Checkpoint"
 parent: "Part 1 — Measure & Submit"
-grand_parent: "Day 2 — The Cluster"
-nav_order: 3
+grand_parent: "Day 2 — The Yen-Slurm Cluster"
+nav_order: 2
 permalink: /day2/part1-checkpoint/
 ---
 
@@ -31,12 +31,12 @@ Six things. Each one you just worked through, and each has a check you can run.
 
 | # | Skill | Where you learned it |
 |---|---|---|
-| 1 | Measure a script you have never seen — cores and RAM | [1. Profile a Script]({{ '/day2/profiling/' | relative_url }}) |
-| 2 | Time the batch script over 10 filings | [1. Profile a Script]({{ '/day2/profiling/' | relative_url }}) |
-| 3 | Write the three numbers down where the next step can read them | [1. Profile a Script]({{ '/day2/profiling/' | relative_url }}) |
-| 4 | Read the live queue, and tell `R` from `PD` | [2. Submit It to Slurm]({{ '/day2/slurm-job/' | relative_url }}) |
-| 5 | Write `#SBATCH` directives by hand and submit the job | [2. Submit It to Slurm]({{ '/day2/slurm-job/' | relative_url }}) |
-| 6 | Find out what the job did — including when it failed | [2. Submit It to Slurm]({{ '/day2/slurm-job/' | relative_url }}) |
+| 1 | Measure a script you have never seen — cores and RAM | [Part 1 Lab, exercise 1]({{ '/day2/part1-lab/' | relative_url }}) |
+| 2 | Time the batch script over 10 filings | [Part 1 Lab, exercise 2]({{ '/day2/part1-lab/' | relative_url }}) |
+| 3 | Write the three numbers down where the next step can read them | [Part 1 Lab, exercise 3]({{ '/day2/part1-lab/' | relative_url }}) |
+| 4 | Read the live queue, and tell `R` from `PD` | [Part 1 Lab, exercise 4]({{ '/day2/part1-lab/' | relative_url }}) |
+| 5 | Write `#SBATCH` directives by hand and submit the job | [Part 1 Lab, exercise 5]({{ '/day2/part1-lab/' | relative_url }}) |
+| 6 | Find out what the job did — including when it failed | [Part 1 Lab, exercise 6]({{ '/day2/part1-lab/' | relative_url }}) |
 
 The order matters, and it is the same order the morning ran in: you cannot write a
 `#SBATCH` line until you have measured the number that goes in it, and you cannot tell
