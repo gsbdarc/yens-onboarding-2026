@@ -56,7 +56,7 @@ Four files, four different task numbers. One submission, four independent tasks,
 logs that never collided.
 
 
-<svg viewBox="0 0 618 270" role="img" aria-labelledby="array-title array-desc" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:616px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+<svg viewBox="0 0 618 270" role="img" aria-labelledby="array-title array-desc" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:616px;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="array-title">One array script fans out into many tasks</title>
   <desc id="array-desc">A single submission script with the directive array equals 1 to N fans out into N independent tasks, numbered 1, 2, 3 and so on up to N. What each task does is determined by your code together with its array task ID.</desc>
   <!-- fan-out connectors (drawn first, behind boxes) -->
@@ -66,7 +66,7 @@ logs that never collided.
   <line x1="188" y1="129" x2="330" y2="221" stroke="#cbd3e0" stroke-width="1.5"/>
   <rect x="24" y="103" width="164" height="52" rx="10" fill="#eef1f8" stroke="#cdd4e6" stroke-width="1.5"/>
   <text x="106" y="124" font-size="12.5" font-weight="700" fill="#2c3e50" text-anchor="middle">Slurm script</text>
-  <text x="106" y="142" font-size="10.5" fill="#6a7280" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">--array=1–N</text>
+  <text x="106" y="142" font-size="10.5" fill="#6a7280" text-anchor="middle" font-family="'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, monospace">--array=1–N</text>
   <rect x="330" y="15" width="264" height="44" rx="8" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
   <text x="462" y="31" font-size="12" fill="#2c3e50" text-anchor="middle">task 1</text>
   <text x="462" y="46" font-size="8" fill="#6a7280" text-anchor="middle">determined by your code <tspan font-weight="700">and</tspan> SLURM_ARRAY_TASK_ID</text>

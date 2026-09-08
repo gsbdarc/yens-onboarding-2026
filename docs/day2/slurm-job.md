@@ -168,14 +168,14 @@ This runs the **10-filing batch you profiled** — `scripts/extract_form_3_batch
 
 Save the file. Here's the whole script, with its four parts labeled:
 
-<svg viewBox="0 0 700 292" role="img" aria-labelledby="anatomy-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:700px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+<svg viewBox="0 0 700 292" role="img" aria-labelledby="anatomy-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:700px;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="anatomy-title">The anatomy of a Slurm batch script: the shebang, the #SBATCH resource directives, the environment setup, and the run line(s) that do the work.</title>
   <rect x="16" y="10" width="440" height="272" rx="10" fill="#fbfcfe" stroke="#d5d8e2" stroke-width="1.5"/>
   <rect x="18" y="22" width="436" height="22" fill="#f3f4f7"/>
   <rect x="18" y="58" width="436" height="144" fill="#fdf0e3"/>
   <rect x="18" y="214" width="436" height="44" fill="#eaf1fb"/>
   <rect x="18" y="260" width="436" height="22" fill="#e9f5ee"/>
-  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#5b6472">
+  <g font-family="'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#5b6472">
     <text x="32" y="38">#!/bin/bash</text>
     <text x="32" y="76">#SBATCH --job-name=&lt;job-name&gt;</text>
     <text x="32" y="96">#SBATCH --partition=normal</text>

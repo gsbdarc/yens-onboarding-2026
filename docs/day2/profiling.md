@@ -39,7 +39,7 @@ Everything below runs from here.
 
 You are going to run a script you have never seen before and figure out what resources it uses — without reading the code. This is called **profiling**: measuring a script's time, CPU, and RAM usage as it runs. The technique: one terminal runs the script, a second terminal on the **same node** watches it live.
 
-<svg viewBox="0 0 700 132" role="img" aria-labelledby="twoterm-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:700px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+<svg viewBox="0 0 700 132" role="img" aria-labelledby="twoterm-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:700px;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="twoterm-title">Profiling uses two terminals on the same Yen node: Terminal 1 runs the script, Terminal 2 watches its CPU and RAM live.</title>
   <rect x="16" y="8" width="668" height="116" rx="16" fill="#f7f9fc" stroke="#bcd4f2" stroke-width="1.5" stroke-dasharray="5 4"/>
   <text x="40" y="34" font-size="12.5" font-weight="700" letter-spacing="0.4" fill="#6b7280">🖥️  ONE YEN NODE · BOTH TERMINALS ON IT</text>
