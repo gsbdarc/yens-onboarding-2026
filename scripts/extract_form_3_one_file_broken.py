@@ -1,16 +1,13 @@
 import os
 import json
-from openai import OpenAI
+import anthropic
 from pydantic import BaseModel
 from typing import List
 from dotenv import load_dotenv
 
 # Load API key from .env in repo root
 load_dotenv()
-client = OpenAI(
-    base_url="https://aiapi-prod.stanford.edu/v1",
-    api_key=os.getenv("STANFORD_API_KEY"),
-)
+client = anthropic.Anthropic()   # reads ANTHROPIC_API_KEY from the environment
 
 # Filing to process — swap this path for any Form 3 .txt file
 FILING_PATH = "/zfs/data/NODR/EDGAR_HTTP/edgar/data/1656998/0000950103-24-000077.txt"
@@ -41,16 +38,15 @@ Extract the following fields:
 Return valid JSON matching the schema exactly.
 """
 
-response = client.chat.completions.create(
-    model="gpt-5.2",
-    response_format={"type": "json_object"},
-    messages=[
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": filing_text},
-    ],
+api_response = client.messages.parse(
+    model="claude-haiku-4-5",
+    max_tokens=4096,
+    system=system_prompt,
+    messages=[{"role": "user", "content": filing_text}],
+    output_format=Form3Filing,
 )
 
-result = Form3Filing.model_validate_json(response.choices[0].message.content)
+result = api_response.parsed_output
 
 os.makedirs("results", exist_ok=True)
 with open(OUTPUT_PATH, "w") as f:
