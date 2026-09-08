@@ -10,33 +10,26 @@ permalink: /day2/slurm-with-claude/
 # Writing a Slurm Job with Claude
 
 {: .note }
-> ⭐ **This whole page is bonus.** Do it once the mandatory sections are done — and check
-> whether anyone at your table is stuck first. It is self-contained, so it is also a good
-> thing to come back to next week.
+> ⭐ **This whole page is bonus.** Do it once you have reached the
+> [Part 1 Checkpoint]({{ '/day2/part1-checkpoint/' | relative_url }}) — and check whether
+> anyone at your table is stuck first. It is self-contained, so it is also a good thing to
+> come back to next week.
 
 ---
 
-You just wrote a Slurm script **by hand**, submitted it, and got it working. That working setup is the raw material for a **skill** — a set of standing instructions Claude Code pulls in automatically so it follows your conventions without you re-explaining them every time.
+You just wrote a Slurm script by hand and got it working. That working setup is the raw
+material for a **skill**, and this page distills two of them from it — one for how the Yens
+work, one for how this project does things.
 
-The best skills come from work you've already gotten right. The pattern is always the same three steps:
-
-1. **Work with Claude** on a real task until you're happy with the result.
-2. **Ask Claude to make a skill** from what you just accomplished.
-3. **Invoke the skill** on the next, similar task — and watch it follow your conventions.
-
-There are two kinds of knowledge worth capturing this way, and they live in
-different places:
-
-- **How the Yens work** — partitions, resource requests, `%j` log naming, email. True for *every* job you run on the cluster, so it belongs in a **global** skill. You'll distill it from the job you *just* ran.
-- **How this project does things** — its figure house style, where results go, which script does what. Specific to *this* pipeline, so it belongs in a **project** skill. That one is the second section on this page.
-
-You'll always **review what Claude writes** — you're the one who submits and checks the work.
+You are the reviewer throughout: you submit and check the work, not Claude.
 
 ## Two homes for a skill
 
-On Day 1 you *installed* a skill (`github-for-research`). Every skill is its own **directory** holding a single file named exactly `SKILL.md` (uppercase). The directory name is the skill's name — **lowercase letters, digits, and hyphens only** (no spaces, no underscores), up to 64 characters — and it's also how you invoke the skill: a folder `form3-plots/` gives you the `/form3-plots` slash command.
+Every skill is a **directory** holding one file named exactly `SKILL.md`. The directory
+name is the skill's name — lowercase letters, digits and hyphens only — and it is also how
+you invoke it: `form3-plots/` gives you the `/form3-plots` command.
 
-Where that directory lives decides the skill's **scope**:
+Where the directory lives decides its scope:
 
 - **Global skill** → `~/.claude/skills/<skill-name>/SKILL.md` — in your **home** directory (`~/.claude/`), so it loads in *every* project you work on. That's where the Day 1 skill lives. Best for **conventions that follow you** across projects (like how the Yens work).
 - **Project skill** → `<your-repo>/.claude/skills/<skill-name>/SKILL.md` — in the **repo's own** `.claude/` (no `~/`), so it loads only in *this* repo and, once committed, ships to anyone who clones it. Best for **repo-specific** conventions (how this project makes figures, where results land, which script to run).

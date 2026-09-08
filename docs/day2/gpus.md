@@ -10,14 +10,14 @@ permalink: /day2/gpus/
 # GPUs
 
 {: .note }
-> ⭐ **This whole page is bonus.** Do it once the capstone is done — and check whether
+> ⭐ **This whole page is bonus.** Do it once you have reached the
+> [Part 2 Checkpoint]({{ '/day2/part2-checkpoint/' | relative_url }}) — and check whether
 > anyone at your table is stuck first.
 
 ---
 
-Every job you have submitted today asked for CPU cores and RAM. The Yens also have
-**GPUs**, and asking for one is two extra `#SBATCH` lines. The interesting part is not the
-syntax — it's working out whether your job wanted one in the first place.
+Asking for a GPU is two extra `#SBATCH` lines. The interesting part is not the syntax —
+it's working out whether your job wanted one.
 
 {: .important }
 > **Task:** Submit a two-minute job that asks Slurm for one GPU, read back which GPU you
@@ -83,18 +83,12 @@ Once it clears the queue:
 cat logs/gpu_check_*.out
 ```
 
-The `nvidia-smi` output tells you the model and its VRAM. Look it up in the table on
-[How to Run LLMs on the Yens]({{ '/reference/running-llms-on-the-yens/' | relative_url }}):
+The `nvidia-smi` output tells you which model you landed on and how much VRAM it has. The
+per-tier numbers are in
+[Running LLMs on the Yens]({{ '/reference/running-llms-on-the-yens/' | relative_url }}).
 
-| GPU | VRAM |
-|---|---|
-| A30 | 24 GB |
-| A40 | 48 GB |
-| H200 | 141 GB |
-
-**VRAM is the binding constraint on a GPU**, in the same way RAM was the binding constraint
-when you profiled on a Yen. A model that does not fit in VRAM does not run at all — it
-doesn't run slowly.
+Note what your own output says, because **VRAM is the binding constraint on a GPU** the way
+RAM was on a Yen node: a model that does not fit does not run slowly, it does not run.
 
 To ask for a specific model, add `--constraint="GPU_MODEL:A40"`. Be aware that the more
 specific you are, the longer you wait.
@@ -119,20 +113,12 @@ all its wall-clock time **waiting on the network** for the API to answer, not co
 > <details markdown="1">
 > <summary>Think about it, then check</summary>
 >
-> No — and not by a little. A GPU accelerates *arithmetic*. Your job does almost none: it
-> makes an HTTP request, waits, parses the reply, writes a file. The GPU would sit idle at
-> 0% utilisation for the entire run while you held it out of the queue, and the job would
-> take exactly as long as it did on a CPU core.
->
-> This is the same distinction you drew when profiling — **I/O-bound vs. CPU-bound** — and
-> it is the reason to profile before requesting. Asking for hardware you don't need makes
-> your job wait longer in the queue *and* blocks someone whose job actually needs it.
+> No — and not by a little. Your `real` ≫ `user` measurement from this morning says the job
+> waits on the network rather than computing, and a GPU only accelerates computing. It
+> would sit at 0% utilisation for the whole run while you held it out of a queue somebody
+> else needs.
 >
 > </details>
-
-GPUs earn their keep when the work really is arithmetic-heavy and parallel: training or
-fine-tuning a model, large matrix operations, and — the case most relevant to today —
-**running an LLM's weights yourself** instead of calling someone else's API.
 
 ---
 
@@ -142,14 +128,3 @@ fine-tuning a model, large matrix operations, and — the case most relevant to 
 |---|---|
 | [Why Run LLMs on the Yens?]({{ '/reference/why-local-llms/' | relative_url }}) | Local weights vs. the Gateway vs. a third party |
 | [Running LLMs on the Yens]({{ '/reference/running-llms-on-the-yens/' | relative_url }}) | Serving a model on cluster hardware; GPU tiers and how to ask for one |
-
----
-
-## What You Learned
-
-- **Asking for a GPU** is `--partition=gpu` plus `--gres=gpu:1` — and forgetting `--gres`
-  fails quietly rather than loudly.
-- **VRAM is the binding constraint**, the way RAM was on a CPU node.
-- **GPUs are scarce and contended**, so a specific request queues longer than a general one.
-- **An I/O-bound job gains nothing from a GPU.** Profiling first is what tells you which
-  kind of job you have.

@@ -9,51 +9,38 @@ permalink: /day2/where-to-go-next/
 
 # Where to Go Next
 
-Thank you for participating!
-
-The DARC team runs the Yens and supports GSB researchers year-round. You are not expected to remember everything from these two days — but you are expected to know where to ask.
-
-## Slack — `#gsb-yen-users`
-
-Join the **#gsb-yen-users** channel on Stanford Slack. It's where Yen users and the DARC team:
-- Answer questions about the cluster, Slurm, storage, and software
-- Share tips and scripts that didn't make it into any tutorial
-- Announce workshops, maintenance windows, and new hardware
-- Collect feedback about what to improve
-
-**Join here:** [#gsb-yen-users](https://circlerss.slack.com/archives/C01JXJ6U4E5)
-
-If the link does not open automatically, open the Slack app, search for **#gsb-yen-users** in Channels, and join from there.
-
-## Email
-
-For questions that need a direct answer from the team, or anything you'd rather not post in a channel:
-
-**[gsb_darcresearch@stanford.edu](mailto:gsb_darcresearch@stanford.edu)**
-
-Response time is typically one business day.
+Thank you for participating. You are not expected to remember everything from these two
+days — you are expected to know where to ask.
 
 ---
 
-## What to Do When You're Stuck
+## Where to Ask
 
-| Situation | Where to go |
-|-----------|-------------|
-| "My Slurm job keeps failing" | `#gsb-yen-users` — someone has seen it |
-| "Is this dataset ok to send to an LLM?" | Email DARC or ask your IRB coordinator |
-| "I want to run something much bigger" | Email DARC — we can advise on allocations |
-| "Is there a workshop on X?" | Watch `#gsb-yen-users` for announcements |
-| "My code works on my laptop but not the Yens" | `#gsb-yen-users` — include your error output |
+| | Where | For |
+|---|---|---|
+| 💬 | [**#gsb-yen-users**](https://circlerss.slack.com/archives/C01JXJ6U4E5) on Stanford Slack | Anything about the cluster, Slurm, storage or software. Also where maintenance windows and new hardware get announced. Paste your error output |
+| ✉️ | [**gsb_darcresearch@stanford.edu**](mailto:gsb_darcresearch@stanford.edu) | Anything you would rather not post in a channel, or that needs a direct answer. Typically one business day |
+| 📖 | [**rcpedia.stanford.edu**](https://rcpedia.stanford.edu) | The written documentation — storage, Slurm, software, quotas, and the current limits |
+
+If the Slack link does not open, search Channels for **#gsb-yen-users** in the app.
+
+{: .note }
+> **"Is this dataset OK to send to an LLM?"** is the one question to email rather than post
+> — and worth asking before you send, not after.
 
 ---
 
-## Keep Exploring
+## Keep Going
 
-Everything you ran over these two days is in your fork. Future projects can start from the same patterns:
+Everything you ran over these two days is in your fork, and the patterns transfer:
 
-- **More data, same pipeline:** swap the input list in your Slurm array script
-- **Different model:** change `base_url` and `model` — the rest is identical
-- **New dataset type:** adapt your Pydantic schema, rerun the pipeline
-- **Need a GPU:** add `--gres=gpu:1` (and the GPU partition) to your Slurm script — see [GPUs]({{ '/day2/gpus/' | relative_url }}) and [How to Run LLMs on the Yens]({{ '/reference/running-llms-on-the-yens/' | relative_url }})
+- **More data, same pipeline** — swap the input list in your array script
+- **A different model** — change the model name; the rest is identical
+- **A new dataset type** — adapt your Pydantic schema and rerun
+- **Something that needs a GPU** — see [GPUs]({{ '/day2/gpus/' | relative_url }})
 
-The course site stays up, and the [Reference]({{ '/reference/' | relative_url }}) section holds everything we could not fit into two mornings.
+The site stays up. The [Reference]({{ '/reference/' | relative_url }}) section holds what
+would not fit into two mornings — including
+[Compute Environments]({{ '/reference/compute-environments/' | relative_url }}) and
+[Parallelization Basics]({{ '/reference/parallelization/' | relative_url }}), the written
+versions of today's two lectures.
