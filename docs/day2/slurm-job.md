@@ -1,35 +1,57 @@
 ---
 layout: default
-title: "Writing & Submitting a Slurm Job"
+title: "2. Submit It to Slurm"
 parent: "Part 1 — Measure & Submit"
 grand_parent: "Day 2 — The Cluster"
-nav_order: 4
+nav_order: 2
 permalink: /day2/slurm-job/
 ---
 
-# Writing & Submitting a Slurm Job
+# 2. Submit It to Slurm
 
+You have the three numbers. Now you declare them, hand the job over, and walk away — then
+come back and find out what actually happened.
 
-<svg viewBox="0 0 720 164" role="img" aria-labelledby="smap-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:720px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
-  <title id="smap-title">Day 2 map — you are on the submit-to-Slurm step.</title>
-  <defs>
-    <marker id="smap-gray" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c2cad4"/></marker>
-  </defs>
-  <text x="70" y="46" text-anchor="middle" font-size="17" fill="#8a94a6">profile</text>
-  <text x="210" y="28" text-anchor="middle" font-size="17" font-weight="700" fill="#8C1515">submit to</text><text x="210" y="48" text-anchor="middle" font-size="17" font-weight="700" fill="#8C1515">Slurm</text>
-  <text x="350" y="46" text-anchor="middle" font-size="17" fill="#8a94a6">read logs</text>
-  <text x="490" y="46" text-anchor="middle" font-size="17" fill="#8a94a6">document</text>
-  <text x="640" y="46" text-anchor="middle" font-size="17" font-weight="600" fill="#8a94a6">scale (arrays)</text>
-  <line x1="92" y1="80" x2="468" y2="80" stroke="#c2cad4" stroke-width="3"/>
-  <line x1="512" y1="80" x2="622" y2="80" stroke="#c2cad4" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#smap-gray)"/>
-  <path d="M350,101 L350,124 Q350,130 344,130 L216,130 Q210,130 210,124 L210,103" fill="none" stroke="#c2cad4" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#smap-gray)"/>
-  <text x="280" y="150" text-anchor="middle" font-size="15" fill="#8a94a6">debug</text>
-  <circle cx="70" cy="80" r="20" fill="#f3f4f7" stroke="#9aa4b0" stroke-width="3"/><text x="70" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8a94a6">1</text>
-  <circle cx="210" cy="80" r="20" fill="#fff" stroke="#8C1515" stroke-width="3"/><text x="210" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8C1515">2</text>
-  <circle cx="350" cy="80" r="20" fill="#f3f4f7" stroke="#9aa4b0" stroke-width="3"/><text x="350" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8a94a6">3</text>
-  <circle cx="490" cy="80" r="20" fill="#f3f4f7" stroke="#9aa4b0" stroke-width="3"/><text x="490" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8a94a6">4</text>
-  <circle cx="640" cy="80" r="20" fill="#f3f4f7" stroke="#9aa4b0" stroke-width="3"/><text x="640" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8a94a6">5</text>
-</svg>
+{: .important }
+> **Give this about 40 minutes.** It is the longest section of the morning and the most
+> useful. If you only half-finish one thing today, do not let it be this one.
+
+---
+
+## Exercise: Peek at the Queue
+
+Before you add a job to the queue, look at the queue.
+
+{: .important }
+> **Mandatory.** **Task:** Look at the live Slurm queue to see what jobs are waiting or running right now.
+
+```bash
+squeue
+```
+
+Look at the columns:
+- **JOBID** — unique ID for each job
+- **PARTITION** — which partition (queue) the job was submitted to — each partition has different node types, time limits, and resource caps; see the [current partitions and their limits](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits)
+- **ST** — status: `R` = running, `PD` = pending (waiting in queue for resources)
+- **TIME** — how long the job has been running
+- **NODELIST** — which compute node it landed on
+
+There is also a shorthand to filter to just your jobs:
+
+```bash
+squeue --me
+```
+
+You can also filter by partition — for example, to see only GPU jobs:
+
+```bash
+squeue -p gpu
+```
+
+Every `PD` job is waiting for a node with the resources it requested. When Slurm finds a matching node — it runs.
+
+---
+
 
 ---
 
@@ -252,26 +274,6 @@ Once your job runs, check your inbox. You should receive two emails: one when th
 
 ## Look at the Logs
 
-<svg viewBox="0 0 720 164" role="img" aria-labelledby="rlmap-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:720px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
-  <title id="rlmap-title">Day 2 map — you are on the read-logs step.</title>
-  <defs>
-    <marker id="rlmap-gray" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c2cad4"/></marker>
-  </defs>
-  <text x="70" y="46" text-anchor="middle" font-size="17" fill="#8a94a6">profile</text>
-  <text x="210" y="28" text-anchor="middle" font-size="17" fill="#8a94a6">submit to</text><text x="210" y="48" text-anchor="middle" font-size="17" fill="#8a94a6">Slurm</text>
-  <text x="350" y="46" text-anchor="middle" font-size="17" font-weight="700" fill="#8C1515">read logs</text>
-  <text x="490" y="46" text-anchor="middle" font-size="17" fill="#8a94a6">document</text>
-  <text x="640" y="46" text-anchor="middle" font-size="17" font-weight="600" fill="#8a94a6">scale (arrays)</text>
-  <line x1="92" y1="80" x2="468" y2="80" stroke="#c2cad4" stroke-width="3"/>
-  <line x1="512" y1="80" x2="622" y2="80" stroke="#c2cad4" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#rlmap-gray)"/>
-  <path d="M350,101 L350,124 Q350,130 344,130 L216,130 Q210,130 210,124 L210,103" fill="none" stroke="#c2cad4" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#rlmap-gray)"/>
-  <text x="280" y="150" text-anchor="middle" font-size="15" fill="#8a94a6">debug</text>
-  <circle cx="70" cy="80" r="20" fill="#f3f4f7" stroke="#9aa4b0" stroke-width="3"/><text x="70" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8a94a6">1</text>
-  <circle cx="210" cy="80" r="20" fill="#f3f4f7" stroke="#9aa4b0" stroke-width="3"/><text x="210" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8a94a6">2</text>
-  <circle cx="350" cy="80" r="20" fill="#fff" stroke="#8C1515" stroke-width="3"/><text x="350" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8C1515">3</text>
-  <circle cx="490" cy="80" r="20" fill="#f3f4f7" stroke="#9aa4b0" stroke-width="3"/><text x="490" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8a94a6">4</text>
-  <circle cx="640" cy="80" r="20" fill="#f3f4f7" stroke="#9aa4b0" stroke-width="3"/><text x="640" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8a94a6">5</text>
-</svg>
 
 The job wrote **log files** to `logs/` — the `.out` file has the script's normal output, the `.err` file has any errors:
 
@@ -290,27 +292,6 @@ cat logs/extract_*.err
 {: .important }
 > **Mandatory.** **Task:** Submit a deliberately broken job, read the error log it leaves behind, and fix it with Claude as your reviewer. Reading a failed job's `.err` is the first debugging skill you will actually need on the cluster.
 
-<svg viewBox="0 0 720 164" role="img" aria-labelledby="dmap-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:720px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
-  <title id="dmap-title">Day 2 map — you are on the debug-and-resubmit step.</title>
-  <defs>
-    <marker id="dmap-gray" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c2cad4"/></marker>
-    <marker id="dmap-red" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8C1515"/></marker>
-  </defs>
-  <text x="70" y="46" text-anchor="middle" font-size="17" fill="#8a94a6">profile</text>
-  <text x="210" y="28" text-anchor="middle" font-size="17" fill="#8a94a6">submit to</text><text x="210" y="48" text-anchor="middle" font-size="17" fill="#8a94a6">Slurm</text>
-  <text x="350" y="46" text-anchor="middle" font-size="17" fill="#8a94a6">read logs</text>
-  <text x="490" y="46" text-anchor="middle" font-size="17" fill="#8a94a6">document</text>
-  <text x="640" y="46" text-anchor="middle" font-size="17" font-weight="600" fill="#8a94a6">scale (arrays)</text>
-  <line x1="92" y1="80" x2="468" y2="80" stroke="#c2cad4" stroke-width="3"/>
-  <line x1="512" y1="80" x2="622" y2="80" stroke="#c2cad4" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#dmap-gray)"/>
-  <path d="M350,101 L350,124 Q350,130 344,130 L216,130 Q210,130 210,124 L210,103" fill="none" stroke="#8C1515" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#dmap-red)"/>
-  <text x="280" y="150" text-anchor="middle" font-size="15" font-weight="700" fill="#8C1515">debug</text>
-  <circle cx="70" cy="80" r="20" fill="#f3f4f7" stroke="#9aa4b0" stroke-width="3"/><text x="70" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8a94a6">1</text>
-  <circle cx="210" cy="80" r="20" fill="#f3f4f7" stroke="#9aa4b0" stroke-width="3"/><text x="210" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8a94a6">2</text>
-  <circle cx="350" cy="80" r="20" fill="#f3f4f7" stroke="#9aa4b0" stroke-width="3"/><text x="350" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8a94a6">3</text>
-  <circle cx="490" cy="80" r="20" fill="#f3f4f7" stroke="#9aa4b0" stroke-width="3"/><text x="490" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8a94a6">4</text>
-  <circle cx="640" cy="80" r="20" fill="#f3f4f7" stroke="#9aa4b0" stroke-width="3"/><text x="640" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8a94a6">5</text>
-</svg>
 
 Your repo ships several Slurm scripts that are **deliberately broken**. Fix `slurm/fix_me.slurm` here; the others are waiting for you in the [Bonus](#bonus) section. **Work with Claude**: point Claude Code at the job's error log and ask it to explain what went wrong and propose a fix. **Read its explanation, and if the fix makes sense, approve it** and let Claude apply it — you're the reviewer, so don't accept a change you don't understand.
 
@@ -522,3 +503,57 @@ squeue --me
 You'll get a completion email in a moment. Confirm it says the job completed.
 
 </details>
+
+**Bonus — Add a `longsqueue` alias**
+
+The default `squeue` output is sparse. Pass a custom format to see what each job actually
+requested — CPU cores, memory, and time limit:
+
+```bash
+squeue -o "%.18i %.9P %.8j %.8u %.8T %.10M %.10l %.4C %.7m %.15R"
+```
+
+The columns are: job ID, partition, job name, user, state, time elapsed, time limit, CPU
+cores requested, memory requested, and reason/node.
+
+To keep it, append an alias. The quoted heredoc (`<<'EOF'`) means nothing inside needs
+escaping — paste the whole block at once:
+
+```bash
+cat >> ~/.bash_profile <<'EOF'
+alias longsqueue='squeue -o "%.18i %.9P %.8j %.8u %.8T %.10M %.10l %.4C %.7m %.15R"'
+EOF
+source ~/.bash_profile
+```
+
+Now run `longsqueue`. If the alias comes back "not found", check the tail of the file with
+`tail -3 ~/.bash_profile` before appending again.
+
+
+**Bonus — Inspect any job with `scontrol`**
+
+Pick any job from `squeue` and look up its full details:
+
+```bash
+scontrol show job JOBID
+```
+
+Find **NumCPUs** (cores requested), **mem=** (RAM requested) and **TimeLimit**. This works
+on any job — yours or someone else's — as long as it is still queued or running.
+
+
+**Bonus — Compare partitions**
+
+Run `sinfo -p gpu` and `sinfo -p normal` to compare node counts and time limits. `sinfo`
+does not show the per-user resource **caps** — those come from each partition's QoS, so
+check `sacctmgr show qos gpu` against `sacctmgr show qos normal` (or the
+[current partitions and their limits](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits)).
+When would you request one over the other?
+
+
+---
+
+## Before You Move On
+
+Head to the [Part 1 Checkpoint]({{ '/day2/part1-checkpoint/' | relative_url }}) — six
+checks, about five minutes. Everything in Part 2 assumes they pass.

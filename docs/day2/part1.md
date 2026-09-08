@@ -14,8 +14,18 @@ Yesterday's script runs, on one filing at a time, on a machine you share with ev
 else. This part is finding out what it actually costs — and then handing it to the
 scheduler instead of holding a terminal open.
 
-**9:00 to 10:30.** A short lecture on CPU, RAM and the queue, then a long work block where
-you go at your own pace while we circulate.
+**Lecture 9:00–9:20, then the lab until 10:30.** Seventy minutes, self-paced, while we
+circulate. The lecture covers what a core, RAM and the queue actually are; this part is
+where you measure them and hand a job over.
+
+| Section | Give it about |
+|---|---|
+| [1. Profile a Script]({{ '/day2/profiling/' | relative_url }}) | 25 min |
+| [2. Submit It to Slurm]({{ '/day2/slurm-job/' | relative_url }}) | 40 min |
+| [Part 1 Checkpoint]({{ '/day2/part1-checkpoint/' | relative_url }}) | 5 min |
+
+If you are well past one of these, put up a red sticky rather than pushing on — falling
+behind quietly is the failure mode this hour is trying to avoid.
 
 Each section is marked **Mandatory** or **Bonus**. Do the mandatory ones in order — they
 build on each other, and the numbers you write down in one are the inputs to the next.
@@ -30,32 +40,22 @@ up and get coffee when your table reaches a natural stopping point.
 
 ---
 
-## Before You Start
-
-Three things need to be in place. **Say so now if any of them are missing:**
-
-1. Your fork, cloned to the Yens at `~/yens-onboarding-2026`
-2. A virtual environment at `~/yens-onboarding-2026/.venv`, with `requirements.txt` installed
-3. A `.env` holding your `ANTHROPIC_API_KEY`, and `.env` in `.gitignore`
-
-Today profiles `scripts/extract_form_3_batch.py`, which is committed in the repo — everyone
-starts from the same working script. If your own version from Day 1 runs, profile that one
-instead.
-
----
-
 ## Sections
 
 | Section | Format | What you'll learn |
 |---|---|---|
-| [Compute Environments]({{ '/day2/compute-environments/' | relative_url }}) | 💬 Lecture + discussion | CPU, RAM, and storage — and how your laptop, the Yens, and the cloud trade off |
-| [Profiling Resource Usage]({{ '/day2/profiling/' | relative_url }}) | 💻 Mandatory | Measure a script's time, CPU, and memory instead of guessing at them |
-| [The Slurm Scheduler]({{ '/day2/slurm-scheduler/' | relative_url }}) | 💻 Mandatory | Why a shared cluster needs a scheduler; read the live queue and the partitions |
-| [Writing & Submitting a Slurm Job]({{ '/day2/slurm-job/' | relative_url }}) | 💻 Mandatory | Write a batch script line by line; submit, monitor, cancel, and debug a real job |
+| [1. Profile a Script]({{ '/day2/profiling/' | relative_url }}) | 💻 Mandatory | Measure a script's time, cores and memory instead of guessing at them |
+| [2. Submit It to Slurm]({{ '/day2/slurm-job/' | relative_url }}) | 💻 Mandatory | Read the queue, write `#SBATCH` directives by hand, submit, monitor, and debug a real job |
+| [Part 1 Checkpoint]({{ '/day2/part1-checkpoint/' | relative_url }}) | ✅ Checkpoint | Six checks proving the things Part 2 depends on actually work |
+| [Size Your Own Machine]({{ '/day2/compute-environments/' | relative_url }}) | ⭐ Bonus | Put your own laptop's cores and RAM against a Yen node, and price it in the cloud |
 | [Writing a Slurm Job with Claude]({{ '/day2/slurm-with-claude/' | relative_url }}) | ⭐ Bonus | Distill the Yens conventions you just learned into a reusable Claude skill |
 
 {: .note }
-> **Writing & Submitting a Slurm Job is the protected one.** If this part runs long,
-> it is the section to protect — writing the directives by hand, hitting the `logs/` and
-> fresh-shell gotchas, and reading a failed job's `.err` is the most useful half hour of
-> the two days. The Claude bonus after it is genuinely optional.
+> **Submit It to Slurm is the protected one.** If this part runs long, it is the section to
+> protect — writing the directives by hand, hitting the `logs/` and fresh-shell gotchas,
+> and reading a failed job's `.err` is the most useful half hour of the two days. The two
+> bonuses after the checkpoint are genuinely optional.
+>
+> The [Part 1 Checkpoint]({{ '/day2/part1-checkpoint/' | relative_url }}) is the hinge:
+> everything in Part 2 assumes its six items work, so run it before you move on while
+> there is still someone circulating who can help.

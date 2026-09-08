@@ -263,7 +263,7 @@ sbatch --reservation=class_day2 slurm/extract_array.slurm
 watch squeue --me
 ```
 
-The new thing to notice is the job IDs: an array shows up as many rows sharing one ID, with a task number after it — `12345678_1`, `12345678_2`, and so on — each moving through the same `PD` → `R` → gone lifecycle you watched in [The Slurm Scheduler]({{ '/day2/slurm-scheduler/' | relative_url }}). Once it's done, check the per-task logs in `logs/` and the results in `results/`.
+The new thing to notice is the job IDs: an array shows up as many rows sharing one ID, with a task number after it — `12345678_1`, `12345678_2`, and so on — each moving through the same `PD` → `R` → gone lifecycle you watched in [2. Submit It to Slurm]({{ '/day2/slurm-job/' | relative_url }}). Once it's done, check the per-task logs in `logs/` and the results in `results/`.
 
 {: .note }
 > 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help

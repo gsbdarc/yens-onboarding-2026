@@ -1,93 +1,37 @@
 ---
 layout: default
-title: "Profiling Resource Usage"
+title: "1. Profile a Script"
 parent: "Part 1 — Measure & Submit"
 grand_parent: "Day 2 — The Cluster"
-nav_order: 2
+nav_order: 1
 permalink: /day2/profiling/
 ---
 
-# Profiling Resource Usage
+# 1. Profile a Script
 
-<svg viewBox="0 0 720 164" role="img" aria-labelledby="pmap-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:720px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
-  <title id="pmap-title">Day 2 map — you are on step 1, profile your script.</title>
-  <defs>
-    <marker id="pmap-gray" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c2cad4"/></marker>
-  </defs>
-  <text x="70" y="46" text-anchor="middle" font-size="17" font-weight="700" fill="#8C1515">profile</text>
-  <text x="210" y="28" text-anchor="middle" font-size="17" fill="#8a94a6">submit to</text><text x="210" y="48" text-anchor="middle" font-size="17" fill="#8a94a6">Slurm</text>
-  <text x="350" y="46" text-anchor="middle" font-size="17" fill="#8a94a6">read logs</text>
-  <text x="490" y="46" text-anchor="middle" font-size="17" fill="#8a94a6">document</text>
-  <text x="640" y="46" text-anchor="middle" font-size="17" font-weight="600" fill="#8a94a6">scale (arrays)</text>
-  <line x1="92" y1="80" x2="468" y2="80" stroke="#c2cad4" stroke-width="3"/>
-  <line x1="512" y1="80" x2="622" y2="80" stroke="#c2cad4" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#pmap-gray)"/>
-  <path d="M350,101 L350,124 Q350,130 344,130 L216,130 Q210,130 210,124 L210,103" fill="none" stroke="#c2cad4" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#pmap-gray)"/>
-  <text x="280" y="150" text-anchor="middle" font-size="15" fill="#8a94a6">debug</text>
-  <circle cx="70" cy="80" r="20" fill="#fff" stroke="#8C1515" stroke-width="3"/><text x="70" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8C1515">1</text>
-  <circle cx="210" cy="80" r="20" fill="#f3f4f7" stroke="#9aa4b0" stroke-width="3"/><text x="210" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8a94a6">2</text>
-  <circle cx="350" cy="80" r="20" fill="#f3f4f7" stroke="#9aa4b0" stroke-width="3"/><text x="350" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8a94a6">3</text>
-  <circle cx="490" cy="80" r="20" fill="#f3f4f7" stroke="#9aa4b0" stroke-width="3"/><text x="490" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8a94a6">4</text>
-  <circle cx="640" cy="80" r="20" fill="#f3f4f7" stroke="#9aa4b0" stroke-width="3"/><text x="640" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8a94a6">5</text>
-</svg>
+The lecture said you cannot read a script's resource needs off the code — you have to
+measure them while it runs. This is where you do that, twice: once on a script you have
+never seen, then on the one you will hand to Slurm.
 
----
-
-## Computing Resources — A Quick Recap
-
-Before we run anything, let's make sure we have the vocabulary for the resources a program uses:
-
-| Resource | What it is |
-|----------|-----------|
-| **CPU core** | An individual worker that executes your code |
-| **RAM** | Fast memory the CPU reads from while working |
-| **Storage (file system)** | Where your files live — VAST on the Yens |
-| **Time** | How long your script takes to finish |
-
----
-
-## Exercise: Run Your Script
+By the end you will have three numbers written down. The next section spends them.
 
 {: .important }
-> **Mandatory.** **Task:** Run the single-filing extraction script on the Yens interactively and think about its resource footprint.
+> **Give this about 25 minutes.** Three mandatory exercises. The third one — writing the
+> numbers into your README — is the one people skip and then need ten minutes later, so
+> do not skip it.
 
-If you're not already connected, SSH in:
+---
+
+## Setup
+
+On the Yens, in your clone:
 
 ```bash
-ssh SUNetID@yen.stanford.edu
 cd ~/yens-onboarding-2026
 source .venv/bin/activate
 ```
 
-Run the script:
-
-```bash
-python scripts/extract_form_3_one_file.py
-```
-
-After the script is done running, let's discuss as a class:
-
-<details markdown="1">
-<summary>❓ Question 1</summary>
-
-**Why** do we want to estimate the resources a script uses?
-
-</details>
-
-<details markdown="1">
-<summary>❓ Question 2</summary>
-
-Do you know what resources this script is using right now?
-
-</details>
-
-<details markdown="1">
-<summary>❓ Question 3</summary>
-
-How would you estimate them?
-
-</details>
-
-This page will teach you **how to estimate the resources your script is actually using**. This matters whether you wrote the script yourself or someone handed it to you.
+Everything below runs from here.
 
 ---
 
@@ -168,12 +112,6 @@ sys     0m2.212s
 - **user** — CPU time your code consumed across all cores; if `user` > `real`, the script used multiple cores in parallel
 - **sys** — CPU time spent on OS-level work (file I/O, memory allocation)
 
-{: .note }
-> **Definitions**
-> - **Profiling** — measuring a script's resource usage (time, CPU, RAM) as it runs
-> - **Serial** — the script uses one CPU core at a time; `user` time ≈ `real` time
-> - **Parallel** — the script uses multiple cores simultaneously; `user` time > `real` time
-
 **Step 5 — Run the script again, this time watching it in `htop`.**
 
 First, in **Terminal 2**, stop `watch userload` by pressing **`Ctrl+C`**. Then start `htop`, filtered to just your own processes:
@@ -205,8 +143,6 @@ As the script runs, watch new `python` rows appear — that's it spawning work. 
 - How many processes did it run?
 - Is it therefore **serial** (one core) or **parallel** (multiple)?
 
-{: .note }
-> **Cores vs. processes:** we use these loosely here, almost interchangeably — but they're actually separate things (a single process can spread across several cores, and one core can take turns running many processes). Likewise, **multi-core**, **multiprocessing**, and **parallel** all mean roughly the same thing for now: your code doing work on more than one core at once. We'll dig into parallelism properly later today, in [Job Arrays]({{ '/day2/job-arrays/' | relative_url }}) — for now, just picture physical cores plus a program using multiple threads or processes as a **parallel, multi-core program**.
 
 {: .note }
 > 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
@@ -218,7 +154,6 @@ As the script runs, watch new `python` rows appear — that's it spawning work. 
 You saw about **4 `python` processes** in `htop` and roughly **4 Cores** in `userload` — no accident. Open `scripts/mystery_script.py` and you'll find `num_cores = 4`: the script deliberately starts 4 worker processes, one per core, which is exactly what made it a **parallel, multi-core** program. The amount of parallelism is a **choice in the code** — change that number and the processes and cores you'd see change with it.
 
 </details>
-
 ---
 
 ## Exercise: Profile the Batch Script
@@ -302,7 +237,8 @@ Is this script **serial** or **parallel**?
 <details markdown="1">
 <summary>✅ Check your answer</summary>
 
-- **Cores and % Mem barely moved.** The job spends almost all its time **waiting on the Anthropic API** to answer, not computing — so it barely touches the CPU. That makes it an **I/O-bound** job (waiting on the network), unlike the mystery script, which was **CPU-bound** (doing math). It also handles one filing at a time, so memory stays low no matter how many you run.
+- **Cores and % Mem barely moved.** The job spends almost all its time **waiting on the Anthropic API** to answer, not computing — so it barely touches the CPU. That makes it an **I/O-bound** job (waiting on the network), unlike the mystery script, which was **CPU-bound** (doing math).
+- **`% Mem` reading 0 is two things at once.** The script really does hold little memory, because it handles one filing at a time rather than loading all ten. But even a few hundred MB would still print `0%`, because that column is a share of the node's whole ~1 TB. Trust `RES` in `htop` for the actual number — `% Mem` cannot resolve anything a single job is likely to use.
 - **`real` is large, `user` is small.** `real` (wall-clock) is big because you waited on the API; `user` (actual CPU time) is tiny because the CPU had little to do. That gap — `real` ≫ `user` — is the fingerprint of a job that mostly waits.
 
 A typical run: `real 0m22.5s`, `user 0m1.9s`, `sys 0m0.5s` — about 2 seconds of real work, ~20 seconds spent waiting. In `htop` you'll see just **one `python` process**, and **under 1 Core** in `userload`.
@@ -402,3 +338,14 @@ That is the useful lesson, and it bites in the capstone. **A single timing is we
 > **What about prompt caching?** It's real, and it's worth knowing about — an API can cache a chunk of a prompt it has already processed and skip re-reading it. But it doesn't help here, for two reasons. On Anthropic it is **opt-in**: you mark the reusable chunk with `cache_control`, and this script doesn't. And even if it did, there's nothing to reuse — the bulk of every request is a **different filing**, and the one part that does repeat (the system prompt) is far too short to be cacheable. Caching pays off when many requests share a **large** prefix, which is not the shape of this job. See [Anthropic's prompt caching docs](https://platform.claude.com/docs/en/build-with-claude/prompt-caching).
 
 </details>
+---
+
+## Before You Move On
+
+You should now have, written in your README: a wall-clock time, a core count, and a RAM
+figure for the 10-filing run. Those three are the `--time`, `--cpus-per-task` and `--mem`
+you are about to declare in
+[2. Submit It to Slurm]({{ '/day2/slurm-job/' | relative_url }}).
+
+If you want the concepts behind what you just measured, they are in
+[Compute Environments]({{ '/reference/compute-environments/' | relative_url }}).
