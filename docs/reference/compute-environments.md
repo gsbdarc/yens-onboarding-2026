@@ -137,8 +137,8 @@ it faster than the queue will give it to you.
 ## Where This Shows Up in the Lab
 
 The three numbers every script needs — **compute time**, **cores**, and **RAM** — are the
-ones you measure in [1. Profile the Mystery Script]({{ '/day2/profile-mystery-script/' | relative_url }}) and then
-declare in [1. Profile the Mystery Script]({{ '/day2/profile-mystery-script/' | relative_url }}). You cannot read
+ones you measure in [1. Profile]({{ '/day2/profiling/' | relative_url }}) and then
+declare in [4. Submit]({{ '/day2/submit-a-slurm-job/' | relative_url }}). You cannot read
 them off the code; you have to measure them while it runs.
 
 For how work splits across cores and nodes, see

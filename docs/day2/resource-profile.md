@@ -1,9 +1,9 @@
 ---
 layout: default
-title: "3. Document"
+title: "2. Document"
 parent: "Part 1 — Profile & Submit a Job"
 grand_parent: "Day 2 — The Yen-Slurm Cluster"
-nav_order: 3
+nav_order: 2
 permalink: /day2/resource-profile/
 ---
 

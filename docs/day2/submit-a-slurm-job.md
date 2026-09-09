@@ -1,9 +1,9 @@
 ---
 layout: default
-title: "5. Submit"
+title: "4. Submit"
 parent: "Part 1 — Profile & Submit a Job"
 grand_parent: "Day 2 — The Yen-Slurm Cluster"
-nav_order: 5
+nav_order: 4
 permalink: /day2/submit-a-slurm-job/
 ---
 

@@ -1,13 +1,13 @@
 ---
 layout: default
-title: "1. Profile the Mystery Script"
+title: "1. Profile"
 parent: "Part 1 — Profile & Submit a Job"
 grand_parent: "Day 2 — The Yen-Slurm Cluster"
 nav_order: 1
-permalink: /day2/profile-mystery-script/
+permalink: /day2/profiling/
 ---
 
-# Profile the Mystery Script
+# Profile
 
 {: .note }
 > 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
@@ -47,6 +47,8 @@ uses:
 | **Time** | How long your script takes to finish |
 
 ---
+
+## The Mystery Script
 
 You are going to run a script you have never seen before and work out what resources it uses — without reading the code. That is **profiling**: measuring a script's time, CPU and RAM while it runs.
 
@@ -198,7 +200,121 @@ As the script runs, watch new `python` rows appear — that's it spawning work. 
 You saw about **4 `python` processes** in `htop` and roughly **4 Cores** in `userload` — no accident. Open `scripts/mystery_script.py` and you'll find `num_cores = 4`: the script deliberately starts 4 worker processes, one per core, which is exactly what made it a **parallel, multi-core** program. The amount of parallelism is a **choice in the code** — change that number and the processes and cores you'd see change with it.
 
 </details>
+
 ---
+
+## The Batch Script
+
+{: .note }
+> Everything on this page runs from your clone, with the environment active:
+>
+> ```bash
+> cd ~/yens-onboarding-2026
+> source .venv/bin/activate
+> ```
+
+---
+
+{: .important }
+> **Task:** Profile the real batch script on 10 filings using the same two-terminal technique.
+
+Now apply the same technique to a **real workload**. `scripts/extract_form_3_batch.py` — committed in the repo, so everyone has it — runs the same Form 3 extraction you did on Day 1 with `extract_form_3_one_file.py`, but loops over many filings instead of one. Process **10 filings** and profile it. (If you finished the Day 1 capstone and have your own batch script, profile that one instead — the numbers are what matter, not whose script produced them.)
+
+First, open the script so you know what you're profiling — `cat scripts/extract_form_3_batch.py` (or open it in JupyterHub).
+
+<details markdown="1">
+<summary>💡 Hint — what the script does</summary>
+
+It loops over the filings in `data/aws_links.csv`, calls the API for each, and writes one JSON per filing to `results/`.
+
+</details>
+
+The script is set to process **10 filings** (see `NUM_FILINGS` near the top — kept small so a stray run doesn't fire hundreds of paid API calls).
+
+**First run — watch the load.** Terminal 2 (start this first):
+```bash
+watch userload
+```
+
+Terminal 1 — run it and note the `real`, `user`, and `sys` times when it finishes:
+```bash
+time python scripts/extract_form_3_batch.py
+```
+
+**Second run — watch the processes.** Switch Terminal 2 to `htop`, then run the script once more so you can see the processes live:
+
+Terminal 2:
+```bash
+htop -u SUNetID
+```
+
+Terminal 1:
+```bash
+time python scripts/extract_form_3_batch.py
+```
+
+Watch Terminal 2 as the 10 filings process one after another.
+
+{: .note }
+> **No need to clear `results/` first.** The script overwrites each file as it goes — there
+> is no check for work already done, so the second run repeats all ten API calls whether or
+> not the output is already sitting there.
+>
+> Worth noticing, because it is a real cost: a rerun after a partial failure pays for
+> everything again. We will fix this later, in
+> [Part 2]({{ '/day2/rerun-safe-tasks/' | relative_url }}).
+
+{: .note }
+> **Reminder — `real` / `user` / `sys`:**
+> - **`real`** — wall-clock time: how long you actually waited
+> - **`user`** — CPU time your code used across all cores (if `user` > `real`, it ran on multiple cores in parallel)
+> - **`sys`** — CPU time spent on OS-level work (file I/O, memory allocation)
+
+Think about each of these before revealing the answer:
+
+<details markdown="1">
+<summary>❓ Question 1</summary>
+
+What did we observe in `userload` while the 10 filings ran — what happened to **Cores** and **% Mem**?
+
+</details>
+
+<details markdown="1">
+<summary>❓ Question 2</summary>
+
+Why do the **Cores** stay near 0, even with 10 filings running?
+
+</details>
+
+<details markdown="1">
+<summary>❓ Question 3</summary>
+
+Why does **% Mem** stay near 0?
+
+</details>
+
+<details markdown="1">
+<summary>❓ Question 4</summary>
+
+Is this script **serial** or **parallel**?
+
+</details>
+
+<details markdown="1">
+<summary>✅ Check your answer</summary>
+
+- **Cores and % Mem barely moved.** The job spends almost all its time **waiting on the Anthropic API** to answer, not computing — so it barely touches the CPU. That makes it an **I/O-bound** job (waiting on the network), unlike the mystery script, which was **CPU-bound** (doing math).
+- **`% Mem` reading 0 is two things at once.** The script really does hold little memory, because it handles one filing at a time rather than loading all ten. But even a few hundred MB would still show `0%`, because that column measures your share of the node's whole ~1 TB. On a node that big, almost any single job rounds to zero — so read `RES` in `htop` when you want the real number.
+- **`real` is large, `user` is small.** `real` (wall-clock) is big because you waited on the API; `user` (actual CPU time) is tiny because the CPU had little to do. That gap — `real` ≫ `user` — is the fingerprint of a job that mostly waits.
+
+A typical run: `real 0m22.5s`, `user 0m1.9s`, `sys 0m0.5s` — about 2 seconds of real work, ~20 seconds spent waiting. In `htop` you'll see just **one `python` process**, and **under 1 Core** in `userload`.
+
+Two more things worth knowing:
+
+- **Per-filing times vary** — each takes however long the API takes, so 10 filings isn't exactly 10× one.
+- **Why the script sets `OPENBLAS_NUM_THREADS=1`.** Libraries like NumPy and pandas try to speed up math by grabbing *every* core on the machine — 256 on Yen2, for example. But the Yens enforce [per-user limits](https://rcpedia.stanford.edu/_policies/user_limits/) on how much CPU one person can use, so grabbing all 256 doesn't help — it just crowds a pile of threads onto the cores you're actually allowed, which can make the job *slower*. Setting it to `1` keeps the job to what it needs. The habit: on a shared node, don't let a library grab the whole machine — keep its thread count within your limits.
+
+</details>
 
 <details markdown="1">
 <summary>⭐ Bonus — if you finished early</summary>

@@ -1,9 +1,9 @@
 ---
 layout: default
-title: "6. Read Logs"
+title: "5. Read Logs"
 parent: "Part 1 — Profile & Submit a Job"
 grand_parent: "Day 2 — The Yen-Slurm Cluster"
-nav_order: 6
+nav_order: 5
 permalink: /day2/debug-a-failed-job/
 ---
 
