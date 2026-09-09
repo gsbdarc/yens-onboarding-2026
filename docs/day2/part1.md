@@ -14,9 +14,6 @@ Yesterday's script runs, on one filing at a time, on an interactive Yen node you
 with everyone else. This part is finding out what it actually costs — and then handing it
 to the scheduler instead of holding a terminal open.
 
-Put up a red sticky rather than pushing on if you get stuck — falling behind quietly is
-the failure mode this hour is trying to avoid.
-
 ---
 
 ## Sections
@@ -28,13 +25,3 @@ the failure mode this hour is trying to avoid.
 | [3. Submit]({{ '/day2/submit-a-slurm-job/' | relative_url }}) | 💻 Hands-on | Read the live queue, then write `#SBATCH` directives by hand, submit, monitor and cancel |
 | [4. Read Logs]({{ '/day2/debug-a-failed-job/' | relative_url }}) | 💻 Hands-on | Submit a job that fails on purpose, and find out why from its `.err` |
 | [Part 1 Checkpoint]({{ '/day2/part1-checkpoint/' | relative_url }}) | ✅ Checkpoint | Six checks proving the things Part 2 depends on actually work |
-
-{: .note }
-> **Submit is the protected one.** If this part runs long, it is the section to
-> protect — writing the directives by hand, hitting the `logs/` and fresh-shell gotchas,
-> and reading a failed job's `.err` is the most useful half hour of the two days. The two
-> bonuses after the checkpoint are genuinely optional.
->
-> The [Part 1 Checkpoint]({{ '/day2/part1-checkpoint/' | relative_url }}) is the hinge:
-> everything in Part 2 assumes its six items work, so run it before you move on while
-> there is still someone circulating who can help.
