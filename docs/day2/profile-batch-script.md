@@ -85,6 +85,15 @@ time python scripts/extract_form_3_batch.py
 Watch Terminal 2 as the 10 filings process one after another.
 
 {: .note }
+> **No need to clear `results/` first.** The script overwrites each file as it goes — there
+> is no check for work already done, so the second run repeats all ten API calls whether or
+> not the output is already sitting there.
+>
+> Worth noticing, because it is a real cost: a rerun after a partial failure pays for
+> everything again. You fix exactly this in
+> [Make Your Tasks Rerun-Safe]({{ '/day2/rerun-safe-tasks/' | relative_url }}).
+
+{: .note }
 > **Reminder — `real` / `user` / `sys`:**
 > - **`real`** — wall-clock time: how long you actually waited
 > - **`user`** — CPU time your code used across all cores (if `user` > `real`, it ran on multiple cores in parallel)
@@ -143,11 +152,10 @@ Two more things worth knowing:
 
 **Bonus — Run it twice**
 
-Run the 10 filings, then delete the results and run them again:
+Run the 10 filings twice in a row:
 
 ```bash
 time python scripts/extract_form_3_batch.py
-rm -rf results/*
 time python scripts/extract_form_3_batch.py
 ```
 
