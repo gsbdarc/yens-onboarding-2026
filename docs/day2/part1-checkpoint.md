@@ -19,7 +19,6 @@ scheduler instead of holding a terminal open.
 - Profiled the mystery script, with two terminals on one node
 - Timed the batch script over 10 filings
 - Written the three numbers into your README
-- Read the live queue, and told `R` from `PD`
 - Written `#SBATCH` directives by hand and submitted the job
 - Read what the job did — a working job's `.out`, and a failed job's `.err`
 
@@ -30,5 +29,5 @@ scheduler instead of holding a terminal open.
 {: .note }
 > 🔴 **Red sticky** = something on the list is missing.
 >
-> 🟢 **Green sticky** = you can tick all six. You are on to the bonus work, and free to
-> help anyone at your table who is still going.
+> 🟢 **Green sticky** = you have completed all 5. You are on to the bonus work, and free
+> to help anyone at your table who is still going.
