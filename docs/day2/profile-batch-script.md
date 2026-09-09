@@ -90,8 +90,8 @@ Watch Terminal 2 as the 10 filings process one after another.
 > not the output is already sitting there.
 >
 > Worth noticing, because it is a real cost: a rerun after a partial failure pays for
-> everything again. You fix exactly this in
-> [Make Your Tasks Rerun-Safe]({{ '/day2/rerun-safe-tasks/' | relative_url }}).
+> everything again. We will fix this later, in
+> [Part 2]({{ '/day2/rerun-safe-tasks/' | relative_url }}).
 
 {: .note }
 > **Reminder — `real` / `user` / `sys`:**
@@ -99,7 +99,7 @@ Watch Terminal 2 as the 10 filings process one after another.
 > - **`user`** — CPU time your code used across all cores (if `user` > `real`, it ran on multiple cores in parallel)
 > - **`sys`** — CPU time spent on OS-level work (file I/O, memory allocation)
 
-Let's open these and discuss as a class before revealing the answer:
+Think about each of these before revealing the answer:
 
 <details markdown="1">
 <summary>❓ Question 1</summary>

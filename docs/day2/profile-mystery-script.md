@@ -186,7 +186,7 @@ time python scripts/mystery_script.py
 
 As the script runs, watch new `python` rows appear — that's it spawning work. Count them to answer "how many processes did it run?"
 
-**Compare with your neighbor:**
+**Think these through before you reveal the answer:**
 - How long did it take, and how much RAM did it peak at?
 - How many CPU cores did it use?
 - How many processes did it run?
@@ -224,7 +224,7 @@ Both versions produce the identical result; the script prints how much faster th
 
 Open `scripts/mystery_script.py` and change `num_cores = 4` to a different number — try **1**, or **8**. Then **profile it again** with the same two-terminal setup: run `time python scripts/mystery_script.py` in Terminal 1, and watch it in Terminal 2 with `watch userload` (or `htop -u SUNetID`).
 
-Document what changes and discuss with your neighbor:
+Document what changes:
 
 - How many `python` processes appear in `htop` now?
 - How many **Cores** in `userload`?
