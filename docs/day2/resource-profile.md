@@ -79,10 +79,10 @@ cd ~/yens-onboarding-2026
 claude
 ```
 
-Then give it your measurements — replace these with what you actually saw:
+Then give it your measurements — fill in each `<...>` from your own run, brackets and all:
 
 ```
-> Add a "Resource Profile" section to README.md for scripts/extract_form_3_batch.py over 10 filings: ran on yen2, real 22.5s, 1 core, 40 MB RES, serial. Add just that section and leave the rest of the file alone.
+> Add a "Resource Profile" section to README.md for scripts/extract_form_3_batch.py over 10 filings: ran on <node>, real <wall-clock time>, <cores> cores, <RAM> RES, <serial or parallel>. Add just that section and leave the rest of the file alone.
 ```
 
 **Read the diff before you approve it.** Two things to check:
