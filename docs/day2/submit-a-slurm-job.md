@@ -284,8 +284,7 @@ claude
 **Then ask it** — replacing `SUNetID` with your own:
 
 ```
-> Add --mail-type=ALL and --mail-user=SUNetID@stanford.edu to the #SBATCH directives in
-> slurm/extract_form_3_batch.slurm
+> Add --mail-type=ALL and --mail-user=SUNetID@stanford.edu to the #SBATCH directives in slurm/extract_form_3_batch.slurm
 ```
 
 {: .warning }
