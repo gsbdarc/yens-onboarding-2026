@@ -263,8 +263,6 @@ cat logs/extract_*.err
 
 ---
 
----
-
 <details markdown="1">
 <summary>⭐ Bonus — if you finished early</summary>
 

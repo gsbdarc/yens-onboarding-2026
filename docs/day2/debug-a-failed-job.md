@@ -90,8 +90,6 @@ Then resubmit — **keep debugging and resubmitting until the Slurm email says t
 
 ---
 
----
-
 <details markdown="1">
 <summary>⭐ Bonus — if you finished early</summary>
 

@@ -76,10 +76,6 @@ Every `PD` job is waiting for a node with the resources it requested. When Slurm
 
 ---
 
----
-
----
-
 <details markdown="1">
 <summary>⭐ Bonus — if you finished early</summary>
 
@@ -126,8 +122,6 @@ does not show the per-user resource **caps** — those come from each partition'
 check `sacctmgr show qos gpu` against `sacctmgr show qos normal` (or the
 [current partitions and their limits](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits)).
 When would you request one over the other?
-
----
 
 ---
 

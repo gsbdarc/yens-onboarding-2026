@@ -138,8 +138,6 @@ Two more things worth knowing:
 
 ---
 
----
-
 <details markdown="1">
 <summary>⭐ Bonus — if you finished early</summary>
 
@@ -166,6 +164,4 @@ That is the useful lesson, and it bites in the capstone. **A single timing is we
 > **What about prompt caching?** It's real, and it's worth knowing about — an API can cache a chunk of a prompt it has already processed and skip re-reading it. But it doesn't help here, for two reasons. On Anthropic it is **opt-in**: you mark the reusable chunk with `cache_control`, and this script doesn't. And even if it did, there's nothing to reuse — the bulk of every request is a **different filing**, and the one part that does repeat (the system prompt) is far too short to be cacheable. Caching pays off when many requests share a **large** prefix, which is not the shape of this job. See [Anthropic's prompt caching docs](https://platform.claude.com/docs/en/build-with-claude/prompt-caching).
 
 </details>
----
-
 </details>

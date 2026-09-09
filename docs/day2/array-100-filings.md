@@ -204,8 +204,6 @@ The new thing to notice is the job IDs: an array shows up as many rows sharing o
 
 ---
 
----
-
 <details markdown="1">
 <summary>⭐ Bonus — if you finished early</summary>
 
@@ -282,8 +280,6 @@ is missing.
 
 *Think before you run it: 992 paid API calls is real money. Work out the cost from your
 10-filing timing first, and check the number with an instructor before submitting.*
-
----
 
 ---
 

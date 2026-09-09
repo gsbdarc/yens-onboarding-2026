@@ -186,8 +186,6 @@ You saw about **4 `python` processes** in `htop` and roughly **4 Cores** in `use
 </details>
 ---
 
----
-
 <details markdown="1">
 <summary>⭐ Bonus — if you finished early</summary>
 
