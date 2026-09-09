@@ -23,30 +23,29 @@ permalink: /day2/profile-mystery-script/
   <text x="210" y="46" text-anchor="middle" font-size="17" font-weight="400" fill="#6a7280">document</text>
   <text x="350" y="46" text-anchor="middle" font-size="17" font-weight="400" fill="#6a7280">submit</text>
   <text x="490" y="46" text-anchor="middle" font-size="17" font-weight="400" fill="#6a7280">read logs</text>
-  <text x="640" y="46" text-anchor="middle" font-size="17" font-weight="400" fill="#6a7280">scale (Part 2)</text>
-  <line x1="92" y1="80" x2="468" y2="80" stroke="#c2cad4" stroke-width="3"/>
-  <line x1="512" y1="80" x2="618" y2="80" stroke="#c2cad4" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#daymap-ah)"/>
+  <text x="630" y="46" text-anchor="middle" font-size="17" font-weight="400" fill="#6a7280">scale (Part 2)</text>
+  <line x1="92" y1="80" x2="608" y2="80" stroke="#c2cad4" stroke-width="3"/>
   <path d="M490,101 L490,124 Q490,130 484,130 L356,130 Q350,130 350,124 L350,103" fill="none" stroke="#c2cad4" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#daymap-ah)"/>
   <text x="420" y="150" text-anchor="middle" font-size="15" font-weight="400" fill="#6a7280">debug</text>
   <circle cx="70" cy="80" r="20" fill="#fff" stroke="#8C1515" stroke-width="3"/><text x="70" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8C1515">1</text>
   <circle cx="210" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="210" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">2</text>
   <circle cx="350" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="350" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">3</text>
   <circle cx="490" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="490" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">4</text>
-  <circle cx="640" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="640" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">5</text>
+  <circle cx="630" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="630" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">5</text>
 </svg>
 
 You are going to run a script you have never seen before and work out what resources it uses — without reading the code. That is **profiling**: measuring a script's time, CPU and RAM while it runs.
 
-<svg viewBox="0 0 700 132" role="img" aria-labelledby="twoterm-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:700px;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
-  <title id="twoterm-title">Profiling uses two terminals on the same Yen node: Terminal 1 runs the script, Terminal 2 watches its CPU and RAM live.</title>
+<svg viewBox="0 0 700 132" role="img" aria-labelledby="twoterm-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:100%;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+  <title id="twoterm-title">Profiling uses two terminals on the same Yen node: Terminal 1 runs the script, Terminal 2 watches its CPU, RAM and processes live.</title>
   <rect x="16" y="8" width="668" height="116" rx="16" fill="#f7f9fc" stroke="#bcd4f2" stroke-width="1.5" stroke-dasharray="5 4"/>
-  <text x="40" y="34" font-size="12.5" font-weight="700" letter-spacing="0.4" fill="#6b7280">🖥️  ONE YEN NODE · BOTH TERMINALS ON IT</text>
+  <text x="40" y="34" font-size="12.5" font-weight="700" letter-spacing="0.4" fill="#6b7280">🖥️  ONE INTERACTIVE YEN NODE · BOTH TERMINALS ON IT</text>
   <rect x="40" y="46" width="300" height="70" rx="12" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
   <text x="60" y="76" font-size="17" font-weight="700" fill="#2c3e50">Terminal 1 · the worker</text>
   <text x="60" y="100" font-size="15" fill="#6a7280">runs the script</text>
   <rect x="360" y="46" width="300" height="70" rx="12" fill="#fff8ef" stroke="#e6cfa8" stroke-width="1.5"/>
   <text x="380" y="76" font-size="17" font-weight="700" fill="#2c3e50">Terminal 2 · the observer</text>
-  <text x="380" y="100" font-size="15" fill="#6a7280">watches CPU + RAM live</text>
+  <text x="380" y="100" font-size="15" fill="#6a7280">watches CPU, RAM and processes</text>
 </svg>
 
 {: .important }
@@ -71,8 +70,12 @@ ssh SUNetID@yen2.stanford.edu   # replace yen2 with whatever hostname showed abo
 ```
 
 {: .note }
-> Everything here runs from your clone with the environment active:
-> `cd ~/yens-onboarding-2026 && source .venv/bin/activate`
+> Everything on this page runs from your clone, with the environment active:
+>
+> ```bash
+> cd ~/yens-onboarding-2026
+> source .venv/bin/activate
+> ```
 
 {: .note }
 > 💡 **Skip the second login.** A fresh `ssh` means another password + Duo prompt. To avoid re-authenticating, open a terminal through JupyterHub instead: browse to that node's hub (e.g. `https://yen2.stanford.edu/jupyter/`), then **New → Terminal**. You're already authenticated there, and it drops you onto that exact node — ideal for the second monitoring terminal.
