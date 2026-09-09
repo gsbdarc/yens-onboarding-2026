@@ -20,8 +20,8 @@ can fix whatever is broken.
 {: .important }
 > **A red sticky here is the cheapest one you will ever put up.** An array is the same
 > script with one more flag — if your single job never ran, the array will fail the same
-> way, times a hundred, and you will be debugging it during the block where the capstone
-> lives.
+> way, times a hundred, and you will be debugging it during the block where the scaling
+> work lives.
 
 ---
 

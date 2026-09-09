@@ -1,13 +1,13 @@
 ---
 layout: default
-title: "4. Capstone"
+title: "4. Scale"
 parent: "Part 2 — Submit a Job Array"
 grand_parent: "Day 2 — The Yen-Slurm Cluster"
 nav_order: 4
 permalink: /day2/capstone/
 ---
 
-# Capstone — Estimate, Submit, Compare
+# Scale
 
 {: .note }
 > 🔴 **Red sticky** = I need help. Put it up the moment you are stuck — an instructor will
@@ -109,7 +109,7 @@ Back in `README.md`, next to the estimate you wrote in step 1, add the **actual*
 
 Ask Claude Code to handle it:
 
-> Add and commit `slurm/extract_form_3_batch.slurm` and my README changes with a message like "Day 2 Capstone: 100-filing batch", then push to my fork.
+> Add and commit `slurm/extract_form_3_batch.slurm` and my README changes with a message like "Day 2: 100-filing batch", then push to my fork.
 
 <details markdown="1">
 <summary>⭐ Bonus — try a GPU</summary>

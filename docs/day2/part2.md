@@ -32,10 +32,10 @@ time helping your table rather than racing into the bonuses.
 | [1. Watch an Array Fan Out]({{ '/day2/array-fan-out/' | relative_url }}) | 💻 Hands-on | One submission, four tasks, four logs — the shortest proof an array works |
 | [2. Run 100 Filings Through an Array]({{ '/day2/array-100-filings/' | relative_url }}) | 💻 Hands-on | The real thing: one script, one `--array` flag, 100 filings |
 | [3. Make Your Tasks Rerun-Safe]({{ '/day2/rerun-safe-tasks/' | relative_url }}) | 💻 Hands-on | Make a task skip work it has already done, so a resubmit costs nothing |
-| [4. Capstone]({{ '/day2/capstone/' | relative_url }}) | 🔑 Capstone | Estimate a bigger run's cost, submit it, then check yourself against `sacct` |
+| [4. Scale]({{ '/day2/capstone/' | relative_url }}) | 💻 Hands-on | Estimate a bigger run's cost, submit it, then check yourself against `sacct` |
 | [Part 2 Checkpoint]({{ '/day2/part2-checkpoint/' | relative_url }}) | ✅ Checkpoint | Four checks closing out the two days |
 
 {: .note }
-> **Write the estimate before you submit.** The capstone is the one place in the two days
+> **Write the estimate before you submit.** Scale is the one place in the two days
 > where being wrong is the point — a guess you wrote down and then checked against `sacct`
 > teaches you more than a correct number you never committed to.

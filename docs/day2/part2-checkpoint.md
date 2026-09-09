@@ -12,7 +12,7 @@ permalink: /day2/part2-checkpoint/
 This is the last thing in the two days. Four items, and unlike the Part 1 checkpoint
 nothing downstream depends on them — so this one is for you, not for the next section.
 
-It is worth running anyway. Two of the four are the capstone, and the capstone is the only
+It is worth running anyway. Two of the four come from Scale, which is the only
 place in the two days where you commit to a number before you find out whether it was
 right.
 
@@ -29,8 +29,8 @@ right.
 |---|---|---|
 | 1 | Submit one script that fans out into many independent tasks | [1. Watch an Array Fan Out]({{ '/day2/array-fan-out/' | relative_url }}) |
 | 2 | Make a task safe to run twice | [3. Make Your Tasks Rerun-Safe]({{ '/day2/rerun-safe-tasks/' | relative_url }}) |
-| 3 | Estimate a bigger run's cost — in writing, before submitting | [4. Capstone]({{ '/day2/capstone/' | relative_url }}) |
-| 4 | Compare what you asked for against what the job used | [4. Capstone]({{ '/day2/capstone/' | relative_url }}) |
+| 3 | Estimate a bigger run's cost — in writing, before submitting | [4. Scale]({{ '/day2/capstone/' | relative_url }}) |
+| 4 | Compare what you asked for against what the job used | [4. Scale]({{ '/day2/capstone/' | relative_url }}) |
 
 ---
 
@@ -78,7 +78,7 @@ grep -A 10 "100 filings" README.md
 ```
 
 You are looking for the numbers you wrote **before** you submitted: time, cores, RAM. If
-they are not there, the capstone did not happen — write them now from what you remember
+they are not there, Scale did not happen — write them now from what you remember
 predicting, and be honest about it.
 
 ### 4 — And you checked it
