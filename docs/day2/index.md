@@ -78,10 +78,6 @@ Three things need to be in place. **Say so now if any of them are missing:**
 2. A virtual environment at `~/yens-onboarding-2026/.venv`, with `requirements.txt` installed
 3. A `.env` holding your `ANTHROPIC_API_KEY`, and `.env` in `.gitignore`
 
-Today profiles `scripts/extract_form_3_batch.py`, which is committed in the repo — everyone
-starts from the same working script. If your own version from Day 1 runs, profile that one
-instead.
-
 {: .important }
 > **If you finish the mandatory exercises early, check whether anyone at your table is
 > stuck before you move on to the bonus material.** Explaining a thing you just learned is
