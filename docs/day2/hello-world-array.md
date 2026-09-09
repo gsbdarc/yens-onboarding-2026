@@ -62,27 +62,31 @@ You can spot the difference by eye, but let `diff` isolate it:
 diff slurm/hello.slurm slurm/hello_array.slurm
 ```
 
-```text
-2c2
-< #SBATCH --job-name=hello
----
-> #SBATCH --job-name=hello-array
-4,5c4,5
-< #SBATCH --output=logs/hello_%j.out
-< #SBATCH --error=logs/hello_%j.err
----
-> #SBATCH --output=logs/hello_%A_%a.out
-> #SBATCH --error=logs/hello_%A_%a.err
-8a9
-> #SBATCH --array=0-3
-12c13
-< echo "Hello, world!"
----
-> echo "Hello, world! My task number is $SLURM_ARRAY_TASK_ID"
-```
+<details markdown="1">
+<summary>📖 How to read diff output</summary>
+
+`diff` tells you how to turn the **first** file into the **second**. Lines starting with
+`<` come from the first file (`hello.slurm`), lines starting with `>` from the second
+(`hello_array.slurm`), and `---` separates the two sides.
+
+The lines in between are line numbers, with a letter saying what happens there:
+
+| | | |
+|---|---|---|
+| `c` | **change** | `2c2` — line 2 becomes line 2. `4,5c4,5` — lines 4–5 become lines 4–5. |
+| `a` | **add** | `8a9` — after line 8 of the first file, add line 9 of the second. Only a `>` side, because there is nothing in the first file to show against it. |
+| `d` | **delete** | Doesn't appear here — nothing was removed. |
+
+One thing worth noticing: the last chunk is `12c13`, not `12c12`. Once a line has been
+added, the two files no longer agree on numbering — `echo "Hello, world!"` is line 12 of
+`hello.slurm` but line 13 of `hello_array.slurm`.
+
+If two files are identical, `diff` prints nothing at all.
+
+</details>
 
 One directive is genuinely new — `--array=0-3` — and that is what turns one job into four.
-The job name and the log paths change because of it.
+The job name and the log paths are also different.
 
 {: .note }
 > **`%j`, `%A` and `%a`.** Slurm substitutes these when it writes the log file. `%j` is the
