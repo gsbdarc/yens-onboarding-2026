@@ -40,13 +40,6 @@ Here's what we'll do today:
   <circle cx="630" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="630" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">5</text>
 </svg>
 
-Work through the sections in order — they build on each other, and the numbers you write
-down in one are the inputs to the next. Each page ends with **bonus** work, folded away,
-for when you finish early.
-
-**Take your own breaks** inside the work blocks. There is no whole-room break today;
-stand up and get coffee when your table reaches a natural stopping point.
-
 ---
 
 ## Day 1 Recap
@@ -73,3 +66,10 @@ Three things need to be in place. **Say so now if any of them are missing:**
 > **If you finish the mandatory exercises early, check whether anyone at your table is
 > stuck before you move on to the bonus material.** Explaining a thing you just learned is
 > the fastest way to find out whether you actually learned it.
+
+Work through the sections in order — they build on each other, and the numbers you write
+down in one are the inputs to the next. Each page ends with **bonus** work, folded away,
+for when you finish early.
+
+**Take your own breaks** inside the work blocks. There is no whole-room break today;
+stand up and get coffee when your table reaches a natural stopping point.
