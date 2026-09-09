@@ -10,6 +10,11 @@ permalink: /day2/slurm-with-claude/
 # Writing a Slurm Job with Claude
 
 {: .note }
+> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
+>
+> Put one up as soon as either is true — an instructor will come to you.
+
+{: .note }
 > ⭐ **This whole page is bonus.** Do it once you have reached the
 > [Part 1 Checkpoint]({{ '/day2/part1-checkpoint/' | relative_url }}) — and check whether
 > anyone at your table is stuck first. It is self-contained, so it is also a good thing to
@@ -115,10 +120,6 @@ Then invoke it (step 3) on a fresh job. Claude Code turns each skill's folder na
 
 **Submit and review:** the conventions should come straight from the skill, matching what you hand-wrote. But the global skill is repo-agnostic — it says nothing about *how this project plots a figure*. That's project-specific knowledge, and it belongs in a project skill — the next section.
 
-{: .note }
-> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
-
-
 ## Write a Project Skill — Your Figure House Style
 
 Skills shine when Claude follows *your* world's conventions instead of generic defaults — a house style so every figure comes out consistent.
@@ -150,9 +151,6 @@ It should come out in the same house style automatically — that's the skill do
 
 {: .warning }
 > **You're still the reviewer.** A skill makes Claude follow your conventions, but Claude can still invent partition names, time limits, or QoS caps that don't exist. Check its choices against RCpedia — the [current partitions and their limits](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits) page and `sacctmgr show qos <partition>` — and against your own profiling. The script you submit is yours.
-
-{: .note }
-> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
 
 ---
 

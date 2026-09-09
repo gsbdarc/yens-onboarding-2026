@@ -10,13 +10,39 @@ permalink: /day2/submit-a-slurm-job/
 # Write and Submit a Slurm Job
 
 {: .note }
+> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
+>
+> Put one up as soon as either is true — an instructor will come to you.
+
+<svg viewBox="0 0 720 164" role="img" aria-labelledby="daymap-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:720px;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+  <title id="daymap-title">Day 2 arc — you are on step 3, submit.</title>
+  <defs>
+    <marker id="daymap-ah" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c2cad4"/></marker>
+  </defs>
+  <text x="70" y="46" text-anchor="middle" font-size="17" font-weight="400" fill="#6a7280">profile</text>
+  <text x="210" y="46" text-anchor="middle" font-size="17" font-weight="400" fill="#6a7280">document</text>
+  <text x="350" y="46" text-anchor="middle" font-size="17" font-weight="700" fill="#8C1515">submit</text>
+  <text x="490" y="46" text-anchor="middle" font-size="17" font-weight="400" fill="#6a7280">read logs</text>
+  <text x="640" y="46" text-anchor="middle" font-size="17" font-weight="400" fill="#6a7280">scale (Part 2)</text>
+  <line x1="92" y1="80" x2="468" y2="80" stroke="#c2cad4" stroke-width="3"/>
+  <line x1="512" y1="80" x2="618" y2="80" stroke="#c2cad4" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#daymap-ah)"/>
+  <path d="M490,101 L490,124 Q490,130 484,130 L356,130 Q350,130 350,124 L350,103" fill="none" stroke="#c2cad4" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#daymap-ah)"/>
+  <text x="420" y="150" text-anchor="middle" font-size="15" font-weight="400" fill="#6a7280">debug</text>
+  <circle cx="70" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="70" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">1</text>
+  <circle cx="210" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="210" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">2</text>
+  <circle cx="350" cy="80" r="20" fill="#fff" stroke="#8C1515" stroke-width="3"/><text x="350" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8C1515">3</text>
+  <circle cx="490" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="490" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">4</text>
+  <circle cx="640" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="640" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">5</text>
+</svg>
+
+{: .note }
 > Everything here runs from your clone with the environment active:
 > `cd ~/yens-onboarding-2026 && source .venv/bin/activate`
 
 ---
 
 {: .important }
-> **Mandatory.** **Task:** Build a Slurm job script line by line to run your Form 3 extraction script on a compute node.
+> **Task:** Build a Slurm job script line by line to run your Form 3 extraction script on a compute node.
 
 **Start from a clean shell.** If you have a virtual environment active right now (you'll see `(.venv)` at the front of your prompt), deactivate it first:
 
@@ -157,9 +183,6 @@ Save the file. Here's the whole script, with its four parts labeled:
 {: .warning }
 > **Slurm starts a fresh shell on the compute node.** Your virtual environment is not active. Your working directory is not set. Every setup step must be in the script — `cd`, `source .venv/bin/activate`, and any `module load` commands you need. If it works interactively on the Yens but fails as a job, a missing setup step is usually why.
 
-{: .note }
-> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
-
 ---
 ### Submit it
 
@@ -197,9 +220,6 @@ squeue --me
 {: .note }
 > You may briefly see your job's status change to **CG** (completing) before it disappears from the queue — that's normal, not an error.
 
-{: .note }
-> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
-
 ---
 
 ### Add email notifications
@@ -231,16 +251,12 @@ Once your job runs, check your inbox. You should receive two emails: one when th
 
 ### Read the logs
 
-
 The job wrote **log files** to `logs/` — the `.out` file has the script's normal output, the `.err` file has any errors:
 
 ```bash
 cat logs/extract_*.out
 cat logs/extract_*.err
 ```
-
-{: .note }
-> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
 
 ---
 
@@ -352,7 +368,6 @@ cat /scratch/users/SUNetID/chain_demo/step2_result.txt
 ```
 
 Step 2's number is computed from step 1's — proof the scratch file passed between them. Had step 1 failed, step 2 would never have started.
-
 
 **Bonus — The `dev` partition**
 

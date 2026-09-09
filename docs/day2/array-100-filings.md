@@ -10,13 +10,39 @@ permalink: /day2/array-100-filings/
 # Run 100 Filings Through an Array
 
 {: .note }
+> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
+>
+> Put one up as soon as either is true — an instructor will come to you.
+
+<svg viewBox="0 0 720 164" role="img" aria-labelledby="daymap-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:720px;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+  <title id="daymap-title">Day 2 arc — you are on step 5, scale (Part 2).</title>
+  <defs>
+    <marker id="daymap-ah" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c2cad4"/></marker>
+  </defs>
+  <text x="70" y="46" text-anchor="middle" font-size="17" font-weight="400" fill="#6a7280">profile</text>
+  <text x="210" y="46" text-anchor="middle" font-size="17" font-weight="400" fill="#6a7280">document</text>
+  <text x="350" y="46" text-anchor="middle" font-size="17" font-weight="400" fill="#6a7280">submit</text>
+  <text x="490" y="46" text-anchor="middle" font-size="17" font-weight="400" fill="#6a7280">read logs</text>
+  <text x="640" y="46" text-anchor="middle" font-size="17" font-weight="700" fill="#8C1515">scale (Part 2)</text>
+  <line x1="92" y1="80" x2="468" y2="80" stroke="#c2cad4" stroke-width="3"/>
+  <line x1="512" y1="80" x2="618" y2="80" stroke="#c2cad4" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#daymap-ah)"/>
+  <path d="M490,101 L490,124 Q490,130 484,130 L356,130 Q350,130 350,124 L350,103" fill="none" stroke="#c2cad4" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#daymap-ah)"/>
+  <text x="420" y="150" text-anchor="middle" font-size="15" font-weight="400" fill="#6a7280">debug</text>
+  <circle cx="70" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="70" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">1</text>
+  <circle cx="210" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="210" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">2</text>
+  <circle cx="350" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="350" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">3</text>
+  <circle cx="490" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="490" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">4</text>
+  <circle cx="640" cy="80" r="20" fill="#fff" stroke="#8C1515" stroke-width="3"/><text x="640" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8C1515">5</text>
+</svg>
+
+{: .note }
 > Everything here runs from your clone with the environment active:
 > `cd ~/yens-onboarding-2026 && source .venv/bin/activate`
 
 ---
 
 {: .important }
-> **Mandatory.** **Task:** Process 100 SEC filings with a job array — one Python script that
+> **Task:** Process 100 SEC filings with a job array — one Python script that
 > handles a single filing, plus a Slurm script that launches it 100 times.
 
 Now over to you. Your job is the following: process and extract information from 100 SEC filings using a job array. The filings are hosted online, and `data/aws_links.csv` — already in your cloned repo, alongside `scripts/` and `slurm/` — provides the URLs of all of them for you to query.
@@ -94,14 +120,12 @@ from dotenv import load_dotenv
 load_dotenv()
 client = anthropic.Anthropic()   # reads ANTHROPIC_API_KEY from the environment
 
-
 class Form3Filing(BaseModel):
     insider_name: str
     insider_role: List[str]
     company_name: str
     company_cik: str
     filing_date: str
-
 
 system_prompt = """
 You are a data extraction agent for SEC Form 3 filings.
@@ -175,9 +199,6 @@ watch squeue --me
 
 The new thing to notice is the job IDs: an array shows up as many rows sharing one ID, with a task number after it — `12345678_1`, `12345678_2`, and so on — each moving through the same `PD` → `R` → gone lifecycle you watched in [Peek at the Queue]({{ '/day2/peek-at-the-queue/' | relative_url }}). Once it's done, check the per-task logs in `logs/` and the results in `results/`.
 
-{: .note }
-> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
-
 ---
 
 ---
@@ -186,7 +207,6 @@ The new thing to notice is the job IDs: an array shows up as many rows sharing o
 <summary>⭐ Bonus — if you finished early</summary>
 
 **Bonus — Combine the results into one CSV**
-
 
 The array leaves you a directory of JSON files, one per filing. For analysis you want a single table instead — one row per filing, one column per field.
 

@@ -10,6 +10,11 @@ permalink: /day2/compute-environments/
 # Size Your Own Machine
 
 {: .note }
+> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
+>
+> Put one up as soon as either is true — an instructor will come to you.
+
+{: .note }
 > ⭐ **This whole page is bonus.** Do it once you have reached the
 > [Part 1 Checkpoint]({{ '/day2/part1-checkpoint/' | relative_url }}) — and check whether
 > anyone at your table is stuck first.
@@ -70,7 +75,6 @@ You don't need a fancy prompt. For example:
   compare();
 })();
 </script>
-
 
 **Bonus — Price a cloud instance**
 

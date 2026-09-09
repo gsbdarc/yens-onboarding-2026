@@ -10,12 +10,32 @@ permalink: /day2/profile-mystery-script/
 # Profile the Mystery Script
 
 {: .note }
-> Everything here runs from your clone with the environment active:
-> `cd ~/yens-onboarding-2026 && source .venv/bin/activate`
+> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
+>
+> Put one up as soon as either is true — an instructor will come to you.
 
----
+<svg viewBox="0 0 720 164" role="img" aria-labelledby="daymap-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:720px;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+  <title id="daymap-title">Day 2 arc — you are on step 1, profile.</title>
+  <defs>
+    <marker id="daymap-ah" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c2cad4"/></marker>
+  </defs>
+  <text x="70" y="46" text-anchor="middle" font-size="17" font-weight="700" fill="#8C1515">profile</text>
+  <text x="210" y="46" text-anchor="middle" font-size="17" font-weight="400" fill="#6a7280">document</text>
+  <text x="350" y="46" text-anchor="middle" font-size="17" font-weight="400" fill="#6a7280">submit</text>
+  <text x="490" y="46" text-anchor="middle" font-size="17" font-weight="400" fill="#6a7280">read logs</text>
+  <text x="640" y="46" text-anchor="middle" font-size="17" font-weight="400" fill="#6a7280">scale (Part 2)</text>
+  <line x1="92" y1="80" x2="468" y2="80" stroke="#c2cad4" stroke-width="3"/>
+  <line x1="512" y1="80" x2="618" y2="80" stroke="#c2cad4" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#daymap-ah)"/>
+  <path d="M490,101 L490,124 Q490,130 484,130 L356,130 Q350,130 350,124 L350,103" fill="none" stroke="#c2cad4" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#daymap-ah)"/>
+  <text x="420" y="150" text-anchor="middle" font-size="15" font-weight="400" fill="#6a7280">debug</text>
+  <circle cx="70" cy="80" r="20" fill="#fff" stroke="#8C1515" stroke-width="3"/><text x="70" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8C1515">1</text>
+  <circle cx="210" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="210" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">2</text>
+  <circle cx="350" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="350" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">3</text>
+  <circle cx="490" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="490" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">4</text>
+  <circle cx="640" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="640" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">5</text>
+</svg>
 
-You are going to run a script you have never seen before and figure out what resources it uses — without reading the code. This is called **profiling**: measuring a script's time, CPU, and RAM usage as it runs. The technique: one terminal runs the script, a second terminal on the **same node** watches it live.
+You are going to run a script you have never seen before and work out what resources it uses — without reading the code. That is **profiling**: measuring a script's time, CPU and RAM while it runs.
 
 <svg viewBox="0 0 700 132" role="img" aria-labelledby="twoterm-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:700px;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="twoterm-title">Profiling uses two terminals on the same Yen node: Terminal 1 runs the script, Terminal 2 watches its CPU and RAM live.</title>
@@ -29,10 +49,8 @@ You are going to run a script you have never seen before and figure out what res
   <text x="380" y="100" font-size="15" fill="#6a7280">watches CPU + RAM live</text>
 </svg>
 
-*Two terminals on the **same** Yen node: one runs the script, the other watches it live.*
-
 {: .important }
-> **Mandatory.** **Task:** Run `mystery_script.py` and measure its resource usage in real time using two terminals — both on the **same Yen node**.
+> **Task:** Run `mystery_script.py` and measure its resource usage in real time using two terminals — both on the **same Yen node**.
 
 **Step 1 — Note which Yen you are on.**
 
@@ -53,6 +71,10 @@ ssh SUNetID@yen2.stanford.edu   # replace yen2 with whatever hostname showed abo
 ```
 
 {: .note }
+> Everything here runs from your clone with the environment active:
+> `cd ~/yens-onboarding-2026 && source .venv/bin/activate`
+
+{: .note }
 > 💡 **Skip the second login.** A fresh `ssh` means another password + Duo prompt. To avoid re-authenticating, open a terminal through JupyterHub instead: browse to that node's hub (e.g. `https://yen2.stanford.edu/jupyter/`), then **New → Terminal**. You're already authenticated there, and it drops you onto that exact node — ideal for the second monitoring terminal.
 
 **Step 3 — Start `watch userload` in Terminal 2 *first*, before running anything.**
@@ -62,11 +84,16 @@ Terminal 2:
 watch userload
 ```
 
-- `userload` shows how many **cores** you're using and what **% of the node's memory** you're holding — your total footprint across all your processes on this node. It looks like `SUNetID  |  0.34 Cores  |  0.00% Mem  on yen2`
-- `watch` re-runs it every 2 seconds, so the numbers refresh live
-- Jupyter processes are tracked separately and are not included
+- `userload` shows how many **cores** you're using and what **% of the node's memory** you're holding — your total footprint across all your processes on this node:
 
-**What are we seeing?** Right now — before you run anything — this is your **baseline**: **Cores** near 0 and **% Mem** near 0. That's what an idle account looks like. Keep this terminal visible; you'll watch these numbers move once the script starts. (See the [current per-user limits](https://rcpedia.stanford.edu/_policies/user_limits/) for how much CPU and RAM any one user can use on an interactive Yen.)
+  ```text
+  SUNetID  |  0.34 Cores  |  0.00% Mem  on yen2
+  ```
+
+- `watch` re-runs it every 2 seconds, so the numbers refresh live
+- Jupyter processes are tracked separately from processes started in a terminal shell — not a Jupyter terminal — and are not included
+
+**What are we seeing?** Right now — before you run anything — this is your **baseline**: **Cores** near 0 and **% Mem** near 0. That's what an idle account looks like. Keep this terminal visible; you'll watch these numbers move once the script starts. See the [current per-user limits](https://rcpedia.stanford.edu/_policies/user_limits/) for how much CPU and RAM any one user can use on an interactive Yen.
 
 **Step 4 — Now run the script in Terminal 1 and watch Terminal 2 change.**
 
@@ -98,7 +125,19 @@ First, in **Terminal 2**, stop `watch userload` by pressing **`Ctrl+C`**. Then s
 htop -u SUNetID
 ```
 
-The `-u` flag limits `htop` to your processes, so the hundreds of other users' processes on the node don't drown yours out.
+The `-u` flag limits `htop` to your processes, so the hundreds of other users' processes on
+the node don't drown yours out.
+
+{: .note }
+> **If all you can see is CPU meters.** On a node with 256 cores the header fills with bars
+> and pushes the process list off screen — and threads make one process look like many.
+> Two keys fix it:
+>
+> - **`H`** — hide threads, so each process is one row
+> - **`t`** — tree mode, which nests the workers a process spawned underneath it. Useful
+>   here, because that nesting is exactly what you are trying to count
+>
+> Still crowded? **`F2`** → **Meters**, and set the CPU display to a single average bar.
 
 **Each row in `htop` is one process.** The columns that matter:
 
@@ -120,11 +159,6 @@ As the script runs, watch new `python` rows appear — that's it spawning work. 
 - How many CPU cores did it use?
 - How many processes did it run?
 - Is it therefore **serial** (one core) or **parallel** (multiple)?
-
-
-{: .note }
-> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
-
 
 <details markdown="1">
 <summary>✅ Check your answer</summary>
@@ -155,7 +189,6 @@ watch userload
 ```
 
 Both versions produce the identical result; the script prints how much faster the vectorized one was (often 10× or more). Notice the slow Python loop pins a core the whole time, while the NumPy version finishes almost before you can look at Terminal 2.
-
 
 **Bonus — Change the number of cores**
 
