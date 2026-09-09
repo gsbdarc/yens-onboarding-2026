@@ -553,7 +553,7 @@ claude
 
 #### A global skill — distilled from the job you just ran
 
-You already got a batch Slurm script working by hand. Rather than describe the Yen conventions from scratch, point Claude at that script and have it **capture the reusable parts** (step 2 of the pattern):
+You already got a batch Slurm script working by hand. Rather than describe the Yen conventions from scratch, point Claude at that script and have it **capture the reusable parts**:
 
 > Read `slurm/extract_form_3_batch.slurm` and turn its reusable **Yen conventions** into a **global** skill at `~/.claude/skills/yen-slurm/SKILL.md`: partition choice, email, `%j` log naming, always setting `--time`/`--mem`/`--cpus-per-task`, and checking current limits on [RCpedia](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits). Keep it short and **repo-agnostic** — no project paths.
 
