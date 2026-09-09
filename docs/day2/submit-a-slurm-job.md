@@ -587,29 +587,6 @@ Then invoke it on a fresh job. Claude Code turns each skill's folder name into a
 
 **Submit and review:** the conventions should come straight from the skill, matching what you hand-wrote.
 
-### Project skills — how *this* project does things
-
-The global skill above is repo-agnostic: it knows how the Yens work, so it follows you
-everywhere. What it cannot know is how *this* project does things — where results are
-written, which script owns which stage, the palette your figures use, the naming your
-collaborators expect.
-
-That kind of knowledge belongs in a **project skill**, and the only difference is where it
-lives:
-
-| | Path | Loads in | Ships to |
-|---|---|---|---|
-| **Global** | `~/.claude/skills/<name>/SKILL.md` | every project you open | just you |
-| **Project** | `<repo>/.claude/skills/<name>/SKILL.md` | only this repo | anyone who clones it |
-
-The repo's `.claude/` has no `~`, and because it sits inside the project, committing the
-skill ships it. A new collaborator clones the repo and Claude already knows the house
-rules.
-
-You would build one the same way as the global skill above — get something right by hand
-first, then ask Claude to turn *that* into a skill scoped to this repo. The conventions
-worth capturing are the ones you would otherwise re-explain in every code review.
-
 {: .warning }
 > **You're still the reviewer.** A skill makes Claude follow your conventions, but Claude can still invent partition names, time limits, or QoS caps that don't exist. Check its choices against RCpedia — the [current partitions and their limits](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits) page and `sacctmgr show qos <partition>` — and against your own profiling. The script you submit is yours.
 
