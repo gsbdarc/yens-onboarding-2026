@@ -203,7 +203,7 @@ watch squeue --me
 The new thing to notice is the job IDs: an array shows up as many rows sharing one ID, with a task number after it — `12345678_1`, `12345678_2`, and so on — each moving through the same `PD` → `R` → gone lifecycle you watched in [3. Submit]({{ '/day2/submit-a-slurm-job/' | relative_url }}). Once it's done, check the per-task logs in `logs/` and the results in `results/`.
 
 <details markdown="1">
-<summary>⭐ Bonus — if you finished early</summary>
+<summary>⭐ Bonus — merge the results, then scale to 992</summary>
 
 **Bonus — Combine the results into one CSV**
 

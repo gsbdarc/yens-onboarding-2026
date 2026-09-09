@@ -310,7 +310,7 @@ sbatch --reservation=class slurm/extract_form_3_batch.slurm
 Once your job runs, check your inbox. You should receive two emails: one when the job **starts** and one when it **ends**. The start email tells you when it began — compare that to when you submitted to see how long it **waited in the queue**. The end email includes a **utilization summary** (how much CPU time and memory the job actually used) and the job's **exit status**: `0` means success; any other value means it failed.
 
 <details markdown="1">
-<summary>⭐ Bonus — if you finished early</summary>
+<summary>⭐ Bonus — other ways to run and inspect jobs</summary>
 
 **Bonus — Go Interactive Instead of Batch**
 

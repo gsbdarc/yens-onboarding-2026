@@ -103,7 +103,7 @@ You'll also want a completion email, so ask Claude to add the notification lines
 Then resubmit — **keep debugging and resubmitting until the Slurm email says the job succeeded** (exit status `0`).
 
 <details markdown="1">
-<summary>⭐ Bonus — if you finished early</summary>
+<summary>⭐ Bonus — three more broken jobs</summary>
 
 **Bonus — Debug `fix_me_2.slurm`**
 

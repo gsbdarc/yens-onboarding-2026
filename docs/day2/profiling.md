@@ -313,7 +313,7 @@ Two more things worth knowing:
 </details>
 
 <details markdown="1">
-<summary>⭐ Bonus — if you finished early</summary>
+<summary>⭐ Bonus — profile two more scripts</summary>
 
 **Bonus — Vectorized vs. Non-Vectorized**
 
