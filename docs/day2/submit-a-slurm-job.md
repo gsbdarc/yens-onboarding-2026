@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "5. Write and Submit a Slurm Job"
-parent: "Part 1 — Measure & Submit"
+parent: "Part 1 — Profile & Submit a Job"
 grand_parent: "Day 2 — The Yen-Slurm Cluster"
 nav_order: 5
 permalink: /day2/submit-a-slurm-job/

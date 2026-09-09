@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "3. Write Down What You Measured"
-parent: "Part 1 — Measure & Submit"
+parent: "Part 1 — Profile & Submit a Job"
 grand_parent: "Day 2 — The Yen-Slurm Cluster"
 nav_order: 3
 permalink: /day2/resource-profile/

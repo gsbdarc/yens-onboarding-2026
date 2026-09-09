@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "3. Make Your Tasks Rerun-Safe"
-parent: "Part 2 — Scale & Ship"
+parent: "Part 2 — Submit a Job Array"
 grand_parent: "Day 2 — The Yen-Slurm Cluster"
 nav_order: 3
 permalink: /day2/rerun-safe-tasks/

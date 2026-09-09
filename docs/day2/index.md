@@ -35,8 +35,8 @@ stand up and get coffee when your table reaches a natural stopping point.
 
 | Part | Clock | What it is |
 |---|---|---|
-| [Part 1 — Measure & Submit]({{ '/day2/part1/' | relative_url }}) | 9:00–10:30 | What the script actually costs in CPU, RAM and time — then hand it to the scheduler. Ends in a checkpoint |
-| [Part 2 — Scale & Ship]({{ '/day2/part2/' | relative_url }}) | 10:30–12:00 | One job becomes every filing at once; predict a bigger run's cost, then check the prediction. Ends in a checkpoint |
+| [Part 1 — Profile & Submit a Job]({{ '/day2/part1/' | relative_url }}) | 9:00–10:30 | What the script actually costs in CPU, RAM and time — then hand it to the scheduler. Ends in a checkpoint |
+| [Part 2 — Submit a Job Array]({{ '/day2/part2/' | relative_url }}) | 10:30–12:00 | One job becomes every filing at once; predict a bigger run's cost, then check the prediction. Ends in a checkpoint |
 
 ---
 

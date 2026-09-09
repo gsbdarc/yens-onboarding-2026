@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "4. Peek at the Queue"
-parent: "Part 1 — Measure & Submit"
+parent: "Part 1 — Profile & Submit a Job"
 grand_parent: "Day 2 — The Yen-Slurm Cluster"
 nav_order: 4
 permalink: /day2/peek-at-the-queue/

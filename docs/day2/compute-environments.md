@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "★ Size Your Own Machine"
-parent: "Part 1 — Measure & Submit"
+parent: "Part 1 — Profile & Submit a Job"
 grand_parent: "Day 2 — The Yen-Slurm Cluster"
 nav_order: 3
 permalink: /day2/compute-environments/

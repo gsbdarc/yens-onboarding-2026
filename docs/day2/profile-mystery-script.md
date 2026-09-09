@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "1. Profile the Mystery Script"
-parent: "Part 1 — Measure & Submit"
+parent: "Part 1 — Profile & Submit a Job"
 grand_parent: "Day 2 — The Yen-Slurm Cluster"
 nav_order: 1
 permalink: /day2/profile-mystery-script/

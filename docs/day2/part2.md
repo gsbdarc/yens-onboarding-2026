@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Part 2 — Scale & Ship"
+title: "Part 2 — Submit a Job Array"
 parent: "Day 2 — The Yen-Slurm Cluster"
 nav_order: 2
 has_children: true
@@ -8,7 +8,7 @@ has_toc: false
 permalink: /day2/part2/
 ---
 
-# Part 2 — Scale & Ship
+# Part 2 — Submit a Job Array
 
 One job at a time is not why you came to a cluster. This part turns the single job you
 just submitted into every filing at once, then asks you to predict what a bigger run will

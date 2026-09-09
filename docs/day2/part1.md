@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Part 1 — Measure & Submit"
+title: "Part 1 — Profile & Submit a Job"
 parent: "Day 2 — The Yen-Slurm Cluster"
 nav_order: 1
 has_children: true
@@ -8,7 +8,7 @@ has_toc: false
 permalink: /day2/part1/
 ---
 
-# Part 1 — Measure & Submit
+# Part 1 — Profile & Submit a Job
 
 Yesterday's script runs, on one filing at a time, on an interactive Yen node you share
 with everyone else. This part is finding out what it actually costs — and then handing it

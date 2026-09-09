@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Part 2 Checkpoint"
-parent: "Part 2 — Scale & Ship"
+parent: "Part 2 — Submit a Job Array"
 grand_parent: "Day 2 — The Yen-Slurm Cluster"
 nav_order: 2
 permalink: /day2/part2-checkpoint/
