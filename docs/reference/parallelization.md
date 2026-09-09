@@ -15,7 +15,7 @@ Before you scale a job across the cluster, it helps to picture what "in parallel
 
 ## When Parallelization Helps
 
-Think back to [the kitchen from Day 2]({{ '/day2/compute-environments/' | relative_url }}): your machine is a kitchen, and every CPU core is a burner.
+Think back to [Compute Environments]({{ '/reference/compute-environments/' | relative_url }}): your machine is a kitchen, and every CPU core is a burner.
 
 Say you want four grilled cheeses. The steps *within* one sandwich don't split at all: you can't grill a side before the cheese is on the bread — each step needs the previous one finished. Put four cooks on a single sandwich and three of them stand around watching. And no matter how many cooks you hire, a sandwich that takes four minutes takes four minutes.
 

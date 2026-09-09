@@ -45,8 +45,6 @@ if you are ahead, spend it helping your table rather than racing into the bonuse
 | [3. Make Your Tasks Rerun-Safe]({{ '/day2/rerun-safe-tasks/' | relative_url }}) | 💻 Mandatory | Make a task skip work it has already done, so a resubmit costs nothing |
 | [4. Capstone]({{ '/day2/capstone/' | relative_url }}) | 🔑 Mandatory | Estimate a bigger run's cost, submit it, then check yourself against `sacct` |
 | [Part 2 Checkpoint]({{ '/day2/part2-checkpoint/' | relative_url }}) | ✅ Checkpoint | Four checks closing out the two days |
-| [GPUs]({{ '/day2/gpus/' | relative_url }}) | ⭐ Bonus | Request a GPU, see what you landed on, and work out whether your job wanted one |
-| [Where to Go Next]({{ '/day2/where-to-go-next/' | relative_url }}) | 📣 Wrap-up | Slack, RCpedia, and where to ask for help |
 
 {: .note }
 > **Write the estimate before you submit.** The capstone is the one place in the two days

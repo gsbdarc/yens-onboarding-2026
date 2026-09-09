@@ -18,7 +18,7 @@ to the scheduler instead of holding a terminal open.
 |---|---|
 | [1. Profile the Mystery Script]({{ '/day2/profile-mystery-script/' | relative_url }}) | 12 min |
 | [2. Profile the Batch Script]({{ '/day2/profile-batch-script/' | relative_url }}) | 10 min |
-| [3. Write Down What You Measured]({{ '/day2/resource-profile/' | relative_url }}) | 5 min |
+| [3. Document]({{ '/day2/resource-profile/' | relative_url }}) | 5 min |
 | [4. Peek at the Queue]({{ '/day2/peek-at-the-queue/' | relative_url }}) | 5 min |
 | [5. Write and Submit a Slurm Job]({{ '/day2/submit-a-slurm-job/' | relative_url }}) | 25 min |
 | [6. Debug a Failed Job]({{ '/day2/debug-a-failed-job/' | relative_url }}) | 8 min |
@@ -46,13 +46,11 @@ up and get coffee when your table reaches a natural stopping point.
 |---|---|---|
 | [1. Profile the Mystery Script]({{ '/day2/profile-mystery-script/' | relative_url }}) | 💻 Mandatory | Measure a script you have never seen — two terminals, one node |
 | [2. Profile the Batch Script]({{ '/day2/profile-batch-script/' | relative_url }}) | 💻 Mandatory | The same technique on the real workload, over 10 filings |
-| [3. Write Down What You Measured]({{ '/day2/resource-profile/' | relative_url }}) | 💻 Mandatory | Put the three numbers in your README, where the next step reads them |
+| [3. Document]({{ '/day2/resource-profile/' | relative_url }}) | 💻 Mandatory | Put the three numbers in your README, where the next step reads them |
 | [4. Peek at the Queue]({{ '/day2/peek-at-the-queue/' | relative_url }}) | 💻 Mandatory | Read the live queue and tell `R` from `PD` |
 | [5. Write and Submit a Slurm Job]({{ '/day2/submit-a-slurm-job/' | relative_url }}) | 💻 Mandatory | Write `#SBATCH` directives by hand, submit, monitor, cancel, read the logs |
 | [6. Debug a Failed Job]({{ '/day2/debug-a-failed-job/' | relative_url }}) | 💻 Mandatory | Submit a job that fails on purpose, and find out why from its `.err` |
 | [Part 1 Checkpoint]({{ '/day2/part1-checkpoint/' | relative_url }}) | ✅ Checkpoint | Six checks proving the things Part 2 depends on actually work |
-| [Size Your Own Machine]({{ '/day2/compute-environments/' | relative_url }}) | ⭐ Bonus | Put your own laptop's cores and RAM against a Yen node, and price it in the cloud |
-| [Writing a Slurm Job with Claude]({{ '/day2/slurm-with-claude/' | relative_url }}) | ⭐ Bonus | Distill the Yens conventions you just learned into a reusable Claude skill |
 
 {: .note }
 > **Submit It to Slurm is the protected one.** If this part runs long, it is the section to

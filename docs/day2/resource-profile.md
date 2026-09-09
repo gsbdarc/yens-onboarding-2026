@@ -1,13 +1,13 @@
 ---
 layout: default
-title: "3. Write Down What You Measured"
+title: "3. Document"
 parent: "Part 1 — Profile & Submit a Job"
 grand_parent: "Day 2 — The Yen-Slurm Cluster"
 nav_order: 3
 permalink: /day2/resource-profile/
 ---
 
-# Write Down What You Measured
+# Document
 
 {: .note }
 > 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help

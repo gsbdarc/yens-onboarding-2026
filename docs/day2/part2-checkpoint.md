@@ -3,7 +3,7 @@ layout: default
 title: "Part 2 Checkpoint"
 parent: "Part 2 — Submit a Job Array"
 grand_parent: "Day 2 — The Yen-Slurm Cluster"
-nav_order: 2
+nav_order: 5
 permalink: /day2/part2-checkpoint/
 ---
 
@@ -106,7 +106,10 @@ You started yesterday with a script that ran one filing on a machine you share. 
 leaving with one that runs a thousand on hardware you asked for by name, and a written
 record of what it cost.
 
-**Where to go next:** [Where to Go Next]({{ '/day2/where-to-go-next/' | relative_url }})
-has Slack, RCpedia and the email address. If you finished early, the bonus sections are
-[GPUs]({{ '/day2/gpus/' | relative_url }}) and
-[Writing a Slurm Job with Claude]({{ '/day2/slurm-with-claude/' | relative_url }}).
+**Where to ask, after today:**
+
+| | | |
+|---|---|---|
+| 💬 | [**#gsb-yen-users**](https://circlerss.slack.com/archives/C01JXJ6U4E5) | Slurm, storage, software — paste your error output |
+| ✉️ | [**gsb_darcresearch@stanford.edu**](mailto:gsb_darcresearch@stanford.edu) | Anything you would rather not post in a channel |
+| 📖 | [**rcpedia.stanford.edu**](https://rcpedia.stanford.edu) | The written documentation, including current limits |
