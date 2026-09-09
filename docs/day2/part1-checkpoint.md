@@ -145,7 +145,10 @@ most often for the rest of your time on the cluster.
 ## Before You Move On
 
 {: .note }
-> 🟢 **Green sticky** = all six ran &nbsp;&nbsp; 🔴 **Red sticky** = one of them didn't
+> 🔴 **Red sticky** = one of the six didn't run.
+>
+> 🟢 **Green sticky** = all six ran. You are on to the bonus work, and free to help
+> anyone at your table who is still going.
 >
 > Put the sticky up before you stand up for coffee, not after — an instructor can come to
 > you while you are away from the keyboard anyway.

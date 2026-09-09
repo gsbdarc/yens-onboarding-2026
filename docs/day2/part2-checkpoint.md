@@ -97,7 +97,10 @@ is the gap.
 ## Before You Go
 
 {: .note }
-> 🟢 **Green sticky** = all four ran &nbsp;&nbsp; 🔴 **Red sticky** = one of them didn't
+> 🔴 **Red sticky** = one of the four didn't run.
+>
+> 🟢 **Green sticky** = all four ran. You are on to the bonus work, and free to help
+> anyone at your table who is still going.
 >
 > This is also the moment to ask the question you have been saving. The room empties fast
 > and the answer is easier in person than over Slack.

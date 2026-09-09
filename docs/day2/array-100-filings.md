@@ -10,9 +10,11 @@ permalink: /day2/array-100-filings/
 # Run 100 Filings Through an Array
 
 {: .note }
-> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
+> 🔴 **Red sticky** = I need help. Put it up the moment you are stuck — an instructor will
+> come to you.
 >
-> Put one up as soon as either is true — an instructor will come to you.
+> 🟢 **Green sticky** = I have passed the checkpoint and I am on to the bonus work. It also
+> tells your table you are free to help them.
 
 <svg viewBox="0 0 720 164" role="img" aria-labelledby="daymap-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:720px;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="daymap-title">Day 2 arc — you are on step 5, scale (Part 2).</title>
