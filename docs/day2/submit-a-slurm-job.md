@@ -240,8 +240,7 @@ Save the file. Here's the whole script, with its four parts labeled:
 > **Today only:** this class has a dedicated Slurm reservation, `class`. Add `--reservation=class` to every `sbatch` (and `srun`) command today so your jobs run on the reserved nodes. It's a class-day flag — drop it for your own work after today.
 
 ```bash
-sbatch --reservation=class \
-  slurm/extract_form_3_batch.slurm
+sbatch --reservation=class slurm/extract_form_3_batch.slurm
 # Submitted batch job 12345678
 ```
 
@@ -305,8 +304,7 @@ and get your shell back. The two lines it should have added:
 Resubmit:
 
 ```bash
-sbatch --reservation=class \
-  slurm/extract_form_3_batch.slurm
+sbatch --reservation=class slurm/extract_form_3_batch.slurm
 ```
 
 Once your job runs, check your inbox. You should receive two emails: one when the job **starts** and one when it **ends**. The start email tells you when it began — compare that to when you submitted to see how long it **waited in the queue**. The end email includes a **utilization summary** (how much CPU time and memory the job actually used) and the job's **exit status**: `0` means success; any other value means it failed.

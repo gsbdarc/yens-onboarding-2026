@@ -87,8 +87,7 @@ You already built `slurm/extract_form_3_batch.slurm` for **10 filings**. Two cha
 > **Today only:** keep the class reservation flag — `--reservation=class` — on your `sbatch` so the job runs on the reserved nodes. Drop it for your own work after today.
 
 ```bash
-sbatch --reservation=class \
-  slurm/extract_form_3_batch.slurm
+sbatch --reservation=class slurm/extract_form_3_batch.slurm
 squeue --me
 ```
 
