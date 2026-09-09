@@ -65,3 +65,38 @@ Now that you've profiled **10 filings**, write down what you measured. Open the 
 > If your RAM here is tiny — just a few MB (`RES`), showing as 0% Mem in `userload` — you can't ask for 0, so a good tip is to write down a small round number like `1G`.
 
 Fill in the actual numbers from your `time`, `userload`, and `htop` output.
+
+<details markdown="1">
+<summary>⭐ Bonus — let Claude write it into the README</summary>
+
+You have the numbers; the fiddly part is the markdown. Hand that half over.
+
+Start Claude Code in your repo:
+
+```bash
+ml claude-code
+cd ~/yens-onboarding-2026
+claude
+```
+
+Then give it your measurements — replace these with what you actually saw:
+
+```
+> Add a "Resource Profile" section to README.md for scripts/extract_form_3_batch.py over 10 filings: ran on yen2, real 22.5s, 1 core, 40 MB RES, serial. Add just that section and leave the rest of the file alone.
+```
+
+**Read the diff before you approve it.** Two things to check:
+
+- **The numbers are yours.** Claude cannot run your job, so any figure you do not
+  hand it, it will invent — and it will look reasonable. That matters more here than
+  anywhere else today: these numbers become the `--time` and `--mem` on the next page, so a
+  made-up one turns into a job that gets killed or waits far longer than it needs to.
+- **Nothing else moved.** You asked for one section added, not a tidied-up README.
+
+Then `/exit` to get your shell back, and check the result:
+
+```bash
+cat README.md
+```
+
+</details>
