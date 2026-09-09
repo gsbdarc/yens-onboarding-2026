@@ -55,9 +55,6 @@ filings are hosted online, and `data/aws_links.csv` — already in your cloned r
 You'll end up with two files: a new Python script that handles a single filing, and a Slurm
 script to launch it as an array.
 
-{: .note }
-> **Use `claude-haiku-4-5` here, not a frontier model like Day 1's `gpt-5.2`.** Day 1's rule was *iterate cheap, then spend where it counts*. Here the arithmetic flips: the same call runs a hundred times, and cost and speed are now the thing you're managing. You get the cheaper, faster model in exchange for some accuracy, and handling that is part of the rest of today's work.
-
 ### 1. Estimate the resources — and write it down first
 
 In Part 1 you measured the batch script over 10 filings and wrote three numbers into your
