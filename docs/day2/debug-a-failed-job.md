@@ -134,3 +134,39 @@ Troubleshoot with Claude in plan mode, approve the fix, have Claude add the emai
 The trickiest one: it hides *two* bugs — one in the Slurm script and one in the Python it runs (`scripts/extract_form_3_one_file_broken.py`). Submit it, read the error log, and work through **both** with Claude the same way (plan mode → read the plan → approve → add the email lines → resubmit) until it completes.
 
 </details>
+
+<details markdown="1">
+<summary>⭐ Bonus — let Claude read the log for you</summary>
+
+*Print mode — `claude -p`.*
+
+Everything above used Claude Code **interactively**. For a quick, one-off question — or to script it — Claude also runs **non-interactively**: `claude -p "…"` (print mode) runs a single prompt, prints the answer, and exits. No session, no back-and-forth.
+
+Point it at a file — one of the other broken scripts, say:
+
+```bash
+claude -p "review scripts/extract_form_3_one_file_broken.py and explain what it does"
+```
+
+Or **pipe** data straight into it. On Linux, every command-line program has two text streams: **standard input** (`stdin`, the text coming *in*) and **standard output** (`stdout`, the text it prints *out*). The pipe symbol `|` connects them — it takes the `stdout` of the command on its left and feeds it as the `stdin` of the command on its right. Because `claude -p` reads from `stdin`, you can pipe a file's contents straight into Claude instead of typing them. Take the `fix_me` error log you just read and let Claude diagnose it in one line:
+
+```bash
+cat logs/fix_me_*.err | claude -p "this Slurm job failed — explain the error and suggest a fix"
+```
+
+Because it's just another command that reads `stdin` and prints to `stdout`, you can drop `claude -p` **inside a Slurm job or a shell script** and let it work in **batch mode** — no interactive session at all.
+
+Picture inheriting a whole project you didn't write — a stack of scripts and Slurm jobs. You can wire `claude -p` into those jobs so that, as each one runs unattended, Claude documents the run for you: at the end of the script, pipe the results (or the log) to Claude and have it append a plain-English summary of what ran, what the output means, and anything that looks off — straight into the job's own output. For example, add a few lines to the *end* of a `.slurm` script, after the real work:
+
+```bash
+# ... your extraction / analysis commands above ...
+
+# Let Claude write a human-readable summary of this run into the log
+cat results/*.json \
+  | claude -p "Summarize what this run produced and flag anything unusual." \
+  >> logs/run_summary.txt
+```
+
+Submit a batch of these and you come back to finished jobs that have already **documented themselves** — what they did, when, and what to look at — without you watching a single one run.
+
+</details>

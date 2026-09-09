@@ -488,8 +488,8 @@ When would you request one over the other?
 <summary>⭐ Bonus — turn this into a Claude skill</summary>
 
 You just wrote a Slurm script by hand and got it working. That working setup is the raw
-material for a **skill**, and this page distills two of them from it — one for how the Yens
-work, one for how this project does things.
+material for a **skill** — a set of standing instructions Claude picks up automatically, so
+it follows your conventions without you re-explaining them.
 
 You are the reviewer throughout: you submit and check the work, not Claude.
 
@@ -497,7 +497,7 @@ You are the reviewer throughout: you submit and check the work, not Claude.
 
 Every skill is a **directory** holding one file named exactly `SKILL.md`. The directory
 name is the skill's name — lowercase letters, digits and hyphens only — and it is also how
-you invoke it: `form3-plots/` gives you the `/form3-plots` command.
+you invoke it: `yen-slurm/` gives you the `/yen-slurm` command.
 
 Where the directory lives decides its scope:
 
@@ -522,7 +522,7 @@ Where the directory lives decides its scope:
   <g font-family="'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#5b6472">
     <text x="372" y="90">yens-onboarding-2026/</text>
     <text x="372" y="112">└─ .claude/skills/</text>
-    <text x="372" y="134">      └─ form3-plots/</text>
+    <text x="372" y="134">      └─ form3-pipeline/</text>
     <text x="372" y="156">            └─ SKILL.md</text>
   </g>
   <text x="372" y="180" font-size="13" font-weight="700" fill="#b3611a">loads only in THIS repo — ships on clone</text>
@@ -583,71 +583,32 @@ Then invoke it (step 3) on a fresh job. Claude Code turns each skill's folder na
 
 > /yen-slurm write a Slurm job for a new run and save it as `slurm/extract_form_3_batch_claude.slurm`
 
-**Submit and review:** the conventions should come straight from the skill, matching what you hand-wrote. But the global skill is repo-agnostic — it says nothing about *how this project plots a figure*. That's project-specific knowledge, and it belongs in a project skill — the next section.
+**Submit and review:** the conventions should come straight from the skill, matching what you hand-wrote.
 
-### Write a Project Skill — Your Figure House Style
+### Project skills — how *this* project does things
 
-Skills shine when Claude follows *your* world's conventions instead of generic defaults — a house style so every figure comes out consistent.
+The global skill above is repo-agnostic: it knows how the Yens work, so it follows you
+everywhere. What it cannot know is how *this* project does things — where results are
+written, which script owns which stage, the palette your figures use, the naming your
+collaborators expect.
 
-**Step 1 — work with Claude until the figure looks right.** Ask it to make and run a small plotting job:
+That kind of knowledge belongs in a **project skill**, and the only difference is where it
+lives:
 
-> Write `scripts/plot_letter_distribution.py` that reads every JSON in `results/` and counts how often each letter a–z appears across all the extracted text fields (`insider_name`, `company_name`, and the roles). Save a bar chart to a new `figures/` directory (`figures/letter_distribution.png`), creating the directory if it doesn't exist. Use our Stanford palette: cardinal-red (`#8C1515`) bars, Stanford-black (`#2E2D29`) title and axis labels, white background. Then write `slurm/plot.slurm` to run it on the `dev` partition, and submit it with today's class reservation: `sbatch --reservation=class slurm/plot.slurm`.
+| | Path | Loads in | Ships to |
+|---|---|---|---|
+| **Global** | `~/.claude/skills/<name>/SKILL.md` | every project you open | just you |
+| **Project** | `<repo>/.claude/skills/<name>/SKILL.md` | only this repo | anyone who clones it |
 
-Iterate with Claude on colours, title, and axis labels until you like it. (Open `figures/letter_distribution.png` in JupyterHub to see it.)
+The repo's `.claude/` has no `~`, and because it sits inside the project, committing the
+skill ships it. A new collaborator clones the repo and Claude already knows the house
+rules.
 
-{: .note }
-> 💡 **Example prompts to iterate with Claude** — you don't need to know matplotlib, just describe the look:
-> - Make every other bar a lighter cardinal shade (`#B83A4B`) so adjacent bars are easy to tell apart.
-> - Add a title "Letter frequency across 10 Form 3 filings" and label the axes ("Letter" on x, "Count" on y).
-> - Sort the bars from most to least frequent instead of alphabetical.
-> - Bump the figure size and dpi so it's readable in a slide, and add light gridlines.
-
-**Step 2 — distill the style into a skill.** This one is a **project** skill, so it goes in **this repo's own `.claude/`** — *not* your home `~/.claude/` — so it ships with the project to anyone who clones it. Once you're happy with how the figure looks:
-
-> Turn the plotting style we just settled on into a **project** skill in **this repo** at `./.claude/skills/form3-plots/SKILL.md` (the repo's `.claude/`, not `~/.claude/`) — this repo's figure house style: the Stanford palette (cardinal `#8C1515` bars, `#2E2D29` text), figure size, dpi, axis-label conventions, and that PNGs save to `figures/`. Keep it to *this* project.
-
-**Step 3 — invoke it on a *different* plot** to prove it fires. Either just describe the task and let the skill's `description` trigger it automatically, or call it explicitly with `/form3-plots` — no style instructions either way:
-
-> /form3-plots plot the distribution of insider roles across the 10 filings
-
-It should come out in the same house style automatically — that's the skill doing its job.
-
-**Takeaway:** the global skill knows *how the Yens work* — it lives in your home `~/.claude/`, so it follows *you* to every project. The project skill knows *how this project does things* — it lives in the repo's own `.claude/` (no `~/`), so committing it ships the skill to anyone who clones. Both come from work you already did right — you just asked Claude to remember it.
+Distil one the same way you did the global skill: get something right by hand first, then
+ask Claude to turn *that* into a skill scoped to this repo. Conventions worth capturing
+are the ones you would otherwise re-explain in every code review.
 
 {: .warning }
 > **You're still the reviewer.** A skill makes Claude follow your conventions, but Claude can still invent partition names, time limits, or QoS caps that don't exist. Check its choices against RCpedia — the [current partitions and their limits](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits) page and `sacctmgr show qos <partition>` — and against your own profiling. The script you submit is yours.
-
-### Claude in One Shot
-
-*Print mode — `claude -p`.*
-
-Everything above used Claude Code **interactively**. For a quick, one-off question — or to script it — Claude also runs **non-interactively**: `claude -p "…"` (print mode) runs a single prompt, prints the answer, and exits. No session, no back-and-forth.
-
-Point it at a file — e.g. review one of the broken scripts from the [**Read Logs** exercise]({{ '/day2/debug-a-failed-job/' | relative_url }}):
-
-```bash
-claude -p "review scripts/extract_form_3_one_file_broken.py and explain what it does"
-```
-
-Or **pipe** data straight into it. On Linux, every command-line program has two text streams: **standard input** (`stdin`, the text coming *in*) and **standard output** (`stdout`, the text it prints *out*). The pipe symbol `|` connects them — it takes the `stdout` of the command on its left and feeds it as the `stdin` of the command on its right. Because `claude -p` reads from `stdin`, you can pipe a file's contents straight into Claude instead of typing them. Take a failed job's error log from the [**Read Logs** exercise]({{ '/day2/debug-a-failed-job/' | relative_url }}) (run those first, so the `logs/fix_me_*.err` files exist) and let Claude diagnose it in one line:
-
-```bash
-cat logs/fix_me_*.err | claude -p "this Slurm job failed — explain the error and suggest a fix"
-```
-
-Because it's just another command that reads `stdin` and prints to `stdout`, you can drop `claude -p` **inside a Slurm job or a shell script** and let it work in **batch mode** — no interactive session at all.
-
-Picture inheriting a whole project you didn't write — a stack of scripts and Slurm jobs. You can wire `claude -p` into those jobs so that, as each one runs unattended, Claude documents the run for you: at the end of the script, pipe the results (or the log) to Claude and have it append a plain-English summary of what ran, what the output means, and anything that looks off — straight into the job's own output. For example, add a few lines to the *end* of a `.slurm` script, after the real work:
-
-```bash
-# ... your extraction / analysis commands above ...
-
-# Let Claude write a human-readable summary of this run into the log
-cat results/*.json \
-  | claude -p "Summarize what this run produced and flag anything unusual." \
-  >> logs/run_summary.txt
-```
-
-Submit a batch of these and you come back to finished jobs that have already **documented themselves** — what they did, when, and what to look at — without you watching a single one run.
 
 </details>
