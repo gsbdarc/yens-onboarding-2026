@@ -12,36 +12,32 @@ permalink: /day2/part2-checkpoint/
 This is the last thing in the two days. Four items, and unlike the Part 1 checkpoint
 nothing downstream depends on them — so this one is for you, not for the next section.
 
-It is worth running anyway. Two of the four come from Scale, which is the only
-place in the two days where you commit to a number before you find out whether it was
-right.
+It is worth reading anyway. Two of the four come from Scale, which is the only place in
+the two days where you commit to a number before you find out whether it was right.
 
 {: .important }
-> **If you are short on time, do items 3 and 4.** An array you got working is a skill you
-> can look up again; an estimate you wrote down and then checked against reality is the
-> thing that changes how you size jobs next month.
+> **If you are short on time, the last two matter most.** An array you got working is a
+> skill you can look up again; an estimate you wrote down and then checked against reality
+> is the thing that changes how you size jobs next month.
 
 ---
 
 ## You Should Have
 
-- [ ] An array running from `slurm/hello_array.slurm` — one submission, four separate logs
-- [ ] Tasks made rerun-safe, so a resubmit finishes in seconds
-- [ ] An estimate for the bigger run, written down **before** you submitted it
-- [ ] That estimate held against what the job actually used
-
-The first two are on **1. Watch an Array Fan Out** and **3. Make Your Tasks Rerun-Safe**;
-the last two are both **4. Scale**.
+- An array running from `slurm/hello_array.slurm` — one submission, four separate logs
+- Tasks made rerun-safe, so a resubmit finishes in seconds
+- An estimate for the bigger run, written down **before** you submitted it
+- That estimate held against what the job actually used
 
 ---
 
 ## Before You Go
 
 {: .note }
-> 🔴 **Red sticky** = one of the four didn't run.
+> 🔴 **Red sticky** = something on the list is missing.
 >
-> 🟢 **Green sticky** = all four ran. You are on to the bonus work, and free to help
-> anyone at your table who is still going.
+> 🟢 **Green sticky** = you can tick all four. You are on to the bonus work, and free to
+> help anyone at your table who is still going.
 >
 > This is also the moment to ask the question you have been saving. The room empties fast
 > and the answer is easier in person than over Slack.
