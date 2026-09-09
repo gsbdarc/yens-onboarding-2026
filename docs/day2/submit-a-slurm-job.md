@@ -309,15 +309,6 @@ sbatch --reservation=class slurm/extract_form_3_batch.slurm
 
 Once your job runs, check your inbox. You should receive two emails: one when the job **starts** and one when it **ends**. The start email tells you when it began — compare that to when you submitted to see how long it **waited in the queue**. The end email includes a **utilization summary** (how much CPU time and memory the job actually used) and the job's **exit status**: `0` means success; any other value means it failed.
 
-### Read the logs
-
-The job wrote **log files** to `logs/` — the `.out` file has the script's normal output, the `.err` file has any errors:
-
-```bash
-cat logs/extract_*.out
-cat logs/extract_*.err
-```
-
 <details markdown="1">
 <summary>⭐ Bonus — if you finished early</summary>
 
@@ -377,7 +368,7 @@ You'll see the mystery script's Python workers pinning the cores you requested. 
 
 **Bonus — Chain Two Jobs**
 
-A real research pipeline is a chain of **stages**, each feeding the next. Scaled up, your Form 3 work is naturally three jobs: **(1) download** the raw filings from EDGAR, **(2) extract** the structured fields with the API (what your batch script does), then **(3) aggregate** the per-filing JSON into one dataset and compute summary stats. Each stage reads the file the one before it wrote — stage 2 can't start until stage 1's downloads land, and stage 3 needs stage 2's extractions. Rather than babysit them, launching each by hand the moment the last finishes, you queue the whole chain at once: `--dependency=afterok` tells Slurm to hold each job until the one before it **succeeds**. Your repo ships a small two-step version of this:
+A real research pipeline is a chain of **stages**, each feeding the next. Scaled up, your Form 3 work is naturally two jobs: **(1) extract** the structured fields with the API (what your batch script does), then **(2) aggregate** the per-filing JSON into one dataset and compute summary stats. The second stage reads what the first one wrote, so it cannot start until the extractions land. Rather than babysit them, launching each by hand the moment the last finishes, you queue the whole chain at once: `--dependency=afterok` tells Slurm to hold each job until the one before it **succeeds**. Your repo ships a small two-step version of this:
 
 - `scripts/chain_step1.py` — crunches numbers for ~2 minutes, then writes its result to `/scratch/users/SUNetID/chain_demo/step1_result.txt`.
 - `scripts/chain_step2.py` — reads that file and does ~30 seconds more math, writing `step2_result.txt` beside it.

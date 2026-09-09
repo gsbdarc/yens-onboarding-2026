@@ -44,6 +44,20 @@ permalink: /day2/debug-a-failed-job/
 > source .venv/bin/activate
 > ```
 
+## Read your own job's logs
+
+The job you just submitted wrote **log files** to `logs/` — the `.out` file has the
+script's normal output, the `.err` file has any errors:
+
+```bash
+cat logs/extract_*.out
+cat logs/extract_*.err
+```
+
+A job that worked leaves an empty `.err`. That is what you are comparing against next.
+
+## Read a failed job's logs
+
 {: .important }
 > **Task:** Submit a deliberately broken job, read the error log it leaves behind, and fix it with Claude as your reviewer. Reading a failed job's `.err` is the first debugging skill you will actually need on the cluster.
 
