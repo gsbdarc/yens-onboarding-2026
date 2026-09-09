@@ -20,8 +20,8 @@ to the scheduler instead of holding a terminal open.
 | [2. Profile the Batch Script]({{ '/day2/profile-batch-script/' | relative_url }}) | 10 min |
 | [3. Document]({{ '/day2/resource-profile/' | relative_url }}) | 5 min |
 | [4. Peek at the Queue]({{ '/day2/peek-at-the-queue/' | relative_url }}) | 5 min |
-| [5. Write and Submit a Slurm Job]({{ '/day2/submit-a-slurm-job/' | relative_url }}) | 25 min |
-| [6. Debug a Failed Job]({{ '/day2/debug-a-failed-job/' | relative_url }}) | 8 min |
+| [5. Submit]({{ '/day2/submit-a-slurm-job/' | relative_url }}) | 25 min |
+| [6. Read Logs]({{ '/day2/debug-a-failed-job/' | relative_url }}) | 8 min |
 | [Part 1 Checkpoint]({{ '/day2/part1-checkpoint/' | relative_url }}) | 5 min |
 
 If you are well past one of these, put up a red sticky rather than pushing on — falling
@@ -48,8 +48,8 @@ up and get coffee when your table reaches a natural stopping point.
 | [2. Profile the Batch Script]({{ '/day2/profile-batch-script/' | relative_url }}) | 💻 Mandatory | The same technique on the real workload, over 10 filings |
 | [3. Document]({{ '/day2/resource-profile/' | relative_url }}) | 💻 Mandatory | Put the three numbers in your README, where the next step reads them |
 | [4. Peek at the Queue]({{ '/day2/peek-at-the-queue/' | relative_url }}) | 💻 Mandatory | Read the live queue and tell `R` from `PD` |
-| [5. Write and Submit a Slurm Job]({{ '/day2/submit-a-slurm-job/' | relative_url }}) | 💻 Mandatory | Write `#SBATCH` directives by hand, submit, monitor, cancel, read the logs |
-| [6. Debug a Failed Job]({{ '/day2/debug-a-failed-job/' | relative_url }}) | 💻 Mandatory | Submit a job that fails on purpose, and find out why from its `.err` |
+| [5. Submit]({{ '/day2/submit-a-slurm-job/' | relative_url }}) | 💻 Mandatory | Write `#SBATCH` directives by hand, submit, monitor, cancel, read the logs |
+| [6. Read Logs]({{ '/day2/debug-a-failed-job/' | relative_url }}) | 💻 Mandatory | Submit a job that fails on purpose, and find out why from its `.err` |
 | [Part 1 Checkpoint]({{ '/day2/part1-checkpoint/' | relative_url }}) | ✅ Checkpoint | Six checks proving the things Part 2 depends on actually work |
 
 {: .note }

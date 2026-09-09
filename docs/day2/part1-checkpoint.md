@@ -35,8 +35,8 @@ Six things. Each one you just worked through, and each has a check you can run.
 | 2 | Time the batch script over 10 filings | [2. Profile the Batch Script]({{ '/day2/profile-batch-script/' | relative_url }}) |
 | 3 | Write the three numbers down where the next step can read them | [3. Write Down What You Measured]({{ '/day2/resource-profile/' | relative_url }}) |
 | 4 | Read the live queue, and tell `R` from `PD` | [4. Peek at the Queue]({{ '/day2/peek-at-the-queue/' | relative_url }}) |
-| 5 | Write `#SBATCH` directives by hand and submit the job | [5. Write and Submit a Slurm Job]({{ '/day2/submit-a-slurm-job/' | relative_url }}) |
-| 6 | Find out what the job did — including when it failed | [6. Debug a Failed Job]({{ '/day2/debug-a-failed-job/' | relative_url }}) |
+| 5 | Write `#SBATCH` directives by hand and submit the job | [5. Submit]({{ '/day2/submit-a-slurm-job/' | relative_url }}) |
+| 6 | Find out what the job did — including when it failed | [6. Read Logs]({{ '/day2/debug-a-failed-job/' | relative_url }}) |
 
 The order matters, and it is the same order the morning ran in: you cannot write a
 `#SBATCH` line until you have measured the number that goes in it, and you cannot tell

@@ -1,13 +1,13 @@
 ---
 layout: default
-title: "6. Debug a Failed Job"
+title: "6. Read Logs"
 parent: "Part 1 — Profile & Submit a Job"
 grand_parent: "Day 2 — The Yen-Slurm Cluster"
 nav_order: 6
 permalink: /day2/debug-a-failed-job/
 ---
 
-# Debug a Failed Job
+# Read Logs
 
 {: .note }
 > 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
