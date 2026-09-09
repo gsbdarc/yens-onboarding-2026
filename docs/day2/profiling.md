@@ -364,7 +364,9 @@ cloud. The written comparison is in
 
 You don't need a fancy prompt. For example:
 
+```
 > Would you help me find the RAM and number of cores on my laptop?
+```
 
 </details>
 
@@ -412,7 +414,9 @@ You don't need a fancy prompt. For example:
 
 You don't need a fancy prompt. For example:
 
+```
 > Do you have on-demand VM pricing for a cloud VM (say AWS) with 256 cores and 1 TB of RAM?
+```
 
 </details>
 

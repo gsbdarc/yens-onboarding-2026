@@ -55,7 +55,9 @@ it will need *before* you run it.
 
 You're running the same loop, just over 100 files instead of 10. Think about what **CPU**, **RAM**, and **time** it will take. Open `scripts/extract_form_3_batch.py` (or have Claude read it) and reason it out:
 
-> Look at `scripts/extract_form_3_batch.py` and my Profiling README (the 10-filing numbers) and help me estimate the CPU, RAM, and wall-clock time this needs for 100 filings.
+```
+> Look at scripts/extract_form_3_batch.py and my Profiling README (the 10-filing numbers) and help me estimate the CPU, RAM, and wall-clock time this needs for 100 filings.
+```
 
 **Before you submit anything**, write in your `README.md`: which resources you think will **scale** with the number of filings processed and which will stay about flat — and **why** — along with your CPU, RAM, and wall-clock **estimate for 100**. Committing to a number *before* you run it is the whole point.
 
@@ -109,7 +111,9 @@ Back in `README.md`, next to the estimate you wrote in step 1, add the **actual*
 
 Ask Claude Code to handle it:
 
-> Add and commit `slurm/extract_form_3_batch.slurm` and my README changes with a message like "Day 2: 100-filing batch", then push to my fork.
+```
+> Add and commit slurm/extract_form_3_batch.slurm and my README changes with a message like "Day 2: 100-filing batch", then push to my fork.
+```
 
 <details markdown="1">
 <summary>⭐ Bonus — try a GPU</summary>

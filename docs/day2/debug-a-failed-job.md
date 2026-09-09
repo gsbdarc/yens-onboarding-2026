@@ -54,7 +54,7 @@ cat logs/extract_*.out
 cat logs/extract_*.err
 ```
 
-A job that worked leaves an empty `.err`. That is what you are comparing against next.
+A job that worked leaves an empty `.err`.
 
 ## Read a failed job's logs
 
@@ -92,13 +92,17 @@ cat logs/fix_me_*.err
 
 **Put Claude Code in plan mode first** (press `Shift`+`Tab` to switch) so it lays out *what* it would change and *why* instead of editing right away. Then point it at the error log — a simple prompt is enough:
 
-> Help me troubleshoot `logs/fix_me_*.err`
+```
+> Help me troubleshoot logs/fix_me_*.err
+```
 
 **Read the plan it comes back with.** If the fix makes sense, approve it and let Claude apply it — you're the reviewer.
 
 You'll also want a completion email, so ask Claude to add the notification lines to this script:
 
-> Add `#SBATCH --mail-type=ALL` and `#SBATCH --mail-user=SUNetID@stanford.edu` to `slurm/fix_me.slurm`.
+```
+> Add #SBATCH --mail-type=ALL and #SBATCH --mail-user=SUNetID@stanford.edu to slurm/fix_me.slurm.
+```
 
 Then resubmit — **keep debugging and resubmitting until the Slurm email says the job succeeded** (exit status `0`).
 

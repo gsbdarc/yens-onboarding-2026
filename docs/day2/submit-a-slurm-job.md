@@ -383,7 +383,9 @@ cat slurm/chain_step1.slurm slurm/chain_step2.slurm
 
 **Step 2 — have Claude add the email lines to step 2** *before* you submit, so you get a note when the chain finishes:
 
-> Add `#SBATCH --mail-type=ALL` and `#SBATCH --mail-user=SUNetID@stanford.edu` to `slurm/chain_step2.slurm`.
+```
+> Add #SBATCH --mail-type=ALL and #SBATCH --mail-user=SUNetID@stanford.edu to slurm/chain_step2.slurm.
+```
 
 **Step 3 — submit both back-to-back.** Step 1 runs for ~2 minutes, so fire them off one after the other and let it crunch while step 2 queues behind it. Submit step 1 and note the `JOBID` it prints:
 
@@ -558,7 +560,9 @@ claude
 
 You already got a batch Slurm script working by hand. Rather than describe the Yen conventions from scratch, point Claude at that script and have it **capture the reusable parts**:
 
-> Read `slurm/extract_form_3_batch.slurm` and turn its reusable **Yen conventions** into a **global** skill at `~/.claude/skills/yen-slurm/SKILL.md`: partition choice, email, `%j` log naming, always setting `--time`/`--mem`/`--cpus-per-task`, and checking current limits on [RCpedia](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits). Keep it short and **repo-agnostic** — no project paths.
+```
+> Read slurm/extract_form_3_batch.slurm and turn its reusable Yen conventions into a global skill at ~/.claude/skills/yen-slurm/SKILL.md: partition choice, email, %j log naming, always setting --time/--mem/--cpus-per-task, and checking current limits on [RCpedia](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits). Keep it short and repo-agnostic — no project paths.
+```
 
 **Check what it wrote.** A good skill is short, and its **`description`** is what makes Claude reach for it later — so open the file and read it:
 
@@ -586,7 +590,9 @@ The **`description` is the trigger** — Claude reads it to decide when to pull 
 
 Then invoke it on a fresh job. Claude Code turns each skill's folder name into a `/`-command, so the `yen-slurm/` folder gives you `/yen-slurm` — type it and add your request:
 
-> /yen-slurm write a Slurm job for a new run and save it as `slurm/extract_form_3_batch_claude.slurm`
+```
+> /yen-slurm write a Slurm job for a new run and save it as slurm/extract_form_3_batch_claude.slurm
+```
 
 **Submit and review:** the conventions should come straight from the skill, matching what you hand-wrote.
 

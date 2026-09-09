@@ -33,7 +33,7 @@ time helping your table rather than racing into the bonuses.
 | [2. Run 100 Filings Through an Array]({{ '/day2/array-100-filings/' | relative_url }}) | 💻 Hands-on | The real thing: one script, one `--array` flag, 100 filings |
 | [3. Make Your Tasks Rerun-Safe]({{ '/day2/rerun-safe-tasks/' | relative_url }}) | 💻 Hands-on | Make a task skip work it has already done, so a resubmit costs nothing |
 | [4. Scale]({{ '/day2/capstone/' | relative_url }}) | 💻 Hands-on | Estimate a bigger run's cost, submit it, then check yourself against `sacct` |
-| [Part 2 Checkpoint]({{ '/day2/part2-checkpoint/' | relative_url }}) | ✅ Checkpoint | Four checks closing out the two days |
+| [Part 2 Checkpoint]({{ '/day2/part2-checkpoint/' | relative_url }}) | ✅ Checkpoint | Fan a job array out, make it safe to rerun, and size a bigger run before submitting it |
 
 {: .note }
 > **Write the estimate before you submit.** Scale is the one place in the two days
