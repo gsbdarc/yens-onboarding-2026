@@ -63,8 +63,8 @@ Three things need to be in place. **Say so now if any of them are missing:**
 3. A `.env` holding your `ANTHROPIC_API_KEY`, and `.env` in `.gitignore`
 
 {: .important }
-> **If you finish the mandatory exercises early, check whether anyone at your table is
-> stuck before you move on to the bonus material.** Explaining a thing you just learned is
+> **If you finish a section early, check whether anyone at your table is stuck before you
+> move on to the bonus material.** Explaining a thing you just learned is
 > the fastest way to find out whether you actually learned it.
 
 Work through the sections in order — they build on each other, and the numbers you write
