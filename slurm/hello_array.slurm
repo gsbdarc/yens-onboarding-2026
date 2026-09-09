@@ -6,7 +6,7 @@
 #SBATCH --time=00:01:00
 #SBATCH --mem=1G
 #SBATCH --cpus-per-task=1
-#SBATCH --array=1-4                     # the new line, which says: run this script 4 times
+#SBATCH --array=0-3        # the new line: 4 tasks, numbered 0 to 3
 
 # slurm/hello.slurm with one directive added. That single line turns one
 # submission into four independent tasks, identical except for the task ID

@@ -48,15 +48,42 @@ permalink: /day2/array-fan-out/
 > **Task:** Submit `slurm/hello_array.slurm` unchanged, and confirm you got
 > four tasks and four separate logs out of one submission.
 
-The repo ships two scripts that differ by exactly one line. Read them both:
+The repo ships two scripts that do the same trivial thing — one as a single job, one as an
+array. Compare just their `#SBATCH` directives; each file also carries a long comment
+header, and diffing the whole file buries the lines that matter:
 
 ```bash
-cd ~/yens-onboarding-2026
-diff slurm/hello.slurm slurm/hello_array.slurm
+diff <(grep '^#SBATCH' slurm/hello.slurm) \
+     <(grep '^#SBATCH' slurm/hello_array.slurm)
 ```
 
-The array version adds `#SBATCH --array=1-4` and changes its log paths from `%j` to
-`%A_%a`. That is the whole difference between one job and four.
+`<( … )` hands a command's output to `diff` as though it were a file, so what gets compared
+is two filtered views rather than the files on disk.
+
+```text
+1c1
+< #SBATCH --job-name=hello
+---
+> #SBATCH --job-name=hello-array
+3,4c3,4
+< #SBATCH --output=logs/hello_%j.out
+< #SBATCH --error=logs/hello_%j.err
+---
+> #SBATCH --output=logs/hello_%A_%a.out
+> #SBATCH --error=logs/hello_%A_%a.err
+7a8
+> #SBATCH --array=0-3        # the new line: 4 tasks, numbered 0 to 3
+```
+
+One directive is genuinely new — `--array=0-3` — and that is what turns one job into four.
+The log paths change because of it.
+
+{: .note }
+> **`%j`, `%A` and `%a`.** Slurm substitutes these when it writes the log file. `%j` is the
+> job ID, which is all a single job needs. An array needs two numbers: **`%A` is the
+> array's job ID**, the same for all four tasks, and **`%a` is that task's own index**. So
+> `hello_%A_%a.out` lands as `hello_12345678_0.out`, `hello_12345678_1.out` and so on —
+> four separate files, rather than four tasks overwriting one.
 
 Submit it:
 
@@ -66,8 +93,8 @@ sbatch --reservation=class slurm/hello_array.slurm
 squeue --me
 ```
 
-You get **one** job ID back, but `squeue` shows four rows — `12345678_1` through
-`12345678_4`. When they finish:
+You get **one** job ID back, but `squeue` shows four rows — `12345678_0` through
+`12345678_3`. When they finish:
 
 ```bash
 cat logs/hello_*_*.out
@@ -78,7 +105,7 @@ logs that never collided.
 
 <svg viewBox="0 0 618 270" role="img" aria-labelledby="array-title array-desc" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:616px;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="array-title">One array script fans out into many tasks</title>
-  <desc id="array-desc">A single submission script with the directive array equals 1 to N fans out into N independent tasks, numbered 1, 2, 3 and so on up to N. What each task does is determined by your code together with its array task ID.</desc>
+  <desc id="array-desc">A single submission script with the directive array equals 0 to N minus 1 fans out into N independent tasks, numbered 0, 1, 2 and so on up to N minus 1. What each task does is determined by your code together with its array task ID.</desc>
   <!-- fan-out connectors (drawn first, behind boxes) -->
   <line x1="188" y1="129" x2="330" y2="37"  stroke="#cbd3e0" stroke-width="1.5"/>
   <line x1="188" y1="129" x2="330" y2="89"  stroke="#cbd3e0" stroke-width="1.5"/>
@@ -86,19 +113,19 @@ logs that never collided.
   <line x1="188" y1="129" x2="330" y2="221" stroke="#cbd3e0" stroke-width="1.5"/>
   <rect x="24" y="103" width="164" height="52" rx="10" fill="#eef1f8" stroke="#cdd4e6" stroke-width="1.5"/>
   <text x="106" y="124" font-size="12.5" font-weight="700" fill="#2c3e50" text-anchor="middle">Slurm script</text>
-  <text x="106" y="142" font-size="10.5" fill="#6a7280" text-anchor="middle" font-family="'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, monospace">--array=1–N</text>
+  <text x="106" y="142" font-size="10.5" fill="#6a7280" text-anchor="middle" font-family="'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, monospace">--array=0–(N−1)</text>
   <rect x="330" y="15" width="264" height="44" rx="8" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
-  <text x="462" y="31" font-size="12" fill="#2c3e50" text-anchor="middle">task 1</text>
+  <text x="462" y="31" font-size="12" fill="#2c3e50" text-anchor="middle">task 0</text>
   <text x="462" y="46" font-size="8" fill="#6a7280" text-anchor="middle">determined by your code <tspan font-weight="700">and</tspan> SLURM_ARRAY_TASK_ID</text>
   <rect x="330" y="67" width="264" height="44" rx="8" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
-  <text x="462" y="83" font-size="12" fill="#2c3e50" text-anchor="middle">task 2</text>
+  <text x="462" y="83" font-size="12" fill="#2c3e50" text-anchor="middle">task 1</text>
   <text x="462" y="98" font-size="8" fill="#6a7280" text-anchor="middle">determined by your code <tspan font-weight="700">and</tspan> SLURM_ARRAY_TASK_ID</text>
   <rect x="330" y="119" width="264" height="44" rx="8" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
-  <text x="462" y="135" font-size="12" fill="#2c3e50" text-anchor="middle">task 3</text>
+  <text x="462" y="135" font-size="12" fill="#2c3e50" text-anchor="middle">task 2</text>
   <text x="462" y="150" font-size="8" fill="#6a7280" text-anchor="middle">determined by your code <tspan font-weight="700">and</tspan> SLURM_ARRAY_TASK_ID</text>
   <text x="462" y="188" font-size="16" fill="#6b7280" text-anchor="middle">⋮</text>
   <rect x="330" y="199" width="264" height="44" rx="8" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
-  <text x="462" y="215" font-size="12" fill="#2c3e50" text-anchor="middle">task N</text>
+  <text x="462" y="215" font-size="12" fill="#2c3e50" text-anchor="middle">task N−1</text>
   <text x="462" y="230" font-size="8" fill="#6a7280" text-anchor="middle">determined by your code <tspan font-weight="700">and</tspan> SLURM_ARRAY_TASK_ID</text>
   <!-- caption -->
   <text x="309" y="263" font-size="12.5" fill="#6a7280" text-anchor="middle">One submission becomes N independent tasks, each with its own task ID.</text>
@@ -106,5 +133,5 @@ logs that never collided.
 
 The task number is what makes this general. Every task runs the identical script, and `SLURM_ARRAY_TASK_ID` is the only thing that differs between them — so wherever the work needs to vary, you derive it from that number: which file to read, which row of a list to process, which parameter value to try.
 
-{: .warning }
-> **Counting from 1.** `--array=1-N` numbers the tasks 1, 2, … N. Slurm doesn't insist on that: numbering from 0 instead, so the tasks run 0 through N − 1, is equally valid. But starting at 1 is the convention used here, and it matters as soon as the task ID indexes something. In some languages a list of N items, `items`, is indexed 0 through N − 1, so a 1-based task ID has to be shifted — `items[task_id - 1]` rather than `items[task_id]`. Get it wrong and nothing complains up front: the first item is silently skipped, and the last task runs off the end of the list.
+{: .note }
+> **Counting from 0.** Task IDs starting at 0 line up with Python's own indexing, so a task ID indexes a list directly — `filings[task_id]`, with no shifting. Slurm is equally happy numbering from 1, and plenty of scripts you will meet do; check which convention one uses before reusing it.

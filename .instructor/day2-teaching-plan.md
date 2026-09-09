@@ -67,7 +67,7 @@ has no venv.
 | min | What |
 |---|---|
 | 8 | **Parallelization** — embarrassingly parallel work; the three shapes (one job/many cores, many jobs/one core, both); waves when filings outnumber cores. Condensed from `docs/reference/parallelization.md`; the four runnable demos are in `.instructor/parallelization_demos/` if you want to show one |
-| 7 | **Array mechanics** — `--array`, `%A`/`%a`, `SLURM_ARRAY_TASK_ID`. **Name the 1-based-vs-0-indexed off-by-one out loud but do not solve it** — let it bite in the block, it is the lesson |
+| 7 | **Array mechanics** — `--array`, `%A`/`%a`, `SLURM_ARRAY_TASK_ID`. **Tasks count from 0 throughout**, matching the deck's `0 to 511` — a task ID indexes a list directly, so there is no off-by-one to plant. Do say the cap out loud: `MaxArraySize` caps the *index* at 511 on **every** submission, which is why the 992 bonus cannot just continue at a higher index |
 | 5 | **estimate → request → run → check** — and why the capstone estimate gets written down *before* submitting. Protect this; it is the one thing that changes how people size their own jobs afterwards |
 
 ### Work block 2 (10:50–11:50, 60 min)
@@ -95,7 +95,7 @@ GPUs → merge-to-CSV → Reference pages.
 | **The Slurm scheduler** | Ran **10** | Split: concepts in Lecture 1, `squeue`/`sinfo` hands-on in Block 1 |
 | **Writing & submitting a Slurm job** | Ran **25** — *without* any debugging | Still the most important stretch of the two days. Writing the directives by hand is the point; don't let anyone paste a finished script |
 | **Slurm with Claude** | Ran **15**, and the second skill was never reached | **Now entirely bonus.** Demo-led delivery has no slot in this format. Self-paced framing is on the page |
-| **Job arrays** | **No clean measurement** — the four-day course crammed all its Day 4 material into one block | Still the least reliable number here. **Time it deliberately.** Let the off-by-one bite |
+| **Job arrays** | **No clean measurement** — the four-day course crammed all its Day 4 material into one block | Still the least reliable number here. **Time it deliberately.** |
 | **Capstone** | Ran **60** when actually reached, and was skipped entirely the first time | Make them **write the estimate down before submitting**. The `sacct` comparison is the whole lesson and there is nothing to compare against without a recorded guess |
 
 ## If you are behind at 10:50

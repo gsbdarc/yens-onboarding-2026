@@ -106,9 +106,10 @@ best-documented content in the repo.
 - **Slide 3's framing is already in the docs** at `job-arrays.md:12` — "there are a few ways
   to run work in parallel on a cluster; for embarrassingly parallel jobs like ours, a standard
   tool is a Slurm job array." Keep that hedge; arrays are not the only answer.
-- **Name the off-by-one on slide 3, and do not solve it.** Tasks count from 1, Python lists
-  from 0. Warning makes it recognisable when it bites in the block; defusing it removes the
-  lesson.
+- **Tasks count from 0, so there is no off-by-one to name.** The site and the deck both
+  number from 0 (`0 to 511` on the Limits slide), which lines task IDs up with Python's own
+  indexing. What is worth saying on slide 3 is that 1-based arrays are common elsewhere, so
+  check the convention before reusing someone else's script.
 - **Slide 6 needs almost no authoring** — `why-local-llms.md:129–134` is a ready-made
   three-way table (where your data goes · cost · which models · best for), with the rule of
   thumb at `:142`: *restricted data → local, no exceptions.* Its sharpest point is at
@@ -205,7 +206,7 @@ from the one section that the whole "scaling" half of the day exists to deliver.
 
 This way everyone gets the array running, and the authoring is right there for anyone who
 wants it. The learning objective was never "can you type a Slurm script from memory" — it
-is the off-by-one, the fan-out, and reading a failed task's log. All three survive.
+is the fan-out, the index cap, and reading a failed task's log. All three survive.
 
 ### For the experienced — a ranked list, not the whole pile
 

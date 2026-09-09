@@ -59,7 +59,7 @@ participants at small tables helping each other. No whole-room breaks. Full run-
 |-------|-------|-----|
 | 9:00  | **Lecture 1** — compute environments (6, talk only, no demo); then why a scheduler exists, the live queue, and `#SBATCH` anatomy (14) | 20 |
 | 9:20  | **Work block 1** — profiling (all four exercises, ending with the README numbers) → peek at the queue → write & submit a Slurm job → debug `fix_me.slurm` | 70 |
-| 10:30 | **Lecture 2** — parallelization and the three shapes (8); array mechanics and the off-by-one (7); estimate → request → run → check (5) | 20 |
+| 10:30 | **Lecture 2** — parallelization and the three shapes (8); array mechanics and the index cap (7); estimate → request → run → check (5) | 20 |
 | 10:50 | **Work block 2** — the 100-filing array + idempotent tasks → the capstone | 60 |
 | 11:50 | **Wrap + Q&A** | 10 |
 

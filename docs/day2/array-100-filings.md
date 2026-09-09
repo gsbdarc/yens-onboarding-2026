@@ -71,7 +71,7 @@ Work through it in four steps.
 > ```python
 > import sys
 >
-> task_id = int(sys.argv[1])                      # 1, 2, … 100
+> task_id = int(sys.argv[1])                      # 0, 1, … 99
 > ```
 >
 > That's one way of doing it. The script could equally read the variable straight from its environment with `os.environ["SLURM_ARRAY_TASK_ID"]` and take no argument at all. Passing it in keeps the handover visible in the `.slurm`, and lets you run a single task by hand to test it.
@@ -94,10 +94,10 @@ urls = pd.read_csv("data/aws_links.csv")["urls"].dropna()
 # not a filing — and take the first 100
 filings = [u for u in urls if u.endswith(".txt")][:100]
 
-filing = filings[task_id - 1]                   # task_id == 1 implies take the first filing
+filing = filings[task_id]                       # task_id == 0 is the first filing
 ```
 
-That `- 1` is the off-by-one from the warning above: the tasks count from 1, the list from 0.
+No shifting: the tasks are numbered from 0 and so is the list, so the task ID indexes it directly.
 
 </details>
 
@@ -190,7 +190,7 @@ python scripts/extract_array.py "$SLURM_ARRAY_TASK_ID"
 ```
 
 {: .note }
-> **Two things not to forget.** That line only works once the environment is ready, so the script still needs to `cd` to the repo root and activate the virtual environment first — the same two lines you wrote earlier. And the `#SBATCH --array=` directive has to be up with the other directives at the top: without it you've submitted one ordinary job, not an array, and `SLURM_ARRAY_TASK_ID` won't be set at all.
+> **Two things not to forget.** That line only works once the environment is ready, so the script still needs to `cd` to the repo root and activate the virtual environment first — the same two lines you wrote earlier. And the `#SBATCH --array=` directive has to be up with the other directives at the top — for 100 filings that is `#SBATCH --array=0-99`, since the tasks count from 0. Without it you've submitted one ordinary job, not an array, and `SLURM_ARRAY_TASK_ID` won't be set at all.
 
 Then submit it and watch it run. `watch` re-runs a command every couple of seconds, so you can see the tasks start in parallel and drop off as they finish:
 
@@ -200,7 +200,7 @@ sbatch --reservation=class slurm/extract_array.slurm
 watch squeue --me
 ```
 
-The new thing to notice is the job IDs: an array shows up as many rows sharing one ID, with a task number after it — `12345678_1`, `12345678_2`, and so on — each moving through the same `PD` → `R` → gone lifecycle you watched in [3. Submit]({{ '/day2/submit-a-slurm-job/' | relative_url }}). Once it's done, check the per-task logs in `logs/` and the results in `results/`.
+The new thing to notice is the job IDs: an array shows up as many rows sharing one ID, with a task number after it — `12345678_0`, `12345678_1`, and so on — each moving through the same `PD` → `R` → gone lifecycle you watched in [3. Submit]({{ '/day2/submit-a-slurm-job/' | relative_url }}). Once it's done, check the per-task logs in `logs/` and the results in `results/`.
 
 <details markdown="1">
 <summary>⭐ Bonus — merge the results, then scale to 992</summary>
@@ -251,27 +251,46 @@ exercise.
 Try it and read the error:
 
 ```bash
-sbatch --reservation=class --array=1-992 slurm/extract_array.slurm
+sbatch --reservation=class --array=0-991 slurm/extract_array.slurm
 ```
 
-Slurm refuses. The `normal` partition caps an array at **512 tasks**, and you can see the
-ceiling yourself:
+Slurm refuses. `MaxArraySize` on the `normal` partition is **512**, and what it caps is the
+task *index*, not the count — so the highest index you may use is **511**, and an array
+holds at most 512 tasks. Check the ceiling yourself:
 
 ```bash
 scontrol show config | grep MaxArraySize
 ```
 
-So 992 filings cannot be 992 tasks. Two ways round it, and they are different tradeoffs:
+The catch is that the cap applies to *every* submission, so you cannot just pick up where
+the first array stopped — there is no second window of higher indices to move into.
+Reaching filing 991 means submitting an index at or below 511 and mapping it upward. Two
+ways to do that:
 
-- **Submit in batches.** Two arrays, `1-512` and `513-992`, with the second offset so its
-  tasks index the right slice. Simple, and you can submit the second the moment the first
-  drains.
-- **Give each task more than one filing.** Keep the array small — say `1-100` — and have
-  each task loop over ten filings, derived from its ID. Fewer, longer tasks; less
-  scheduler overhead; and the per-task time limit now has to cover ten API calls, not one.
+- **Give each task more than one filing.** The cleaner of the two, because nothing needs
+  offsetting. Keep the array small — `--array=0-99` — and have each task handle ten
+  filings, `filings[task_id * 10 : task_id * 10 + 10]`. Fewer, longer tasks and less
+  scheduler overhead; the per-task `--time` now has to cover ten API calls, not one. 992
+  is not a multiple of ten, so the last task gets two — the slice handles that on its own.
+- **Submit two arrays.** Both have to start at 0, so the second one has to be *told* which
+  slice is its own:
+
+  ```bash
+  sbatch --reservation=class --array=0-511 slurm/extract_array.slurm
+
+  sbatch --reservation=class --array=0-479 \
+         --export=ALL,OFFSET=512 slurm/extract_array.slurm
+  ```
+
+  and the `.slurm` adds it on before handing over. `ALL` keeps the rest of your
+  environment, and the `:-0` default leaves the first submission working unchanged:
+
+  ```bash
+  python scripts/extract_array.py $(( SLURM_ARRAY_TASK_ID + ${OFFSET:-0} ))
+  ```
 
 Whichever you pick, your rerun-safety check is what makes it survivable: a task that dies
-partway through its ten leaves the finished ones on disk, and a resubmit only redoes what
+partway through its share leaves the finished ones on disk, and a resubmit only redoes what
 is missing.
 
 *Think before you run it: 992 paid API calls is real money. Work out the cost from your
