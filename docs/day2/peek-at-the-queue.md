@@ -74,6 +74,17 @@ squeue -p gpu
 
 Every `PD` job is waiting for a node with the resources it requested. When Slurm finds a matching node — it runs.
 
+Now run `sinfo` to see the state of all nodes and the partitions they belong to:
+
+```bash
+sinfo
+```
+
+- How many compute nodes are currently idle (`STATE=idle`)?
+- What partitions exist? Which one would you use for a normal job?
+- What is the maximum time limit for each partition? See the
+  [current partitions and their limits](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits).
+
 ---
 
 <details markdown="1">
@@ -122,13 +133,5 @@ does not show the per-user resource **caps** — those come from each partition'
 check `sacctmgr show qos gpu` against `sacctmgr show qos normal` (or the
 [current partitions and their limits](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits)).
 When would you request one over the other?
-
----
-
-## Before You Move On
-
-Head to the [Part 1 Checkpoint]({{ '/day2/part1-checkpoint/' | relative_url }}) — six
-checks, about five minutes. Everything in Part 2 assumes they pass, so run it while there
-is still someone circulating who can help with whatever is broken.
 
 </details>
