@@ -1,0 +1,380 @@
+---
+layout: default
+title: "5. Write and Submit a Slurm Job"
+parent: "Part 1 — Measure & Submit"
+grand_parent: "Day 2 — The Yen-Slurm Cluster"
+nav_order: 5
+permalink: /day2/submit-a-slurm-job/
+---
+
+# Write and Submit a Slurm Job
+
+{: .note }
+> Everything here runs from your clone with the environment active:
+> `cd ~/yens-onboarding-2026 && source .venv/bin/activate`
+
+---
+
+{: .important }
+> **Mandatory.** **Task:** Build a Slurm job script line by line to run your Form 3 extraction script on a compute node.
+
+**Start from a clean shell.** If you have a virtual environment active right now (you'll see `(.venv)` at the front of your prompt), deactivate it first:
+
+```bash
+deactivate
+```
+
+`sbatch` copies your current shell's environment into the job by default, so if `.venv` is active when you submit, it **rides along** — and the job can quietly succeed even if the script forgot to activate it. Deactivate first so the job runs on only what the **script** sets up (the `source .venv/bin/activate` in Step 3) — the way it'll run for a teammate, or for you from a clean login.
+
+**Create the file:**
+
+Your repo already has a `slurm/` folder (with a few prepared scripts). Just make sure a `logs/` folder exists for job output:
+
+```bash
+mkdir -p logs
+```
+
+{: .warning }
+> **The `logs/` folder must exist before you submit.** Slurm opens your `--output`/`--error` files the moment the job starts — it does **not** create missing directories. If you point `--output` at `logs/…` but there's no `logs/` folder, the job **fails silently**: nothing runs and no log file appears to tell you why. Create it once, up front. (If instead you point `--output` at a bare `extract.out` with no folder, the file lands in whatever directory you ran `sbatch` from.)
+
+Create a new file `slurm/extract_form_3_batch.slurm` and open it in your editor — you'll build it up line by line below.
+
+{: .note }
+> No preferred terminal editor? You can create it right in **JupyterHub**: in the file browser, open the `slurm/` folder, click **+ New → Text File** (or **File → New → Text File**), edit it in the browser, then **rename** the file to `extract_form_3_batch.slurm` and save with `Cmd/Ctrl+S`.
+
+---
+
+**Step 1 — The shebang**
+
+The first line of every shell script is the **shebang**:
+
+```bash
+#!/bin/bash
+```
+
+The `#!` (the **shebang**) tells the operating system which **interpreter** — the program that reads your script and runs it line by line — to use for the rest of the file; here, the Bash shell at `/bin/bash`. Without it, the system doesn't know whether your script is Bash, Python, or something else. It has to be the very first line of the file.
+
+---
+
+**Step 2 — SBATCH directives**
+
+These are instructions to the Slurm scheduler — add them at the top of the file, right after the shebang:
+
+```bash
+#SBATCH --job-name=<job-name>
+#SBATCH --partition=normal
+#SBATCH --output=logs/extract_%j.out
+#SBATCH --error=logs/extract_%j.err
+#SBATCH --time=<HH:MM:SS>
+#SBATCH --mem=<RAM>
+#SBATCH --cpus-per-task=<cores>
+```
+
+What each one is:
+
+- `--job-name` — a short label **you pick** so you can spot this job in the queue (e.g. `form3-extract`). It doesn't affect resources; name it whatever's memorable.
+- `--partition` — the queue the job runs in. `normal` is the production partition; each partition has its own time limits and resource caps (see the [current partitions and their limits](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits)).
+- `--output` / `--error` — files where the job's normal output and errors get written; `%j` is auto-filled with the job ID, so each run gets its own log. **Leave these as-is.**
+- `--time`, `--mem`, `--cpus-per-task` — the resources you're **requesting**. Fill these in from the **time**, **RAM**, and **CPU cores** you recorded in your Profiling README.
+
+{: .note }
+> **About the `--output` and `--error` files:**
+> - A batch job has **no terminal** — you're not watching it run. So Slurm redirects everything your script would normally print: normal output goes to the **`--output` (`.out`) file**, and error messages/tracebacks go to the **`--error` (`.err`) file**. Those files are how you see what the job did and debug it when it fails.
+> - `%j` gets replaced with the job ID, so each run writes its own `logs/extract_JOBID.out` and `.err` instead of overwriting the last.
+> - **Combine them if you like:** omit `--error` entirely and Slurm sends *both* normal output and errors to the single `--output` (`.out`) file. Keeping them separate just makes errors easier to spot.
+> - The `logs/` directory must exist before the job runs — Slurm won't create it, which is why `mkdir -p logs` came first.
+
+---
+
+**Step 3 — Set up the environment**
+
+```bash
+# Navigate to your project
+cd $HOME/yens-onboarding-2026
+
+# Activate your virtual environment
+source .venv/bin/activate
+```
+
+{: .note }
+> **What's already installed.** Your `.venv` was built from `requirements.txt` on Day 1. Once it's activated, any job can use these packages:
+>
+> | Package | Used for |
+> |---|---|
+> | `anthropic` | Calling the Anthropic API (LLM extraction) |
+> | `python-dotenv` | Loading your API key from `.env` |
+> | `pydantic` | Validating and structuring the LLM output |
+> | `pandas` | Tabular data |
+> | `numpy` | Vectorized numerics (installed with pandas) |
+> | `requests` | Downloading filings over HTTP |
+> | `ipykernel` / `jupyter` | Notebook and JupyterHub kernels |
+> | `matplotlib` | Plots |
+>
+> Need something else? `pip install` it into your `.venv` (never system-wide) and add it to `requirements.txt` so your work stays reproducible.
+
+---
+
+**Step 4 — Add the line that runs your script**
+
+The last line of the file is the actual work — the command Slurm will run on the compute node when the job starts. It's a line you write *inside* the script, **not** something you run yourself right now:
+
+```bash
+python scripts/extract_form_3_batch.py
+```
+
+This runs the **10-filing batch you profiled** — `scripts/extract_form_3_batch.py` loops over `NUM_FILINGS` (10) SEC Form 3 filings from `data/aws_links.csv` — so the `--time`, `--mem`, and `--cpus-per-task` you filled in above come straight from your Profiling README.
+
+Save the file. Here's the whole script, with its four parts labeled:
+
+<svg viewBox="0 0 700 292" role="img" aria-labelledby="anatomy-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:700px;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+  <title id="anatomy-title">The anatomy of a Slurm batch script: the shebang, the #SBATCH resource directives, the environment setup, and the run line(s) that do the work.</title>
+  <rect x="16" y="10" width="440" height="272" rx="10" fill="#fbfcfe" stroke="#d5d8e2" stroke-width="1.5"/>
+  <rect x="18" y="22" width="436" height="22" fill="#f3f4f7"/>
+  <rect x="18" y="58" width="436" height="144" fill="#fdf0e3"/>
+  <rect x="18" y="214" width="436" height="44" fill="#eaf1fb"/>
+  <rect x="18" y="260" width="436" height="22" fill="#e9f5ee"/>
+  <g font-family="'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#5b6472">
+    <text x="32" y="38">#!/bin/bash</text>
+    <text x="32" y="76">#SBATCH --job-name=&lt;job-name&gt;</text>
+    <text x="32" y="96">#SBATCH --partition=normal</text>
+    <text x="32" y="116">#SBATCH --output=logs/extract_%j.out</text>
+    <text x="32" y="136">#SBATCH --error=logs/extract_%j.err</text>
+    <text x="32" y="156">#SBATCH --time=&lt;HH:MM:SS&gt;</text>
+    <text x="32" y="176">#SBATCH --mem=&lt;RAM&gt;</text>
+    <text x="32" y="196">#SBATCH --cpus-per-task=&lt;cores&gt;</text>
+    <text x="32" y="232">cd $HOME/yens-onboarding-2026</text>
+    <text x="32" y="252">source .venv/bin/activate</text>
+    <text x="32" y="276">python scripts/extract_form_3_batch.py</text>
+  </g>
+  <circle cx="472" cy="33" r="6" fill="#8a94a6"/><text x="486" y="38" font-size="13.5" font-weight="700" fill="#2c3e50">shebang — the interpreter</text>
+  <circle cx="472" cy="130" r="6" fill="#e67e22"/><text x="486" y="126" font-size="13.5" font-weight="700" fill="#2c3e50">#SBATCH — requests to the</text><text x="486" y="145" font-size="12.5" fill="#6a7280">scheduler (not commands)</text>
+  <circle cx="472" cy="236" r="6" fill="#2f6fb0"/><text x="486" y="232" font-size="13.5" font-weight="700" fill="#2c3e50">environment setup —</text><text x="486" y="251" font-size="12.5" fill="#6a7280">cd + activate venv, on the node</text>
+  <circle cx="472" cy="276" r="6" fill="#2e8b57"/><text x="486" y="280" font-size="13.5" font-weight="700" fill="#2c3e50">run line(s) — your command(s)</text>
+</svg>
+
+*Every Slurm script has these four parts: the **shebang**, the **`#SBATCH`** directives (requests to the scheduler, not commands that run), the **environment setup** that runs on the compute node, and the **run line(s)** that do the actual work.*
+
+{: .warning }
+> **Slurm starts a fresh shell on the compute node.** Your virtual environment is not active. Your working directory is not set. Every setup step must be in the script — `cd`, `source .venv/bin/activate`, and any `module load` commands you need. If it works interactively on the Yens but fails as a job, a missing setup step is usually why.
+
+{: .note }
+> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
+
+---
+### Submit it
+
+{: .important }
+> **Today only:** this class has a dedicated Slurm reservation, `class_day2`. Add `--reservation=class_day2` to every `sbatch` (and `srun`) command today so your jobs run on the reserved nodes. It's a class-day flag — drop it for your own work after today.
+
+```bash
+sbatch --reservation=class_day2 \
+  slurm/extract_form_3_batch.slurm
+# Submitted batch job 12345678
+```
+
+Monitor the queue:
+
+```bash
+squeue --me
+```
+
+---
+
+### Cancel it
+
+```bash
+scancel JOBID
+```
+
+Replace `JOBID` with your job's actual number — the one `sbatch` printed (`Submitted batch job 12345678`) and that shows in `squeue --me`. It's not the literal word `JOBID`.
+
+Confirm it is gone:
+
+```bash
+squeue --me
+```
+
+{: .note }
+> You may briefly see your job's status change to **CG** (completing) before it disappears from the queue — that's normal, not an error.
+
+{: .note }
+> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
+
+---
+
+### Add email notifications
+
+**Ask Claude Code to add** the two email directives to your script — these two lines:
+
+```bash
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=SUNetID@stanford.edu
+```
+
+<details markdown="1">
+<summary>💡 Hint — a prompt to try</summary>
+
+> Add `--mail-type=ALL` and `--mail-user=SUNetID@stanford.edu` to the `#SBATCH` directives in `slurm/extract_form_3_batch.slurm`.
+
+</details>
+
+`ALL` sends an email when the job starts, ends, and fails — including a utilization summary showing how much CPU and RAM it actually used.
+
+Resubmit:
+
+```bash
+sbatch --reservation=class_day2 \
+  slurm/extract_form_3_batch.slurm
+```
+
+Once your job runs, check your inbox. You should receive two emails: one when the job **starts** and one when it **ends**. The start email tells you when it began — compare that to when you submitted to see how long it **waited in the queue**. The end email includes a **utilization summary** (how much CPU time and memory the job actually used) and the job's **exit status**: `0` means success; any other value means it failed.
+
+### Read the logs
+
+
+The job wrote **log files** to `logs/` — the `.out` file has the script's normal output, the `.err` file has any errors:
+
+```bash
+cat logs/extract_*.out
+cat logs/extract_*.err
+```
+
+{: .note }
+> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
+
+---
+
+---
+
+<details markdown="1">
+<summary>⭐ Bonus — if you finished early</summary>
+
+**Bonus — Go Interactive Instead of Batch**
+
+Everything so far has been batch submission — write a script, `sbatch` it, wait. Slurm also supports an interactive allocation on a dedicated node — handy when you're debugging and re-running over and over: you hold the allocation, so you don't re-queue for resources every time a job fails and you fix it:
+
+```bash
+srun --reservation=class_day2 --pty --cpus-per-task=2 --mem=4G --time=00:30:00 bash
+```
+
+Your interactive session is a Slurm job like any other — run `squeue --me` and you'll see it listed (state `R`) until you release it:
+
+```bash
+squeue --me
+```
+
+Once it drops you into a shell on your allocated node, you're on a fresh shell — do the same setup your batch script does, then run the script directly:
+
+```bash
+cd $HOME/yens-onboarding-2026   # into your project
+source .venv/bin/activate                   # activate your environment
+python scripts/extract_form_3_batch.py   # run it and watch the output live
+```
+
+Because you're interactive, you see the output as it happens and can re-run instantly after a fix — no re-queuing. Type `exit` to release the allocation when you're done.
+
+**Bonus — Watch a Job Run on Its Node**
+
+`slurm/mystery.slurm` runs the mystery script from Profiling for about **30 seconds** across a few cores — long enough to watch it live.
+
+Submit it:
+
+```bash
+sbatch --reservation=class_day2 slurm/mystery.slurm
+```
+
+While your job is running you can SSH to the node it's on and watch it work. (Nodes are **shared** — other users' jobs run on them too — but your job has its own **dedicated cores and RAM**.)
+
+First, run `squeue --me` to find which node it landed on — the `NODELIST` column (e.g. `yen10`):
+
+```bash
+squeue --me
+```
+
+Then SSH to that node and watch your processes live:
+
+```bash
+ssh SUNetID@yen10   # use your job's actual node
+htop -u SUNetID                  # or: top -u SUNetID
+```
+
+You'll see the mystery script's Python workers pinning the cores you requested. Press `q` to quit `htop`, then `exit` to leave the node.
+
+{: .note }
+> You can only SSH to a compute node **while you have a job running on it** — once the job ends (or if you never had one there), SSH to that node is refused. You can't hop onto arbitrary compute nodes.
+
+**Bonus — Chain Two Jobs**
+
+A real research pipeline is a chain of **stages**, each feeding the next. Scaled up, your Form 3 work is naturally three jobs: **(1) download** the raw filings from EDGAR, **(2) extract** the structured fields with the API (what your batch script does), then **(3) aggregate** the per-filing JSON into one dataset and compute summary stats. Each stage reads the file the one before it wrote — stage 2 can't start until stage 1's downloads land, and stage 3 needs stage 2's extractions. Rather than babysit them, launching each by hand the moment the last finishes, you queue the whole chain at once: `--dependency=afterok` tells Slurm to hold each job until the one before it **succeeds**. Your repo ships a small two-step version of this:
+
+- `scripts/chain_step1.py` — crunches numbers for ~2 minutes, then writes its result to `/scratch/users/SUNetID/chain_demo/step1_result.txt`.
+- `scripts/chain_step2.py` — reads that file and does ~30 seconds more math, writing `step2_result.txt` beside it.
+
+with `slurm/chain_step1.slurm` and `slurm/chain_step2.slurm` to run them.
+
+**Step 1 — read both job scripts first** so you know what you're submitting. Notice they're ordinary Slurm scripts, and that step 2 reads the file step 1 wrote:
+
+```bash
+cat slurm/chain_step1.slurm slurm/chain_step2.slurm
+```
+
+**Step 2 — have Claude add the email lines to step 2** *before* you submit, so you get a note when the chain finishes:
+
+> Add `#SBATCH --mail-type=ALL` and `#SBATCH --mail-user=SUNetID@stanford.edu` to `slurm/chain_step2.slurm`.
+
+**Step 3 — submit both back-to-back.** Step 1 runs for ~2 minutes, so fire them off one after the other and let it crunch while step 2 queues behind it. Submit step 1 and note the `JOBID` it prints:
+
+```bash
+sbatch --reservation=class_day2 slurm/chain_step1.slurm
+```
+
+Then submit step 2 right away, chained to the first — replace `JOBID` with step 1's ID:
+
+```bash
+sbatch --reservation=class_day2 --dependency=afterok:JOBID slurm/chain_step2.slurm
+```
+
+**Step 4 — watch the queue.** Both jobs are in, but step 2 waits its turn. `watch` re-runs a command every couple of seconds, so you can see the handoff happen live:
+
+```bash
+watch squeue --me
+```
+
+Step 1 shows `R` (running) while step 2 sits `PD` with reason `(Dependency)`. When step 1 finishes, step 2 flips to `R` on its own — you do nothing. Press `Ctrl-C` to stop watching.
+
+{: .note }
+> 💡 If step 1 **fails**, `afterok` is never satisfied, so step 2's reason in `squeue` changes from `(Dependency)` to `(DependencyNeverSatisfied)`. That job will never run — but it won't clear itself either. It sits in the queue until **you** cancel it with `scancel JOBID`. Clear it, fix step 1, then requeue the chain.
+
+**Step 5 — check the handoff** once both are done:
+
+```bash
+cat /scratch/users/SUNetID/chain_demo/step2_result.txt
+```
+
+Step 2's number is computed from step 1's — proof the scratch file passed between them. Had step 1 failed, step 2 would never have started.
+
+
+**Bonus — The `dev` partition**
+
+The Yens have a dedicated **`dev` partition** for short, interactive debugging jobs — quick test runs while you're getting a script working, **not** production runs. It has tighter time limits but is meant to turn around fast, so you're not stuck in the main queue while iterating. Learn more: [Yen Slurm partitions](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits).
+
+<details markdown="1">
+<summary>📋 Show steps</summary>
+
+Fire a quick throwaway job at `dev` with `-p dev` (and `--wrap`, which runs an inline command as a job). It's tiny, so it schedules fast, and it emails you when it finishes:
+
+```bash
+sbatch --reservation=class_day2 -p dev --mail-type=ALL --mail-user=SUNetID@stanford.edu --wrap="hostname; sleep 30"
+```
+
+Watch it — `dev` usually starts right away:
+
+```bash
+squeue --me
+```
+
+You'll get a completion email in a moment. Confirm it says the job completed.
+
+</details>
+
+</details>

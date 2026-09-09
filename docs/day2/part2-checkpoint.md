@@ -27,10 +27,10 @@ right.
 
 | # | Skill | Where you learned it |
 |---|---|---|
-| 1 | Submit one script that fans out into many independent tasks | [Part 2 Lab]({{ '/day2/part2-lab/' | relative_url }}) |
-| 2 | Make a task safe to run twice | [Part 2 Lab]({{ '/day2/part2-lab/' | relative_url }}) |
-| 3 | Estimate a bigger run's cost — in writing, before submitting | [Part 2 Lab]({{ '/day2/part2-lab/' | relative_url }}) |
-| 4 | Compare what you asked for against what the job used | [Part 2 Lab]({{ '/day2/part2-lab/' | relative_url }}) |
+| 1 | Submit one script that fans out into many independent tasks | [1. Watch an Array Fan Out]({{ '/day2/array-fan-out/' | relative_url }}) |
+| 2 | Make a task safe to run twice | [3. Make Your Tasks Rerun-Safe]({{ '/day2/rerun-safe-tasks/' | relative_url }}) |
+| 3 | Estimate a bigger run's cost — in writing, before submitting | [4. Capstone]({{ '/day2/capstone/' | relative_url }}) |
+| 4 | Compare what you asked for against what the job used | [4. Capstone]({{ '/day2/capstone/' | relative_url }}) |
 
 ---
 

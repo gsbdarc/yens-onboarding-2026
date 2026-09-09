@@ -19,7 +19,10 @@ take your own breaks inside the block.
 
 | Section | Give it about |
 |---|---|
-| [Part 2 Lab]({{ '/day2/part2-lab/' | relative_url }}) | 55 min |
+| [1. Watch an Array Fan Out]({{ '/day2/array-fan-out/' | relative_url }}) | 5 min |
+| [2. Run 100 Filings Through an Array]({{ '/day2/array-100-filings/' | relative_url }}) | 25 min |
+| [3. Make Your Tasks Rerun-Safe]({{ '/day2/rerun-safe-tasks/' | relative_url }}) | 5 min |
+| [4. Capstone]({{ '/day2/capstone/' | relative_url }}) | 20 min |
 | [Part 2 Checkpoint]({{ '/day2/part2-checkpoint/' | relative_url }}) | 5 min |
 
 That leaves slack on purpose. This is the block that has historically run out of clock, so
@@ -37,7 +40,10 @@ if you are ahead, spend it helping your table rather than racing into the bonuse
 
 | Section | Format | What you'll learn |
 |---|---|---|
-| [Part 2 Lab]({{ '/day2/part2-lab/' | relative_url }}) | 🔑 Mandatory | Four exercises: fan an array out, run it over 100 filings, make it rerun-safe, then size a bigger run before submitting |
+| [1. Watch an Array Fan Out]({{ '/day2/array-fan-out/' | relative_url }}) | 💻 Mandatory | One submission, four tasks, four logs — the shortest proof an array works |
+| [2. Run 100 Filings Through an Array]({{ '/day2/array-100-filings/' | relative_url }}) | 💻 Mandatory | The real thing: one script, one `--array` flag, 100 filings |
+| [3. Make Your Tasks Rerun-Safe]({{ '/day2/rerun-safe-tasks/' | relative_url }}) | 💻 Mandatory | Make a task skip work it has already done, so a resubmit costs nothing |
+| [4. Capstone]({{ '/day2/capstone/' | relative_url }}) | 🔑 Mandatory | Estimate a bigger run's cost, submit it, then check yourself against `sacct` |
 | [Part 2 Checkpoint]({{ '/day2/part2-checkpoint/' | relative_url }}) | ✅ Checkpoint | Four checks closing out the two days |
 | [GPUs]({{ '/day2/gpus/' | relative_url }}) | ⭐ Bonus | Request a GPU, see what you landed on, and work out whether your job wanted one |
 | [Where to Go Next]({{ '/day2/where-to-go-next/' | relative_url }}) | 📣 Wrap-up | Slack, RCpedia, and where to ask for help |

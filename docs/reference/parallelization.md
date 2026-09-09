@@ -289,7 +289,7 @@ Two cores clear the eight filings in four waves — ≈ 4 × 5s = 20s of wall-cl
   <text x="300" y="290" font-size="12.5" fill="#6a7280" text-anchor="middle">Two jobs, one core each — each job works its own slice, in parallel. ≈ 4 × 5s = 20s.</text>
 </svg>
 
-We'll cover job arrays in detail on the [next page]({{ '/day2/part2-lab/' | relative_url }}).
+We'll cover job arrays in detail on the [next page]({{ '/day2/array-fan-out/' | relative_url }}).
 
 {: .note }
 > **The tasks are identical — so you have to tell them apart.** Every task in an array runs the same script, which means nothing decides on its own which filing each one takes. That mapping is yours to write.

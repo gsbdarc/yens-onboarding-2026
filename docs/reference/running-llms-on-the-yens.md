@@ -165,7 +165,7 @@ You request a GPU the same way you set any other resource in a Slurm script — 
 Just like the `#SBATCH` directives you wrote on Day 2, this tells the scheduler what your job needs — here, one GPU. Match the partition name (and any specific-node targeting) to your cluster's current setup.
 
 {: .tip }
-> **For interactive work** — exploring, pulling a model, quick tests — you don't need a batch script. Grab a GPU node directly with `srun --pty`, the same command you used for a CPU allocation on [Day 2]({{ '/day2/part1-lab/' | relative_url }}), plus the GPU flags:
+> **For interactive work** — exploring, pulling a model, quick tests — you don't need a batch script. Grab a GPU node directly with `srun --pty`, the same command you used for a CPU allocation on [Day 2]({{ '/day2/' | relative_url }}), plus the GPU flags:
 >
 > ```bash
 > srun --partition=gpu --gres=gpu:1 --cpus-per-task=4 --mem=16G --time=01:00:00 --pty bash

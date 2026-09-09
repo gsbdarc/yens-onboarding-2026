@@ -162,13 +162,13 @@ It should come out in the same house style automatically — that's the skill do
 
 Everything above used Claude Code **interactively**. For a quick, one-off question — or to script it — Claude also runs **non-interactively**: `claude -p "…"` (print mode) runs a single prompt, prints the answer, and exits. No session, no back-and-forth.
 
-Point it at a file — e.g. review one of the broken scripts from the [**Debug a Failed Job** exercise]({{ '/day2/part1-lab/#6-debug-a-failed-job' | relative_url }}):
+Point it at a file — e.g. review one of the broken scripts from the [**Debug a Failed Job** exercise]({{ '/day2/debug-a-failed-job/' | relative_url }}):
 
 ```bash
 claude -p "review scripts/extract_form_3_one_file_broken.py and explain what it does"
 ```
 
-Or **pipe** data straight into it. On Linux, every command-line program has two text streams: **standard input** (`stdin`, the text coming *in*) and **standard output** (`stdout`, the text it prints *out*). The pipe symbol `|` connects them — it takes the `stdout` of the command on its left and feeds it as the `stdin` of the command on its right. Because `claude -p` reads from `stdin`, you can pipe a file's contents straight into Claude instead of typing them. Take a failed job's error log from the [**Debug a Failed Job** exercise]({{ '/day2/part1-lab/#6-debug-a-failed-job' | relative_url }}) (run those first, so the `logs/fix_me_*.err` files exist) and let Claude diagnose it in one line:
+Or **pipe** data straight into it. On Linux, every command-line program has two text streams: **standard input** (`stdin`, the text coming *in*) and **standard output** (`stdout`, the text it prints *out*). The pipe symbol `|` connects them — it takes the `stdout` of the command on its left and feeds it as the `stdin` of the command on its right. Because `claude -p` reads from `stdin`, you can pipe a file's contents straight into Claude instead of typing them. Take a failed job's error log from the [**Debug a Failed Job** exercise]({{ '/day2/debug-a-failed-job/' | relative_url }}) (run those first, so the `logs/fix_me_*.err` files exist) and let Claude diagnose it in one line:
 
 ```bash
 cat logs/fix_me_*.err | claude -p "this Slurm job failed — explain the error and suggest a fix"
