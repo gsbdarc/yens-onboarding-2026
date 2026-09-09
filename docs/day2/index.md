@@ -13,8 +13,10 @@ Today you'll move from running your code interactively — one piece at a time, 
 go — to handing bigger jobs off to the scheduled Yens and letting them run on their own.
 You'll pick up the ideas and habits for that step by step: how to size up what a job needs
 before you run it, how to send it off and check how it went, how to fix it when something
-breaks, and how to write down what you did so you (or a labmate) can run it again. By the
-end you'll have run the whole thing on a real job.
+breaks, and how to write down what you did so you (or a labmate) can run it again.
+
+By the end you will have done it on real work: a hundred SEC filings processed by a job you
+sized yourself, then checked against what it actually used.
 
 Here's what we'll do today, start to finish:
 
