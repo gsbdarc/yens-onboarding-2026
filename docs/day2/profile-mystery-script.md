@@ -132,15 +132,29 @@ The `-u` flag limits `htop` to your processes, so the hundreds of other users' p
 the node don't drown yours out.
 
 {: .note }
-> **If all you can see is CPU meters.** On a node with 256 cores the header fills with bars
-> and pushes the process list off screen — and threads make one process look like many.
-> Two keys fix it:
+> **If all you can see is CPU meters.** Some Yens have 256 cores, and if `htop` is drawing
+> one bar per core the header fills the window and pushes the process list off the bottom.
+> Threads compound it, making one process look like many.
+>
+> Two keys, no setup needed:
 >
 > - **`H`** — hide threads, so each process is one row
 > - **`t`** — tree mode, which nests the workers a process spawned underneath it. Useful
 >   here, because that nesting is exactly what you are trying to count
 >
-> Still crowded? **`F2`** → **Meters**, and set the CPU display to a single average bar.
+> **To fix the header itself,** swap the per-core meters for a single average bar:
+>
+> 1. **`F2`** — opens Setup, with **Meters** already selected on the left
+> 2. **`→`** to move into the **Left column** list
+> 3. **`↓`** to the CPU entry — it reads something like `CPUs (1/1) [Bar]`
+> 4. **`Delete`** to remove it
+> 5. **`→`** again to reach **Available meters**, then **`↓`** to **CPU average**
+> 6. **`Enter`** to add it back as one bar
+> 7. **`F10`** to leave Setup
+>
+> You only do this once — `htop` writes it to `~/.config/htop/htoprc` and remembers it next
+> time. If your header already shows a single `Avg[...]` bar, it is set up correctly and you
+> can skip this.
 
 **Each row in `htop` is one process.** The columns that matter:
 
