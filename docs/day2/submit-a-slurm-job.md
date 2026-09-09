@@ -44,8 +44,6 @@ permalink: /day2/submit-a-slurm-job/
 > source .venv/bin/activate
 > ```
 
----
-
 ## Read the Queue First
 
 Before you add a job to the queue, look at the queue.
@@ -89,8 +87,6 @@ sinfo
 - What is the maximum time limit for each partition? See the
   [current partitions and their limits](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits).
 
----
-
 ## Write and Submit a Job
 
 {: .important }
@@ -120,8 +116,6 @@ Create a new file `slurm/extract_form_3_batch.slurm` and open it in your editor 
 {: .note }
 > No preferred terminal editor? You can create it right in **JupyterHub**: in the file browser, open the `slurm/` folder, click **+ New → Text File** (or **File → New → Text File**), edit it in the browser, then **rename** the file to `extract_form_3_batch.slurm` and save with `Cmd/Ctrl+S`.
 
----
-
 **Step 1 — The shebang**
 
 The first line of every shell script is the **shebang**:
@@ -131,8 +125,6 @@ The first line of every shell script is the **shebang**:
 ```
 
 The `#!` (the **shebang**) tells the operating system which **interpreter** — the program that reads your script and runs it line by line — to use for the rest of the file; here, the Bash shell at `/bin/bash`. Without it, the system doesn't know whether your script is Bash, Python, or something else. It has to be the very first line of the file.
-
----
 
 **Step 2 — SBATCH directives**
 
@@ -162,8 +154,6 @@ What each one is:
 > - **Combine them if you like:** omit `--error` entirely and Slurm sends *both* normal output and errors to the single `--output` (`.out`) file. Keeping them separate just makes errors easier to spot.
 > - The `logs/` directory must exist before the job runs — Slurm won't create it, which is why `mkdir -p logs` came first.
 
----
-
 **Step 3 — Set up the environment**
 
 ```bash
@@ -189,8 +179,6 @@ source .venv/bin/activate
 > | `matplotlib` | Plots |
 >
 > Need something else? `pip install` it into your `.venv` (never system-wide) and add it to `requirements.txt` so your work stays reproducible.
-
----
 
 **Step 4 — Add the line that runs your script**
 
@@ -235,7 +223,6 @@ Save the file. Here's the whole script, with its four parts labeled:
 {: .warning }
 > **Slurm starts a fresh shell on the compute node.** Your virtual environment is not active. Your working directory is not set. Every setup step must be in the script — `cd`, `source .venv/bin/activate`, and any `module load` commands you need. If it works interactively on the Yens but fails as a job, a missing setup step is usually why.
 
----
 ### Submit it
 
 {: .important }
@@ -253,8 +240,6 @@ Monitor the queue:
 squeue --me
 ```
 
----
-
 ### Cancel it
 
 ```bash
@@ -271,8 +256,6 @@ squeue --me
 
 {: .note }
 > You may briefly see your job's status change to **CG** (completing) before it disappears from the queue — that's normal, not an error.
-
----
 
 ### Add email notifications
 
@@ -309,8 +292,6 @@ The job wrote **log files** to `logs/` — the `.out` file has the script's norm
 cat logs/extract_*.out
 cat logs/extract_*.err
 ```
-
----
 
 <details markdown="1">
 <summary>⭐ Bonus — if you finished early</summary>
@@ -442,7 +423,6 @@ You'll get a completion email in a moment. Confirm it says the job completed.
 
 </details>
 
-
 **Bonus — Add a `longsqueue` alias**
 
 The default `squeue` output is sparse. Pass a custom format to see what each job actually
@@ -487,8 +467,6 @@ check `sacctmgr show qos gpu` against `sacctmgr show qos normal` (or the
 [current partitions and their limits](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits)).
 When would you request one over the other?
 </details>
-
----
 
 <details markdown="1">
 <summary>⭐ Bonus — turn this into a Claude skill</summary>
@@ -622,8 +600,6 @@ It should come out in the same house style automatically — that's the skill do
 
 {: .warning }
 > **You're still the reviewer.** A skill makes Claude follow your conventions, but Claude can still invent partition names, time limits, or QoS caps that don't exist. Check its choices against RCpedia — the [current partitions and their limits](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits) page and `sacctmgr show qos <partition>` — and against your own profiling. The script you submit is yours.
-
----
 
 ### Claude in One Shot
 

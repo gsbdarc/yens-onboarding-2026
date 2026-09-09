@@ -44,8 +44,6 @@ permalink: /day2/capstone/
 > source .venv/bin/activate
 > ```
 
----
-
 {: .important }
 > **Task:** Estimate what a 100-filing run will cost in CPU, RAM, and time —
 > **write the estimate down first** — then run it and check yourself against `sacct`.
@@ -114,10 +112,6 @@ Ask Claude Code to handle it:
 
 > Add and commit `slurm/extract_form_3_batch.slurm` and my README changes with a message like "Day 2 Capstone: 100-filing batch", then push to my fork.
 
----
-
----
-
 <details markdown="1">
 <summary>⭐ Bonus — try a GPU</summary>
 
@@ -127,8 +121,6 @@ it's working out whether your job wanted one.
 {: .important }
 > **Task:** Submit a two-minute job that asks Slurm for one GPU, read back which GPU you
 > landed on, and then decide whether today's extraction pipeline would run any faster on it.
-
----
 
 ### 1. Look at the GPU partition
 
@@ -152,8 +144,6 @@ sacctmgr show qos normal
 > class reservation covers the `normal` partition, **not** the GPU nodes, so this job waits
 > in line with everyone else's. Keep it short.
 
----
-
 ### 2. Read the job script
 
 `slurm/gpu_check.slurm` is already in your repo. Open it — it is the shortest Slurm script
@@ -171,8 +161,6 @@ about.
 
 Notice what is *not* in the script: `--reservation=class_day2`. Every other `sbatch` today
 carried it; this one must not.
-
----
 
 ### 3. Submit it and read what you got
 
@@ -198,8 +186,6 @@ RAM was on a Yen node: a model that does not fit does not run slowly, it does no
 To ask for a specific model, add `--constraint="GPU_MODEL:A40"`. Be aware that the more
 specific you are, the longer you wait.
 
----
-
 ### 4. The actual question: did your job want a GPU?
 
 Now check what it cost you:
@@ -224,8 +210,6 @@ all its wall-clock time **waiting on the network** for the API to answer, not co
 > else needs.
 >
 > </details>
-
----
 
 ### Where to Go From Here
 

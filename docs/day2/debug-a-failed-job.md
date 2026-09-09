@@ -44,8 +44,6 @@ permalink: /day2/debug-a-failed-job/
 > source .venv/bin/activate
 > ```
 
----
-
 {: .important }
 > **Task:** Submit a deliberately broken job, read the error log it leaves behind, and fix it with Claude as your reviewer. Reading a failed job's `.err` is the first debugging skill you will actually need on the cluster.
 
@@ -89,8 +87,6 @@ You'll also want a completion email, so ask Claude to add the notification lines
 > Add `#SBATCH --mail-type=ALL` and `#SBATCH --mail-user=SUNetID@stanford.edu` to `slurm/fix_me.slurm`.
 
 Then resubmit — **keep debugging and resubmitting until the Slurm email says the job succeeded** (exit status `0`).
-
----
 
 <details markdown="1">
 <summary>⭐ Bonus — if you finished early</summary>

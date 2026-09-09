@@ -44,8 +44,6 @@ permalink: /day2/array-fan-out/
 > source .venv/bin/activate
 > ```
 
----
-
 {: .important }
 > **Task:** Submit `slurm/hello_array.slurm` unchanged, and confirm you got
 > four tasks and four separate logs out of one submission.
@@ -110,4 +108,3 @@ The task number is what makes this general. Every task runs the identical script
 
 {: .warning }
 > **Counting from 1.** `--array=1-N` numbers the tasks 1, 2, … N. Slurm doesn't insist on that: numbering from 0 instead, so the tasks run 0 through N − 1, is equally valid. But starting at 1 is the convention used here, and it matters as soon as the task ID indexes something. In some languages a list of N items, `items`, is indexed 0 through N − 1, so a 1-based task ID has to be shifted — `items[task_id - 1]` rather than `items[task_id]`. Get it wrong and nothing complains up front: the first item is silently skipped, and the last task runs off the end of the list.
----

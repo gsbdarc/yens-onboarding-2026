@@ -44,8 +44,6 @@ permalink: /day2/array-100-filings/
 > source .venv/bin/activate
 > ```
 
----
-
 {: .important }
 > **Task:** Process 100 SEC filings with a job array — one Python script that
 > handles a single filing, plus a Slurm script that launches it 100 times.
@@ -204,8 +202,6 @@ watch squeue --me
 
 The new thing to notice is the job IDs: an array shows up as many rows sharing one ID, with a task number after it — `12345678_1`, `12345678_2`, and so on — each moving through the same `PD` → `R` → gone lifecycle you watched in [3. Submit]({{ '/day2/submit-a-slurm-job/' | relative_url }}). Once it's done, check the per-task logs in `logs/` and the results in `results/`.
 
----
-
 <details markdown="1">
 <summary>⭐ Bonus — if you finished early</summary>
 
@@ -246,8 +242,6 @@ A failed task simply left no file, so it never turns up in the glob and nothing 
 
 </details>
 
----
-
 **Bonus — Run all 992 filings**
 
 `data/aws_links.csv` lists **992** filings. You have run 100. Scaling the array to all of
@@ -282,8 +276,6 @@ is missing.
 
 *Think before you run it: 992 paid API calls is real money. Work out the cost from your
 10-filing timing first, and check the number with an instructor before submitting.*
-
----
 
 ## Before You Go
 

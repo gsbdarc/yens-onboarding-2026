@@ -44,8 +44,6 @@ permalink: /day2/rerun-safe-tasks/
 > source .venv/bin/activate
 > ```
 
----
-
 {: .important }
 > **Task:** Make each array task skip work it has already done, then resubmit
 > the same array and watch it finish in seconds.
@@ -69,5 +67,3 @@ if output_path.exists():
 </details>
 
 Nothing has been deleted, so every task should find its output and exit at once — the whole array finishing in seconds rather than minutes is the sign it worked.
-
----

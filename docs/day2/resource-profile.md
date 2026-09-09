@@ -44,8 +44,6 @@ permalink: /day2/resource-profile/
 > source .venv/bin/activate
 > ```
 
----
-
 {: .important }
 > **Task:** Write down the resources you measured for the 10-filing run in your README.
 
@@ -67,5 +65,3 @@ Now that you've profiled **10 filings**, write down what you measured. Open the 
 > If your RAM here is tiny — just a few MB (`RES`), showing as 0% Mem in `userload` — you can't ask for 0, so a good tip is to write down a small round number like `1G`.
 
 Fill in the actual numbers from your `time`, `userload`, and `htop` output.
-
----

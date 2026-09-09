@@ -48,8 +48,6 @@ uses:
 | **Storage (file system)** | Where your files live — VAST on the Yens |
 | **Time** | How long your script takes to finish |
 
----
-
 ## The Mystery Script
 
 You are going to run a script you have never seen before and work out what resources it uses — without reading the code. That is **profiling**: measuring a script's time, CPU and RAM while it runs.
@@ -203,8 +201,6 @@ You saw about **4 `python` processes** in `htop` and roughly **4 Cores** in `use
 
 </details>
 
----
-
 ## The Batch Script
 
 {: .note }
@@ -214,8 +210,6 @@ You saw about **4 `python` processes** in `htop` and roughly **4 Cores** in `use
 > cd ~/yens-onboarding-2026
 > source .venv/bin/activate
 > ```
-
----
 
 {: .important }
 > **Task:** Profile the real batch script on 10 filings using the same two-terminal technique.
@@ -351,16 +345,12 @@ Document what changes:
 
 </details>
 
----
-
 <details markdown="1">
 <summary>⭐ Bonus — size up your own machine</summary>
 
 Put your own machine's numbers against a Yen node's, and price the same work in the
 cloud. The written comparison is in
 [Compute Environments]({{ '/reference/compute-environments/' | relative_url }}).
-
----
 
 **Bonus — Know your own machine**
 
