@@ -130,7 +130,9 @@ sinfo -p gpu
 sinfo -p normal
 ```
 
-There are far fewer GPU nodes than CPU nodes, and the QoS limits differ too:
+There are far fewer GPU nodes than CPU nodes, and the per-user caps differ too. Those caps
+come from each partition's **QoS** — the policy Slurm attaches to a partition setting how
+much of it one person can hold at once:
 
 ```bash
 sacctmgr show qos gpu

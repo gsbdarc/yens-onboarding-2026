@@ -484,9 +484,12 @@ Works on any job — yours or anyone else's — as long as it is still queued or
 
 **Bonus — Compare partitions**
 
-Run `sinfo -p gpu` and `sinfo -p normal` to compare node counts and time limits. `sinfo`
-does not show the per-user resource **caps** — those come from each partition's QoS, so
-check `sacctmgr show qos gpu` against `sacctmgr show qos normal` (or the
+Run `sinfo -p gpu` and `sinfo -p normal` to compare node counts and time limits.
+
+`sinfo` does not show the per-user **caps** — the ceiling on how much any one person can
+hold at once. Those live in the partition's **QoS** ("quality of service"), the policy
+Slurm attaches to each partition saying how much of it a single user may take. Compare the
+two with `sacctmgr show qos gpu` against `sacctmgr show qos normal` (or read the
 [current partitions and their limits](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits)).
 When would you request one over the other?
 </details>
@@ -588,6 +591,6 @@ Then invoke it on a fresh job. Claude Code turns each skill's folder name into a
 **Submit and review:** the conventions should come straight from the skill, matching what you hand-wrote.
 
 {: .warning }
-> **You're still the reviewer.** A skill makes Claude follow your conventions, but Claude can still invent partition names, time limits, or QoS caps that don't exist. Check its choices against RCpedia — the [current partitions and their limits](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits) page and `sacctmgr show qos <partition>` — and against your own profiling. The script you submit is yours.
+> **You're still the reviewer.** A skill makes Claude follow your conventions, but Claude can still invent partition names, time limits, or per-user caps that don't exist. Check its choices against RCpedia — the [current partitions and their limits](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits) page and `sacctmgr show qos <partition>` — and against your own profiling. The script you submit is yours.
 
 </details>
