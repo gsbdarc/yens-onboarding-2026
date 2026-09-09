@@ -3,7 +3,9 @@
 **Instructor use only.** Not served by GitHub Pages. `.instructor/agenda.md` has the section
 table and the measured times behind it; this is how to run it.
 
-**152 min teaching · 20 min breaks · 8 min slack.** Blocks are 60 / 50 / 50.
+**Two cycles of short lecture → long self-paced work block**, the same shape as Day 2.
+**40 min lecture · 140 min work block = 180.** No whole-room breaks — tables break when
+they reach a natural stopping point.
 
 Before anything else: **`prereq-triage.md`**. You have five minutes at 9:00 to find who
 will be stuck, and the order you check matters.
@@ -12,24 +14,21 @@ will be stuck, and the order you check matters.
 
 ## The shape of the day
 
-| Clock | Section | min | Mode |
-|-------|---------|-----|------|
-| 9:00 | Welcome + pre-work triage | 5 | talk |
-| 9:05 | Connecting to the Yens | 15 | hands-on |
-| 9:20 | Git & GitHub | 13 | hands-on |
-| 9:33 | Working with Claude Code | 25 | **hands-on, protected** |
-| 10:00 | ☕ Break | 10 | |
-| 10:10 | Running Python on the Yens | 14 | demo + light hands-on |
-| 10:24 | Python environments | 18 | hands-on, demo the rebuild |
-| 10:42 | Stanford's AI services + data privacy | 14 | discussion |
-| 11:00 | ☕ Break | 10 | |
-| 11:10 | Managing API keys | 13 | hands-on |
-| 11:23 | Extraction → capstone | 35 | **hands-on, protected** |
+| Clock | Block | min | Mode |
+|-------|-------|-----|------|
+| 9:00 | **Lecture 1** — the two-day map, the Yens, and why version control | 20 | talk |
+| 9:20 | **Work block 1** — Part 1, ending in the Part 1 Checkpoint | 70 | self-paced, circulate |
+| 10:30 | **Lecture 2** — Python on the Yens, then Stanford's AI services and data privacy | 20 | talk + demo + discussion |
+| 10:50 | **Work block 2** — Part 2, ending in the extraction → capstone arc | 70 | self-paced, circulate |
+
+Per-section budgets inside each block are in `.instructor/agenda.md`. **Protected:** Claude
+Code (25) in block 1 and the extraction-to-capstone arc (35) in block 2.
 
 ## How to run it
 
-- **Drive each section live on screen**, pausing at the end for stragglers.
-- **Optional practice is the buffer.** Point fast finishers at it rather than slowing the room.
+- **The lecture is the only part you drive.** Inside the work block you circulate rather
+  than lead — participants sit at small tables and help each other.
+- **Bonus sections are the buffer.** Point fast finishers at them rather than slowing the room.
 - **The pre-work is doing real work.** Day 1 opens at SSH, not at `ls`. If several people
   clearly skipped it, do **not** re-teach the CLI — that costs the whole room the hour the
   pre-work bought. Pair them up and keep moving.

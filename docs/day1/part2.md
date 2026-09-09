@@ -14,7 +14,8 @@ Part 1 got you a working setup. This part is what you do with it: a Python envir
 that travels, a key kept out of git, and a script that sends a real SEC filing to a
 language model and validates what comes back.
 
-**10:10 to noon, with a break at 11:00.** Longer than Part 1 and less uniform — the
+**10:30 to noon.** A short lecture on Python environments and Stanford's AI services, then
+the second work block. Longer than Part 1 and less uniform — the
 extraction arc at the end is the part that matters most, and it continues in your own time
 after today.
 

@@ -9,12 +9,12 @@ permalink: /day1/part1-checkpoint/
 
 # Part 1 Checkpoint
 
-Everything before the first break was setup. Nothing you have built yet does any
+Everything in Part 1 was setup. Nothing you have built yet does any
 research — but from here on, every section assumes all of it works.
 
 This checkpoint is how you find out. It is six things, in one continuous run, and it
-should take about ten minutes — budget for it, because it is the last thing in the hour
-before the 10:00 break, and it is the point of the hour. Do it **before you start
+should take about ten minutes — budget for it, because it is the last thing in the block
+before the 10:30 lecture, and it is the point of the block. Do it **before you start
 Part 2**, while there is still someone circulating who can fix whatever is broken.
 
 {: .important }

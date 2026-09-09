@@ -133,6 +133,13 @@ Claude comes as a family, trading speed for power:
 
 Switch anytime with the `/model` command. Default to a capable model; drop to a faster one when the task is small.
 
+{: .note }
+> **Fable is blocked, and that is expected.** Stanford restricts Claude Code to the three
+> models above, so asking for a fourth — **Fable** — returns `Model 'fable' is restricted by
+> your organization's settings` instead of switching. Fable falls outside the data-retention
+> terms Stanford has agreed with Anthropic, so it is not approved for university work.
+> There is nothing to configure here: the approved models are the ones already listed.
+
 ### Permission modes — how much Claude does before asking
 
 Claude Code always works with your permission — you choose how much it checks in before acting. Press `Shift+Tab` to cycle through the modes (the current one shows at the bottom of the screen, e.g. `⏸ plan mode on`, `⏵⏵ accept edits on`):

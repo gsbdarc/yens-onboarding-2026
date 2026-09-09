@@ -58,8 +58,9 @@ to the Yens before Day 1 — see [Before You Arrive]({{ '/prework/' | relative_u
   <div class="day-skills">Resource profiling &middot; Slurm &middot; job lifecycle &amp; logs &middot; debugging failed jobs &middot; Claude skills &middot; job arrays &middot; resource estimation</div>
 </div>
 
-Both mornings run 9:00–12:00. Day 1 breaks at 10:00 and 11:00; Day 2 runs as two
-self-paced blocks, where you break when your table reaches a stopping point. The
+Both mornings run 9:00–12:00 and share the same shape: a short lecture at 9:00 and again
+at 10:30, each opening into a long block where you work at your own pace. There are no
+scheduled breaks — take your own when you reach a stopping point. The
 [Reference]({{ '/reference/' | relative_url }}) section holds the material we could not
 fit — local LLMs, LLM-as-a-judge, `scp`, and more.
 

@@ -14,8 +14,8 @@ Nothing in this part does any research. It gets you a machine you can reach, an 
 it recognises, a way to move data to it, and an assistant that can drive all three — which
 is what everything else in the two days runs on.
 
-**You have until the 10:00 break — about an hour — to get through the checkpoint at the
-end.**
+**9:00 to 10:30.** A short lecture on the two-day map and where your work will live, then
+a long work block to get yourself through the checkpoint at the end.
 
 You work through it yourself rather than following along: every command, check, and
 what-to-do-when-it-breaks is on the page, and instructors circulate rather than lead. Put

@@ -37,7 +37,7 @@ advance. It is now created in class at 9:20. See the warning below.
 **A broken Yens login is not a Day 1 problem you can solve.** Chasing it is what the
 by-name check in `setup.md` is *for*, a week out. If someone still arrives without a working
 login: sit them with a partner as a **pair**, one keyboard, and file the access request
-during the first break. They will get the concepts and the discussion, and can redo the
+during the first work block. They will get the concepts and the discussion, and can redo the
 hands-on work that evening. This is a much better outcome than losing an instructor for
 the morning and still not fixing it.
 
