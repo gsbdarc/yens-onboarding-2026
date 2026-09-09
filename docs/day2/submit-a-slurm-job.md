@@ -581,7 +581,7 @@ When writing a Yen job script:
 
 The **`description` is the trigger** — Claude reads it to decide when to pull the skill in. Leave it vague ("slurm stuff") and it won't fire when you need it; say what it does *and when to use it*.
 
-Then invoke it (step 3) on a fresh job. Claude Code turns each skill's folder name into a `/`-command, so the `yen-slurm/` folder gives you `/yen-slurm` — type it and add your request:
+Then invoke it on a fresh job. Claude Code turns each skill's folder name into a `/`-command, so the `yen-slurm/` folder gives you `/yen-slurm` — type it and add your request:
 
 > /yen-slurm write a Slurm job for a new run and save it as `slurm/extract_form_3_batch_claude.slurm`
 
