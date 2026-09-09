@@ -196,7 +196,7 @@ Then submit it and watch it run. `watch` re-runs a command every couple of secon
 
 ```bash
 mkdir -p logs
-sbatch --reservation=class_day2 slurm/extract_array.slurm
+sbatch --reservation=class slurm/extract_array.slurm
 watch squeue --me
 ```
 
@@ -251,7 +251,7 @@ exercise.
 Try it and read the error:
 
 ```bash
-sbatch --reservation=class_day2 --array=1-992 slurm/extract_array.slurm
+sbatch --reservation=class --array=1-992 slurm/extract_array.slurm
 ```
 
 Slurm refuses. The `normal` partition caps an array at **512 tasks**, and you can see the

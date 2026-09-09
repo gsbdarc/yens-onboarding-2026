@@ -62,7 +62,7 @@ submitted `slurm/hello.slurm` rather than `slurm/hello_array.slurm`.
 Submit your 100-filing array a second time and watch what happens.
 
 ```bash
-sbatch --reservation=class_day2 slurm/extract_array.slurm
+sbatch --reservation=class slurm/extract_array.slurm
 squeue --me
 ```
 

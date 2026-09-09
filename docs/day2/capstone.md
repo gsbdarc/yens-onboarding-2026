@@ -84,10 +84,10 @@ You already built `slurm/extract_form_3_batch.slurm` for **10 filings**. Two cha
 ### 3. Submit and confirm it ran
 
 {: .note }
-> **Today only:** keep the class reservation flag — `--reservation=class_day2` — on your `sbatch` so the job runs on the reserved nodes. Drop it for your own work after today.
+> **Today only:** keep the class reservation flag — `--reservation=class` — on your `sbatch` so the job runs on the reserved nodes. Drop it for your own work after today.
 
 ```bash
-sbatch --reservation=class_day2 \
+sbatch --reservation=class \
   slurm/extract_form_3_batch.slurm
 squeue --me
 ```
@@ -159,7 +159,7 @@ out and you get a slot on a GPU node with **no GPU allocated to you** — the jo
 `nvidia-smi` finds nothing, and the failure is quiet. That is the mistake worth knowing
 about.
 
-Notice what is *not* in the script: `--reservation=class_day2`. Every other `sbatch` today
+Notice what is *not* in the script: `--reservation=class`. Every other `sbatch` today
 carried it; this one must not.
 
 ### 3. Submit it and read what you got

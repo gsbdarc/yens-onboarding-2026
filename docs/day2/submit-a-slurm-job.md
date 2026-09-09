@@ -98,7 +98,7 @@ sinfo
 deactivate
 ```
 
-`sbatch` copies your current shell's environment into the job by default, so if `.venv` is active when you submit, it **rides along** — and the job can quietly succeed even if the script forgot to activate it. Deactivate first so the job runs on only what the **script** sets up (the `source .venv/bin/activate` in Step 3) — the way it'll run for a teammate, or for you from a clean login.
+`sbatch` copies your current shell's environment into the job by default, so if `.venv` is active when you submit, it **rides along** — and the job can quietly succeed even if the script forgot to activate it. Deactivate first so the job runs on only what the **script** sets up — the way it'll run for a teammate, or for you from a clean login.
 
 **Create the file:**
 
@@ -109,12 +109,15 @@ mkdir -p logs
 ```
 
 {: .warning }
-> **The `logs/` folder must exist before you submit.** Slurm opens your `--output`/`--error` files the moment the job starts — it does **not** create missing directories. If you point `--output` at `logs/…` but there's no `logs/` folder, the job **fails silently**: nothing runs and no log file appears to tell you why. Create it once, up front. (If instead you point `--output` at a bare `extract.out` with no folder, the file lands in whatever directory you ran `sbatch` from.)
+> **The `logs/` folder must exist before you submit.** Slurm opens your `--output`/`--error` files the moment the job starts — it does **not** create missing directories. If you point `--output` at `logs/…` but there's no `logs/` folder, the job **fails silently**: nothing runs and no log file appears to tell you why. Create it once, up front. If instead you point `--output` at a bare `extract.out` with no folder, the file lands in whatever directory you ran `sbatch` from.
 
 Create a new file `slurm/extract_form_3_batch.slurm` and open it in your editor — you'll build it up line by line below.
 
 {: .note }
 > No preferred terminal editor? You can create it right in **JupyterHub**: in the file browser, open the `slurm/` folder, click **+ New → Text File** (or **File → New → Text File**), edit it in the browser, then **rename** the file to `extract_form_3_batch.slurm` and save with `Cmd/Ctrl+S`.
+
+**Copy the next lines into the new file** — Steps 1 to 4 build it up in order. None of
+them are commands to run in your terminal.
 
 **Step 1 — The shebang**
 
@@ -143,9 +146,14 @@ These are instructions to the Slurm scheduler — add them at the top of the fil
 What each one is:
 
 - `--job-name` — a short label **you pick** so you can spot this job in the queue (e.g. `form3-extract`). It doesn't affect resources; name it whatever's memorable.
-- `--partition` — the queue the job runs in. `normal` is the production partition; each partition has its own time limits and resource caps (see the [current partitions and their limits](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits)).
+- `--partition` — the queue the job runs in. `normal` is the default for CPU jobs; each partition has its own time limits and resource caps (see the [current partitions and their limits](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits)).
 - `--output` / `--error` — files where the job's normal output and errors get written; `%j` is auto-filled with the job ID, so each run gets its own log. **Leave these as-is.**
 - `--time`, `--mem`, `--cpus-per-task` — the resources you're **requesting**. Fill these in from the **time**, **RAM**, and **CPU cores** you recorded in your Profiling README.
+
+{: .warning }
+> **The `<...>` are placeholders — delete the angle brackets too.** Replace the whole thing,
+> brackets included: `--time=00:30:00`, not `--time=<00:30:00>`. Slurm reads a leftover `<`
+> as part of the value and rejects the directive.
 
 {: .note }
 > **About the `--output` and `--error` files:**
@@ -155,6 +163,9 @@ What each one is:
 > - The `logs/` directory must exist before the job runs — Slurm won't create it, which is why `mkdir -p logs` came first.
 
 **Step 3 — Set up the environment**
+
+Still writing into the file, not typing in your terminal. These two lines run later, on the
+compute node, when the job starts:
 
 ```bash
 # Navigate to your project
@@ -178,7 +189,7 @@ source .venv/bin/activate
 > | `ipykernel` / `jupyter` | Notebook and JupyterHub kernels |
 > | `matplotlib` | Plots |
 >
-> Need something else? `pip install` it into your `.venv` (never system-wide) and add it to `requirements.txt` so your work stays reproducible.
+> Need something else? `pip install` it into your `.venv` and add it to `requirements.txt` so your work stays reproducible.
 
 **Step 4 — Add the line that runs your script**
 
@@ -226,10 +237,10 @@ Save the file. Here's the whole script, with its four parts labeled:
 ### Submit it
 
 {: .important }
-> **Today only:** this class has a dedicated Slurm reservation, `class_day2`. Add `--reservation=class_day2` to every `sbatch` (and `srun`) command today so your jobs run on the reserved nodes. It's a class-day flag — drop it for your own work after today.
+> **Today only:** this class has a dedicated Slurm reservation, `class`. Add `--reservation=class` to every `sbatch` (and `srun`) command today so your jobs run on the reserved nodes. It's a class-day flag — drop it for your own work after today.
 
 ```bash
-sbatch --reservation=class_day2 \
+sbatch --reservation=class \
   slurm/extract_form_3_batch.slurm
 # Submitted batch job 12345678
 ```
@@ -259,26 +270,43 @@ squeue --me
 
 ### Add email notifications
 
-**Ask Claude Code to add** the two email directives to your script — these two lines:
+Slurm can email you when the job starts and finishes. That needs two more `#SBATCH`
+directives — and rather than typing them, have Claude Code add them.
+
+**Start Claude Code** on the Yens:
+
+```bash
+ml claude-code
+cd ~/yens-onboarding-2026
+claude
+```
+
+**Then ask it** — replacing `SUNetID` with your own:
+
+```
+> Add --mail-type=ALL and --mail-user=SUNetID@stanford.edu to the #SBATCH directives in
+> slurm/extract_form_3_batch.slurm
+```
+
+{: .warning }
+> **Use your own SUNet ID.** If the literal text `SUNetID@stanford.edu` ends up in the
+> script, the job still runs and still reports success — the email just goes nowhere, and
+> nothing tells you. Check the line before you resubmit.
+
+Claude will show you the change before writing it. Approve it, then `/exit` to leave Claude
+and get your shell back. The two lines it should have added:
 
 ```bash
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=SUNetID@stanford.edu
 ```
 
-<details markdown="1">
-<summary>💡 Hint — a prompt to try</summary>
-
-> Add `--mail-type=ALL` and `--mail-user=SUNetID@stanford.edu` to the `#SBATCH` directives in `slurm/extract_form_3_batch.slurm`.
-
-</details>
-
 `ALL` sends an email when the job starts, ends, and fails — including a utilization summary showing how much CPU and RAM it actually used.
 
 Resubmit:
 
 ```bash
-sbatch --reservation=class_day2 \
+sbatch --reservation=class \
   slurm/extract_form_3_batch.slurm
 ```
 
@@ -301,7 +329,7 @@ cat logs/extract_*.err
 Everything so far has been batch submission — write a script, `sbatch` it, wait. Slurm also supports an interactive allocation on a dedicated node — handy when you're debugging and re-running over and over: you hold the allocation, so you don't re-queue for resources every time a job fails and you fix it:
 
 ```bash
-srun --reservation=class_day2 --pty --cpus-per-task=2 --mem=4G --time=00:30:00 bash
+srun --reservation=class --pty --cpus-per-task=2 --mem=4G --time=00:30:00 bash
 ```
 
 Your interactive session is a Slurm job like any other — run `squeue --me` and you'll see it listed (state `R`) until you release it:
@@ -327,7 +355,7 @@ Because you're interactive, you see the output as it happens and can re-run inst
 Submit it:
 
 ```bash
-sbatch --reservation=class_day2 slurm/mystery.slurm
+sbatch --reservation=class slurm/mystery.slurm
 ```
 
 While your job is running you can SSH to the node it's on and watch it work. (Nodes are **shared** — other users' jobs run on them too — but your job has its own **dedicated cores and RAM**.)
@@ -372,13 +400,13 @@ cat slurm/chain_step1.slurm slurm/chain_step2.slurm
 **Step 3 — submit both back-to-back.** Step 1 runs for ~2 minutes, so fire them off one after the other and let it crunch while step 2 queues behind it. Submit step 1 and note the `JOBID` it prints:
 
 ```bash
-sbatch --reservation=class_day2 slurm/chain_step1.slurm
+sbatch --reservation=class slurm/chain_step1.slurm
 ```
 
 Then submit step 2 right away, chained to the first — replace `JOBID` with step 1's ID:
 
 ```bash
-sbatch --reservation=class_day2 --dependency=afterok:JOBID slurm/chain_step2.slurm
+sbatch --reservation=class --dependency=afterok:JOBID slurm/chain_step2.slurm
 ```
 
 **Step 4 — watch the queue.** Both jobs are in, but step 2 waits its turn. `watch` re-runs a command every couple of seconds, so you can see the handoff happen live:
@@ -410,7 +438,7 @@ The Yens have a dedicated **`dev` partition** for short, interactive debugging j
 Fire a quick throwaway job at `dev` with `-p dev` (and `--wrap`, which runs an inline command as a job). It's tiny, so it schedules fast, and it emails you when it finishes:
 
 ```bash
-sbatch --reservation=class_day2 -p dev --mail-type=ALL --mail-user=SUNetID@stanford.edu --wrap="hostname; sleep 30"
+sbatch --reservation=class -p dev --mail-type=ALL --mail-user=SUNetID@stanford.edu --wrap="hostname; sleep 30"
 ```
 
 Watch it — `dev` usually starts right away:
@@ -575,7 +603,7 @@ Skills shine when Claude follows *your* world's conventions instead of generic d
 
 **Step 1 — work with Claude until the figure looks right.** Ask it to make and run a small plotting job:
 
-> Write `scripts/plot_letter_distribution.py` that reads every JSON in `results/` and counts how often each letter a–z appears across all the extracted text fields (`insider_name`, `company_name`, and the roles). Save a bar chart to a new `figures/` directory (`figures/letter_distribution.png`), creating the directory if it doesn't exist. Use our Stanford palette: cardinal-red (`#8C1515`) bars, Stanford-black (`#2E2D29`) title and axis labels, white background. Then write `slurm/plot.slurm` to run it on the `dev` partition, and submit it with today's class reservation: `sbatch --reservation=class_day2 slurm/plot.slurm`.
+> Write `scripts/plot_letter_distribution.py` that reads every JSON in `results/` and counts how often each letter a–z appears across all the extracted text fields (`insider_name`, `company_name`, and the roles). Save a bar chart to a new `figures/` directory (`figures/letter_distribution.png`), creating the directory if it doesn't exist. Use our Stanford palette: cardinal-red (`#8C1515`) bars, Stanford-black (`#2E2D29`) title and axis labels, white background. Then write `slurm/plot.slurm` to run it on the `dev` partition, and submit it with today's class reservation: `sbatch --reservation=class slurm/plot.slurm`.
 
 Iterate with Claude on colours, title, and axis labels until you like it. (Open `figures/letter_distribution.png` in JupyterHub to see it.)
 

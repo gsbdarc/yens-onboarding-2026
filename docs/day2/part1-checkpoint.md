@@ -111,7 +111,7 @@ the `NODELIST` column instead to see which nodes are busy.
 ```bash
 ls slurm/*.slurm            # the one you wrote should be here
 mkdir -p logs
-sbatch --reservation=class_day2 slurm/extract_form_3_batch.slurm
+sbatch --reservation=class slurm/extract_form_3_batch.slurm
 squeue --me
 ```
 

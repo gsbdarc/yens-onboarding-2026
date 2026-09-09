@@ -62,7 +62,7 @@ Submit it:
 
 ```bash
 mkdir -p logs
-sbatch --reservation=class_day2 slurm/hello_array.slurm
+sbatch --reservation=class slurm/hello_array.slurm
 squeue --me
 ```
 
