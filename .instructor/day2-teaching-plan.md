@@ -74,11 +74,16 @@ has no venv.
 
 **Mandatory:**
 
-1. **Job arrays** — the 100-filing array, then Avoiding Wasteful Computation.
-2. **Capstone** — estimate written first, submit, compare against `sacct`, commit and push.
+1. **Hello World Array** — `slurm/hello_array.slurm`, fan-out, `%A`/`%a`.
+2. **Estimate 100 Filings Resources** — estimate written first, build the array, submit,
+   compare against `sacct`.
+3. **Rerun-safe tasks** — the existence check, then resubmit and watch it finish in seconds.
+4. **Scale** — all ~992 filings, the `MaxArraySize` wall, then document and push.
 
-Measures at ~45 min, so there is ~15 min of real slack here. That is deliberate: this is
-the block that historically ran out of time. Spend the slack circulating, not filling.
+**This no longer has slack.** The old list measured ~45 min against the 60, but Scale is now
+the full 992 run rather than a bonus, which is what that ~15 min used to absorb. If the room
+is behind, the thing to cut is Scale's *submission*: have them work out the batching and size
+it, and stop short of running it. Steps 1–3 are what the checkpoint depends on.
 
 **Bonus, in rough order of value:** the remaining `fix_me` puzzles → Slurm with Claude →
 GPUs → merge-to-CSV → Reference pages.
@@ -123,7 +128,7 @@ slack rather than cutting the wrap-up.
 - Slurm resolves `--output`/`--error` relative to the submit directory **at submit time**,
   so `logs/` must pre-exist. The site teaches this at `submit-a-slurm-job.md:112`.
 - `MaxArraySize` is 512 (`scontrol show config`) against 992 filings in
-  `data/aws_links.csv` — that mismatch is the point of the full-scale bonus.
+  `data/aws_links.csv` — that mismatch is the point of Scale.
 
 ## This schedule has never been timed
 

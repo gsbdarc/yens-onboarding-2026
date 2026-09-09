@@ -4,7 +4,7 @@ title: "4. Scale"
 parent: "Part 2 — Submit a Job Array"
 grand_parent: "Day 2 — The Yen-Slurm Cluster"
 nav_order: 4
-permalink: /day2/capstone/
+permalink: /day2/scale/
 ---
 
 # Scale
@@ -45,74 +45,107 @@ permalink: /day2/capstone/
 > ```
 
 {: .important }
-> **Task:** Estimate what a 100-filing run will cost in CPU, RAM, and time —
-> **write the estimate down first** — then run it and check yourself against `sacct`.
+> **Task:** Run **all ~992 filings** through an array — now that your tasks are safe to
+> rerun — then write down what the full run cost and push it.
 
-All morning you have profiled and run **10 filings**. Scale to **100** — and commit to what
-it will need *before* you run it.
+`data/aws_links.csv` lists **992** filings. You have run 100 of them. Scaling to all of them
+looks like one number in one directive — except that it is not, and finding out why is the
+exercise.
 
-### 1. Estimate the resources for 100 filings — and write it down first
+You are doing this now, rather than earlier, because of
+[3. Make Your Tasks Rerun-Safe]({{ '/day2/rerun-safe-tasks/' | relative_url }}). At 992
+tasks something will fail — a node reboots, the API times out — and rerun-safety is what
+turns that from "start again" into "resubmit and it picks up what is missing."
 
-You're running the same loop, just over 100 files instead of 10. Think about what **CPU**, **RAM**, and **time** it will take. Open `scripts/extract_form_3_batch.py` (or have Claude read it) and reason it out:
+### 1. Try the obvious thing, and read the error
 
+```bash
+sbatch --reservation=class --array=0-991 slurm/extract_array.slurm
 ```
-> Look at scripts/extract_form_3_batch.py and my Profiling README (the 10-filing numbers) and help me estimate the CPU, RAM, and wall-clock time this needs for 100 filings.
+
+Slurm refuses. `MaxArraySize` on the `normal` partition is **512**, and what it caps is the
+task *index*, not the count — so the highest index you may use is **511**, and an array
+holds at most 512 tasks. Check the ceiling yourself:
+
+```bash
+scontrol show config | grep MaxArraySize
 ```
 
-**Before you submit anything**, write in your `README.md`: which resources you think will **scale** with the number of filings processed and which will stay about flat — and **why** — along with your CPU, RAM, and wall-clock **estimate for 100**. Committing to a number *before* you run it is the whole point.
+The catch is that the cap applies to *every* submission, so you cannot just pick up where
+the first array stopped — there is no second window of higher indices to move into.
+Reaching filing 991 means submitting an index at or below 511 and mapping it upward.
 
-### 2. Write a Slurm script for the batch
+### 2. Pick a way round it
 
-You already built `slurm/extract_form_3_batch.slurm` for **10 filings**. Two changes:
+Two options, and they are different tradeoffs:
 
-1. In `scripts/extract_form_3_batch.py`, set `NUM_FILINGS = 100`.
-2. In the `.slurm`, re-tune `--time`, `--mem` and `--cpus-per-task` to **your estimates for
-   100**, and keep the email-notification lines so you get the completion summary.
+- **Give each task more than one filing.** The cleaner of the two, because nothing needs
+  offsetting. Keep the array small — `--array=0-99` — and have each task handle ten
+  filings, `filings[task_id * 10 : task_id * 10 + 10]`. Fewer, longer tasks and less
+  scheduler overhead; the per-task `--time` now has to cover ten API calls, not one. 992
+  is not a multiple of ten, so the last task gets two — the slice handles that on its own.
+- **Submit two arrays.** Both have to start at 0, so the second one has to be *told* which
+  slice is its own:
+
+  ```bash
+  sbatch --reservation=class --array=0-511 slurm/extract_array.slurm
+
+  sbatch --reservation=class --array=0-479 \
+         --export=ALL,OFFSET=512 slurm/extract_array.slurm
+  ```
+
+  and the `.slurm` adds it on before handing over. `ALL` keeps the rest of your
+  environment, and the `:-0` default leaves the first submission working unchanged:
+
+  ```bash
+  python scripts/extract_array.py $(( SLURM_ARRAY_TASK_ID + ${OFFSET:-0} ))
+  ```
+
+### 3. Size it — and work out what it costs
+
+Whichever route you picked, the per-task numbers change: ten filings per task means ten API
+calls inside one `--time`, not one. Re-size the directives before you submit, the same way
+you did on [2. Estimate 100 Filings Resources]({{ '/day2/estimate-100-filings/' | relative_url }}) —
+this time you have real `sacct` numbers from that run to extrapolate from, not just the
+Part 1 profile.
 
 {: .warning }
-> **Confirm the edit took before you submit.** The filing count lives inside the Python
-> script, not on the `sbatch` command line — so if the edit does not save, the job still
-> succeeds and still emails you, having processed ten filings while holding a request
-> sized for a hundred. Your "actuals" then describe the wrong run, and the honest
-> conclusion is that you over-estimated by 10×.
->
-> ```bash
-> grep NUM_FILINGS scripts/extract_form_3_batch.py
-> ```
->
-> It should say `100`. Clear out the old results too, so what lands in `results/` is from
-> this run only: `rm -f results/*.json`.
+> **992 API calls is real money, and the whole room is submitting at once.** Work the cost
+> out from your 100-filing run before you submit, and **check the number with an instructor**.
+> This is the one job today where getting the arithmetic wrong is expensive rather than
+> merely slow.
 
-### 3. Submit and confirm it ran
-
-{: .note }
-> **Today only:** keep the class reservation flag — `--reservation=class` — on your `sbatch` so the job runs on the reserved nodes. Drop it for your own work after today.
+### 4. Run it
 
 ```bash
-sbatch --reservation=class slurm/extract_form_3_batch.slurm
-squeue --me
+mkdir -p logs
+sbatch --reservation=class slurm/extract_array.slurm
+watch squeue --me
 ```
 
-Wait for the completion email. From it — and from
-`sacct -j JOBID --format=JobID,State,Elapsed,MaxRSS` — note **how long it took** and **how
-much CPU and RAM it actually used** against what you requested.
-
-Check you measured what you think you measured:
+When it drains, count what landed:
 
 ```bash
-ls results/*.json | wc -l        # should be 100, not 10
+ls results/*.json | wc -l        # aiming for 992
 ```
 
-### 4. Compare actual vs. your estimate
+Short of 992? That is what rerun-safety is for — resubmit the same array. Finished tasks
+find their output and exit immediately, so only the gaps are redone.
 
-Back in `README.md`, next to the estimate you wrote in step 1, add the **actual** numbers from the email and `sacct`, and note whether you **over- or under-estimated** each resource — and by how much. That comparison is the payoff; next time you'll estimate better.
+### 5. Document it, and push
 
-### 5. Commit and push from the Yens
+In `README.md`, next to your 100-filing numbers, record what the full run actually took:
+per-task time and memory from `sacct`, total wall-clock, how many tasks you split it into,
+and which of the two routes you chose and why.
 
-Ask Claude Code to handle it:
+```bash
+sacct -j JOBID --format=JobID,State,Elapsed,MaxRSS
+```
+
+Then commit it. Ask Claude Code to handle it:
 
 ```
-> Add and commit slurm/extract_form_3_batch.slurm and my README changes with a message like "Day 2: 100-filing batch", then push to my fork.
+> Add and commit my array scripts and README changes with a message like "Day 2: all 992 filings through an array", then push to my fork.
 ```
 
 <details markdown="1">

@@ -1,13 +1,13 @@
 ---
 layout: default
-title: "2. Run 100 Filings Through an Array"
+title: "2. Estimate 100 Filings Resources"
 parent: "Part 2 — Submit a Job Array"
 grand_parent: "Day 2 — The Yen-Slurm Cluster"
 nav_order: 2
-permalink: /day2/array-100-filings/
+permalink: /day2/estimate-100-filings/
 ---
 
-# Run 100 Filings Through an Array
+# Estimate 100 Filings Resources
 
 {: .note }
 > 🔴 **Red sticky** = I need help. Put it up the moment you are stuck — an instructor will
@@ -45,19 +45,48 @@ permalink: /day2/array-100-filings/
 > ```
 
 {: .important }
-> **Task:** Process 100 SEC filings with a job array — one Python script that
-> handles a single filing, plus a Slurm script that launches it 100 times.
+> **Task:** Estimate what a 100-filing array will need — **write the estimate down
+> first** — then build it, run it, and check yourself against `sacct`.
 
-Now over to you. Your job is the following: process and extract information from 100 SEC filings using a job array. The filings are hosted online, and `data/aws_links.csv` — already in your cloned repo, alongside `scripts/` and `slurm/` — provides the URLs of all of them for you to query.
+Your job is to process and extract information from 100 SEC filings using a job array. The
+filings are hosted online, and `data/aws_links.csv` — already in your cloned repo, alongside
+`scripts/` and `slurm/` — provides the URLs of all of them.
 
-You'll end up with two files: a new Python script that handles a single filing, and a Slurm script to launch it as an array — either a new one, or the `slurm/extract_form_3_batch.slurm` you wrote earlier today, adapted.
+You'll end up with two files: a new Python script that handles a single filing, and a Slurm
+script to launch it as an array.
 
 {: .note }
 > **Use `claude-haiku-4-5` here, not a frontier model like Day 1's `gpt-5.2`.** Day 1's rule was *iterate cheap, then spend where it counts*. Here the arithmetic flips: the same call runs a hundred times, and cost and speed are now the thing you're managing. You get the cheaper, faster model in exchange for some accuracy, and handling that is part of the rest of today's work.
 
-Work through it in four steps.
+### 1. Estimate the resources — and write it down first
 
-**1. Figure out how to associate each task with a filing.**
+In Part 1 you measured the batch script over 10 filings and wrote three numbers into your
+README. The temptation is to multiply them by ten. **Don't** — an array does not scale the
+way a loop does, and working out which numbers move and which don't is the point of this
+step.
+
+What a `#SBATCH` directive asks for in an array is what **one task** gets, and one task here
+handles **one filing**. So think about each resource separately:
+
+- `--mem` and `--cpus-per-task` — sized for a single filing, whatever the array's length
+- `--time` — also per task, so it covers one filing, not a hundred
+- **wall-clock for the whole array** — not 100 × one filing, because the tasks run at the
+  same time. How much less depends on how many actually get to run at once.
+
+Reason it out, with Claude if you like:
+
+```
+> I'm turning a loop over 100 filings into a Slurm job array where each task handles one filing. Using my Profiling README (the 10-filing numbers), help me work out --mem, --cpus-per-task and --time per task, and how long the whole array should take.
+```
+
+**Before you submit anything**, write in your `README.md`: which resources **scale** with the
+number of filings and which stay **flat** — and **why** — along with your per-task `--mem`,
+`--cpus-per-task` and `--time`, and your guess at the wall-clock for the whole array.
+Committing to a number *before* you run it is what makes the check at the end worth anything.
+
+### 2. Build the array
+
+**a. Figure out how to associate each task with a filing.**
 
 {: .note }
 > **Getting the task ID into Python.** Slurm sets `SLURM_ARRAY_TASK_ID` in each task's environment. Your `.slurm` script passes it to your new Python script as a command-line argument:
@@ -101,14 +130,14 @@ No shifting: the tasks are numbered from 0 and so is the list, so the task ID in
 
 </details>
 
-**2. Given a filing, write the usual extraction code.** Nothing new here — fetch the filing, send it to the API, validate the response with your Pydantic model. It's the same logic you wrote on Day 1 and looped over earlier today, except there's no loop: this task handles exactly one filing.
+**b. Given a filing, write the usual extraction code.** Nothing new here — fetch the filing, send it to the API, validate the response with your Pydantic model. It's the same logic you wrote on Day 1 and looped over earlier today, except there's no loop: this task handles exactly one filing.
 
 <details markdown="1">
 <summary>💡 Hint — the extraction code, ready to copy</summary>
 
 This is the script you wrote on Day 1, `scripts/extract_form_3_one_file.py`, with two changes.
 
-It fetches the filing over the network rather than reading a fixed path off disk, since step 1 gives you a URL. And it calls Anthropic directly with `claude-haiku-4-5`, so the reply is validated against `Form3Filing` by the API instead of by you after the fact.
+It fetches the filing over the network rather than reading a fixed path off disk, since step **a** gives you a URL. And it calls Anthropic directly with `claude-haiku-4-5`, so the reply is validated against `Form3Filing` by the API instead of by you after the fact.
 
 ```python
 import json
@@ -143,7 +172,7 @@ Extract the following fields:
 Return a SINGLE JSON object, not a list. Do not wrap it in an array.
 """
 
-# `filing` is the URL you picked in step 1 — fetch it over the network
+# `filing` is the URL you picked in step a — fetch it over the network
 filing_text = requests.get(filing).text
 
 # output_format sends Form3Filing along as a schema the reply has to match
@@ -161,7 +190,7 @@ result = api_response.parsed_output
 
 </details>
 
-**3. Save the output to its own file,** so the result says what it came from and no two tasks write to the same place.
+**c. Save the output to its own file,** so the result says what it came from and no two tasks write to the same place.
 
 <details markdown="1">
 <summary>💡 Hint — one way to do it</summary>
@@ -178,12 +207,12 @@ output_path.parent.mkdir(parents=True, exist_ok=True)
 output_path.write_text(result.model_dump_json(indent=2))
 ```
 
-With the three hints together you now have a runnable script: hint 1 picks the filing,
-hint 2 extracts from it, and this writes the answer somewhere no other task will touch.
+With the three hints together you now have a runnable script: **a** picks the filing,
+**b** extracts from it, and this writes the answer somewhere no other task will touch.
 
 </details>
 
-**4. Have the Slurm array script invoke your new Python script,** handing over the task ID as its argument:
+**d. Have the Slurm array script invoke your new Python script,** handing over the task ID as its argument:
 
 ```bash
 python scripts/extract_array.py "$SLURM_ARRAY_TASK_ID"
@@ -192,7 +221,14 @@ python scripts/extract_array.py "$SLURM_ARRAY_TASK_ID"
 {: .note }
 > **Two things not to forget.** That line only works once the environment is ready, so the script still needs to `cd` to the repo root and activate the virtual environment first — the same two lines you wrote earlier. And the `#SBATCH --array=` directive has to be up with the other directives at the top — for 100 filings that is `#SBATCH --array=0-99`, since the tasks count from 0. Without it you've submitted one ordinary job, not an array, and `SLURM_ARRAY_TASK_ID` won't be set at all.
 
-Then submit it and watch it run. `watch` re-runs a command every couple of seconds, so you can see the tasks start in parallel and drop off as they finish:
+### 3. Size the directives from your estimate, then submit
+
+Put the per-task numbers from step 1 into the `.slurm` — `--mem`, `--cpus-per-task` and
+`--time` — alongside `--array=0-99`. You are asking Slurm for what you predicted, which is
+what makes step 4 a real check rather than a formality.
+
+`watch` re-runs a command every couple of seconds, so you can see the tasks start in
+parallel and drop off as they finish:
 
 ```bash
 mkdir -p logs
@@ -202,10 +238,35 @@ watch squeue --me
 
 The new thing to notice is the job IDs: an array shows up as many rows sharing one ID, with a task number after it — `12345678_0`, `12345678_1`, and so on — each moving through the same `PD` → `R` → gone lifecycle you watched in [3. Submit]({{ '/day2/submit-a-slurm-job/' | relative_url }}). Once it's done, check the per-task logs in `logs/` and the results in `results/`.
 
-<details markdown="1">
-<summary>⭐ Bonus — merge the results, then scale to 992</summary>
+### 4. Check yourself against `sacct`
 
-**Bonus — Combine the results into one CSV**
+First, confirm the run actually did what you think it did:
+
+```bash
+ls results/*.json | wc -l        # should be 100
+```
+
+Then ask Slurm what the tasks really used. `MaxRSS` is peak memory and `Elapsed` is
+wall-clock, per task:
+
+```bash
+sacct -j JOBID --format=JobID,State,Elapsed,MaxRSS
+```
+
+Back in `README.md`, next to the estimate from step 1, write down the **actual** per-task
+memory and time, the wall-clock for the whole array, and whether you **over- or
+under-estimated** each one — and by how much. That comparison is the payoff; next time you
+will size it better.
+
+{: .note }
+> **Where people are usually wrong.** Memory is normally over-asked by a lot, because a
+> single filing is small. Wall-clock for the array is the interesting one: if you guessed
+> close to a hundredth of the serial time you assumed every task ran at once, and if you
+> guessed the full serial time you assumed none of them did. The truth sits between, set by
+> how many tasks the scheduler let run concurrently.
+
+<details markdown="1">
+<summary>⭐ Bonus — combine the results into one CSV</summary>
 
 The array leaves you a directory of JSON files, one per filing. For analysis you want a single table instead — one row per filing, one column per field.
 
@@ -241,67 +302,5 @@ print(f"Wrote {len(df)} rows to {OUTPUT_CSV}")
 A failed task simply left no file, so it never turns up in the glob and nothing crashes. That's also why the count matters: if `len(df)` is less than 100, some tasks didn't finish.
 
 </details>
-
-**Bonus — Run all 992 filings**
-
-`data/aws_links.csv` lists **992** filings. You have run 100. Scaling the array to all of
-them is one number in one directive — except that it is not, and finding out why is the
-exercise.
-
-Try it and read the error:
-
-```bash
-sbatch --reservation=class --array=0-991 slurm/extract_array.slurm
-```
-
-Slurm refuses. `MaxArraySize` on the `normal` partition is **512**, and what it caps is the
-task *index*, not the count — so the highest index you may use is **511**, and an array
-holds at most 512 tasks. Check the ceiling yourself:
-
-```bash
-scontrol show config | grep MaxArraySize
-```
-
-The catch is that the cap applies to *every* submission, so you cannot just pick up where
-the first array stopped — there is no second window of higher indices to move into.
-Reaching filing 991 means submitting an index at or below 511 and mapping it upward. Two
-ways to do that:
-
-- **Give each task more than one filing.** The cleaner of the two, because nothing needs
-  offsetting. Keep the array small — `--array=0-99` — and have each task handle ten
-  filings, `filings[task_id * 10 : task_id * 10 + 10]`. Fewer, longer tasks and less
-  scheduler overhead; the per-task `--time` now has to cover ten API calls, not one. 992
-  is not a multiple of ten, so the last task gets two — the slice handles that on its own.
-- **Submit two arrays.** Both have to start at 0, so the second one has to be *told* which
-  slice is its own:
-
-  ```bash
-  sbatch --reservation=class --array=0-511 slurm/extract_array.slurm
-
-  sbatch --reservation=class --array=0-479 \
-         --export=ALL,OFFSET=512 slurm/extract_array.slurm
-  ```
-
-  and the `.slurm` adds it on before handing over. `ALL` keeps the rest of your
-  environment, and the `:-0` default leaves the first submission working unchanged:
-
-  ```bash
-  python scripts/extract_array.py $(( SLURM_ARRAY_TASK_ID + ${OFFSET:-0} ))
-  ```
-
-Whichever you pick, your rerun-safety check is what makes it survivable: a task that dies
-partway through its share leaves the finished ones on disk, and a resubmit only redoes what
-is missing.
-
-*Think before you run it: 992 paid API calls is real money. Work out the cost from your
-10-filing timing first, and check the number with an instructor before submitting.*
-
-## Before You Go
-
-Run the [Part 2 Checkpoint]({{ '/day2/part2-checkpoint/' | relative_url }}) — four checks,
-and two of them are just reading back what you wrote here.
-
-You now have the full loop every real research pipeline needs:
-**estimate → request → run → check → document.**
 
 </details>

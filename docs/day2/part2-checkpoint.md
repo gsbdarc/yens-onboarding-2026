@@ -12,11 +12,11 @@ permalink: /day2/part2-checkpoint/
 This is the last thing in the two days. Four items, and unlike the Part 1 checkpoint
 nothing downstream depends on them — so this one is for you, not for the next section.
 
-It is worth reading anyway. Two of the four come from Scale, which is the only place in
-the two days where you commit to a number before you find out whether it was right.
+It is worth reading anyway. The second is the only place in the two days where you commit
+to a number before you find out whether it was right.
 
 {: .important }
-> **If you are short on time, the last two matter most.** An array you got working is a
+> **If you are short on time, the second matters most.** An array you got working is a
 > skill you can look up again; an estimate you wrote down and then checked against reality
 > is the thing that changes how you size jobs next month.
 
@@ -25,9 +25,10 @@ the two days where you commit to a number before you find out whether it was rig
 ## You Should Have
 
 - An array running from `slurm/hello_array.slurm` — one submission, four separate logs
+- An estimate for the 100-filing array written down **before** you submitted it, then held
+  up against what `sacct` says the tasks actually used
 - Tasks made rerun-safe, so a resubmit finishes in seconds
-- An estimate for the bigger run, written down **before** you submitted it
-- That estimate held against what the job actually used
+- All ~992 filings through an array, and what the full run cost written into your README
 
 ---
 
