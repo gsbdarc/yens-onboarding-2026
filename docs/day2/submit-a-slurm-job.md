@@ -508,8 +508,8 @@ you invoke it: `yen-slurm/` gives you the `/yen-slurm` command.
 
 Where the directory lives decides its scope:
 
-- **Global skill** → `~/.claude/skills/<skill-name>/SKILL.md` — in your **home** directory (`~/.claude/`), so it loads in *every* project you work on. That's where the Day 1 skill lives. Best for **conventions that follow you** across projects (like how the Yens work).
-- **Project skill** → `<your-repo>/.claude/skills/<skill-name>/SKILL.md` — in the **repo's own** `.claude/` (no `~/`), so it loads only in *this* repo and, once committed, ships to anyone who clones it. Best for **repo-specific** conventions (how this project makes figures, where results land, which script to run).
+- **Global skill** → `~/.claude/skills/<skill-name>/SKILL.md` — in your **home** directory (`~/.claude/`), so it loads in *every* project you work on. Best for **conventions that follow you** across projects (like how the Yens work).
+- **Project skill** → `<your-repo>/.claude/skills/<skill-name>/SKILL.md` — in the **repo's own** `.claude/` (no `~/`), so it loads only in *this* repo and, once committed, ships to anyone who clones it. Best for **repo-specific** conventions — where results land, which script owns which stage, the naming your collaborators expect.
 
 <svg viewBox="0 0 700 196" role="img" aria-labelledby="scope-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:700px;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="scope-title">A global skill lives in your home ~/.claude/ and loads in every project; a project skill lives in the repo's own .claude/ and ships to anyone who clones it.</title>
@@ -537,16 +537,11 @@ Where the directory lives decides its scope:
 
 *Same `.claude/skills/` layout, two different homes: the **global** skill in `~/.claude/` follows you into every project; the **project** skill in the repo's `.claude/` is committed and ships to anyone who clones it.*
 
-You'll write the global one first, then the project one.
 
 ### Write a Global Skill
 
 {: .important }
 > **Task:** Have Claude distill a **global** Yen skill from the Slurm job you just ran by hand, then invoke it on a fresh job.
->
-> Work through this at your own pace. The point is the *pattern* — do the work, then distill
-> it into a skill — so if you only get as far as reading the `SKILL.md` Claude writes, you
-> have got the idea.
 
 You'll do this from Claude Code running on the Yens. Load the module and launch it inside your repo:
 
@@ -611,9 +606,9 @@ The repo's `.claude/` has no `~`, and because it sits inside the project, commit
 skill ships it. A new collaborator clones the repo and Claude already knows the house
 rules.
 
-Distil one the same way you did the global skill: get something right by hand first, then
-ask Claude to turn *that* into a skill scoped to this repo. Conventions worth capturing
-are the ones you would otherwise re-explain in every code review.
+You would build one the same way as the global skill above — get something right by hand
+first, then ask Claude to turn *that* into a skill scoped to this repo. The conventions
+worth capturing are the ones you would otherwise re-explain in every code review.
 
 {: .warning }
 > **You're still the reviewer.** A skill makes Claude follow your conventions, but Claude can still invent partition names, time limits, or QoS caps that don't exist. Check its choices against RCpedia — the [current partitions and their limits](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits) page and `sacctmgr show qos <partition>` — and against your own profiling. The script you submit is yours.
