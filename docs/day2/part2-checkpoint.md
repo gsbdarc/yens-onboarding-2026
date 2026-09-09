@@ -23,74 +23,15 @@ right.
 
 ---
 
-## What You Should Be Able to Do
+## You Should Have
 
-| # | Skill | Where you learned it |
-|---|---|---|
-| 1 | Submit one script that fans out into many independent tasks | [1. Watch an Array Fan Out]({{ '/day2/array-fan-out/' | relative_url }}) |
-| 2 | Make a task safe to run twice | [3. Make Your Tasks Rerun-Safe]({{ '/day2/rerun-safe-tasks/' | relative_url }}) |
-| 3 | Estimate a bigger run's cost — in writing, before submitting | [4. Scale]({{ '/day2/capstone/' | relative_url }}) |
-| 4 | Compare what you asked for against what the job used | [4. Scale]({{ '/day2/capstone/' | relative_url }}) |
+- [ ] An array running from `slurm/hello_array.slurm` — one submission, four separate logs
+- [ ] Tasks made rerun-safe, so a resubmit finishes in seconds
+- [ ] An estimate for the bigger run, written down **before** you submitted it
+- [ ] That estimate held against what the job actually used
 
----
-
-## The Run
-
-{: .exercise }
-> Four checks. The first two are quick; the last two are reading back what you already
-> wrote.
-
-### 1 — An array ran, and fanned out
-
-```bash
-ls logs/hello_*
-```
-
-You should see **four** pairs of files, not one — `logs/hello_<jobid>_1.out` through
-`_4.out`. That is the whole point of an array: one submission, four independent tasks,
-four separate logs.
-
-```bash
-cat logs/hello_*_*.out
-```
-
-Four lines, each naming a different task number. If you see one file with one line, you
-submitted `slurm/hello.slurm` rather than `slurm/hello_array.slurm`.
-
-### 2 — Your tasks are rerun-safe
-
-Submit your 100-filing array a second time and watch what happens.
-
-```bash
-sbatch --reservation=class slurm/extract_array.slurm
-squeue --me
-```
-
-It should finish in **seconds**, not minutes, because every task finds its output already
-on disk and exits immediately. If it runs for the full time again, the existence check is
-missing or is looking at the wrong path — and at 992 filings that is the difference
-between a re-run costing nothing and costing the whole job again.
-
-### 3 — The estimate is in writing
-
-```bash
-grep -A 10 "100 filings" README.md
-```
-
-You are looking for the numbers you wrote **before** you submitted: time, cores, RAM. If
-they are not there, Scale did not happen — write them now from what you remember
-predicting, and be honest about it.
-
-### 4 — And you checked it
-
-```bash
-sacct -j JOBID --format=JobID,State,Elapsed,MaxRSS,ReqTRES
-```
-
-Then look at your README and confirm the actuals sit next to the estimate, with a note on
-which way you were wrong. Being wrong is the expected outcome — ten times the data is
-rarely ten times the time and almost never ten times the memory. The number worth having
-is the gap.
+The first two are on **1. Watch an Array Fan Out** and **3. Make Your Tasks Rerun-Safe**;
+the last two are both **4. Scale**.
 
 ---
 
