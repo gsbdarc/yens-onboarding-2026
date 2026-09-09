@@ -133,7 +133,7 @@ Is this script **serial** or **parallel**?
 <summary>✅ Check your answer</summary>
 
 - **Cores and % Mem barely moved.** The job spends almost all its time **waiting on the Anthropic API** to answer, not computing — so it barely touches the CPU. That makes it an **I/O-bound** job (waiting on the network), unlike the mystery script, which was **CPU-bound** (doing math).
-- **`% Mem` reading 0 is two things at once.** The script really does hold little memory, because it handles one filing at a time rather than loading all ten. But even a few hundred MB would still print `0%`, because that column is a share of the node's whole ~1 TB. Trust `RES` in `htop` for the actual number — `% Mem` cannot resolve anything a single job is likely to use.
+- **`% Mem` reading 0 is two things at once.** The script really does hold little memory, because it handles one filing at a time rather than loading all ten. But even a few hundred MB would still show `0%`, because that column measures your share of the node's whole ~1 TB. On a node that big, almost any single job rounds to zero — so read `RES` in `htop` when you want the real number.
 - **`real` is large, `user` is small.** `real` (wall-clock) is big because you waited on the API; `user` (actual CPU time) is tiny because the CPU had little to do. That gap — `real` ≫ `user` — is the fingerprint of a job that mostly waits.
 
 A typical run: `real 0m22.5s`, `user 0m1.9s`, `sys 0m0.5s` — about 2 seconds of real work, ~20 seconds spent waiting. In `htop` you'll see just **one `python` process**, and **under 1 Core** in `userload`.
