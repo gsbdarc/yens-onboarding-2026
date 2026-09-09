@@ -29,5 +29,5 @@ scheduler instead of holding a terminal open.
 {: .note }
 > 🔴 **Red sticky** = something on the list is missing.
 >
-> 🟢 **Green sticky** = you have completed all 5. You are on to the bonus work, and free
-> to help anyone at your table who is still going.
+> 🟢 **Green sticky** = you have completed all 5. Feel free to go back to the bonus
+> exercises if you still have time, or help your table.

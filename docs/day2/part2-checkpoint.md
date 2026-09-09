@@ -36,8 +36,8 @@ the two days where you commit to a number before you find out whether it was rig
 {: .note }
 > 🔴 **Red sticky** = something on the list is missing.
 >
-> 🟢 **Green sticky** = you have completed all 4. You are on to the bonus work, and free
-> to help anyone at your table who is still going.
+> 🟢 **Green sticky** = you have completed all 4. Feel free to go back to the bonus
+> exercises if you still have time, or help your table.
 >
 > This is also the moment to ask the question you have been saving. The room empties fast
 > and the answer is easier in person than over Slack.
