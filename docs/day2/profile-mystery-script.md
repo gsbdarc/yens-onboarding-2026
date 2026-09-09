@@ -34,6 +34,20 @@ permalink: /day2/profile-mystery-script/
   <circle cx="630" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="630" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">5</text>
 </svg>
 
+## Computing Resources — A Quick Recap
+
+Before we run anything, let's make sure we have the vocabulary for the resources a program
+uses:
+
+| Resource | What it is |
+|---|---|
+| **CPU core** | An individual worker that executes your code |
+| **RAM** | Fast memory the CPU reads from while working |
+| **Storage (file system)** | Where your files live — VAST on the Yens |
+| **Time** | How long your script takes to finish |
+
+---
+
 You are going to run a script you have never seen before and work out what resources it uses — without reading the code. That is **profiling**: measuring a script's time, CPU and RAM while it runs.
 
 <svg viewBox="0 0 700 132" role="img" aria-labelledby="twoterm-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:100%;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
