@@ -472,8 +472,15 @@ Pick any job from `squeue` and look up its full details:
 scontrol show job JOBID
 ```
 
-Find **NumCPUs** (cores requested), **mem=** (RAM requested) and **TimeLimit**. This works
-on any job — yours or someone else's — as long as it is still queued or running.
+Three fields to pick out of the output:
+
+| Field | What it tells you |
+|---|---|
+| `NumCPUs` | How many CPU cores the job asked for |
+| `mem=` | How much RAM it asked for |
+| `TimeLimit` | The wall-clock limit it gets killed at |
+
+Works on any job — yours or anyone else's — as long as it is still queued or running.
 
 **Bonus — Compare partitions**
 
