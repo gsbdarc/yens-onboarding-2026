@@ -18,7 +18,7 @@ breaks, and how to write down what you did so you (or a labmate) can run it agai
 By the end you will have done it on real work: a hundred SEC filings processed by a job you
 sized yourself, then checked against what it actually used.
 
-Here's what we'll do today, start to finish:
+Here's what we'll do today:
 
 <svg viewBox="0 0 720 164" role="img" aria-labelledby="daymap-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:720px;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="daymap-title">The arc of Day 2: profile, document, submit, read logs, then scale — with debugging looping back to submit.</title>
@@ -58,15 +58,6 @@ Where yesterday left you:
   extract structured fields from one SEC Form 3 filing, with logging and a validated
   result file
 - Used Pydantic to validate and structure the LLM output
-
----
-
-## The Two Parts
-
-| Part | Clock | What it is |
-|---|---|---|
-| [Part 1 — Profile & Submit a Job]({{ '/day2/part1/' | relative_url }}) | 9:00–10:30 | What the script actually costs in CPU, RAM and time — then hand it to the scheduler. Ends in a checkpoint |
-| [Part 2 — Submit a Job Array]({{ '/day2/part2/' | relative_url }}) | 10:30–12:00 | One job becomes every filing at once; predict a bigger run's cost, then check the prediction. Ends in a checkpoint |
 
 ---
 
