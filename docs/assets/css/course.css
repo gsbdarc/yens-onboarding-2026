@@ -202,3 +202,15 @@
    body text — but keep the underline on hover as the affordance. */
 .main-content a { text-decoration: none; }
 .main-content a:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+/* ── Collapsed Bonus sections ─────────────────────────────────────────────
+   Built by assets/js/bonus-collapse.js, and styled as the same accordion as
+   the hand-written <details> above. Slightly more inset from the heading it
+   follows, so it reads as that section's content rather than a sibling. */
+.main-content details.bonus {
+  margin-top: 0.6rem;
+}
+.main-content details.bonus > summary {
+  color: #55524d;
+  font-size: 0.95em;
+}
