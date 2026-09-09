@@ -110,8 +110,7 @@ You get **one** job ID back, but `squeue` shows four rows — `12345678_0` throu
 cat logs/hello_*_*.out
 ```
 
-Four files, four different task numbers. One submission, four independent tasks, four
-logs that never collided.
+That one `sbatch` produced four logs, each printing a different task number.
 
 <svg viewBox="0 0 618 270" role="img" aria-labelledby="array-title array-desc" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:616px;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="array-title">One array script fans out into many tasks</title>
