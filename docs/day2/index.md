@@ -38,16 +38,6 @@ Here's what we'll do today, start to finish:
   <circle cx="630" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="630" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">5</text>
 </svg>
 
-Instructors circulate rather than lead, so put up a red sticky whenever you want one.
-
-| Clock | | |
-|---|---|---|
-| 9:00–9:20 | Lecture 1 | What is inside a computer · research computing resources · profiling · Slurm |
-| 9:20–10:30 | **Part 1 lab** | Profile it, then hand it to Slurm |
-| 10:30–10:50 | Lecture 2 | Parallelization · job arrays · scaling · GPUs |
-| 10:50–11:50 | **Part 2 lab** | Scale it, then size it |
-| 11:50–12:00 | Wrap + Q&A | |
-
 Work through the sections in order — they build on each other, and the numbers you write
 down in one are the inputs to the next. Each page ends with **bonus** work, folded away,
 for when you finish early.
