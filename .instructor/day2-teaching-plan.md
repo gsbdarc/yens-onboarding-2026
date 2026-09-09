@@ -121,11 +121,9 @@ slack rather than cutting the wrap-up.
 
 - `curl` on the Yens is 7.81.0, so `--json` does not exist. Use `-H` and `-d`.
 - Slurm resolves `--output`/`--error` relative to the submit directory **at submit time**,
-  so `logs/` must pre-exist. `slurm/hello.slurm` notes this in its header.
+  so `logs/` must pre-exist. The site teaches this at `submit-a-slurm-job.md:112`.
 - `MaxArraySize` is 512 (`scontrol show config`) against 992 filings in
   `data/aws_links.csv` — that mismatch is the point of the full-scale bonus.
-- `slurm/hello.slurm` and `slurm/hello_array.slurm` are pasted verbatim into the job-arrays
-  page but their paths are never named there. If someone asks where the file is, that's why.
 
 ## This schedule has never been timed
 

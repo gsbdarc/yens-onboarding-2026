@@ -1,13 +1,13 @@
 ---
 layout: default
-title: "1. Watch an Array Fan Out"
+title: "1. Hello World Array"
 parent: "Part 2 — Submit a Job Array"
 grand_parent: "Day 2 — The Yen-Slurm Cluster"
 nav_order: 1
-permalink: /day2/array-fan-out/
+permalink: /day2/hello-world-array/
 ---
 
-# Watch an Array Fan Out
+# Hello World Array
 
 {: .note }
 > 🔴 **Red sticky** = I need help. Put it up the moment you are stuck — an instructor will
@@ -49,34 +49,74 @@ permalink: /day2/array-fan-out/
 > four tasks and four separate logs out of one submission.
 
 The repo ships two scripts that do the same trivial thing — one as a single job, one as an
-array. Compare just their `#SBATCH` directives; each file also carries a long comment
-header, and diffing the whole file buries the lines that matter:
+array. Read them both:
 
 ```bash
-diff <(grep '^#SBATCH' slurm/hello.slurm) \
-     <(grep '^#SBATCH' slurm/hello_array.slurm)
+cat slurm/hello.slurm
 ```
 
-`<( … )` hands a command's output to `diff` as though it were a file, so what gets compared
-is two filtered views rather than the files on disk.
+```text
+#!/bin/bash
+#SBATCH --job-name=hello
+#SBATCH --partition=normal
+#SBATCH --output=logs/hello_%j.out
+#SBATCH --error=logs/hello_%j.err
+#SBATCH --time=00:01:00
+#SBATCH --mem=1G
+#SBATCH --cpus-per-task=1
+
+cd $HOME/yens-onboarding-2026
+
+echo "Hello, world!"
+```
+
+```bash
+cat slurm/hello_array.slurm
+```
 
 ```text
-1c1
+#!/bin/bash
+#SBATCH --job-name=hello-array
+#SBATCH --partition=normal
+#SBATCH --output=logs/hello_%A_%a.out
+#SBATCH --error=logs/hello_%A_%a.err
+#SBATCH --time=00:01:00
+#SBATCH --mem=1G
+#SBATCH --cpus-per-task=1
+#SBATCH --array=0-3
+
+cd $HOME/yens-onboarding-2026
+
+echo "Hello, world! My task number is $SLURM_ARRAY_TASK_ID"
+```
+
+You can spot the difference by eye, but let `diff` isolate it:
+
+```bash
+diff slurm/hello.slurm slurm/hello_array.slurm
+```
+
+```text
+2c2
 < #SBATCH --job-name=hello
 ---
 > #SBATCH --job-name=hello-array
-3,4c3,4
+4,5c4,5
 < #SBATCH --output=logs/hello_%j.out
 < #SBATCH --error=logs/hello_%j.err
 ---
 > #SBATCH --output=logs/hello_%A_%a.out
 > #SBATCH --error=logs/hello_%A_%a.err
-7a8
-> #SBATCH --array=0-3        # the new line: 4 tasks, numbered 0 to 3
+8a9
+> #SBATCH --array=0-3
+12c13
+< echo "Hello, world!"
+---
+> echo "Hello, world! My task number is $SLURM_ARRAY_TASK_ID"
 ```
 
 One directive is genuinely new — `--array=0-3` — and that is what turns one job into four.
-The log paths change because of it.
+The job name and the log paths change because of it.
 
 {: .note }
 > **`%j`, `%A` and `%a`.** Slurm substitutes these when it writes the log file. `%j` is the
@@ -132,6 +172,3 @@ logs that never collided.
 </svg>
 
 The task number is what makes this general. Every task runs the identical script, and `SLURM_ARRAY_TASK_ID` is the only thing that differs between them — so wherever the work needs to vary, you derive it from that number: which file to read, which row of a list to process, which parameter value to try.
-
-{: .note }
-> **Counting from 0.** Task IDs starting at 0 line up with Python's own indexing, so a task ID indexes a list directly — `filings[task_id]`, with no shifting. Slurm is equally happy numbering from 1, and plenty of scripts you will meet do; check which convention one uses before reusing it.
