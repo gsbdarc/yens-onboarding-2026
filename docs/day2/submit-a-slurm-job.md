@@ -591,6 +591,6 @@ Then invoke it on a fresh job. Claude Code turns each skill's folder name into a
 **Submit and review:** the conventions should come straight from the skill, matching what you hand-wrote.
 
 {: .warning }
-> **You're still the reviewer.** A skill makes Claude follow your conventions, but Claude can still invent partition names, time limits, or per-user caps that don't exist. Check its choices against RCpedia — the [current partitions and their limits](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits) page and `sacctmgr show qos <partition>` — and against your own profiling. The script you submit is yours.
+> **You're still the reviewer.** A skill makes Claude follow your conventions, but Claude can still invent partition names, time limits, or per-user caps that don't exist. Check its choices against RCpedia — the [current partitions and their limits](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits) page and `sacctmgr show qos <partition>` — and against your own profiling.
 
 </details>
