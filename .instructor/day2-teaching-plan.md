@@ -82,12 +82,16 @@ has no venv.
    have to reach on their own is that one task = one filing. If someone has kept the loop
    and added `--array`, ask what task 7 is doing that task 8 is not.
 3. **Rerun-safe tasks** — the existence check, then resubmit and watch it finish in seconds.
-4. **Scale** — all ~992 filings, the `MaxArraySize` wall, then document and push.
+4. **Yen-Slurm Array Limits** — the ceiling (`MaxArraySize` 512, capping the *index*, on
+   every submission), then all ~992 filings through it, then document and push. Another
+   brief, not a walkthrough: both routes are in `.instructor/array-limits.key.md`, along
+   with the wrong turns. The commonest is `--array=512-991` for the second half — the cap
+   applies per submission, so there is no second window.
 
 **This no longer has slack.** The old list measured ~45 min against the 60, but Scale is now
 the full 992 run rather than a bonus, which is what that ~15 min used to absorb. If the room
-is behind, the thing to cut is Scale's *submission*: have them work out the batching and size
-it, and stop short of running it. Steps 1–3 are what the checkpoint depends on.
+is behind, the thing to cut is page 4's *submission*: have them work out the batching and
+size it, and stop short of running it. Steps 1–3 are what the checkpoint depends on.
 
 **Bonus, in rough order of value:** the remaining `fix_me` puzzles → Slurm with Claude →
 **GPUs & Local LLMs** → merge-to-CSV → Reference pages.
@@ -146,7 +150,7 @@ slack rather than cutting the wrap-up.
 - Slurm resolves `--output`/`--error` relative to the submit directory **at submit time**,
   so `logs/` must pre-exist. The site teaches this at `submit-a-slurm-job.md:112`.
 - `MaxArraySize` is 512 (`scontrol show config`) against 992 filings in
-  `data/aws_links.csv` — that mismatch is the point of Scale.
+  `data/aws_links.csv` — that mismatch is the point of Yen-Slurm Array Limits.
 
 ## This schedule has never been timed
 
