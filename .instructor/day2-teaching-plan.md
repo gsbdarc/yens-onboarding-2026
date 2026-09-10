@@ -75,8 +75,12 @@ has no venv.
 **Mandatory:**
 
 1. **Hello World Array** — `slurm/hello_array.slurm`, fan-out, `%A`/`%a`.
-2. **Estimate 100 Filings Resources** — estimate written first, build the array, submit,
-   compare against `sacct`.
+2. **Scale the Loop to an Array** — the block's real exercise. They get a brief, not a
+   walkthrough: turn Part 1's loop into a 100-task array, write both files themselves, run
+   it, read `sacct`. On-page hints are nudges only; working code is in
+   `.instructor/loop-to-array.key.md`. **Do not hand out the key** — the conclusion they
+   have to reach on their own is that one task = one filing. If someone has kept the loop
+   and added `--array`, ask what task 7 is doing that task 8 is not.
 3. **Rerun-safe tasks** — the existence check, then resubmit and watch it finish in seconds.
 4. **Scale** — all ~992 filings, the `MaxArraySize` wall, then document and push.
 

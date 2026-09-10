@@ -108,10 +108,10 @@ Two options, and they are different tradeoffs:
 ### 3. Size it — and work out what it costs
 
 Whichever route you picked, the per-task numbers change: ten filings per task means ten API
-calls inside one `--time`, not one. Re-size the directives before you submit, the same way
-you did on [2. Estimate 100 Filings Resources]({{ '/day2/estimate-100-filings/' | relative_url }}) —
-this time you have real `sacct` numbers from that run to extrapolate from, not just the
-Part 1 profile.
+calls inside one `--time`, not one. Re-size the directives before you submit — and this time
+you are not guessing, because
+[2. Scale the Loop to an Array]({{ '/day2/loop-to-array/' | relative_url }}) left you real
+`sacct` numbers for one filing to build on.
 
 {: .warning }
 > **992 API calls is real money, and the whole room is submitting at once.** Work the cost

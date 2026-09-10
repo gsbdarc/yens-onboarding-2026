@@ -12,21 +12,21 @@ permalink: /day2/part2-checkpoint/
 This is the last thing in the two days. Four items, and unlike the Part 1 checkpoint
 nothing downstream depends on them — so this one is for you, not for the next section.
 
-It is worth reading anyway. The second is the only place in the two days where you commit
-to a number before you find out whether it was right.
+It is worth reading anyway. The second is the one where you put the two days together
+yourself, from a loop and an array, with nothing to copy.
 
 {: .important }
-> **If you are short on time, the second matters most.** An array you got working is a
-> skill you can look up again; an estimate you wrote down and then checked against reality
-> is the thing that changes how you size jobs next month.
+> **If you are short on time, the second matters most.** Running an array somebody else
+> wrote is a thing you can look up again; turning your own loop into one, and seeing what it
+> cost, is the thing that transfers to your own work next month.
 
 ---
 
 ## You Should Have
 
 - An array running from `slurm/hello_array.slurm` — one submission, four separate logs
-- An estimate for the 100-filing array written down **before** you submitted it, then held
-  up against what `sacct` says the tasks actually used
+- A 100-filing array you built yourself, run to completion — 100 files in `results/` — and
+  `sacct` read afterwards to see what a task really used
 - Tasks made rerun-safe, so a resubmit finishes in seconds
 - All ~992 filings through an array, and what the full run cost written into your README
 
