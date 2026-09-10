@@ -32,6 +32,15 @@ highlighter: rouge
 # Pretty permalinks (e.g. /day1/ instead of /day1.html)
 permalink: pretty
 
+plugins:
+  - jekyll-last-modified-at
+
+# Footer date. just-the-docs renders "Page last modified: ..." only when both of
+# these are set AND page.last_modified_date has a value — the plugin above
+# supplies that from git. Setting these without the plugin renders nothing.
+last_edit_timestamp: true
+last_edit_time_format: "%b %-d, %Y"
+
 aux_links:
   GSB RCpedia:
     - 'https://rcpedia.stanford.edu'
