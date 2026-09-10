@@ -90,7 +90,7 @@ We saw above that comparing outputs between models is a basic robustness check. 
 > answer_b = client.chat.completions.create(model=MODEL_B, messages=messages)
 > ```
 >
-> And if you had a local LLM server running, you could of course compare against a local model too — that's a second client pointed at the server's own `base_url`, as on [the previous page]({{ '/reference/running-llms-on-the-yens/' | relative_url }}).
+> And if you had a local LLM server running, you could of course compare against a local model too — that's a second client pointed at the server's own `base_url`, as in [GPUs & Local LLMs]({{ '/day2/gpus/' | relative_url }}).
 
 **2. Decide what "agreement" means.** Now that you have both sets of outputs in front of you, decide what counts as the same answer. For example, `Smith, John` and `John Smith` are the same person written two ways; whether your code should call that agreement is your call to make.
 

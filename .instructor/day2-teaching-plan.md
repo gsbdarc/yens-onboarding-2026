@@ -90,7 +90,21 @@ is behind, the thing to cut is Scale's *submission*: have them work out the batc
 it, and stop short of running it. Steps 1–3 are what the checkpoint depends on.
 
 **Bonus, in rough order of value:** the remaining `fix_me` puzzles → Slurm with Claude →
-GPUs → merge-to-CSV → Reference pages.
+**GPUs & Local LLMs** → merge-to-CSV → Reference pages.
+
+**The GPUs & Local LLMs page (`/day2/gpus/`) needs setup.** It absorbed both Reference pages
+on local LLMs plus the old GPU bonus, and its second exercise is **one Ollama server per
+table**: one person `srun`s a GPU, starts the server from `gsbdarc/ollama_helper`, reads the
+host/port out of `/scratch/users/$USER/ollama/`, and gives the URL to their table. Before
+class:
+
+- Confirm the reservation admits `--partition=gpu`, and that the reserved node has **enough
+  GPUs for one per table**. Fewer means tables share, or serve on CPU — `llama3.2:1b` does
+  answer on CPU, slowly, and `.instructor/ollama/start_ollama_server.sh` warns and continues.
+- Warm one server yourself with that script as a fallback, so a table that cannot get a GPU
+  still has something to query. It prints the URL to put on the board.
+- The first `apptainer pull` is slow. If several tables pull at once it is slower; consider
+  pulling `ollama.sif` into a shared location beforehand.
 
 ---
 

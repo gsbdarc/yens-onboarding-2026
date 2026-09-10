@@ -97,9 +97,12 @@ and the capstone's write-the-estimate-down step.
 > job-arrays section and the capstone**. Book it beforehand and confirm the name matches, or
 > every command in the docs is wrong.
 >
-> **One exception:** the GPU bonus (`slurm/gpu_check.slurm`) must **not** carry it — the
-> reservation covers the `normal` partition, not the GPU nodes. Check `sinfo -p gpu` has
-> idle capacity before class, or that bonus dead-ends.
+> **The GPU nodes are in the reservation this year**, so the bonus page carries
+> `--reservation=class` on its `sbatch` and `srun` like everything else. Two things to check
+> before class: that the reservation really does admit `--partition=gpu`, and that the
+> reserved node has **enough GPUs for one per table** — the local-LLM exercise has one person
+> per table serving a model for the others. If it has fewer, tables share or fall back to
+> CPU, which works but is slow.
 
 ---
 
