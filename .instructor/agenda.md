@@ -59,8 +59,8 @@ participants at small tables helping each other. No whole-room breaks. Full run-
 |-------|-------|-----|
 | 9:00  | **Lecture 1** — compute environments (6, talk only, no demo); then why a scheduler exists, the live queue, and `#SBATCH` anatomy (14) | 20 |
 | 9:20  | **Work block 1** — profiling (all four exercises, ending with the README numbers) → peek at the queue → write & submit a Slurm job → debug `fix_me.slurm` | 70 |
-| 10:30 | **Lecture 2** — parallelization and the three shapes (8); array mechanics and the off-by-one (7); estimate → request → run → check (5) | 20 |
-| 10:50 | **Work block 2** — the 100-filing array + idempotent tasks → the capstone | 60 |
+| 10:30 | **Lecture 2** — parallelization and the three shapes (8); array mechanics and the index cap (7); estimate → request → run → check (5) | 20 |
+| 10:50 | **Work block 2** — hello-world array → estimate + 100-filing array → idempotent tasks → all ~992 | 60 |
 | 11:50 | **Wrap + Q&A** | 10 |
 
 **40 min lecture · 130 min hands-on · 10 min wrap = 180.**
@@ -97,9 +97,12 @@ and the capstone's write-the-estimate-down step.
 > job-arrays section and the capstone**. Book it beforehand and confirm the name matches, or
 > every command in the docs is wrong.
 >
-> **One exception:** the GPU bonus (`slurm/gpu_check.slurm`) must **not** carry it — the
-> reservation covers the `normal` partition, not the GPU nodes. Check `sinfo -p gpu` has
-> idle capacity before class, or that bonus dead-ends.
+> **The GPU nodes are in the reservation this year**, so the bonus page carries
+> `--reservation=class` on its `sbatch` and `srun` like everything else. Two things to check
+> before class: that the reservation really does admit `--partition=gpu`, and that the
+> reserved node has **enough GPUs for one per table** — the local-LLM exercise has one person
+> per table serving a model for the others. If it has fewer, tables share or fall back to
+> CPU, which works but is slow.
 
 ---
 

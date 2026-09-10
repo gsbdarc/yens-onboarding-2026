@@ -45,6 +45,5 @@ Optional, self-serve. Each stands alone — pick one up whenever you like.
 | Page | What it covers |
 |---|---|
 | [LLM-as-a-Judge]({{ '/reference/llm-as-a-judge/' | relative_url }}) | Scale a research judgment call: one model decides, a second checks it, your code routes the contested cases to a human |
-| [Why Run LLMs on the Yens?]({{ '/reference/why-local-llms/' | relative_url }}) | Local weights vs. the Gateway vs. a third party; open vs. proprietary models |
-| [Running LLMs on the Yens]({{ '/reference/running-llms-on-the-yens/' | relative_url }}) | Query a model running on cluster hardware; GPU tiers and how to ask for one |
+| [GPUs & Local LLMs]({{ '/day2/gpus/' | relative_url }}) | Local weights vs. the Gateway vs. a third party; GPU tiers and how to ask for one; serving and querying a model on cluster hardware |
 | [Handling LLM Failure Modes]({{ '/reference/llm-failure-modes/' | relative_url }}) | Hallucination, inconsistency, and validating output at scale |

@@ -67,21 +67,48 @@ has no venv.
 | min | What |
 |---|---|
 | 8 | **Parallelization** — embarrassingly parallel work; the three shapes (one job/many cores, many jobs/one core, both); waves when filings outnumber cores. Condensed from `docs/reference/parallelization.md`; the four runnable demos are in `.instructor/parallelization_demos/` if you want to show one |
-| 7 | **Array mechanics** — `--array`, `%A`/`%a`, `SLURM_ARRAY_TASK_ID`. **Name the 1-based-vs-0-indexed off-by-one out loud but do not solve it** — let it bite in the block, it is the lesson |
+| 7 | **Array mechanics** — `--array`, `%A`/`%a`, `SLURM_ARRAY_TASK_ID`. **Tasks count from 0 throughout**, matching the deck's `0 to 511` — a task ID indexes a list directly, so there is no off-by-one to plant. Do say the cap out loud: `MaxArraySize` caps the *index* at 511 on **every** submission, which is why the 992 bonus cannot just continue at a higher index |
 | 5 | **estimate → request → run → check** — and why the capstone estimate gets written down *before* submitting. Protect this; it is the one thing that changes how people size their own jobs afterwards |
 
 ### Work block 2 (10:50–11:50, 60 min)
 
 **Mandatory:**
 
-1. **Job arrays** — the 100-filing array, then Avoiding Wasteful Computation.
-2. **Capstone** — estimate written first, submit, compare against `sacct`, commit and push.
+1. **Hello World Array** — `slurm/hello_array.slurm`, fan-out, `%A`/`%a`.
+2. **Scale the Loop to an Array** — the block's real exercise. They get a brief, not a
+   walkthrough: turn Part 1's loop into a 100-task array, write both files themselves, run
+   it, read `sacct`. On-page hints are nudges only; working code is in
+   `.instructor/loop-to-array.key.md`. **Do not hand out the key** — the conclusion they
+   have to reach on their own is that one task = one filing. If someone has kept the loop
+   and added `--array`, ask what task 7 is doing that task 8 is not.
+3. **Rerun-safe tasks** — the existence check, then resubmit and watch it finish in seconds.
+4. **Yen-Slurm Array Limits** — the ceiling (`MaxArraySize` 512, capping the *index*, on
+   every submission), then all ~992 filings through it, then document and push. Another
+   brief, not a walkthrough: both routes are in `.instructor/array-limits.key.md`, along
+   with the wrong turns. The commonest is `--array=512-991` for the second half — the cap
+   applies per submission, so there is no second window.
 
-Measures at ~45 min, so there is ~15 min of real slack here. That is deliberate: this is
-the block that historically ran out of time. Spend the slack circulating, not filling.
+**This no longer has slack.** The old list measured ~45 min against the 60, but Scale is now
+the full 992 run rather than a bonus, which is what that ~15 min used to absorb. If the room
+is behind, the thing to cut is page 4's *submission*: have them work out the batching and
+size it, and stop short of running it. Steps 1–3 are what the checkpoint depends on.
 
 **Bonus, in rough order of value:** the remaining `fix_me` puzzles → Slurm with Claude →
-GPUs → merge-to-CSV → Reference pages.
+**GPUs & Local LLMs** → merge-to-CSV → Reference pages.
+
+**The GPUs & Local LLMs page (`/day2/gpus/`) needs setup.** It absorbed both Reference pages
+on local LLMs plus the old GPU bonus, and its second exercise is **one Ollama server per
+table**: one person `srun`s a GPU, starts the server from `gsbdarc/ollama_helper`, reads the
+host/port out of `/scratch/users/$USER/ollama/`, and gives the URL to their table. Before
+class:
+
+- Confirm the reservation admits `--partition=gpu`, and that the reserved node has **enough
+  GPUs for one per table**. Fewer means tables share, or serve on CPU — `llama3.2:1b` does
+  answer on CPU, slowly, and `.instructor/ollama/start_ollama_server.sh` warns and continues.
+- Warm one server yourself with that script as a fallback, so a table that cannot get a GPU
+  still has something to query. It prints the URL to put on the board.
+- The first `apptainer pull` is slow. If several tables pull at once it is slower; consider
+  pulling `ollama.sif` into a shared location beforehand.
 
 ---
 
@@ -95,7 +122,7 @@ GPUs → merge-to-CSV → Reference pages.
 | **The Slurm scheduler** | Ran **10** | Split: concepts in Lecture 1, `squeue`/`sinfo` hands-on in Block 1 |
 | **Writing & submitting a Slurm job** | Ran **25** — *without* any debugging | Still the most important stretch of the two days. Writing the directives by hand is the point; don't let anyone paste a finished script |
 | **Slurm with Claude** | Ran **15**, and the second skill was never reached | **Now entirely bonus.** Demo-led delivery has no slot in this format. Self-paced framing is on the page |
-| **Job arrays** | **No clean measurement** — the four-day course crammed all its Day 4 material into one block | Still the least reliable number here. **Time it deliberately.** Let the off-by-one bite |
+| **Job arrays** | **No clean measurement** — the four-day course crammed all its Day 4 material into one block | Still the least reliable number here. **Time it deliberately.** |
 | **Capstone** | Ran **60** when actually reached, and was skipped entirely the first time | Make them **write the estimate down before submitting**. The `sacct` comparison is the whole lesson and there is nothing to compare against without a recorded guess |
 
 ## If you are behind at 10:50
@@ -121,11 +148,9 @@ slack rather than cutting the wrap-up.
 
 - `curl` on the Yens is 7.81.0, so `--json` does not exist. Use `-H` and `-d`.
 - Slurm resolves `--output`/`--error` relative to the submit directory **at submit time**,
-  so `logs/` must pre-exist. `slurm/hello.slurm` notes this in its header.
+  so `logs/` must pre-exist. The site teaches this at `submit-a-slurm-job.md:112`.
 - `MaxArraySize` is 512 (`scontrol show config`) against 992 filings in
-  `data/aws_links.csv` — that mismatch is the point of the full-scale bonus.
-- `slurm/hello.slurm` and `slurm/hello_array.slurm` are pasted verbatim into the job-arrays
-  page but their paths are never named there. If someone asks where the file is, that's why.
+  `data/aws_links.csv` — that mismatch is the point of Yen-Slurm Array Limits.
 
 ## This schedule has never been timed
 

@@ -8,4 +8,4 @@
 #SBATCH --cpus-per-task=1
 
 cd $HOME/yens-onboarding-2026
-python scripts/extract_form_3_one_file.py
+python scripts/extract_form_3_batch.py

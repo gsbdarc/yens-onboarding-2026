@@ -6,23 +6,8 @@
 #SBATCH --time=00:01:00
 #SBATCH --mem=1G
 #SBATCH --cpus-per-task=1
-#SBATCH --array=1-4                     # the new line, which says: run this script 4 times
+#SBATCH --array=0-3
 
-# slurm/hello.slurm with one directive added. That single line turns one
-# submission into four independent tasks, identical except for the task ID
-# each one is handed. See Slurm Job Arrays.
-#
-# %A is the array's job ID and %a the task's index, so every task writes its
-# own log rather than four tasks overwriting one file.
-#
-# Slurm resolves --output/--error when the job is submitted, relative to the
-# directory you ran sbatch from — so logs/ must already exist there. The cd
-# below only fixes paths used inside the script, not the log paths above.
-#
-# Run from the repo root:
-#     mkdir -p logs
-#     sbatch slurm/hello_array.slurm
-#     cat logs/hello_<arrayid>_*.out
 cd $HOME/yens-onboarding-2026
 
 echo "Hello, world! My task number is $SLURM_ARRAY_TASK_ID"
