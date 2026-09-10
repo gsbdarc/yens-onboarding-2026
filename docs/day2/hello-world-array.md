@@ -112,62 +112,62 @@ cat logs/hello_*_*.out
 
 That one `sbatch` produced four logs, each printing a different task number.
 
-<svg viewBox="0 0 618 270" role="img" aria-labelledby="array-title array-desc" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:616px;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+<svg viewBox="0 0 720 310" role="img" aria-labelledby="array-title array-desc" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:720px;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="array-title">One array script fans out into many tasks</title>
   <desc id="array-desc">A single submission script with the directive array equals 0 to N minus 1 fans out into N independent tasks, numbered 0, 1, 2 and so on up to N minus 1. What each task does is determined by your code together with its array task ID.</desc>
   <!-- fan-out connectors (drawn first, behind boxes) -->
-  <line x1="188" y1="129" x2="330" y2="37"  stroke="#cbd3e0" stroke-width="1.5"/>
-  <line x1="188" y1="129" x2="330" y2="89"  stroke="#cbd3e0" stroke-width="1.5"/>
-  <line x1="188" y1="129" x2="330" y2="141" stroke="#cbd3e0" stroke-width="1.5"/>
-  <line x1="188" y1="129" x2="330" y2="221" stroke="#cbd3e0" stroke-width="1.5"/>
-  <rect x="24" y="103" width="164" height="52" rx="10" fill="#eef1f8" stroke="#cdd4e6" stroke-width="1.5"/>
-  <text x="106" y="124" font-size="12.5" font-weight="700" fill="#2c3e50" text-anchor="middle">Slurm script</text>
-  <text x="106" y="142" font-size="10.5" fill="#6a7280" text-anchor="middle" font-family="'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, monospace">--array=0–(N−1)</text>
-  <rect x="330" y="15" width="264" height="44" rx="8" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
-  <text x="462" y="31" font-size="12" fill="#2c3e50" text-anchor="middle">task 0</text>
-  <text x="462" y="46" font-size="8" fill="#6a7280" text-anchor="middle">determined by your code <tspan font-weight="700">and</tspan> SLURM_ARRAY_TASK_ID</text>
-  <rect x="330" y="67" width="264" height="44" rx="8" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
-  <text x="462" y="83" font-size="12" fill="#2c3e50" text-anchor="middle">task 1</text>
-  <text x="462" y="98" font-size="8" fill="#6a7280" text-anchor="middle">determined by your code <tspan font-weight="700">and</tspan> SLURM_ARRAY_TASK_ID</text>
-  <rect x="330" y="119" width="264" height="44" rx="8" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
-  <text x="462" y="135" font-size="12" fill="#2c3e50" text-anchor="middle">task 2</text>
-  <text x="462" y="150" font-size="8" fill="#6a7280" text-anchor="middle">determined by your code <tspan font-weight="700">and</tspan> SLURM_ARRAY_TASK_ID</text>
-  <text x="462" y="188" font-size="16" fill="#6b7280" text-anchor="middle">⋮</text>
-  <rect x="330" y="199" width="264" height="44" rx="8" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
-  <text x="462" y="215" font-size="12" fill="#2c3e50" text-anchor="middle">task N−1</text>
-  <text x="462" y="230" font-size="8" fill="#6a7280" text-anchor="middle">determined by your code <tspan font-weight="700">and</tspan> SLURM_ARRAY_TASK_ID</text>
+  <line x1="224" y1="147" x2="356" y2="40"  stroke="#cbd3e0" stroke-width="1.5"/>
+  <line x1="224" y1="147" x2="356" y2="102" stroke="#cbd3e0" stroke-width="1.5"/>
+  <line x1="224" y1="147" x2="356" y2="164" stroke="#cbd3e0" stroke-width="1.5"/>
+  <line x1="224" y1="147" x2="356" y2="254" stroke="#cbd3e0" stroke-width="1.5"/>
+  <rect x="24" y="115" width="200" height="64" rx="10" fill="#eef1f8" stroke="#cdd4e6" stroke-width="1.5"/>
+  <text x="124" y="141" font-size="14" font-weight="700" fill="#2c3e50" text-anchor="middle">Slurm script</text>
+  <text x="124" y="164" font-size="12" fill="#6a7280" text-anchor="middle" font-family="'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, monospace">--array=0–(N−1)</text>
+  <rect x="356" y="14" width="340" height="52" rx="8" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
+  <text x="526" y="36" font-size="13.5" fill="#2c3e50" text-anchor="middle">task 0</text>
+  <text x="526" y="55" font-size="11" fill="#6a7280" text-anchor="middle">determined by your code <tspan font-weight="700">and</tspan> SLURM_ARRAY_TASK_ID</text>
+  <rect x="356" y="76" width="340" height="52" rx="8" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
+  <text x="526" y="98" font-size="13.5" fill="#2c3e50" text-anchor="middle">task 1</text>
+  <text x="526" y="117" font-size="11" fill="#6a7280" text-anchor="middle">determined by your code <tspan font-weight="700">and</tspan> SLURM_ARRAY_TASK_ID</text>
+  <rect x="356" y="138" width="340" height="52" rx="8" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
+  <text x="526" y="160" font-size="13.5" fill="#2c3e50" text-anchor="middle">task 2</text>
+  <text x="526" y="179" font-size="11" fill="#6a7280" text-anchor="middle">determined by your code <tspan font-weight="700">and</tspan> SLURM_ARRAY_TASK_ID</text>
+  <text x="526" y="214" font-size="18" fill="#6a7280" text-anchor="middle">⋮</text>
+  <rect x="356" y="228" width="340" height="52" rx="8" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
+  <text x="526" y="250" font-size="13.5" fill="#2c3e50" text-anchor="middle">task N−1</text>
+  <text x="526" y="269" font-size="11" fill="#6a7280" text-anchor="middle">determined by your code <tspan font-weight="700">and</tspan> SLURM_ARRAY_TASK_ID</text>
   <!-- caption -->
-  <text x="309" y="263" font-size="12.5" fill="#6a7280" text-anchor="middle">One submission becomes N independent tasks, each with its own task ID.</text>
+  <text x="360" y="302" font-size="13.5" fill="#6a7280" text-anchor="middle">One submission becomes N independent tasks, each with its own task ID.</text>
 </svg>
 
 The task number is what makes this general. Every task runs the identical script, and `SLURM_ARRAY_TASK_ID` is the only thing that differs between them — so wherever the work needs to vary, you derive it from that number: which file to read, which row of a list to process, which parameter value to try.
 
-<svg viewBox="0 0 720 322" role="img" aria-labelledby="handover-title handover-desc" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:720px;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+<svg viewBox="0 0 720 352" role="img" aria-labelledby="handover-title handover-desc" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:720px;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="handover-title">How a task's array index reaches your Python script</title>
   <desc id="handover-desc">Three stages. Slurm sets the variable SLURM_ARRAY_TASK_ID in every task's environment, here with the value 2. Your Slurm script reads it with bash and passes it to Python as a command-line argument. Your Python script reads that argument back out of sys.argv and converts it to an integer. Every task runs the same script, and only this number differs.</desc>
   <defs>
     <marker id="handover-ah" markerWidth="9" markerHeight="9" refX="4" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c2cad4"/></marker>
   </defs>
 
-  <rect x="16" y="16" width="688" height="68" rx="10" fill="#f3f4f7" stroke="#cdd4e6" stroke-width="1.5"/>
-  <text x="36" y="43" font-size="12.5" fill="#2c3e50"><tspan font-weight="700">Slurm</tspan><tspan font-size="11" fill="#6a7280"> sets one variable in every task's environment</tspan></text>
-  <text x="36" y="68" font-size="11" fill="#2c3e50" font-family="'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, monospace">SLURM_ARRAY_TASK_ID=<tspan font-weight="700" fill="#8C1515">2</tspan></text>
+  <rect x="16" y="16" width="688" height="76" rx="10" fill="#f3f4f7" stroke="#cdd4e6" stroke-width="1.5"/>
+  <text x="36" y="46" font-size="14" fill="#2c3e50"><tspan font-weight="700">Slurm</tspan><tspan font-size="12.5" fill="#6a7280"> sets one variable in every task's environment</tspan></text>
+  <text x="36" y="76" font-size="12.5" fill="#2c3e50" font-family="'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, monospace">SLURM_ARRAY_TASK_ID=<tspan font-weight="700" fill="#8C1515">2</tspan></text>
 
-  <line x1="360" y1="86" x2="360" y2="112" stroke="#c2cad4" stroke-width="2" marker-end="url(#handover-ah)"/>
-  <text x="374" y="103" font-size="11" fill="#6a7280">read by bash as <tspan font-family="'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, monospace">$SLURM_ARRAY_TASK_ID</tspan></text>
+  <line x1="360" y1="94" x2="360" y2="122" stroke="#c2cad4" stroke-width="2" marker-end="url(#handover-ah)"/>
+  <text x="376" y="112" font-size="12" fill="#6a7280">read by bash as <tspan font-family="'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, monospace">$SLURM_ARRAY_TASK_ID</tspan></text>
 
-  <rect x="16" y="114" width="688" height="68" rx="10" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
-  <text x="36" y="141" font-size="12.5" fill="#2c3e50"><tspan font-weight="700">your .slurm</tspan><tspan font-size="11" fill="#6a7280"> passes it to Python as a command-line argument</tspan></text>
-  <text x="36" y="166" font-size="11" fill="#2c3e50" font-family="'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, monospace">python scripts/extract_array.py "$SLURM_ARRAY_TASK_ID"</text>
+  <rect x="16" y="124" width="688" height="76" rx="10" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
+  <text x="36" y="154" font-size="14" fill="#2c3e50"><tspan font-weight="700">your .slurm</tspan><tspan font-size="12.5" fill="#6a7280"> passes it to Python as a command-line argument</tspan></text>
+  <text x="36" y="184" font-size="12.5" fill="#2c3e50" font-family="'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, monospace">python scripts/extract_array.py "$SLURM_ARRAY_TASK_ID"</text>
 
-  <line x1="360" y1="184" x2="360" y2="210" stroke="#c2cad4" stroke-width="2" marker-end="url(#handover-ah)"/>
-  <text x="374" y="201" font-size="11" fill="#6a7280">arrives as the argument <tspan font-family="'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, monospace" fill="#8C1515" font-weight="700">"2"</tspan></text>
+  <line x1="360" y1="202" x2="360" y2="230" stroke="#c2cad4" stroke-width="2" marker-end="url(#handover-ah)"/>
+  <text x="376" y="220" font-size="12" fill="#6a7280">arrives as the argument <tspan font-family="'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, monospace" fill="#8C1515" font-weight="700">"2"</tspan></text>
 
-  <rect x="16" y="212" width="688" height="68" rx="10" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
-  <text x="36" y="239" font-size="12.5" fill="#2c3e50"><tspan font-weight="700">your Python</tspan><tspan font-size="11" fill="#6a7280"> reads argument 1 back out of sys.argv</tspan></text>
-  <text x="36" y="264" font-size="11" fill="#2c3e50" font-family="'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, monospace">task_id = int(sys.argv[1])<tspan fill="#6a7280">          # </tspan><tspan font-weight="700" fill="#8C1515">2</tspan></text>
+  <rect x="16" y="232" width="688" height="76" rx="10" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
+  <text x="36" y="262" font-size="14" fill="#2c3e50"><tspan font-weight="700">your Python</tspan><tspan font-size="12.5" fill="#6a7280"> reads argument 1 back out of sys.argv</tspan></text>
+  <text x="36" y="292" font-size="12.5" fill="#2c3e50" font-family="'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, monospace">task_id = int(sys.argv[1])<tspan fill="#6a7280">   # </tspan><tspan font-weight="700" fill="#8C1515">2</tspan></text>
 
-  <text x="360" y="306" font-size="12.5" fill="#6a7280" text-anchor="middle">One task shown. Task 0 gets 0, task 1 gets 1 — same script, a different number each time.</text>
+  <text x="360" y="336" font-size="13.5" fill="#6a7280" text-anchor="middle">One task shown. Task 0 gets 0, task 1 gets 1 — same script, a different number each time.</text>
 </svg>
 
 {: .note }
