@@ -133,6 +133,8 @@ plus queue jitter, not a hundred.
 | Runs clean, `results/` empty | Script computes `result` but never writes it. The likeliest single bug — the three snippets above only assemble if the last one is present. |
 | First filing skipped, last task `IndexError` | 1-based thinking: `filings[task_id - 1]`. Tasks and the list both count from 0 here, so no shift. |
 | All tasks overwrite one file | Output path not derived from the filing or the task ID. |
+| Job sits in `PD` far longer than expected | `--reservation=class` omitted, so they are queueing against the whole cluster. |
+| "It didn't work" with no detail | They have not opened a per-task `.err`. Point at one failing task's file, not the whole glob. |
 
 ## Done looks like
 
@@ -170,3 +172,17 @@ print(f"Wrote {len(df)} rows to {OUTPUT_CSV}")
 
 A failed task simply left no file, so it never turns up in the glob and nothing crashes.
 That is also why the count matters: fewer than 100 rows means some tasks did not finish.
+
+The page asks them to have Claude write this and then **document it as a step** in the
+README — the point being that a merge is part of the pipeline, not a one-off.
+
+### Going further — the dependency job
+
+```bash
+sbatch --dependency=afterok:ARRAYJOBID slurm/merge_results.slurm
+```
+
+`afterok` holds the job in `PD` until the array exits cleanly, then releases it; if any task
+fails, it never runs. Two things students get wrong: passing a *task* ID (`12345678_3`)
+instead of the array's job ID, and expecting `afterok` to fire when some tasks failed — it
+will not, which is the whole point. `afterany` is the flag for "run regardless".

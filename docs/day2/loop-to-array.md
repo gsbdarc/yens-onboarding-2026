@@ -46,12 +46,11 @@ permalink: /day2/loop-to-array/
 
 {: .important }
 > **Task:** Turn Part 1's loop over filings into a job array that processes **100 filings**,
-> get it running, then find out what it actually used. You write both files — there is
-> nothing on this page to copy.
+> get it running, then find out what it actually used.
 
 ## What you already have
 
-Three things, and putting them together is the exercise:
+Nothing here is new. You have all three pieces already:
 
 - **`scripts/extract_form_3_batch.py`** from Part 1 — Python that walks a list of filings,
   one API call at a time, waiting for each before starting the next.
@@ -61,32 +60,33 @@ Three things, and putting them together is the exercise:
   Python.
 - **`data/aws_links.csv`** — already in your clone, with a `urls` column listing the filings.
 
-You will end up writing two files: something in Python, and a `.slurm` to launch it. Working
-out what each of them is responsible for is the part worth doing slowly.
+You will end up writing two files: something in Python, and a `.slurm` to launch it.
 
 {: .note }
-> **Claude is fair game. Understanding is not optional.** Use it to draft, to debug, to
-> explain an error you have not seen before. The one rule: you should be able to say what
-> every line you keep is doing, and why. An array that works but that you cannot explain is
-> worth less today than one that is broken and you can.
+> **Claude is fair game.** Use it to draft, to debug, to explain an error you have not seen
+> before. The one rule: you should be able to say what every line you keep is doing, and why.
+> An array that works but that you cannot explain is worth less today than one that is broken
+> and you can.
 
 If you get stuck, there are hints at the bottom of this page — but try the reasoning first,
 and ask the person next to you before you scroll.
 
-## Before you submit
+## Estimate, document, submit
 
-Write down what you think **one task** needs — `--mem`, `--cpus-per-task`, `--time`.
-Anywhere is fine; a comment at the top of your `.slurm` is fine. You will compare it against
-reality in a few minutes.
+The same flow as Part 1, so you already know how each step goes:
+
+- **Estimate** what **one task** needs. Profile it the way you did this morning — but on one
+  filing, not ten, because a `#SBATCH` directive sizes a single task, not the whole array.
+- **Document** the numbers in your `README.md`, before you submit rather than after.
+- **Submit**, with those numbers in the `.slurm`, and think about what the array directive
+  has to say for 100 filings.
 
 ## Run it
 
-`watch` re-runs a command every couple of seconds, so you can see the tasks start in
-parallel and drop off as they finish:
+Submit it, then watch it go. `watch` re-runs a command every couple of seconds, so you can
+see the tasks start in parallel and drop off as they finish:
 
 ```bash
-mkdir -p logs
-sbatch --reservation=class slurm/extract_array.slurm
 watch squeue --me
 ```
 
@@ -97,77 +97,87 @@ task number after it — `12345678_0`, `12345678_1`, and so on — each moving t
 
 ## What did it actually use?
 
-First, confirm the run did what you think it did:
-
-```bash
-ls results/*.json | wc -l        # should be 100
-```
-
-Then ask Slurm what the tasks really used. `MaxRSS` is peak memory and `Elapsed` is
-wall-clock, per task:
+`MaxRSS` is peak memory and `Elapsed` is wall-clock, per task:
 
 ```bash
 sacct -j JOBID --format=JobID,State,Elapsed,MaxRSS
 ```
 
-Compare that against the numbers you wrote down before submitting.
+Compare that against what you estimated and wrote down. Over-asking for memory is the normal
+result, and worth noticing.
 
 ---
 
 ## Stuck?
 
 Put up a **red sticky** and ask your table — someone near you has probably just hit the same
-thing. If you want a nudge rather than an answer, these are in the order they usually help:
+thing. Nudges, roughly in the order they help:
 
 <details markdown="1">
-<summary>💡 Hint 1 — what is different about task 7 and task 8?</summary>
+<summary>💡 Nothing changes but one number</summary>
 
-Every task runs the *same* script. Nothing about the file changes between them; the only
-thing Slurm hands each task that is unique is its task ID. So if the 100 tasks are to do 100
+Not the filing list, not the Python file. Every task runs the *identical* script, and the
+only thing Slurm hands each one that is unique is its task ID. So if 100 tasks are to do 100
 different things, the difference has to be derived from that number.
 
-Ask yourself what the smallest useful unit of work is here. Part 1's script did 10 filings
-in one process. What would one task doing *its share* look like — and what happens to the
-loop if a task's share is a single filing?
+What is one task's share of 100 filings?
 
 </details>
 
 <details markdown="1">
-<summary>💡 Hint 2 — where the filings come from</summary>
+<summary>💡 Test your Python interactively first</summary>
 
-`data/aws_links.csv` has one column, `urls`. Two things about it will bite you if you do not
-look at the file first: not every row is a filing — the first one is the folder they live
-in — and there are far more than 100 rows in it, so you need to take a slice.
+Run it by hand in a terminal, on one filing, before it goes anywhere near `sbatch`. You can
+pass a task number in as an argument yourself to check it picks the right filing.
 
-Read it, look at it, and only then decide how a task picks its own row out.
-
-</details>
-
-<details markdown="1">
-<summary>💡 Hint 3 — two tasks, one output file</summary>
-
-All 100 tasks run the same code at roughly the same moment. If that code writes its answer
-to a fixed path, you will finish with one file instead of 100, containing whichever task
-happened to write last.
-
-Whatever names the output has to be different in every task. You already have exactly one
-thing that is guaranteed unique.
+Debugging one script in front of you is quick. Debugging 100 queued copies through log files
+is not.
 
 </details>
 
 <details markdown="1">
-<summary>💡 Hint 4 — the two that bite everyone</summary>
+<summary>💡 Profile it, then size the job</summary>
 
-Neither of these is about your Python, and both produce confusing failures:
-
-- **`#SBATCH --array=` has to sit with the other directives**, above the first real command.
-  Below it, Slurm ignores it: you get one ordinary job, and `SLURM_ARRAY_TASK_ID` is never
-  set. For 100 filings numbered from 0, that directive is `--array=0-99`.
-- **A fresh shell on a compute node has no virtual environment.** Activating it in your
-  terminal did nothing for the job. The `.slurm` has to `cd` to the repo and activate it
-  itself — the same two lines you wrote in Part 1.
+Once it runs for one filing, time it and watch what it uses — the same way you profiled the
+batch script this morning. Those are the numbers that go into `--mem`, `--cpus-per-task` and
+`--time`, and they describe **one task**.
 
 </details>
+
+<details markdown="1">
+<summary>💡 The array index</summary>
+
+Did you start at 0 or at 1? Whichever you pick has to agree with how you index the filing
+list, and Slurm will not warn you if it doesn't.
+
+Get it wrong and nothing complains up front: you quietly skip one end of the list, and the
+task at the other end runs off it.
+
+</details>
+
+<details markdown="1">
+<summary>💡 How do you know it worked?</summary>
+
+A job that finishes is not the same as a job that did the work. Two things to check, and
+neither is `squeue`:
+
+- the per-task `.err` files, for the tasks that failed
+- the number of output files you ended up with, against the number you expected
+
+</details>
+
+### It ran, but something is off
+
+Run down this list before asking — it is usually one of these:
+
+- Did you create the log directory before submitting? Slurm will not make it for you, and a
+  job whose `--output` path does not exist fails leaving nothing behind to explain why.
+- Did you use `--reservation=class`? Without it you are queueing with everybody else.
+- Did the `.slurm` `cd` to the repo and activate the virtual environment? A fresh shell on a
+  compute node inherits neither.
+- Is `#SBATCH --array=` up with the other directives, above the first real command? Below
+  them it is ignored, you get one ordinary job, and `SLURM_ARRAY_TASK_ID` is never set.
+- Does your script actually **write** its result, or only compute it?
 
 ---
 
@@ -177,9 +187,22 @@ Neither of these is about your Python, and both produce confusing failures:
 The array leaves you a directory of JSON files, one per filing. For analysis you want a
 single table instead — one row per filing, one column per field.
 
-Write a short script that reads every JSON in `results/` and writes them out as one CSV.
+Have Claude write you a short script that reads every JSON and writes them out as one CSV,
+then **document it as a step** in your README. It is part of your pipeline now, not a
+one-off you ran once and forgot.
 
 *Think before you type: what happens to a task that failed and never wrote a file? And what
 does the row count tell you afterwards?*
+
+**Going further.** Make the merge its own Slurm job, and have Slurm run it only if the array
+finished cleanly:
+
+```bash
+sbatch --dependency=afterok:ARRAYJOBID slurm/merge_results.slurm
+```
+
+It sits in the queue as `PD` until the array succeeds, then runs on its own. If any task
+fails, it never starts — which is what you want, rather than merging a half-finished
+directory.
 
 </details>
