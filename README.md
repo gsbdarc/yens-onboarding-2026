@@ -46,8 +46,19 @@ slurm/          example, GPU, and deliberately-broken Slurm scripts
 ```bash
 cd docs
 bundle install
-bundle exec jekyll serve
+bundle exec jekyll serve --livereload
 ```
+
+Then open <http://127.0.0.1:4000/yens-onboarding-2026/> — the `baseurl` in
+`_config.yml` is why the path prefix is there.
+
+`--livereload` does two things: Jekyll rebuilds the affected page when you save a
+file, and the browser tab refreshes itself. Without the flag you still get the
+rebuild, but you have to reload by hand. It serves LiveReload on port 35729
+alongside the site on 4000.
+
+One thing it does *not* pick up: `_config.yml` is read once at startup, so
+restart the server after editing it.
 
 ## Prior Version
 

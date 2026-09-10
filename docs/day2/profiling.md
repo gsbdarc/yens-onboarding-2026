@@ -1,116 +1,71 @@
 ---
 layout: default
-title: "Profiling Resource Usage"
-parent: "Part 1 — Measure & Submit"
-grand_parent: "Day 2 — The Cluster"
-nav_order: 2
+title: "1. Profile"
+parent: "Part 1 — Profile & Submit a Job"
+grand_parent: "Day 2 — The Yen-Slurm Cluster"
+nav_order: 1
 permalink: /day2/profiling/
 ---
 
-# Profiling Resource Usage
+# Profile
 
-<svg viewBox="0 0 720 164" role="img" aria-labelledby="pmap-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:720px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
-  <title id="pmap-title">Day 2 map — you are on step 1, profile your script.</title>
+{: .note }
+> 🔴 **Red sticky** = I need help. Put it up the moment you are stuck — an instructor will
+> come to you.
+>
+> 🟢 **Green sticky** = I have passed the checkpoint. Feel free to go back to the bonus
+> exercises if you still have time, or help your table.
+
+<svg viewBox="0 0 720 164" role="img" aria-labelledby="daymap-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:720px;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+  <title id="daymap-title">Day 2 arc — you are on step 1, profile.</title>
   <defs>
-    <marker id="pmap-gray" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c2cad4"/></marker>
+    <marker id="daymap-ah" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c2cad4"/></marker>
   </defs>
   <text x="70" y="46" text-anchor="middle" font-size="17" font-weight="700" fill="#8C1515">profile</text>
-  <text x="210" y="28" text-anchor="middle" font-size="17" fill="#8a94a6">submit to</text><text x="210" y="48" text-anchor="middle" font-size="17" fill="#8a94a6">Slurm</text>
-  <text x="350" y="46" text-anchor="middle" font-size="17" fill="#8a94a6">read logs</text>
-  <text x="490" y="46" text-anchor="middle" font-size="17" fill="#8a94a6">document</text>
-  <text x="640" y="46" text-anchor="middle" font-size="17" font-weight="600" fill="#8a94a6">scale (arrays)</text>
-  <line x1="92" y1="80" x2="468" y2="80" stroke="#c2cad4" stroke-width="3"/>
-  <line x1="512" y1="80" x2="622" y2="80" stroke="#c2cad4" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#pmap-gray)"/>
-  <path d="M350,101 L350,124 Q350,130 344,130 L216,130 Q210,130 210,124 L210,103" fill="none" stroke="#c2cad4" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#pmap-gray)"/>
-  <text x="280" y="150" text-anchor="middle" font-size="15" fill="#8a94a6">debug</text>
+  <text x="210" y="46" text-anchor="middle" font-size="17" font-weight="400" fill="#6a7280">document</text>
+  <text x="350" y="46" text-anchor="middle" font-size="17" font-weight="400" fill="#6a7280">submit</text>
+  <text x="490" y="46" text-anchor="middle" font-size="17" font-weight="400" fill="#6a7280">read logs</text>
+  <text x="630" y="46" text-anchor="middle" font-size="17" font-weight="400" fill="#6a7280">scale (Part 2)</text>
+  <line x1="92" y1="80" x2="608" y2="80" stroke="#c2cad4" stroke-width="3"/>
+  <path d="M490,101 L490,124 Q490,130 484,130 L356,130 Q350,130 350,124 L350,103" fill="none" stroke="#c2cad4" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#daymap-ah)"/>
+  <text x="420" y="150" text-anchor="middle" font-size="15" font-weight="400" fill="#6a7280">debug</text>
   <circle cx="70" cy="80" r="20" fill="#fff" stroke="#8C1515" stroke-width="3"/><text x="70" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8C1515">1</text>
-  <circle cx="210" cy="80" r="20" fill="#f3f4f7" stroke="#9aa4b0" stroke-width="3"/><text x="210" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8a94a6">2</text>
-  <circle cx="350" cy="80" r="20" fill="#f3f4f7" stroke="#9aa4b0" stroke-width="3"/><text x="350" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8a94a6">3</text>
-  <circle cx="490" cy="80" r="20" fill="#f3f4f7" stroke="#9aa4b0" stroke-width="3"/><text x="490" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8a94a6">4</text>
-  <circle cx="640" cy="80" r="20" fill="#f3f4f7" stroke="#9aa4b0" stroke-width="3"/><text x="640" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#8a94a6">5</text>
+  <circle cx="210" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="210" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">2</text>
+  <circle cx="350" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="350" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">3</text>
+  <circle cx="490" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="490" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">4</text>
+  <circle cx="630" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="630" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">5</text>
 </svg>
-
----
 
 ## Computing Resources — A Quick Recap
 
-Before we run anything, let's make sure we have the vocabulary for the resources a program uses:
+Before we run anything, let's make sure we have the vocabulary for the resources a program
+uses:
 
 | Resource | What it is |
-|----------|-----------|
+|---|---|
 | **CPU core** | An individual worker that executes your code |
 | **RAM** | Fast memory the CPU reads from while working |
 | **Storage (file system)** | Where your files live — VAST on the Yens |
 | **Time** | How long your script takes to finish |
 
----
+## The Mystery Script
 
-## Exercise: Run Your Script
+You are going to run a script you have never seen before and work out what resources it uses — without reading the code. That is **profiling**: measuring a script's time, CPU and RAM while it runs.
 
-{: .important }
-> **Mandatory.** **Task:** Run the single-filing extraction script on the Yens interactively and think about its resource footprint.
-
-If you're not already connected, SSH in:
-
-```bash
-ssh SUNetID@yen.stanford.edu
-cd ~/yens-onboarding-2026
-source .venv/bin/activate
-```
-
-Run the script:
-
-```bash
-python scripts/extract_form_3_one_file.py
-```
-
-After the script is done running, let's discuss as a class:
-
-<details markdown="1">
-<summary>❓ Question 1</summary>
-
-**Why** do we want to estimate the resources a script uses?
-
-</details>
-
-<details markdown="1">
-<summary>❓ Question 2</summary>
-
-Do you know what resources this script is using right now?
-
-</details>
-
-<details markdown="1">
-<summary>❓ Question 3</summary>
-
-How would you estimate them?
-
-</details>
-
-This page will teach you **how to estimate the resources your script is actually using**. This matters whether you wrote the script yourself or someone handed it to you.
-
----
-
-## Exercise: Profile a Mystery Script
-
-You are going to run a script you have never seen before and figure out what resources it uses — without reading the code. This is called **profiling**: measuring a script's time, CPU, and RAM usage as it runs. The technique: one terminal runs the script, a second terminal on the **same node** watches it live.
-
-<svg viewBox="0 0 700 132" role="img" aria-labelledby="twoterm-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:700px;height:auto;margin:1rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
-  <title id="twoterm-title">Profiling uses two terminals on the same Yen node: Terminal 1 runs the script, Terminal 2 watches its CPU and RAM live.</title>
+<svg viewBox="0 0 700 132" role="img" aria-labelledby="twoterm-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:100%;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+  <title id="twoterm-title">Profiling uses two terminals on the same Yen node: Terminal 1 runs the script, Terminal 2 watches its CPU, RAM and processes live.</title>
   <rect x="16" y="8" width="668" height="116" rx="16" fill="#f7f9fc" stroke="#bcd4f2" stroke-width="1.5" stroke-dasharray="5 4"/>
-  <text x="40" y="34" font-size="13.5" font-weight="700" letter-spacing="0.5" fill="#374151">🖥️ ONE YEN NODE · BOTH TERMINALS ON IT</text>
+  <text x="40" y="34" font-size="12.5" font-weight="700" letter-spacing="0.4" fill="#6b7280">🖥️  ONE INTERACTIVE YEN NODE · BOTH TERMINALS ON IT</text>
   <rect x="40" y="46" width="300" height="70" rx="12" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
-  <text x="60" y="76" font-size="17" font-weight="700" fill="#111827">Terminal 1 · the worker</text>
-  <text x="60" y="100" font-size="15" fill="#374151">runs the script</text>
+  <text x="60" y="76" font-size="17" font-weight="700" fill="#2c3e50">Terminal 1 · the worker</text>
+  <text x="60" y="100" font-size="15" fill="#6a7280">runs the script</text>
   <rect x="360" y="46" width="300" height="70" rx="12" fill="#fff8ef" stroke="#e6cfa8" stroke-width="1.5"/>
-  <text x="380" y="76" font-size="17" font-weight="700" fill="#111827">Terminal 2 · the observer</text>
-  <text x="380" y="100" font-size="15" fill="#374151">watches CPU + RAM live</text>
+  <text x="380" y="76" font-size="17" font-weight="700" fill="#2c3e50">Terminal 2 · the observer</text>
+  <text x="380" y="100" font-size="15" fill="#6a7280">watches CPU, RAM and processes</text>
 </svg>
 
-*Two terminals on the **same** Yen node: one runs the script, the other watches it live.*
-
 {: .important }
-> **Mandatory.** **Task:** Run `mystery_script.py` and measure its resource usage in real time using two terminals — both on the **same Yen node**.
+> **Task:** Run `mystery_script.py` and measure its resource usage in real time using two terminals — both on the **same Yen node**.
 
 **Step 1 — Note which Yen you are on.**
 
@@ -131,6 +86,14 @@ ssh SUNetID@yen2.stanford.edu   # replace yen2 with whatever hostname showed abo
 ```
 
 {: .note }
+> Everything on this page runs from your clone, with the environment active:
+>
+> ```bash
+> cd ~/yens-onboarding-2026
+> source .venv/bin/activate
+> ```
+
+{: .note }
 > 💡 **Skip the second login.** A fresh `ssh` means another password + Duo prompt. To avoid re-authenticating, open a terminal through JupyterHub instead: browse to that node's hub (e.g. `https://yen2.stanford.edu/jupyter/`), then **New → Terminal**. You're already authenticated there, and it drops you onto that exact node — ideal for the second monitoring terminal.
 
 **Step 3 — Start `watch userload` in Terminal 2 *first*, before running anything.**
@@ -140,11 +103,16 @@ Terminal 2:
 watch userload
 ```
 
-- `userload` shows how many **cores** you're using and what **% of the node's memory** you're holding — your total footprint across all your processes on this node. It looks like `SUNetID  |  0.34 Cores  |  0.00% Mem  on yen2`
-- `watch` re-runs it every 2 seconds, so the numbers refresh live
-- Jupyter processes are tracked separately and are not included
+- `userload` shows how many **cores** you're using and what **% of the node's memory** you're holding — your total footprint across all your processes on this node:
 
-**What are we seeing?** Right now — before you run anything — this is your **baseline**: **Cores** near 0 and **% Mem** near 0. That's what an idle account looks like. Keep this terminal visible; you'll watch these numbers move once the script starts. (See the [current per-user limits](https://rcpedia.stanford.edu/_policies/user_limits/) for how much CPU and RAM any one user can use on an interactive Yen.)
+  ```text
+  SUNetID  |  0.34 Cores  |  0.00% Mem  on yen2
+  ```
+
+- `watch` re-runs it every 2 seconds, so the numbers refresh live
+- Jupyter processes are tracked separately from processes started in a terminal shell — not a Jupyter terminal — and are not included
+
+**What are we seeing?** Right now — before you run anything — this is your **baseline**: **Cores** near 0 and **% Mem** near 0. That's what an idle account looks like. Keep this terminal visible; you'll watch these numbers move once the script starts. See the [current per-user limits](https://rcpedia.stanford.edu/_policies/user_limits/) for how much CPU and RAM any one user can use on an interactive Yen.
 
 **Step 4 — Now run the script in Terminal 1 and watch Terminal 2 change.**
 
@@ -168,12 +136,6 @@ sys     0m2.212s
 - **user** — CPU time your code consumed across all cores; if `user` > `real`, the script used multiple cores in parallel
 - **sys** — CPU time spent on OS-level work (file I/O, memory allocation)
 
-{: .note }
-> **Definitions**
-> - **Profiling** — measuring a script's resource usage (time, CPU, RAM) as it runs
-> - **Serial** — the script uses one CPU core at a time; `user` time ≈ `real` time
-> - **Parallel** — the script uses multiple cores simultaneously; `user` time > `real` time
-
 **Step 5 — Run the script again, this time watching it in `htop`.**
 
 First, in **Terminal 2**, stop `watch userload` by pressing **`Ctrl+C`**. Then start `htop`, filtered to just your own processes:
@@ -182,7 +144,34 @@ First, in **Terminal 2**, stop `watch userload` by pressing **`Ctrl+C`**. Then s
 htop -u SUNetID
 ```
 
-The `-u` flag limits `htop` to your processes, so the hundreds of other users' processes on the node don't drown yours out.
+The `-u` flag limits `htop` to your processes, so the hundreds of other users' processes on
+the node don't drown yours out.
+
+<details markdown="1">
+<summary>🖥️ Options to hide the header and make the display more compact</summary>
+
+Some Yens have 256 cores, and if `htop` is drawing one bar per core the header fills the
+window and pushes the process list off the bottom.
+
+- **`H`** — hide threads, so each process is one row
+- **`t`** — tree mode, which nests the workers a process spawned underneath it. Useful
+  here, because that nesting is exactly what you are trying to count
+
+**To hide the header,** swap the per-core meters for a single average bar:
+
+1. **`F2`** — opens Setup, with **Meters** already selected on the left
+2. **`→`** to move into the **Left column** list
+3. **`↓`** to the CPU entry — it reads something like `CPUs (1/1) [Bar]`
+4. **`Delete`** to remove it
+5. **`→`** again to reach **Available meters**, then **`↓`** to **CPU average**
+6. **`Enter`** to add it back as one bar
+7. **`F10`** to leave Setup
+
+You only do this once — `htop` writes it to `~/.config/htop/htoprc` and remembers it next
+time. If your header already shows a single `Avg[...]` bar, it is set up correctly and you
+can skip this.
+
+</details>
 
 **Each row in `htop` is one process.** The columns that matter:
 
@@ -199,18 +188,11 @@ time python scripts/mystery_script.py
 
 As the script runs, watch new `python` rows appear — that's it spawning work. Count them to answer "how many processes did it run?"
 
-**Compare with your neighbor:**
+**Think these through before you reveal the answer:**
 - How long did it take, and how much RAM did it peak at?
 - How many CPU cores did it use?
 - How many processes did it run?
 - Is it therefore **serial** (one core) or **parallel** (multiple)?
-
-{: .note }
-> **Cores vs. processes:** we use these loosely here, almost interchangeably — but they're actually separate things (a single process can spread across several cores, and one core can take turns running many processes). Likewise, **multi-core**, **multiprocessing**, and **parallel** all mean roughly the same thing for now: your code doing work on more than one core at once. We'll dig into parallelism properly later today, in [Job Arrays]({{ '/day2/job-arrays/' | relative_url }}) — for now, just picture physical cores plus a program using multiple threads or processes as a **parallel, multi-core program**.
-
-{: .note }
-> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
-
 
 <details markdown="1">
 <summary>✅ Check your answer</summary>
@@ -219,12 +201,18 @@ You saw about **4 `python` processes** in `htop` and roughly **4 Cores** in `use
 
 </details>
 
----
+## The Batch Script
 
-## Exercise: Profile the Batch Script
+{: .note }
+> Everything on this page runs from your clone, with the environment active:
+>
+> ```bash
+> cd ~/yens-onboarding-2026
+> source .venv/bin/activate
+> ```
 
 {: .important }
-> **Mandatory.** **Task:** Profile the real batch script on 10 filings using the same two-terminal technique.
+> **Task:** Profile the real batch script on 10 filings using the same two-terminal technique.
 
 Now apply the same technique to a **real workload**. `scripts/extract_form_3_batch.py` — committed in the repo, so everyone has it — runs the same Form 3 extraction you did on Day 1 with `extract_form_3_one_file.py`, but loops over many filings instead of one. Process **10 filings** and profile it. (If you finished the Day 1 capstone and have your own batch script, profile that one instead — the numbers are what matter, not whose script produced them.)
 
@@ -264,12 +252,21 @@ time python scripts/extract_form_3_batch.py
 Watch Terminal 2 as the 10 filings process one after another.
 
 {: .note }
+> **No need to clear `results/` first.** The script overwrites each file as it goes — there
+> is no check for work already done, so the second run repeats all ten API calls whether or
+> not the output is already sitting there.
+>
+> Worth noticing, because it is a real cost: a rerun after a partial failure pays for
+> everything again. We will fix this later, in
+> [Part 2]({{ '/day2/rerun-safe-tasks/' | relative_url }}).
+
+{: .note }
 > **Reminder — `real` / `user` / `sys`:**
 > - **`real`** — wall-clock time: how long you actually waited
 > - **`user`** — CPU time your code used across all cores (if `user` > `real`, it ran on multiple cores in parallel)
 > - **`sys`** — CPU time spent on OS-level work (file I/O, memory allocation)
 
-Let's open these and discuss as a class before revealing the answer:
+Think about each of these before revealing the answer:
 
 <details markdown="1">
 <summary>❓ Question 1</summary>
@@ -302,7 +299,8 @@ Is this script **serial** or **parallel**?
 <details markdown="1">
 <summary>✅ Check your answer</summary>
 
-- **Cores and % Mem barely moved.** The job spends almost all its time **waiting on the Anthropic API** to answer, not computing — so it barely touches the CPU. That makes it an **I/O-bound** job (waiting on the network), unlike the mystery script, which was **CPU-bound** (doing math). It also handles one filing at a time, so memory stays low no matter how many you run.
+- **Cores and % Mem barely moved.** The job spends almost all its time **waiting on the Anthropic API** to answer, not computing — so it barely touches the CPU. That makes it an **I/O-bound** job (waiting on the network), unlike the mystery script, which was **CPU-bound** (doing math).
+- **`% Mem` reading 0 is two things at once.** The script really does hold little memory, because it handles one filing at a time rather than loading all ten. But even a few hundred MB would still show `0%`, because that column measures your share of the node's whole ~1 TB. On a node that big, almost any single job rounds to zero — so read `RES` in `htop` when you want the real number.
 - **`real` is large, `user` is small.** `real` (wall-clock) is big because you waited on the API; `user` (actual CPU time) is tiny because the CPU had little to do. That gap — `real` ≫ `user` — is the fingerprint of a job that mostly waits.
 
 A typical run: `real 0m22.5s`, `user 0m1.9s`, `sys 0m0.5s` — about 2 seconds of real work, ~20 seconds spent waiting. In `htop` you'll see just **one `python` process**, and **under 1 Core** in `userload`.
@@ -314,40 +312,8 @@ Two more things worth knowing:
 
 </details>
 
----
-
-## Exercise: Document Your Script's Resource Needs
-
-{: .important }
-> **Mandatory.** **Task:** Write down the resources you measured for the 10-filing run in your README.
-
-Now that you've profiled **10 filings**, write down what you measured. Open the `README.md` in your repo and add a **Resource Profile** section:
-
-```markdown
-## Resource Profile
-
-### extract_form_3_batch.py — 10 filings
-
-- Yen node used:
-- Wall-clock time (real):
-- CPU cores used:
-- RAM used (RES from htop, or % Mem from userload):
-- Serial or parallel:
-```
-
-{: .tip }
-> If your RAM here is tiny — just a few MB (`RES`), showing as 0% Mem in `userload` — you can't ask for 0, so a good tip is to write down a small round number like `1G`.
-
-Fill in the actual numbers from your `time`, `userload`, and `htop` output.
-
-{: .note }
-> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
-
----
-
-## Bonus
-{: .note }
-> **Done with the mandatory exercises?** First, check whether anyone at your table is stuck — explaining it is how it sticks. Then pick anything below.
+<details markdown="1">
+<summary>⭐ Bonus — profile two more scripts</summary>
 
 **Bonus — Vectorized vs. Non-Vectorized**
 
@@ -366,41 +332,122 @@ watch userload
 
 Both versions produce the identical result; the script prints how much faster the vectorized one was (often 10× or more). Notice the slow Python loop pins a core the whole time, while the NumPy version finishes almost before you can look at Terminal 2.
 
-
 **Bonus — Change the number of cores**
 
 Open `scripts/mystery_script.py` and change `num_cores = 4` to a different number — try **1**, or **8**. Then **profile it again** with the same two-terminal setup: run `time python scripts/mystery_script.py` in Terminal 1, and watch it in Terminal 2 with `watch userload` (or `htop -u SUNetID`).
 
-Document what changes and discuss with your neighbor:
+Document what changes:
 
 - How many `python` processes appear in `htop` now?
 - How many **Cores** in `userload`?
 - Did the `real` (wall-clock) time go up or down?
 - Does the resource usage match the number you set?
 
-
-**Bonus — Run it twice**
-
-Run the 10 filings, then delete the results and run them again:
-
-```bash
-time python scripts/extract_form_3_batch.py
-rm -rf results/*
-time python scripts/extract_form_3_batch.py
-```
-
-Compare the two `real` times — **was the second run different? If so, how, and why?**
+</details>
 
 <details markdown="1">
-<summary>✅ Check your answer</summary>
+<summary>⭐ Bonus — size up your own machine</summary>
 
-Probably not by much — and **which run is faster will vary**. Nothing about the work changed: the script sends the same 10 filings, one at a time, and waits for each answer. Almost all of that `real` time is the API thinking, which is **latency you don't control** and which drifts run to run with load on the other end.
+Put your own machine's numbers against a Yen node's, and price the same work in the
+cloud. The written comparison is in
+[Compute Environments]({{ '/reference/compute-environments/' | relative_url }}).
 
-That is the useful lesson, and it bites in the capstone. **A single timing is weak evidence.** If you size a job off one measurement you are partly sizing off noise, so run it twice before you trust a number — and when you request `--time` in a Slurm script, leave headroom above your best measurement rather than pinning it to the fastest run you saw.
+**Bonus — Know your own machine**
 
-{: .note }
-> **What about prompt caching?** It's real, and it's worth knowing about — an API can cache a chunk of a prompt it has already processed and skip re-reading it. But it doesn't help here, for two reasons. On Anthropic it is **opt-in**: you mark the reusable chunk with `cache_control`, and this script doesn't. And even if it did, there's nothing to reuse — the bulk of every request is a **different filing**, and the one part that does repeat (the system prompt) is far too short to be cacheable. Caching pays off when many requests share a **large** prefix, which is not the shape of this job. See [Anthropic's prompt caching docs](https://platform.claude.com/docs/en/build-with-claude/prompt-caching).
+**Work with Claude** to figure out how to check your own laptop's CPU core count and RAM — tell it what operating system you're on and have it walk you through finding each one. Then enter your specs below to see just how much bigger one Yen node is (**yen1 has 256 cores and 1 TB of RAM**).
+
+{: .warning }
+> Start Claude **on your laptop**, not on the Yens — otherwise it'll report the Yen node's specs (256 cores, 1 TB), not your own machine's.
+
+<details markdown="1">
+<summary>💡 Hint — what to ask Claude</summary>
+
+You don't need a fancy prompt. For example:
+
+```
+> Would you help me find the RAM and number of cores on my laptop?
+```
 
 </details>
 
+<style>
+.yen-widget { border: 1px solid #ddd; border-radius: 6px; padding: 1rem 1.25rem; margin: 1rem 0; }
+.yen-widget label { display: block; margin: 0.35rem 0; }
+.yen-widget input { width: 6rem; margin-left: 0.4rem; }
+.yen-widget button { margin-top: 0.6rem; padding: 0.35rem 0.9rem; cursor: pointer; border-radius: 4px; border: 1px solid #ccc; background: #f0f0f0; }
+#yw-out, #cw-out { margin-top: 0.75rem; line-height: 1.5; }
+</style>
 
+<div class="yen-widget">
+  <label>Your laptop's CPU cores: <input id="yw-cores" type="number" min="1" step="1" value="8"></label>
+  <label>Your laptop's RAM (GB): <input id="yw-ram" type="number" min="1" step="1" value="16"></label>
+  <button id="yw-go">Compare</button>
+  <p id="yw-out"></p>
+</div>
+
+<script>
+(function () {
+  var YEN_CORES = 256, YEN_RAM = 1024; // one Yen node (yen1): 256 logical cores, ~1 TB RAM
+  function compare() {
+    var c = parseFloat(document.getElementById('yw-cores').value);
+    var r = parseFloat(document.getElementById('yw-ram').value);
+    var out = document.getElementById('yw-out');
+    if (!(c > 0) || !(r > 0)) { out.textContent = 'Enter your laptop’s cores and RAM above.'; return; }
+    var coreX = YEN_CORES / c, ramX = YEN_RAM / r;
+    var fit = Math.floor(Math.min(coreX, ramX));
+    out.innerHTML =
+      'A Yen node has <strong>' + coreX.toFixed(0) + '×</strong> your cores (' + YEN_CORES + ' vs ' + c + ')'
+      + ' and <strong>' + ramX.toFixed(0) + '×</strong> your RAM (' + YEN_RAM + ' GB vs ' + r + ' GB).<br>'
+      + 'About <strong>' + fit + '</strong> of your laptop' + (fit === 1 ? '' : 's') + ' would fit inside one Yen node.';
+  }
+  document.getElementById('yw-go').addEventListener('click', compare);
+  compare();
+})();
+</script>
+
+**Bonus — Price a cloud instance**
+
+**Work with Claude** to find on-demand pricing for a cloud VM comparable to a Yen node — 256 cores and 1 TB of RAM, for example on AWS. Then use the calculator below — enter the VM's specs and the price per hour you found — to estimate what your Day 1 extraction job would cost to run there for an hour. Grant budgets aren't infinite; this is a real judgment call you'll make in your own research.
+
+<details markdown="1">
+<summary>💡 Hint — what to ask Claude</summary>
+
+You don't need a fancy prompt. For example:
+
+```
+> Do you have on-demand VM pricing for a cloud VM (say AWS) with 256 cores and 1 TB of RAM?
+```
+
+</details>
+
+<div class="yen-widget">
+  <label>VM CPU cores: <input id="cw-cores" type="number" min="1" step="1" value="256"></label>
+  <label>VM RAM (GB): <input id="cw-ram" type="number" min="1" step="1" value="1024"></label>
+  <label>Price per hour ($): <input id="cw-rate" type="number" min="0" step="0.01" value="3.00"></label>
+  <label>Hours you'd run it: <input id="cw-hours" type="number" min="0" step="0.5" value="1"></label>
+  <button id="cw-go">Estimate cost</button>
+  <p id="cw-out"></p>
+</div>
+
+<script>
+(function () {
+  function estimate() {
+    var cores = parseFloat(document.getElementById('cw-cores').value);
+    var ram = parseFloat(document.getElementById('cw-ram').value);
+    var rate = parseFloat(document.getElementById('cw-rate').value);
+    var hours = parseFloat(document.getElementById('cw-hours').value);
+    var out = document.getElementById('cw-out');
+    if (!(rate >= 0) || !(hours >= 0)) { out.textContent = 'Enter a price per hour and how many hours.'; return; }
+    var total = rate * hours;
+    out.innerHTML =
+      'A VM with <strong>' + (cores > 0 ? cores : '?') + '</strong> cores and <strong>'
+      + (ram > 0 ? ram : '?') + ' GB</strong> at <strong>$' + rate.toFixed(2) + '/hr</strong>'
+      + ' would cost <strong>$' + total.toFixed(2) + '</strong> to run for '
+      + hours + ' hour' + (hours === 1 ? '' : 's') + '.';
+  }
+  document.getElementById('cw-go').addEventListener('click', estimate);
+  estimate();
+})();
+</script>
+
+</details>

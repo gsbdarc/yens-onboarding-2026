@@ -9,4 +9,4 @@
 
 cd $HOME/yens-onboarding
 source .venv/bin/activate
-python scripts/extract_form_3_one_file.py
+python scripts/extract_form_3_batch.py
