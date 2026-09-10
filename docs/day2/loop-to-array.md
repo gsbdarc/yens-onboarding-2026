@@ -50,8 +50,6 @@ permalink: /day2/loop-to-array/
 
 ## What you already have
 
-Nothing here is new. You have all three pieces already:
-
 - **`scripts/extract_form_3_batch.py`** from Part 1 — Python that walks a list of filings,
   one API call at a time, waiting for each before starting the next.
 - **The array from [1. Hello World Array]({{ '/day2/hello-world-array/' | relative_url }})** —
@@ -75,9 +73,8 @@ and ask the person next to you before you scroll.
 
 The same flow as Part 1, so you already know how each step goes:
 
-- **Estimate** what **one task** needs. Profile it the way you did this morning — but on one
-  filing, not ten, because a `#SBATCH` directive sizes a single task, not the whole array.
-- **Document** the numbers in your `README.md`, before you submit rather than after.
+- **Estimate** what **one task** needs. Profile it the way you did this morning.
+- **Document** the numbers in your `README.md`, before you submit.
 - **Submit**, with those numbers in the `.slurm`, and think about what the array directive
   has to say for 100 filings.
 
@@ -114,70 +111,58 @@ Put up a **red sticky** and ask your table — someone near you has probably jus
 thing. Nudges, roughly in the order they help:
 
 <details markdown="1">
-<summary>💡 Nothing changes but one number</summary>
+<summary>💡 How do you divide the work?</summary>
 
-Not the filing list, not the Python file. Every task runs the *identical* script, and the
-only thing Slurm hands each one that is unique is its task ID. So if 100 tasks are to do 100
-different things, the difference has to be derived from that number.
+An array hands you a set of tasks that all run the *identical* script. The work has to be
+divided between them somehow, and the only thing that differs from one task to the next is
+its task ID — not the filing list, not the Python file.
 
-What is one task's share of 100 filings?
-
-</details>
-
-<details markdown="1">
-<summary>💡 Test your Python interactively first</summary>
-
-Run it by hand in a terminal, on one filing, before it goes anywhere near `sbatch`. You can
-pass a task number in as an argument yourself to check it picks the right filing.
-
-Debugging one script in front of you is quick. Debugging 100 queued copies through log files
-is not.
+So: 100 filings, and however many tasks you ask for. How are you splitting them, and how
+does a task work out which part of the work is its own?
 
 </details>
 
 <details markdown="1">
-<summary>💡 Profile it, then size the job</summary>
+<summary>💡 Where does the array start?</summary>
 
-Once it runs for one filing, time it and watch what it uses — the same way you profiled the
-batch script this morning. Those are the numbers that go into `--mem`, `--cpus-per-task` and
-`--time`, and they describe **one task**.
+Did you start the index at 0 or at 1? For 100 filings the directive is `--array=0-99`.
 
-</details>
-
-<details markdown="1">
-<summary>💡 The array index</summary>
-
-Did you start at 0 or at 1? Whichever you pick has to agree with how you index the filing
-list, and Slurm will not warn you if it doesn't.
-
-Get it wrong and nothing complains up front: you quietly skip one end of the list, and the
-task at the other end runs off it.
+Whichever you pick has to agree with how you index the filing list.
 
 </details>
 
 <details markdown="1">
-<summary>💡 How do you know it worked?</summary>
+<summary>💡 Can you see what each task did?</summary>
 
-A job that finishes is not the same as a job that did the work. Two things to check, and
-neither is `squeue`:
+Do you have a log per task? `%A_%a` in `--output` and `--error` gives every task its own
+pair of files. Without it, 100 tasks write over one log and you cannot tell which of them
+failed, or why.
+
+A job that finishes is not the same as a job that did the work. Check:
 
 - the per-task `.err` files, for the tasks that failed
 - the number of output files you ended up with, against the number you expected
 
 </details>
 
-### It ran, but something is off
+<details markdown="1">
+<summary>💡 Run it interactively to test</summary>
 
-Run down this list before asking — it is usually one of these:
+Run your Python by hand in a terminal first, on one task's worth of work. Did it do what you
+expected? You can pass a task number in yourself to check it picks the right thing.
 
-- Did you create the log directory before submitting? Slurm will not make it for you, and a
-  job whose `--output` path does not exist fails leaving nothing behind to explain why.
-- Did you use `--reservation=class`? Without it you are queueing with everybody else.
-- Did the `.slurm` `cd` to the repo and activate the virtual environment? A fresh shell on a
-  compute node inherits neither.
-- Is `#SBATCH --array=` up with the other directives, above the first real command? Below
-  them it is ignored, you get one ordinary job, and `SLURM_ARRAY_TASK_ID` is never set.
-- Does your script actually **write** its result, or only compute it?
+</details>
+
+<details markdown="1">
+<summary>💡 Debug with Claude, and write down what you found</summary>
+
+Paste the error and the part of your script it points at into Claude, and work through it
+until you can say what went wrong rather than just that it now runs.
+
+Then write it down — what broke, and what fixed it. That note is worth more to you next
+month than the fix is.
+
+</details>
 
 ---
 
