@@ -84,6 +84,10 @@ Two options, and they are different tradeoffs:
   filings, `filings[task_id * 10 : task_id * 10 + 10]`. Fewer, longer tasks and less
   scheduler overhead; the per-task `--time` now has to cover ten API calls, not one. 992
   is not a multiple of ten, so the last task gets two — the slice handles that on its own.
+
+  ```bash
+  sbatch --reservation=class --array=0-99 slurm/extract_array.slurm
+  ```
 - **Submit two arrays.** Both have to start at 0, so the second one has to be *told* which
   slice is its own:
 
@@ -117,9 +121,11 @@ Part 1 profile.
 
 ### 4. Run it
 
+Make sure `logs/` exists, then submit with whichever command matches the route you picked
+in step 2 — one `sbatch` for ten-filings-per-task, two for the offset route:
+
 ```bash
 mkdir -p logs
-sbatch --reservation=class slurm/extract_array.slurm
 watch squeue --me
 ```
 
