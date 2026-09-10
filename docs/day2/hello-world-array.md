@@ -142,26 +142,38 @@ That one `sbatch` produced four logs, each printing a different task number.
 
 The task number is what makes this general. Every task runs the identical script, and `SLURM_ARRAY_TASK_ID` is the only thing that differs between them — so wherever the work needs to vary, you derive it from that number: which file to read, which row of a list to process, which parameter value to try.
 
-In `hello_array.slurm` that number was read by **bash**, straight out of the environment —
-which is all an `echo` needs. Your actual work is in Python, so the number has to get across
-the handover.
+<svg viewBox="0 0 720 322" role="img" aria-labelledby="handover-title handover-desc" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:720px;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+  <title id="handover-title">How a task's array index reaches your Python script</title>
+  <desc id="handover-desc">Three stages. Slurm sets the variable SLURM_ARRAY_TASK_ID in every task's environment, here with the value 2. Your Slurm script reads it with bash and passes it to Python as a command-line argument. Your Python script reads that argument back out of sys.argv and converts it to an integer. Every task runs the same script, and only this number differs.</desc>
+  <defs>
+    <marker id="handover-ah" markerWidth="9" markerHeight="9" refX="4" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c2cad4"/></marker>
+  </defs>
+
+  <rect x="16" y="16" width="688" height="68" rx="10" fill="#f3f4f7" stroke="#cdd4e6" stroke-width="1.5"/>
+  <text x="36" y="43" font-size="12.5" fill="#2c3e50"><tspan font-weight="700">Slurm</tspan><tspan font-size="11" fill="#6a7280"> sets one variable in every task's environment</tspan></text>
+  <text x="36" y="68" font-size="11" fill="#2c3e50" font-family="'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, monospace">SLURM_ARRAY_TASK_ID=<tspan font-weight="700" fill="#8C1515">2</tspan></text>
+
+  <line x1="360" y1="86" x2="360" y2="112" stroke="#c2cad4" stroke-width="2" marker-end="url(#handover-ah)"/>
+  <text x="374" y="103" font-size="11" fill="#6a7280">read by bash as <tspan font-family="'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, monospace">$SLURM_ARRAY_TASK_ID</tspan></text>
+
+  <rect x="16" y="114" width="688" height="68" rx="10" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
+  <text x="36" y="141" font-size="12.5" fill="#2c3e50"><tspan font-weight="700">your .slurm</tspan><tspan font-size="11" fill="#6a7280"> passes it to Python as a command-line argument</tspan></text>
+  <text x="36" y="166" font-size="11" fill="#2c3e50" font-family="'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, monospace">python scripts/extract_array.py "$SLURM_ARRAY_TASK_ID"</text>
+
+  <line x1="360" y1="184" x2="360" y2="210" stroke="#c2cad4" stroke-width="2" marker-end="url(#handover-ah)"/>
+  <text x="374" y="201" font-size="11" fill="#6a7280">arrives as the argument <tspan font-family="'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, monospace" fill="#8C1515" font-weight="700">"2"</tspan></text>
+
+  <rect x="16" y="212" width="688" height="68" rx="10" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
+  <text x="36" y="239" font-size="12.5" fill="#2c3e50"><tspan font-weight="700">your Python</tspan><tspan font-size="11" fill="#6a7280"> reads argument 1 back out of sys.argv</tspan></text>
+  <text x="36" y="264" font-size="11" fill="#2c3e50" font-family="'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, monospace">task_id = int(sys.argv[1])<tspan fill="#6a7280">          # </tspan><tspan font-weight="700" fill="#8C1515">2</tspan></text>
+
+  <text x="360" y="306" font-size="12.5" fill="#6a7280" text-anchor="middle">One task shown. Task 0 gets 0, task 1 gets 1 — same script, a different number each time.</text>
+</svg>
 
 {: .note }
-> **Getting the task ID into Python.** Slurm sets `SLURM_ARRAY_TASK_ID` in each task's environment. Your `.slurm` script passes it to your Python script as a command-line argument:
->
-> ```bash
-> python scripts/extract_array.py "$SLURM_ARRAY_TASK_ID"
-> ```
->
-> and Python reads it back from `sys.argv` — a different number in every task:
->
-> ```python
-> import sys
->
-> task_id = int(sys.argv[1])          # 0, 1, 2 or 3 — a different number in every task
-> ```
->
-> That's one way of doing it. The script could equally read the variable straight from its environment with `os.environ["SLURM_ARRAY_TASK_ID"]` and take no argument at all. Passing it in keeps the handover visible in the `.slurm`, and lets you run a single task by hand to test it:
+> The script could equally read the variable straight from its environment with
+> `os.environ["SLURM_ARRAY_TASK_ID"]` and take no argument at all. Passing it in keeps the
+> handover visible in the `.slurm`, and lets you run a single task by hand to test it:
 >
 > ```bash
 > python scripts/extract_array.py 0
