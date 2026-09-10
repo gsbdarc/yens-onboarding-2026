@@ -49,63 +49,6 @@ the next morning's first hour. As a single arc the guided build flows straight i
 scaling it, with no context switch. Participants **carry on with it in their own time** —
 which is what happened anyway. Day 2 no longer depends on it finishing.
 
-## Day 2 — The Cluster
-
-**Restructured this year.** Two cycles of short lecture → long self-paced work block, with
-participants at small tables helping each other. No whole-room breaks. Full run-of-show in
-`.instructor/day2-teaching-plan.md`.
-
-| Clock | Block | min |
-|-------|-------|-----|
-| 9:00  | **Lecture 1** — compute environments (6, talk only, no demo); then why a scheduler exists, the live queue, and `#SBATCH` anatomy (14) | 20 |
-| 9:20  | **Work block 1** — profiling (all four exercises, ending with the README numbers) → peek at the queue → write & submit a Slurm job → debug `fix_me.slurm` | 70 |
-| 10:30 | **Lecture 2** — parallelization and the three shapes (8); array mechanics and the index cap (7); estimate → request → run → check (5) | 20 |
-| 10:50 | **Work block 2** — hello-world array → estimate + 100-filing array → idempotent tasks → all ~992 | 60 |
-| 11:50 | **Wrap + Q&A** | 10 |
-
-**40 min lecture · 130 min hands-on · 10 min wrap = 180.**
-
-**Mandatory vs. bonus.** Every Day 2 section is marked on the page. Mandatory: profiling,
-the queue, writing/submitting a job, debugging a failed job, job arrays, the capstone.
-Bonus: the remaining `fix_me` puzzles, Slurm with Claude, GPUs, merge-to-CSV, chained jobs,
-interactive `srun`, and the widget/vectorization extras.
-
-**Protected:** the profiling README (it is the input to every `#SBATCH` number that follows)
-and the capstone's write-the-estimate-down step.
-
-**Three deliberate changes from last year's shape:**
-
-- **The recap block is gone.** Day 2 profiles the `extract_form_3_batch.py` committed in the
-  repo, so an unfinished Day 1 capstone blocks nobody. Ask about venv / `.env` / clone by
-  name and start.
-- **`fix_me.slurm` is promoted to mandatory.** Reading a failed job's `.err` is the first
-  debugging skill anyone needs, and it used to be an optional practice that the instructor
-  did live. Self-paced now, so it has to be required.
-- **Slurm with Claude is entirely bonus.** Demo-led delivery has no slot in this format. It
-  is the most self-contained section on the day and was already first on the cut list — but
-  this is a real reduction in guaranteed coverage, not a free win.
-
-{: .warning }
-> **This schedule has never been timed.** The 70/60 split is derived from instructor-led
-> measurements of the old section list, not observed in this format. Self-paced pace at a
-> table could run faster (nobody waits for the slowest person) or slower (nobody is pulling
-> the room forward). **Record the real times and correct these files afterwards.**
-
-{: .important }
-> **Slurm reservation.** Day 2 runs against a dedicated reservation, `class_day2`. Every
-> `sbatch` and `srun` in the Day 2 pages carries `--reservation=class_day2`, **including the
-> job-arrays section and the capstone**. Book it beforehand and confirm the name matches, or
-> every command in the docs is wrong.
->
-> **The GPU nodes are in the reservation this year**, so the bonus page carries
-> `--reservation=class` on its `sbatch` and `srun` like everything else. Two things to check
-> before class: that the reservation really does admit `--partition=gpu`, and that the
-> reserved node has **enough GPUs for one per table** — the local-LLM exercise has one person
-> per table serving a model for the others. If it has fewer, tables share or fall back to
-> CPU, which works but is slow.
-
----
-
 ## Where These Numbers Come From
 
 A real four-day cohort was timed section by section. Two findings reshaped this agenda.
