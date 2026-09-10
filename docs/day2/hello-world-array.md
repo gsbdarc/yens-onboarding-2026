@@ -141,3 +141,28 @@ That one `sbatch` produced four logs, each printing a different task number.
 </svg>
 
 The task number is what makes this general. Every task runs the identical script, and `SLURM_ARRAY_TASK_ID` is the only thing that differs between them — so wherever the work needs to vary, you derive it from that number: which file to read, which row of a list to process, which parameter value to try.
+
+In `hello_array.slurm` that number was read by **bash**, straight out of the environment —
+which is all an `echo` needs. Your actual work is in Python, so the number has to get across
+the handover.
+
+{: .note }
+> **Getting the task ID into Python.** Slurm sets `SLURM_ARRAY_TASK_ID` in each task's environment. Your `.slurm` script passes it to your Python script as a command-line argument:
+>
+> ```bash
+> python scripts/extract_array.py "$SLURM_ARRAY_TASK_ID"
+> ```
+>
+> and Python reads it back from `sys.argv` — a different number in every task:
+>
+> ```python
+> import sys
+>
+> task_id = int(sys.argv[1])          # 0, 1, 2 or 3 — a different number in every task
+> ```
+>
+> That's one way of doing it. The script could equally read the variable straight from its environment with `os.environ["SLURM_ARRAY_TASK_ID"]` and take no argument at all. Passing it in keeps the handover visible in the `.slurm`, and lets you run a single task by hand to test it:
+>
+> ```bash
+> python scripts/extract_array.py 0
+> ```

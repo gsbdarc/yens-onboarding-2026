@@ -86,21 +86,14 @@ Committing to a number *before* you run it is what makes the check at the end wo
 **a. Figure out how to associate each task with a filing.**
 
 {: .note }
-> **Getting the task ID into Python.** Slurm sets `SLURM_ARRAY_TASK_ID` in each task's environment. Your `.slurm` script passes it to your new Python script as a command-line argument:
+> **Getting the task ID into Python** — the handover is spelled out on
+> [1. Hello World Array]({{ '/day2/hello-world-array/' | relative_url }}). In the `.slurm`:
 >
 > ```bash
 > python scripts/extract_array.py "$SLURM_ARRAY_TASK_ID"
 > ```
 >
-> and Python reads it back from `sys.argv` — a different number in every task:
->
-> ```python
-> import sys
->
-> task_id = int(sys.argv[1])                      # 0, 1, … 99
-> ```
->
-> That's one way of doing it. The script could equally read the variable straight from its environment with `os.environ["SLURM_ARRAY_TASK_ID"]` and take no argument at all. Passing it in keeps the handover visible in the `.slurm`, and lets you run a single task by hand to test it.
+> and `task_id = int(sys.argv[1])` on the Python side. Here that number runs `0` to `99`.
 
 <details markdown="1">
 <summary>💡 Hint — one way to do it</summary>
