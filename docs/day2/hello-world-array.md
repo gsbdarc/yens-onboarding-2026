@@ -178,28 +178,3 @@ The task number is what makes this general. Every task runs the identical script
 > ```bash
 > python scripts/extract_array.py 0
 > ```
-
-<details markdown="1">
-<summary>⭐ Bonus — write both files from scratch</summary>
-
-You submitted a script somebody else wrote. Writing the pair yourself is what proves you
-can, and it is quick: a single job that echoes one line, then the array version of it.
-
-Start from an empty file, and don't look at `slurm/hello*.slurm` while you do it. The things
-that are easy to forget:
-
-- a job name, a partition, `--time`, `--mem` and `--cpus-per-task` — Slurm will not guess
-- `--output` and `--error`, and that the array version needs **both** `%A` and `%a`
-- `--array` belongs up with the other directives, above the first real command
-- `logs/` has to exist before you submit; Slurm will not create it
-
-Slurm can tell you whether a script would be accepted without running anything — it
-validates the directives and estimates when the job would start:
-
-```bash
-sbatch --test-only slurm/my_array.slurm
-```
-
-Then submit it properly and check your logs look like the ones you got above.
-
-</details>
