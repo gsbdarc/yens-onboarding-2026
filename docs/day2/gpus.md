@@ -13,8 +13,8 @@ permalink: /day2/gpus/
 > 🔴 **Red sticky** = I need help. Put it up the moment you are stuck — an instructor will
 > come to you.
 >
-> 🟢 **Green sticky** = I have passed the checkpoint. Feel free to go back to the bonus
-> exercises if you still have time, or help your table.
+> 🟢 **Green sticky** = I have done 1–4 and am moving on to the bonus work, and I am ready
+> to help my table.
 
 {: .note }
 > Everything on this page runs from your clone, with the environment active:

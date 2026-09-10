@@ -21,4 +21,3 @@ permalink: /day2/part2/
 | [3. Make Your Tasks Rerun-Safe]({{ '/day2/rerun-safe-tasks/' | relative_url }}) | 💻 Hands-on | Make a task skip work it has already done, so a resubmit costs nothing |
 | [4. Yen-Slurm Array Limits]({{ '/day2/array-limits/' | relative_url }}) | 💻 Hands-on | Where the array ceiling is, and how to get ~992 filings through a scheduler that caps you at 512 |
 | [5. Bonus — GPUs & Local LLMs]({{ '/day2/gpus/' | relative_url }}) | ⭐ Bonus | Ask Slurm for a GPU, serve an open-weight model on it, and query it without your data leaving the Yens |
-| [Part 2 Checkpoint]({{ '/day2/part2-checkpoint/' | relative_url }}) | ✅ Checkpoint | Fan a job array out, make it safe to rerun, and size a bigger run before submitting it |

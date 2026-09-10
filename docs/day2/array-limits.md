@@ -13,8 +13,8 @@ permalink: /day2/array-limits/
 > 🔴 **Red sticky** = I need help. Put it up the moment you are stuck — an instructor will
 > come to you.
 >
-> 🟢 **Green sticky** = I have passed the checkpoint. Feel free to go back to the bonus
-> exercises if you still have time, or help your table.
+> 🟢 **Green sticky** = I have done 1–4 and am moving on to the bonus work, and I am ready
+> to help my table.
 
 <svg viewBox="0 0 720 164" role="img" aria-labelledby="daymap-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:720px;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="daymap-title">Day 2 arc — you are on step 5, scale (Part 2).</title>
@@ -141,6 +141,25 @@ Then commit it. Ask Claude Code to handle it:
 ```
 > Add and commit my array scripts and README changes with a message like "Day 2: all 992 filings through an array", then push to my fork.
 ```
+
+---
+
+## Before you go
+
+You started yesterday with a script that ran one filing on a machine you share. You are
+leaving with one that runs a thousand on hardware you asked for by name, and a written
+record of what it cost.
+
+This is also the moment to ask the question you have been saving. The room empties fast and
+the answer is easier in person than over Slack.
+
+**Where to ask, after today:**
+
+| | | |
+|---|---|---|
+| 💬 | [**#gsb-yen-users**](https://circlerss.slack.com/archives/C01JXJ6U4E5) | Slurm, storage, software — paste your error output |
+| ✉️ | [**gsb_darcresearch@stanford.edu**](mailto:gsb_darcresearch@stanford.edu) | Anything you would rather not post in a channel |
+| 📖 | [**rcpedia.stanford.edu**](https://rcpedia.stanford.edu) | The written documentation, including current limits |
 
 ---
 
