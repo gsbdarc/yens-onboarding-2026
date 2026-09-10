@@ -3,7 +3,8 @@
 > **Stanford GSB DARC · Research computing & AI for incoming PhD students and faculty · 2 days · Hands-on**
 
 A two-day, hands-on onboarding to research computing at Stanford GSB: the Yens cluster,
-Git, Python environments, Stanford's AI API Gateway, Slurm batch jobs, and AI coding
+Git, Python environments, Stanford's AI services, direct Anthropic API calls on public
+data, Slurm batch jobs, and AI coding
 tools. Both mornings run 9:00–12:00.
 
 **🌐 Course website:** <https://gsbdarc.github.io/yens-onboarding-2026/>
@@ -17,7 +18,7 @@ on the course website.
 
 | Day | Focus | Skills |
 |-----|-------|--------|
-| **Day 1** | Foundations & AI | SSH · Yens file system · Git & GitHub · Claude Code · Python environments · Stanford AI Gateway · API keys · Pydantic validation |
+| **Day 1** | Foundations & AI | SSH · Yens file system · Git & GitHub · Claude Code · Python environments · Stanford AI services · Anthropic API · API keys · Pydantic validation |
 | **Day 2** | The cluster | Resource profiling · Slurm · job lifecycle & logs · debugging failed jobs · Claude skills · job arrays · resource estimation |
 
 Both days build one pipeline over the same dataset — SEC Form 3 filings — turning

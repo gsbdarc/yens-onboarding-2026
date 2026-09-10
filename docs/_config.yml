@@ -8,7 +8,7 @@ tagline: "Stanford GSB · Research computing & AI for new PhD students and facul
 author: GSB DARC Team
 description: >-
   A two-day hands-on onboarding to research computing and AI tools at Stanford GSB:
-  the Yens cluster, Git, Python environments, Stanford's AI API Gateway,
+  the Yens cluster, Git, Python environments, Stanford AI services, Anthropic's API,
   Slurm batch jobs, and AI coding tools.
 
 baseurl: '/yens-onboarding-2026'

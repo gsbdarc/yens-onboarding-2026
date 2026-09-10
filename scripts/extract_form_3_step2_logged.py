@@ -14,8 +14,8 @@ Run it from the repo root:
 import logging
 import os
 
+import anthropic
 from dotenv import load_dotenv
-from openai import OpenAI
 
 logging.basicConfig(
     level=logging.INFO,
@@ -30,29 +30,29 @@ logger = logging.getLogger(__name__)
 load_dotenv()
 
 FILING = "Cheniere_Energy_Inc"    # the one thing you change between runs
-MODEL = "gemini-2.5-flash-lite"
+MODEL = "claude-haiku-4-5"
 RESULTS_DIR = "results"
 
-client = OpenAI(
-    base_url="https://aiapi-prod.stanford.edu/v1",
-    api_key=os.getenv("STANFORD_API_KEY"),
-)
+client = anthropic.Anthropic()   # reads ANTHROPIC_API_KEY from the environment
 
 logger.info("Reading filing %s", FILING)
 with open(f"data/sec_filings/{FILING}.txt") as f:
     filing_text = f.read()
 
 logger.info("Sending %d characters to %s", len(filing_text[:4000]), MODEL)
-response = client.chat.completions.create(
+response = client.messages.create(
     model=MODEL,
+    max_tokens=256,
+    system="You extract data from SEC filings. Be precise and concise.",
     messages=[
-        {"role": "system", "content": "You extract data from SEC filings. Be precise and concise."},
         {"role": "user", "content": f"Extract the insider's name and role.\nReply with only: NAME | ROLE\n\n{filing_text[:4000]}"},
     ],
 )
 logger.info("Model responded")
 
-answer = response.choices[0].message.content
+answer = "".join(block.text for block in response.content if block.type == "text").strip()
+if not answer:
+    raise RuntimeError(f"No text returned (stop reason: {response.stop_reason})")
 
 os.makedirs(RESULTS_DIR, exist_ok=True)
 output_path = f"{RESULTS_DIR}/form3_{FILING}.txt"    # output named after the input

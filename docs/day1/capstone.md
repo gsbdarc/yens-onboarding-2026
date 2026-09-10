@@ -30,7 +30,7 @@ extraction section, as one continuous block.
 
 You are not writing anything new. `scripts/extract_form_3_batch.py` in your repo
 already does the loop — it reads URLs from `data/aws_links.csv`, sends each filing
-through the Gateway, validates the reply against your Pydantic model, and writes one
+to Anthropic with `claude-haiku-4-5`, validates the reply against your Pydantic model, and writes one
 JSON file per filing into `results/`.
 
 ```bash
@@ -47,10 +47,15 @@ cat results/*.json | head -40
 ```
 
 {: .important }
-> **Ten is deliberate.** Every filing is a paid API call, and `NUM_FILINGS` at the
+> **Ten is deliberate.** Every filing is a paid Anthropic API call, and `NUM_FILINGS` at the
 > top of the script is set to 10 for exactly that reason. Resist the urge to raise
 > it — tomorrow you'll estimate the cost of a bigger run *before* submitting it,
 > which is the habit worth having.
+>
+> If a call receives HTTP `429`, stop and read the error instead of rerunning the whole
+> script repeatedly. The class organization has more expected headroom than the shared
+> Stanford Gateway key used in the previous course, but Anthropic still applies request
+> and token rate limits.
 
 ---
 
@@ -126,8 +131,8 @@ your terminal staying open.
 
 ## Finished Early?
 
-- The optional practice in [Extracting Data with an LLM]({{ '/day1/extracting-data-with-an-llm/' | relative_url }}) — listing available models, pricing a call, comparing a reasoning model against a plain one
-- The leaked-key exercise in [Managing API Keys]({{ '/day1/api-keys/' | relative_url }})
+- The optional practice in [Extracting Data with an LLM]({{ '/day1/extracting-data-with-an-llm/' | relative_url }}) — listing available models, counting tokens, and comparing Haiku with Sonnet 5
+- Review the credential incident steps in [Managing API Keys]({{ '/day1/api-keys/' | relative_url }})
 - [LLM-as-a-Judge]({{ '/reference/llm-as-a-judge/' | relative_url }}), the extension assignment — a second model checks the first one's calls, and your code routes the contested ones to a human
 
 ---
@@ -138,7 +143,7 @@ your terminal staying open.
 - **Version control** — fork, clone, branch, commit, push, and why research wants it
 - **Claude Code** — models, permission modes, tokens, context, skills, and what data may never be sent
 - **Python that travels** — `$PATH`, virtual environments, and rebuilding a project from `requirements.txt`
-- **Stanford's AI services** — the Playground vs. the API Gateway, and the data-risk levels each is cleared for
+- **AI service choices** — Stanford's Playground and Gateway versus direct Anthropic, including the governance/throughput tradeoff
 - **Secrets** — a key in `.env`, out of git, and why a committed key is a leaked key
 - **Structured extraction** — an API call, a Pydantic schema, validation that fails loudly, and a logged script
 - **Judgment** — what leaves your machine, what it costs, and which calls stay human

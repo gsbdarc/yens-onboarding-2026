@@ -26,7 +26,7 @@ bottom, and please correct them again after this course runs.
 | 10:00 | ☕ **Break** | 10 |
 | 10:10 | **Running Python on the Yens** — `$PATH`, `module load python`, script vs. notebook. JupyterHub is a **tour**, not a lab | 14 |
 | 10:24 | **Python environments** — venv, pip, `requirements.txt`; the Potion Brawl rebuild as a **demo** | 18 |
-| 10:42 | **Stanford's AI services + data privacy** — Playground vs. Gateway, data-risk levels, cost; the agents/privacy discussion folded in here | 14 |
+| 10:42 | **Stanford services + direct Anthropic + data privacy** — Playground vs. Gateway vs. the public-data API route; governance, throughput, and cost | 14 |
 | 10:56 | *slack* | 4 |
 | 11:00 | ☕ **Break** | 10 |
 | 11:10 | **Managing API keys** — `.env`, `python-dotenv`, `.gitignore`, init the client | 13 |
@@ -132,7 +132,7 @@ from the previous day's homework, so there is nothing to spend the hour finishin
 | Claude Code | ~30, then **spilled ~60 min into Day 2** | 25 hands-on | ~180 lines of concept became a pre-read |
 | Running Python on the Yens | **25–35**, flagged too slow | 14 | JupyterHub demoted to a tour |
 | Python environments | 20, "could be streamlined" | 18 | Potion Brawl rebuild is a demo |
-| Stanford AI services | **10** | 14 | *Given time back*, with the privacy discussion folded in |
+| Stanford services + Anthropic | **10** | 14 | *Given time back*, with privacy and the shared-Gateway rate-limit migration rationale folded in |
 | Managing API keys | **20** | 13 | `.env` copy pre-staged |
 | Extraction | **25 and did not finish** | merged into 35 | See above |
 | Compute environments | **27** (the demo alone was 15) | 15 | Demo-led; remaining lecture cut |

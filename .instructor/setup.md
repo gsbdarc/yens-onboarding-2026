@@ -3,8 +3,9 @@
 Run these before the course. One-time per cohort unless noted.
 
 Much less than the four-day version needed: dropping the Day 1 grimoire challenge
-removed the dataset generation, the Google Drive hosting, and the `/scratch/shared`
-staging entirely. Dropping the leaderboard removed the fork-roster sync.
+removed the dataset generation and Google Drive hosting. `/scratch/shared` now holds only
+the course `.env` used in the credential lesson. Dropping the leaderboard removed the
+fork-roster sync.
 
 ---
 
@@ -21,8 +22,14 @@ staging entirely. Dropping the leaderboard removed the fork-roster sync.
 - [ ] **Email the two pre-work items** — a GitHub account and Claude via Stanford. See
       `docs/prework.md`. Send it at least a week out: Claude approval goes through
       ServiceNow, and Yens access can take days.
-- [ ] **Request a shared Stanford AI API Gateway key** for the cohort, or confirm each
-      attendee can request their own. See `docs/day1/stanford-ai-services.md`.
+- [ ] **Provision a shared Anthropic API key** in a course organization/workspace. Confirm
+      that its request, input-token, and output-token rate-limit headroom is sufficient for
+      the cohort to make synchronized calls. The previous shared Stanford Gateway key hit
+      rate limits during class; do not assume a new key alone fixes the capacity problem.
+- [ ] Confirm the course Anthropic workspace can use both `claude-haiku-4-5` and
+      `claude-sonnet-5`. The exercises intentionally tier the models and have no silent
+      fallback. Stage the key as `ANTHROPIC_API_KEY` in
+      `/scratch/shared/yens-onboarding-2026/.env` without printing it in setup notes or logs.
 
 ## One week before
 
@@ -38,7 +45,8 @@ staging entirely. Dropping the leaderboard removed the fork-roster sync.
 
 - [ ] `scontrol show reservation class_day2` returns an active reservation (Day 2)
 - [ ] Course site loads: <https://gsbdarc.github.io/yens-onboarding-2026/>
-- [ ] The Gateway key works — make one live API call from a Yen
+- [ ] The Anthropic key works from a Yen with both course models; record any `429`, rate
+      headers, and `retry-after` response during the dry run
 - [ ] `ml claude-code` and `ml gh-cli` both resolve
 - [ ] Sticky notes on every table (green + red)
 - [ ] Roster of who has *not* done the pre-work, so you can seat a helper near them

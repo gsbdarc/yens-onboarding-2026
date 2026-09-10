@@ -133,7 +133,7 @@ pip install -r requirements.txt
 Nothing magic is happening. `-r` only saves you from typing the names out, which you could do instead:
 
 ```bash
-pip install openai python-dotenv pydantic pandas requests ipykernel jupyter matplotlib
+pip install anthropic python-dotenv pydantic pandas requests ipykernel jupyter matplotlib
 ```
 
 Same packages, same environment at the end of it. The difference isn't the install, it's that the first version is **written down**. Install by hand today and next month you're guessing which packages you used; a collaborator has no way to find out at all. You'll write a `requirements.txt` of your own in Step 5, and rebuild a stranger's project from theirs in Step 6.
@@ -144,7 +144,7 @@ Here's what each one is for, and where you'll meet it:
 
 | Package | What it's for | Where you'll use it |
 |---|---|---|
-| `openai` | Calling the Stanford AI API Gateway | Extracting Data with an LLM, today |
+| `anthropic` | Calling Claude through Anthropic's native API | Extracting Data with an LLM, today |
 | `python-dotenv` | Loading your API key from `.env` | Managing API Keys, today |
 | `pydantic` | Validating the model's output against a schema | Extracting Data with an LLM, today |
 | `pandas` | Tabular data (`numpy` rides along with it) | the extraction exercise, then Day 2 |
@@ -198,8 +198,8 @@ In the notebook, confirm the environment is **active** — that the packages you
 
 ```python
 import dotenv
-import openai
-print("dotenv and openai are available!")
+import anthropic
+print("dotenv and anthropic are available!")
 ```
 
 If this runs without error, your venv is correctly connected.
