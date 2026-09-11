@@ -82,11 +82,11 @@ get ~992 filings through it → **the GPU bonus** (`sbatch --reservation=class s
 — it *does* carry the reservation now; confirm `nvidia-smi` output lands in
 `logs/gpu_check_*.out`), then serve a model with `ollama/`.
 
-**Timing.** Time each section against `.instructor/agenda.md`. If a block overruns, move an
-exercise to `docs/reference/` — do not shave the breaks. Two 10-minute breaks in a 3-hour
-morning is already the minimum on **Day 1**. **Day 2 has no scheduled breaks at all** —
-tables break inside the work blocks — so watch for a room that has not moved in an hour and
-call one anyway.
+**Timing.** Time each lecture against `.instructor/agenda.md` — the 20-minute slot is the
+hard part, and Day 1's Lecture 2 is the tightest. If a lecture overruns, move material into
+the work block or to `docs/reference/` rather than eating into the block. **Neither day has
+scheduled breaks** — tables break inside the work blocks — so watch for a room that has not
+moved in an hour and call one anyway.
 
 ---
 

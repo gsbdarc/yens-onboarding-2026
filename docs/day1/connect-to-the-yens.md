@@ -41,15 +41,11 @@ Your laptop is fine for writing code and running small tests. But research compu
 The Yens are available to all researchers at GSB — faculty, PhD students, post-docs, and research staff alike. This section is where you start using them.
 
 {: .note }
-> *"My regression on the full sample took 14 hours. My laptop died at hour 6. I lost everything. Two days later I reran it on the Yens and went to sleep. It finished while I was gone."* — Ben
+> *"My regression on the full sample took 14 hours. My laptop died at hour 6. I lost everything. Two days later I reran it on the Yens and went to sleep. It finished while I was gone."* — PhD Student
 
 ---
 
-## What Is a Remote Server?
-
-Your laptop is powerful but limited: one machine, one location, and it has to be open and plugged in for work to run. A **remote server** is a computer you connect to over the network — it's always on, more powerful than your laptop, and your work keeps running after you close the lid.
-
-**What are the Yens?**
+## What Are the Yens?
 
 The Yens are a 17-node shared research computing cluster: 5 interactive nodes you SSH into directly, and 12 nodes accessible only through the SLURM scheduler (Day 2). All 17 nodes share the same file system — a file you write on yen1 is instantly visible on every other node.
 
@@ -105,8 +101,6 @@ The Yens are a 17-node shared research computing cluster: 5 interactive nodes yo
   <text x="60" y="482" font-size="11.5" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#5b6472">/scratch/users/SUNetID/<tspan font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#6a7280">   large &amp; fast · NOT backed up</tspan></text>
 </svg>
 
-*Your laptop and the Yens are two separate computers; **SSH** is the connection between them. When you log in you land on one of the shared **interactive Yens** (yen1–yen5) — fine for light work. The powerful **SLURM compute nodes** come later, on Day 2, reached through a scheduler rather than directly. Whichever node you're on, you see the same shared files.*
-
 `ssh` opens an encrypted tunnel: you type locally, commands execute remotely, output streams back to your screen. The interactive Yens are shared — per-user CPU and RAM limits are enforced automatically. See the [current limits](https://rcpedia.stanford.edu/_policies/user_limits/) for details. For heavier jobs, the SLURM scheduler (Day 2) gives you dedicated compute nodes.
 
 **What's inside a Yen server:**
@@ -128,6 +122,7 @@ Log in to the Yens for the first time and get your bearings.
 ```bash
 ssh SUNetID@yen.stanford.edu
 ```
+{: .laptop }
 
 Replace `SUNetID` with your Stanford username. When prompted for your password, type your Stanford password (nothing will appear — that's normal). You will be prompted for Duo two-factor authentication.
 
@@ -136,6 +131,7 @@ Replace `SUNetID` with your Stanford username. When prompted for your password, 
 hostname      # e.g. yen1, yen2, yen3, yen4, or yen5
 whoami        # confirm you are logged in as yourself
 ```
+{: .yens }
 
 {: .note }
 > The Yens (yen1–yen5) are shared interactive compute servers. You land on whichever one the load balancer picks. They're powerful, but shared — read the login banner when you connect, it describes current usage policies.
@@ -144,9 +140,10 @@ whoami        # confirm you are logged in as yourself
 ```bash
 ls ~                              # your home directory on the Yens
 pwd                               # /home/users/SUNetID
-ls /scratch/users/                # personal scratch — you will create your own folder here later
+ls /scratch/users/$USER           # your personal scratch — created for you automatically
 ls /yen/projects/                 # shared project storage
 ```
+{: .yens }
 
 {: .note }
 > 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
@@ -155,7 +152,7 @@ ls /yen/projects/                 # shared project storage
 
 ---
 
-## Optional Practice
+## Bonus
 
 **Skip the repeated logins with SSH multiplexing**
 

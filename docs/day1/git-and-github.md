@@ -54,11 +54,11 @@ Git saves your work as **commits** — snapshots of your whole project at a mome
   <circle cx="110" cy="58" r="13" fill="#fff" stroke="#e67e22" stroke-width="3"/>
   <text x="110" y="94" text-anchor="middle" font-size="11" fill="#5b6472">init project</text>
   <circle cx="250" cy="58" r="13" fill="#fff" stroke="#e67e22" stroke-width="3"/>
-  <text x="250" y="94" text-anchor="middle" font-size="11" fill="#5b6472">add raw data</text>
+  <text x="250" y="94" text-anchor="middle" font-size="11" fill="#5b6472">add cleaning scripts</text>
   <circle cx="390" cy="58" r="13" fill="#fff" stroke="#e67e22" stroke-width="3"/>
-  <text x="390" y="94" text-anchor="middle" font-size="11" fill="#5b6472">clean data</text>
+  <text x="390" y="94" text-anchor="middle" font-size="11" fill="#5b6472">add plotting scripts</text>
   <circle cx="530" cy="58" r="13" fill="#e67e22" stroke="#e67e22" stroke-width="3"/>
-  <text x="530" y="94" text-anchor="middle" font-size="11" fill="#5b6472">first results</text>
+  <text x="530" y="94" text-anchor="middle" font-size="11" fill="#5b6472">generate paper.pdf</text>
   <text x="530" y="112" text-anchor="middle" font-size="10" font-weight="700" fill="#b3611a">latest</text>
 </svg>
 
@@ -129,20 +129,17 @@ Version control isn't just bookkeeping — it offers a few concrete advantages f
 
 {: .tip }
 > **Why version control helps research:**
-> - **A readable history of what changed and why.** Every commit carries a short message. Instead of guessing what a file used to hold, you scroll its history and read *"clean data: drop 3 duplicate rows"* right next to the exact lines that changed.
+> - **A readable history of what changed and why.** Every commit carries a short message. Instead of guessing what a file used to hold, you scroll its history and read *"add cleaning scripts: drop 3 duplicate rows"* right next to the exact lines that changed.
 > - **No more filename soup.** You don't need `analysis_final_v2_USETHIS_edited.R` to keep track of versions. There's one `analysis.R`, and its history holds every past version with an explanation of each change. The filename says *what the file is*; the history says *how it got there*.
 > - **Experiment safely on a branch.** Try a risky reanalysis without touching your working results. If it doesn't pan out, the branch is a record of what you tried rather than a mess to clean up.
 > - **Project management, even if you barely write code.** GitHub's issues and pull requests aren't only for software teams — you can use issues to track to-dos, data questions, or bugs, and pull requests to review a change before it's merged into your main version.
 > - **Backed up and shareable.** Every version is recoverable, and pushing to GitHub backs your work up and lets a collaborator — or your future self — pick it up.
 
-Version control is powerful, but it isn't a cure-all. A few honest caveats:
-
 {: .warning }
 > **Caveats:**
 > - **Git has a steep learning curve.** It's genuinely confusing for newcomers — expect to lean on notes, cheatsheets, and AI tools at first.
 > - **GitHub is a commercial product.** It's owned by Microsoft, not a community-run open project. Convenient and widely used, but not neutral infrastructure.
-> - **Git is a poor fit for versioning data.** It's built to track line-by-line changes in text and code; large or binary data files make the repository slow and bloated.
-> - **GitHub is not for datasets** — especially large ones. It enforces file-size limits and isn't meant for data storage. Keep data on the cluster (`/yen/projects`, `/scratch`) or in a data repository, not in your GitHub repo.
+> - **Neither is built for data.** Git tracks line-by-line changes in text and code, so large or binary files leave the repository slow and bloated — and GitHub enforces file-size limits on top of that. Keep data on the cluster (`/yen/projects`, `/scratch`) or in a data repository, not in your repo.
 
 ---
 
@@ -168,16 +165,18 @@ A **fork** is your own copy of the course repo, living under your GitHub account
 
 **Cloning** downloads your fork onto the machine you're working on — here, the Yens.
 
+{: .note }
+> **Run this on the Yens, not on your laptop.** If you are not still connected from
+> [Connecting to the Yens]({{ '/day1/connect-to-the-yens/' | relative_url }}), log back in
+> first — `ssh SUNetID@yen.stanford.edu` — and confirm with `hostname`, which should answer
+> something like `yen1`.
+
 ```bash
 cd ~
 git clone https://github.com/YOUR_GITHUB_USERNAME/yens-onboarding-2026.git
 cd yens-onboarding-2026
 ```
-
-{: .note }
-> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
->
-> Put a sticky note on your laptop lid so instructors can see where you are.
+{: .yens }
 
 **Step 3 — Authenticate with GitHub (one time)**
 
@@ -202,6 +201,7 @@ ml gh-cli           # make gh available on the Yens
 gh auth login       # answer: GitHub.com → HTTPS → Authenticate Git → Yes → Paste an authentication token
 gh auth setup-git   # let gh remember the token so git never asks you again
 ```
+{: .yens }
 
 Paste the token when `gh auth login` asks. The `gh auth setup-git` step then wires `gh` in as git's credential helper, so it hands over your token automatically on every `git push` — no browser, no device code, and no password prompt, now or in future sessions.
 
@@ -214,9 +214,12 @@ You'll want `gh` on your laptop too (for the Claude Code work later). Install it
 - **Windows** (in PowerShell — then it's usable from Git Bash too): `winget install --id GitHub.cli`
 - **Linux** / other: see the [official instructions](https://github.com/cli/cli#installation)
 
+Answer **GitHub.com**, then **HTTPS**, then **Paste an authentication token**:
+
 ```bash
-gh auth login    # GitHub.com → HTTPS → Paste an authentication token
+gh auth login
 ```
+{: .laptop }
 
 (On a laptop you *can* instead choose "Login with a web browser" — but the token works everywhere, so reusing it is one less thing to think about.)
 
@@ -229,6 +232,7 @@ A **branch** is a safe, separate workspace, so your experiments never disturb th
 ```bash
 git checkout -b experiment
 ```
+{: .yens }
 
 **Step 5 — Make a change and commit**
 
@@ -239,6 +243,7 @@ echo "Hello from Day 1" > my_first_commit.txt
 git add my_first_commit.txt
 git commit -m "Add my first commit from Day 1"
 ```
+{: .yens }
 
 **Step 6 — Push to your fork**
 
@@ -247,6 +252,7 @@ git commit -m "Add my first commit from Day 1"
 ```bash
 git push -u origin experiment
 ```
+{: .yens }
 
 {: .note }
 > This pushes your **branch**, not `main`. Your work is safely on GitHub, but `main` is untouched — which is exactly the point of branching. To fold the branch into `main`, open a pull request on your fork and merge it.

@@ -11,28 +11,15 @@ permalink: /day1/part1/
 # Part 1 — Setup
 
 Nothing in this part does any research. It gets you a machine you can reach, an identity
-it recognises, a way to move data to it, and an assistant that can drive all three — which
+it recognizes, a way to move data to it, and an assistant that can drive all three — which
 is what everything else in the two days runs on.
 
-**You have until the 10:00 break — about an hour — to get through the checkpoint at the
-end.**
+**9:00 to 10:30.** A short lecture on the two-day map and where your work will live, then
+a long work block to get yourself through the checkpoint at the end.
 
-You work through it yourself rather than following along: every command, check, and
-what-to-do-when-it-breaks is on the page, and instructors circulate rather than lead. Put
-up a red sticky whenever you want one. Self-directed, but not open-ended — keep an eye on
-the clock:
-
-| Section | Give it about |
-|---|---|
-| [Connecting to the Yens]({{ '/day1/connect-to-the-yens/' | relative_url }}) | 10 min |
-| [Your Data on the Yens]({{ '/day1/your-data/' | relative_url }}) | 5 min |
-| [Git & GitHub for Research]({{ '/day1/git-and-github/' | relative_url }}) | 13 min |
-| [Working with Claude Code]({{ '/day1/claude-code/' | relative_url }}) | 20 min |
-| [Part 1 Checkpoint]({{ '/day1/part1-checkpoint/' | relative_url }}) | 10 min |
-
-If you are well past one of these, put up a red sticky rather than pushing on — falling
-behind quietly is the failure mode this hour is trying to avoid. If you are ahead, the
-**Optional Practice** at the end of most sections is there for you.
+Take this lab content at your own pace, but try to finish the Checkpoint by 10:30 to be
+ready for the next lecture. Put up a red sticky if you run into trouble. If you're moving
+fast, do the bonus exercises to level up (rather than moving ahead to future sections).
 
 {: .important }
 > Part 1 assumes only the two accounts from
@@ -47,13 +34,13 @@ behind quietly is the failure mode this hour is trying to avoid. If you are ahea
 
 Work through them in order — each builds on the one before.
 
-| Section | Format | What you'll learn |
-|---|---|---|
-| [Connecting to the Yens]({{ '/day1/connect-to-the-yens/' | relative_url }}) | 💻 Hands-on | Log in over SSH, and understand what a remote server is and why research uses one |
-| [Your Data on the Yens]({{ '/day1/your-data/' | relative_url }}) | 💻 Hands-on | Home, projects and scratch — which are backed up, how to check your quota, and what's eating it |
-| [Git & GitHub for Research]({{ '/day1/git-and-github/' | relative_url }}) | 💻 Hands-on | Fork, clone, branch, commit, push — and why a research project wants version control |
-| [Working with Claude Code]({{ '/day1/claude-code/' | relative_url }}) | 📖 Read + 💻 hands-on | Concepts first, then you set it up, learn the controls, and give it a real task |
-| [Part 1 Checkpoint]({{ '/day1/part1-checkpoint/' | relative_url }}) | ✅ Checkpoint | Ten minutes proving the six things Part 2 depends on actually work |
+| Section | Format | Give it about | What you'll learn |
+|---|---|---|---|
+| [Connecting to the Yens]({{ '/day1/connect-to-the-yens/' | relative_url }}) | 💻 Hands-on | 10 min | Log in over SSH, and understand what a remote server is and why research uses one |
+| [Your Data on the Yens]({{ '/day1/your-data/' | relative_url }}) | 💻 Hands-on | 5 min | Home, projects and scratch — which are backed up, how to check your quota, and what's eating it |
+| [Git & GitHub for Research]({{ '/day1/git-and-github/' | relative_url }}) | 💻 Hands-on | 13 min | Fork, clone, branch, commit, push — and why a research project wants version control |
+| [Working with Claude Code]({{ '/day1/claude-code/' | relative_url }}) | 📖 Read + 💻 hands-on | 20 min | Concepts first, then you set it up, learn the controls, and give it a real task |
+| [Part 1 Checkpoint]({{ '/day1/part1-checkpoint/' | relative_url }}) | ✅ Checkpoint | 10 min | Ten minutes proving the six things Part 2 depends on actually work |
 
 {: .note }
 > The checkpoint closes Part 1, and everything in

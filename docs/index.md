@@ -17,8 +17,7 @@ Slurm.
 
 ## Before You Arrive
 
-You do **not** need to log in to the Yens, install anything, or read anything before Day 1.
-We start from scratch in the room. Two accounts, and that is all:
+Please ensure you have the following ready for class:
 
 1. **A [GitHub account](https://github.com/signup)**
 2. **[Claude, through Stanford](https://uit.stanford.edu/service/claude)**
@@ -48,6 +47,12 @@ We start from scratch in the room. Two accounts, and that is all:
   </div>
   <div class="day-skills">Profiling &middot; Slurm &middot; Slurm arrays &middot; GPUs</div>
 </div>
+
+Both mornings run 9:00–12:00 and share the same shape: a short lecture at 9:00 and again
+at 10:30, each opening into a long block where you work at your own pace. There are no
+scheduled breaks — take your own when you reach a stopping point. The
+[Reference]({{ '/reference/' | relative_url }}) section holds the material we could not
+fit — local LLMs, LLM-as-a-judge, `scp`, and more.
 
 ---
 

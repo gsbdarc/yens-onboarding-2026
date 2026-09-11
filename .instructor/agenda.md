@@ -4,9 +4,9 @@
 
 Condensed from the four-day
 [GSB Research Computing & AI Skills](https://github.com/gsbdarc/gsb-research-computing-ai-skills)
-course. Both mornings run **9:00–12:00**. Day 1 keeps two 10-minute breaks; **Day 2 has
-none** — it runs as two self-paced blocks and tables break when they reach a stopping
-point.
+course. Both mornings run **9:00–12:00** and share the same shape: two cycles of a short
+lecture opening into a long self-paced work block. **Neither day has scheduled breaks** —
+tables break when they reach a stopping point.
 
 The section times below are **calibrated against a real four-day cohort** rather than
 estimated — see [Where these numbers come from](#where-these-numbers-come-from) at the
@@ -16,24 +16,39 @@ bottom, and please correct them again after this course runs.
 
 ## Day 1 — Foundations & AI
 
-| Clock | Section | min |
-|-------|---------|-----|
-| 9:00  | **Welcome + prereq triage** — the two-day map; find who is missing an account and seat a helper with them (see `.instructor/prereq-triage.md`) | 5 |
-| 9:05  | **Connecting to the Yens** — log in, storage layout, quotas, `module load` | 15 |
-| 9:20  | **Git & GitHub** — fork (2 clicks), clone, **make the PAT as a whole-room step**, `gh auth login`, branch, commit, push | 13 |
-| 9:33  | **Working with Claude Code** — hands-on only: sign in, `/cost`, `Shift+Tab` through modes, one real task, install `github-for-research` | 25 |
-| 9:58  | *slack* | 2 |
-| 10:00 | ☕ **Break** | 10 |
-| 10:10 | **Running Python on the Yens** — `$PATH`, `module load python`, script vs. notebook. JupyterHub is a **tour**, not a lab | 14 |
-| 10:24 | **Python environments** — venv, pip, `requirements.txt`; the Potion Brawl rebuild as a **demo** | 18 |
-| 10:42 | **Stanford's AI services + data privacy** — Playground vs. Gateway, data-risk levels, cost; the agents/privacy discussion folded in here | 14 |
-| 10:56 | *slack* | 4 |
-| 11:00 | ☕ **Break** | 10 |
-| 11:10 | **Managing API keys** — `.env`, `python-dotenv`, `.gitignore`, init the client | 13 |
-| 11:23 | **Extraction → Day 1 capstone** *(one continuous arc)* — first call → one filing → Pydantic; then straight into 10 filings, README, commit via Claude Code | 35 |
-| 11:58 | *slack* | 2 |
+Two blocks, the same shape as Day 2: a 20-minute lecture opening into a 70-minute
+self-paced work block. **No scheduled breaks** — tables break inside the work blocks.
 
-**152 min teaching · 20 min breaks · 8 min slack = 180.**
+| Clock | Block | min |
+|-------|-------|-----|
+| 9:00  | **Lecture 1** — the two-day map and prereq triage (5, see `.instructor/prereq-triage.md`); then logging in to the Yens, the storage layout and quotas, and why the work goes under version control | 20 |
+| 9:20  | **Work block 1** — Part 1: `ssh`, `module load`, fork → clone → branch → commit → push, then Claude Code. Ends in the **Part 1 Checkpoint** | 70 |
+| 10:30 | **Lecture 2** — `$PATH` and `module load python`, script vs. notebook, JupyterHub as a **tour**; then Playground vs. Gateway, the data-risk table, and cost | 20 |
+| 10:50 | **Work block 2** — Part 2: venv and `requirements.txt`, `.env` and keys, then the extraction → capstone arc | 70 |
+
+**40 min lecture · 140 min work block = 180.**
+
+### Section budgets inside the blocks
+
+Calibrated against the four-day cohort. These are **guidance for pacing the room**, not
+clock times — the work blocks are self-paced, so tables will diverge.
+
+| Section | Where | min |
+|---|---|---|
+| Welcome + prereq triage | Lecture 1 | 5 |
+| Connecting to the Yens | Work block 1 | 15 |
+| Git & GitHub | Work block 1 | 13 |
+| Working with Claude Code | Work block 1 | 25 |
+| Part 1 Checkpoint | Work block 1 | 10 |
+| Running Python on the Yens | Lecture 2 | 14 |
+| Stanford's AI services + data privacy | Lecture 2 | 14 |
+| Python environments | Work block 2 | 18 |
+| Managing API keys | Work block 2 | 13 |
+| Extraction → Day 1 capstone | Work block 2 | 35 |
+
+Work block 1 has 63 min of material in 70; work block 2 has 66 in 70. **Lecture 2 is the
+tight one** — its two sections measure 28 min against a 20-min slot, so the JupyterHub tour
+is what gives. The AI-services half ran only 10 last time, which is what makes 20 possible.
 
 **Protected:** Claude Code (25) and the extraction-to-capstone arc (35). These are the two
 things the four-day cohort never got enough of.

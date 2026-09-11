@@ -302,7 +302,7 @@ Read that message closely: the JSON *inside* the fence is perfectly good and the
 
 ---
 
-## Optional Practice
+## Bonus
 
 **Swap the filing by hand**
 
@@ -335,7 +335,7 @@ A different insider, a different role, and **both** result files are still there
 
 Your `client` talks to more than one endpoint. Each of these is a different door on the same Stanford gateway (your `base_url` never changes), so with the client already configured, they just work.
 
-**Optional practice: List the Available Models**
+**Bonus — List the Available Models**
 
 Hit the models endpoint (`GET /v1/models`) to see exactly which model ids the gateway accepts. This is the menu for every other call.
 
@@ -347,7 +347,7 @@ for m in client.models.list().data:
 Look for `text-embedding-ada-002` in the list; that's the id the next exercise uses.
 
 
-**Optional practice: Turn Text into an Embedding**
+**Bonus — Turn Text into an Embedding**
 
 An embedding turns text into a vector of numbers that captures its meaning, the foundation of semantic search and clustering. Call the embeddings endpoint (`POST /v1/embeddings`):
 
@@ -362,7 +362,7 @@ print(vector[:8])
 ```
 
 
-**Optional practice: Count Tokens and Calculate the Cost**
+**Bonus — Count Tokens and Calculate the Cost**
 
 Every response reports how many tokens it used. Look at the `usage` field on one of your earlier chat responses:
 
@@ -387,7 +387,7 @@ print(f"This call cost ${cost:.6f}")
 Then multiply by 10,000 filings. That per-call number is small, but it is exactly what you budget against when you scale.
 
 
-**Optional practice: Pay for Thinking You Never See**
+**Bonus — Pay for Thinking You Never See**
 
 Some models on the gateway **reason** before they answer: they work the problem through internally, then write a reply. That hidden reasoning is generated text, so it's billed as output tokens, and most of these models never show it to you.
 

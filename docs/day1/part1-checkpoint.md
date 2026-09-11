@@ -9,12 +9,12 @@ permalink: /day1/part1-checkpoint/
 
 # Part 1 Checkpoint
 
-Everything before the first break was setup. Nothing you have built yet does any
+Everything in Part 1 was setup. Nothing you have built yet does any
 research — but from here on, every section assumes all of it works.
 
 This checkpoint is how you find out. It is six things, in one continuous run, and it
-should take about ten minutes — budget for it, because it is the last thing in the hour
-before the 10:00 break, and it is the point of the hour. Do it **before you start
+should take about ten minutes — budget for it, because it is the last thing in the block
+before the 10:30 lecture, and it is the point of the block. Do it **before you start
 Part 2**, while there is still someone circulating who can fix whatever is broken.
 
 {: .important }
@@ -55,10 +55,14 @@ you move work — by hand in (5), and by asking in (6).
 
 On **your laptop**, not the Yens. Terminal on macOS, Git Bash or PowerShell on Windows.
 
+Run `pwd` to see where you are, then `ls -a ~` to list your home directory including
+hidden files:
+
 ```bash
-pwd                 # where am I?
-ls -a ~             # what's in my home directory, hidden files included?
+pwd
+ls -a ~
 ```
+{: .laptop }
 
 You are looking for two things: the commands run at all, and `ls -a` shows you dotfiles
 that a plain `ls` hides. That second one matters more than it looks — `.env`, `.gitignore`
@@ -69,6 +73,7 @@ and `.claude` are all coming, and all three are invisible without `-a`.
 ```bash
 ssh SUNetID@yen.stanford.edu
 ```
+{: .laptop }
 
 Password, then Duo. You should land on a banner and a prompt on one of `yen1`–`yen5`.
 
@@ -76,6 +81,7 @@ Password, then Duo. You should land on a banner and a prompt on one of `yen1`–
 hostname            # which Yen did the load balancer give me?
 whoami              # am I logged in as myself?
 ```
+{: .yens }
 
 {: .warning }
 > **This is the one you cannot fix yourself.** If you cannot log in, it is an account
@@ -92,6 +98,7 @@ gh auth status                      # should say: Logged in to github.com as YOU
 git config --get credential.helper  # should mention gh — that's `gh auth setup-git`
 claude                              # should open, signed in, not asking you to log in
 ```
+{: .yens }
 
 Inside Claude, confirm the skill took:
 
@@ -106,7 +113,7 @@ your first `git push` will ask for a password it won't accept.
 
 ### 4 — Move a file both ways
 
-This is the one skill on the list you have not practised yet, and it is the one people
+This is the one skill on the list you have not practiced yet, and it is the one people
 discover is missing at the worst possible moment — usually with data they need on the
 cluster and no way to get it there.
 
@@ -120,6 +127,7 @@ scp ~/checkpoint.txt SUNetID@yen.stanford.edu:/scratch/users/SUNetID/
 scp SUNetID@yen.stanford.edu:/scratch/users/SUNetID/checkpoint.txt ~/checkpoint_back.txt
 cat ~/checkpoint_back.txt
 ```
+{: .laptop }
 
 Up, then back down. If `checkpoint` prints, you can move data in both directions —
 which is what the rest of the course will ask of you.
@@ -146,6 +154,7 @@ git add notes.md
 git commit -m "Note reaching the Part 1 checkpoint"
 git push -u origin checkpoint
 ```
+{: .yens }
 
 Then open your fork on GitHub and confirm the `checkpoint` branch is there with your
 commit on it. If the push succeeded without asking for a password, item 3 is genuinely
@@ -186,7 +195,7 @@ but not *why*, tell it so and have it try again.
 > while you are away from the keyboard anyway.
 
 If you are green on all six, you have a working research setup: a machine you can reach,
-an identity it recognises, a way to move data to it, and a version-controlled place to
+an identity it recognizes, a way to move data to it, and a version-controlled place to
 put the results — plus an assistant that can operate all of it on your behalf.
 
 Everything in Part 2 is what you *do* with that.
