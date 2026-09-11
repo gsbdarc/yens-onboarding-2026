@@ -71,6 +71,97 @@
 .main-content details[open] > summary::before { transform: rotate(90deg); }
 .main-content details[open] { padding: 0 0.9rem 0.9rem; }  /* ...so only the content is inset */
 
+/* ── Quiz ─────────────────────────────────────────────────────────────────
+   Seven questions in a row, so the accordion styling above is far too heavy:
+   it stacks seven identical grey pills with more air between them than in
+   them. Restyle <details class="quiz"> as a plain FAQ list instead — hairline
+   rules, no fill, the number in the deck's serif in Cardinal, and the chevron
+   moved to the right margin where it stops competing with the number. The
+   question reads at body weight; the rules and the chevron carry the
+   structure. */
+.main-content details.quiz {
+  border: 0;
+  border-top: 1px solid #d6cec2;
+  border-bottom: 1px solid #d6cec2;
+  border-radius: 0;
+  margin: 0;
+  overflow: visible;
+}
+.main-content details.quiz + details.quiz { border-top: 0; }  /* no doubled rules */
+
+.main-content details.quiz > summary {
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.75rem 0.15rem;
+  background: none;
+  color: inherit;
+  font-weight: 400;
+}
+.main-content details.quiz > summary:hover { background: #faf8f4; }
+
+/* The number rides in a filled Cardinal disc — a fixed-width badge, so 1
+   through 7 line up and every question starts at the same place, and the row
+   reads as an item in a numbered set rather than a sentence beginning with a
+   digit. Nudged down a hair to sit optically centred on the first line. */
+.main-content details.quiz > summary .qnum {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  margin-top: 0.1rem;
+  border-radius: 50%;
+  background: #8c1515;
+  color: #fff;
+  font-family: "Source Serif 4", georgia, serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* The question is one flex item, not one per text node: a <code> span inside
+   an unwrapped summary would otherwise have the row's `gap` applied on both
+   sides of it, opening a hole before the question mark. */
+.main-content details.quiz > summary .qtext { flex: 1 1 auto; }
+
+/* The control moves to the right and says what it does: a bare chevron out on
+   the margin reads as decoration, and these rows otherwise look like static
+   text. Two glyphs rather than one rotated one, so the label and the arrow
+   always agree. */
+.main-content details.quiz > summary::before { display: none; }
+.main-content details.quiz > summary::after {
+  content: "Show answer \25b8";
+  flex: none;
+  margin-left: auto;
+  padding-left: 0.9rem;
+  white-space: nowrap;
+  color: #8c1515;
+  font-size: 0.82em;
+  font-weight: 600;
+}
+.main-content details.quiz[open] > summary::after {
+  content: "Hide answer \25be";
+  color: #6a7280;
+}
+.main-content details.quiz > summary:hover::after { text-decoration: underline; }
+
+/* Narrow screens: the question needs the room more than the label does. */
+@media (max-width: 34rem) {
+  .main-content details.quiz > summary::after { content: "\25b8"; font-size: 1em; }
+  .main-content details.quiz[open] > summary::after { content: "\25be"; }
+}
+
+/* Open: the answer hangs under the question, not under the number. Undo the
+   inset box the generic accordion applies when open. */
+.main-content details.quiz[open] { padding: 0; }
+.main-content details.quiz[open] > summary { border-bottom: 0; margin: 0; }
+.main-content details.quiz > *:not(summary) {
+  margin-left: calc(1.6rem + 0.85rem);   /* the disc, plus the summary's gap */
+  margin-right: 0.15rem;
+}
+.main-content details.quiz > *:last-child { margin-bottom: 0.9rem; }
+
 /* ── Aside callout ────────────────────────────────────────────────────────
    Declared as grey-dk in _config.yml because the theme's callout SCSS needs a
    $<color>-300 variable to exist, and grey-lt's is #e6e1e8 — invisible as a
