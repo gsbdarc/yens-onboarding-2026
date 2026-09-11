@@ -20,8 +20,7 @@ travels with you.
 
 ## Before You Arrive
 
-**Two accounts, and that's all.** Neither needs a terminal, and you do not need to log in
-to the Yens before Day 1 — see [Before You Arrive]({{ '/prework/' | relative_url }}).
+Please ensure you have the following ready for class:
 
 1. **A [GitHub account](https://github.com/signup).** Free; use an existing one if you
    have it.
