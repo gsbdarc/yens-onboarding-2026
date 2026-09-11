@@ -11,8 +11,8 @@ If you need help after today:
 
 | | | |
 |---|---|---|
-| 💬 | [**#gsb-yen-users**](https://circlerss.slack.com/archives/C01JXJ6U4E5) | Slurm, storage, software — paste your error output |
-| ✉️ | [**gsb_darcresearch@stanford.edu**](mailto:gsb_darcresearch@stanford.edu) | Anything you would rather not post in a channel |
+| 💬 | [**#gsb-yen-users**](https://circlerss.slack.com/archives/C01JXJ6U4E5) | Slurm, storage, software. Other Yen users can help, and the DARC team monitors it — paste your error output |
+| ✉️ | [**gsb_darcresearch@stanford.edu**](mailto:gsb_darcresearch@stanford.edu) | Any project request |
 | 📖 | [**rcpedia.stanford.edu**](https://rcpedia.stanford.edu) | The written documentation, including current limits |
 
 {: .important }
