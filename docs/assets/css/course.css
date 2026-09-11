@@ -275,6 +275,55 @@
   border: 1px solid #e8e3db;
   border-radius: 6px;
 }
+/* ── Username field ───────────────────────────────────────────────────────
+   Lives inside a Tip callout on Git & GitHub; typing a username rewrites the
+   YOUR_GITHUB_USERNAME placeholders in every command and link on the page
+   (assets/js/username-fill.js). The prefix is a <label>, so clicking
+   "github.com/" focuses the field, and the pair reads as the one URL it is
+   completing rather than as a stray form control. */
+.main-content .username-fill-field {
+  display: inline-flex;
+  align-items: stretch;
+  overflow: hidden;
+  vertical-align: middle;
+  border: 1px solid #cfc8bd;
+  border-radius: 5px;
+  background: #fff;
+}
+.main-content .username-fill-field:focus-within {
+  border-color: #8c1515;
+  box-shadow: 0 0 0 2px rgba(140, 21, 21, 0.14);
+}
+.main-content .username-fill-prefix {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  border-right: 1px solid #e7e3dc;
+  background: #f4f1ec;
+  color: #8a837a;
+  font-family: "Source Code Pro", "SFMono-Regular", menlo, monospace;
+  font-size: 0.85rem;
+  cursor: text;
+}
+.main-content .username-fill-field input {
+  width: 11rem;
+  padding: 0.25rem 0.55rem;
+  border: 0;
+  background: none;
+  font-family: "Source Code Pro", "SFMono-Regular", menlo, monospace;
+  font-size: 0.9rem;
+  color: #1c1e21;
+}
+.main-content .username-fill-field input:focus { outline: none; }
+.main-content .username-fill-status {
+  margin-left: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1a7f5a;
+  white-space: nowrap;
+}
+.main-content .username-fill-status:empty { display: none; }
+
 /* ── Which machine am I on? ───────────────────────────────────────────────
    Half the commands in Part 1 run on the Yens and half on the student's own
    laptop, and running one in the wrong place is the commonest way to get

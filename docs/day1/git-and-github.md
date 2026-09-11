@@ -20,6 +20,12 @@ Version control tracks every change you make to a project — who changed what, 
 
 **GitHub** is a website that hosts git repositories in the cloud. It's where you share, back up, and submit your work.
 
+{: .tip }
+> **Type your GitHub username** and every command on these pages fills itself in, so you can
+> copy and paste them without editing. It stays in this browser.
+>
+> <span class="username-fill-field"><label class="username-fill-prefix" for="gh-username">github.com/</label><input id="gh-username" type="text" placeholder="username" spellcheck="false" autocapitalize="none" autocorrect="off" autocomplete="off"></span> <span id="gh-username-status" class="username-fill-status"></span>
+
 <svg viewBox="0 0 760 176" role="img" aria-labelledby="gd1-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:680px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="gd1-title">Git saves snapshots on your machine; GitHub stores them in the cloud. You push commits up to your fork and pull updates back down.</title>
   <defs>
@@ -155,11 +161,7 @@ Your work in this course is tracked in your version history. Set up your copy of
 A **fork** is your own copy of the course repo, living under your GitHub account. Everything you write over the next two days goes here — it's yours to keep after the course ends.
 
 1. **Fork the repo.** Go to the [course repo on GitHub](https://github.com/gsbdarc/yens-onboarding-2026) and click **Fork** in the top-right corner.
-2. **Turn on Issues.** On your fork: **Settings → General → Features → tick *Issues***. A fork starts with its issue tracker switched off, and you'll be logging issues later today — the `github-for-research` skill depends on it.
-
-{: .note }
-> You do **not** need to enable Actions or Pages on your fork. The course site is
-> published from the class repo; your fork is a working copy for your own code.
+2. **Turn on Issues.** Open your fork's <a href="https://github.com/YOUR_GITHUB_USERNAME/yens-onboarding-2026/settings" target="_blank" rel="noopener noreferrer">repository settings</a> and, under **Features**, tick ***Issues***. A fork starts with its issue tracker switched off, and you'll be logging issues later today.
 
 **Step 2 — Clone to the Yens**
 
