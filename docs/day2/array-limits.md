@@ -165,9 +165,8 @@ the answer is easier in person than over Slack.
 > **Please fill in the class survey — it takes about 5 minutes.**
 > <https://darc.stanford.edu/class-survey>
 >
-> This is how the class gets better. Tell us what we got right and what could have been
-> better: what dragged, what you would have wanted more time on, and anything that left you
-> stuck. We read every response and rebuild this course from them each year.
+> It is how we make the class better next year — tell us what we got right and what could
+> have been better.
 
 ---
 
