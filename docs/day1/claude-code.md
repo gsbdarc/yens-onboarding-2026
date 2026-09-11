@@ -230,12 +230,14 @@ You've been working on the Yens all along — Claude Code runs there too. Connec
 ```bash
 ssh SUNetID@yen.stanford.edu
 ```
+{: .laptop }
 
 **1 — Load Claude Code.** It's available as a module on the Yens, just like `gh` and `python`:
 
 ```bash
 ml claude-code
 ```
+{: .yens }
 
 {: .note }
 > **Already have Claude Code on the Yens?** Some people arrive with their own install, or signed in with a personal (non-Stanford) account. Run `which claude` — if it points somewhere other than the module, **grab an instructor** rather than untangling it yourself. We'll get you switched over to the module and your Stanford login, so your usage runs under Stanford's terms.
@@ -247,6 +249,7 @@ mkdir -p ~/cctest
 cd ~/cctest
 claude
 ```
+{: .yens }
 
 **3 — Sign in** with your **SUNet ID** the first time (see *Meet Claude Code* above).
 
@@ -268,6 +271,7 @@ Claude fetches the file, works out its shape, counts the rows, and answers. Noti
 ```bash
 cd ~/yens-onboarding-2026
 ```
+{: .yens }
 
 {: .note }
 > 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
@@ -290,6 +294,7 @@ Install it like this:
 ```bash
 bash scripts/install_github_for_research_skill.sh
 ```
+{: .yens }
 
 {: .note }
 > This is a one-time setup. Not sure if it's already installed? Just ask Claude Code — `> do you have the github-for-research skill?` — or run the command again; it's safe to re-run. The skill's home is `gsbdarc/claude-skill-github-for-research`.
@@ -340,6 +345,7 @@ git clone https://github.com/gsbdarc/sf311.git
 cd sf311
 claude
 ```
+{: .yens }
 
 Now ask the same things in plain English — and notice the first sentence:
 
@@ -376,6 +382,7 @@ Now let Claude Code do real work on your own site. First go back to your course 
 cd ~/yens-onboarding-2026
 claude
 ```
+{: .yens }
 
 Press `Shift+Tab` until you're in **auto mode** — so Claude can run the whole task end to end without stopping to ask at every edit and git step. Then give it a concrete, checkable task — switch the site to dark mode and drive the whole git loop for you:
 
@@ -386,7 +393,7 @@ Press `Shift+Tab` until you're in **auto mode** — so Claude can run the whole 
 Two things in that prompt are doing real work:
 
 - **"Use the github-for-research skill"** — the same habit as the last exercise. Without it Claude will happily commit straight to `main` and skip the branch and PR entirely.
-- **"You don't have to be thorough, it's a proof of concept"** — left to itself, Claude will go hunting for every colour on the site and spend five minutes doing it. The theme really is one line in `docs/_config.yml`, and this tells Claude that flipping it is enough. Scoping a task like this is one of the most useful things you can say to an AI assistant.
+- **"You don't have to be thorough, it's a proof of concept"** — left to itself, Claude will go hunting for every color on the site and spend five minutes doing it. The theme really is one line in `docs/_config.yml`, and this tells Claude that flipping it is enough. Scoping a task like this is one of the most useful things you can say to an AI assistant.
 
 Then confirm it worked: on your fork on GitHub, a new **branch** and a **pull request** should have appeared with the theme change.
 
@@ -414,11 +421,11 @@ The task above flipped the whole site to dark in one line. Here's a more ambitio
 
 1. **Inspect the repo.** In `claude`, ask how the site is themed:
    ```
-   > How is this site's theme and colours set up, and which files control them?
+   > How is this site's theme and colors set up, and which files control them?
    ```
 2. **Review what's open.** Have Claude survey the project's issue tracker:
    ```
-   > Summarise the open issues in this project.
+   > Summarize the open issues in this project.
    ```
 3. **Plan before acting.** Press `Shift+Tab` to enter **plan mode**, then ask:
    ```
