@@ -42,8 +42,7 @@ The file below is one such snapshot from yen1, taken on July 10, 2026 at 20:56. 
 
 {: .important }
 > **Task:** Load the snapshot and explore it with Claude, make a visualization, then put what
-> you find against the per-user limits and against the live view from `top`. Write up one
-> finding at the end.
+> you find against the per-user limits and against the live view from `top`.
 
 Load the file and explore it **with Claude** — ask it about the columns, dig into what's
 running, and have it help you **make a visualization** of an insight you find.
@@ -118,9 +117,3 @@ While it's running, try these keys:
 - `q` — quit
 
 Watch for a few seconds: which processes churn near a full core, and which just sit `S` (sleeping)? Press `q` to quit when you're done.
-
----
-
-## Write It Up
-
-Find one thing worth keeping — from the snapshot, the limits comparison, or `top`. Add a short section to your `README.md`: a few sentences on what you found and what it tells you about how shared research nodes actually get used.
