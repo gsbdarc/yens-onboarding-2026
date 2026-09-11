@@ -179,6 +179,26 @@ A **skill** is a reusable set of instructions that Claude Code pulls in whenever
 
 Skills can come from Stanford, from your lab, or ones you write yourself. This course ships one — **github-for-research** — which you'll install just below, and you'll see exactly where it lands on disk.
 
+### MCP servers — new tools, not new instructions
+
+A skill changes *how* Claude works. An **MCP server** changes *what it can reach*.
+
+Out of the box the harness hands Claude a fixed set of tools: read a file, run a command, edit code, drive git. An MCP server adds tools beyond that set — a database it can query, an internal API, a service like GitHub or Zotero. **MCP** is the *Model Context Protocol*, an open standard for describing a tool once so that any assistant speaking the protocol can use it; it is not Anthropic-only, which is why the same server works in other editors and agents too. Type `/mcp` to see what a session has connected.
+
+This is the piece worth filing away for later. If your group has a data source everyone reaches with their own half-remembered script — an admin database, a licensed feed, a lab instrument's API — wrapping it in an MCP server *once* lets Claude query it the same way for everyone, instead of each person re-explaining it every time. Writing one is a normal programming job: you describe each tool, its inputs, and what it returns.
+
+{: .warning }
+> An MCP server is a route your data travels along, and the tools it exposes run with your access — same as everything else on this page. A server that can reach restricted data can hand it to the model as easily as a file you opened yourself, so connecting one is a decision about data governance, not just convenience.
+
+### Plugins — how a skill or a tool gets shared
+
+A skill is a folder of instructions. An MCP server is a set of tools. A **plugin** is the box you ship either one in: a single directory that can hold skills, MCP servers, [hooks]({{ '/reference/llm-failure-modes/' | relative_url }}), and purpose-built subagents, versioned together so people get a known-good set rather than a pile of files to copy.
+
+Type `/plugin` to browse what's available and install one; the browser shows you what a plugin would add and what it costs you in context before you commit to it.
+
+{: .note }
+> **Trust a plugin the way you'd trust a script.** A plugin can run code on your machine with your access, so installing one from an unknown source is the same bet as running a stranger's shell script. Stick to plugins from Anthropic, from Stanford, or from your own group.
+
 ---
 
 ## Data Governance and Security
@@ -450,6 +470,7 @@ The task above flipped the whole site to dark in one line. Here's a more ambitio
 ## What You Learned
 
 - How Claude Code works — model vs. harness, models, modes, tokens, context, memory, skills
+- What an MCP server and a plugin each add — new tools, and the box a group ships them in
 - What a token is, and why context and cost are both measured in tokens
 - What leaves your machine on an AI call — and why sensitive data can't go to an external LLM
 - How to get Claude through Stanford's managed service
