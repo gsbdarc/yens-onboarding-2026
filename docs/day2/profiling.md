@@ -346,6 +346,20 @@ Document what changes:
 </details>
 
 <details markdown="1">
+<summary>⭐ Bonus — explore real cluster usage data</summary>
+
+You have just measured one script. A live Yen node is running dozens of other people's
+processes at the same time, and reading a real snapshot of that is the fastest way to make
+the vocabulary concrete — what counts as a *process*, how one *user*'s footprint adds up,
+and why **RAM in use** and **virtual memory reserved** are different numbers.
+
+Work through
+[Exploring Cluster Usage Data]({{ '/reference/cluster-usage-data/' | relative_url }}) — a
+real `yenstop` capture, explored with Claude.
+
+</details>
+
+<details markdown="1">
 <summary>⭐ Bonus — size up your own machine</summary>
 
 Put your own machine's numbers against a Yen node's, and price the same work in the
