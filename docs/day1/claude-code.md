@@ -20,7 +20,7 @@ In **Git & GitHub for Research** you worked through fork, clone, branch, commit,
 
 **Claude Code** is an AI assistant that lives in your terminal: you describe what you want in plain English, and it does the work — running commands, editing files, and handling git for you.
 
-You just saw *why* keeping your work in GitHub is worth the trouble (see [Git & GitHub for Research]({{ '/day1/git-and-github/' | relative_url }})) — and those are exactly the habits Claude Code can handle for you. You will **not** memorize the commands for any of it. You say *"log this as an issue"* or *"try this on a branch,"* and Claude Code does it — the right way — because it follows a **skill** we wrote for research.
+You just saw *why* keeping your work in GitHub is worth the trouble (see [Git & GitHub for Research]({{ '/day1/git-and-github/' | relative_url }})) — and those are exactly the habits Claude Code can handle for you. You will **not** memorize the commands for any of it. You say *"log this as an issue"* or *"try this on a branch,"* and Claude Code does it. Git is one of the most heavily documented tools in existence — decades of commands, error messages, and public questions and answers — so its workflow is something Claude knows cold rather than something you have to spell out. It can also read the repository's actual state as it goes, so it checks where it is instead of guessing.
 
 **Getting access.** You don't need a personal account. Stanford runs **Claude for Education** — a secure, university-managed environment — and it's **free for everyone at Stanford**.
 
@@ -129,12 +129,17 @@ Switch anytime with the `/model` command. Default to a capable model; drop to a 
 
 ### Permission modes — how much Claude does before asking
 
-Claude Code always works with your permission — you choose how much it checks in before acting. Press `Shift+Tab` to cycle through the modes (the current one shows at the bottom of the screen, e.g. `⏸ plan mode on`, `⏵⏵ accept edits on`):
+How much Claude checks in before acting is up to you. The **permission mode** sets that — from asking before every single edit to running on its own — so it is worth knowing which one you are in. Press <kbd>Shift</kbd>+<kbd>Tab</kbd> to cycle through the modes (the current one shows at the bottom of the screen, e.g. `⏸ plan mode on`, `⏵⏵ accept edits on`):
 
-- **Manual** (the default): Claude reads freely but asks before every edit and every command — nothing changes on your machine without your yes. Safest, and a good place to start.
+- **Manual** (the default): Claude reads freely, but asks before it edits a file or runs a command. Safest, and a good place to start — with two exceptions worth knowing: commands it classes as read-only run without asking, and once you answer **"Yes, and don't ask again,"** that approval is remembered. For an edit that lasts the rest of the session; for a command it is saved to the repository and applies in future sessions too.
 - **Accept edits:** Claude applies its file edits (and common file commands like creating folders) without asking each time, but still stops before running other commands. Good once you trust the direction and don't want to approve every edit.
 - **Plan:** Claude investigates and writes up a plan but changes *nothing* — no edits, no commands that alter anything — until you approve. Perfect when you want to see the approach first.
 - **Auto:** Claude does everything on its own — editing files and running commands as it goes — with background safety checks that block the riskiest actions. Fastest, but least oversight: it reduces prompts, it doesn't guarantee safety, so use it only when you trust the task.
+
+{: .note }
+> **This is why manual mode sometimes acts without asking you.** Saved approvals accumulate,
+> so a command you allowed last week runs silently this week. Type `/permissions` to see
+> every rule currently in force and remove any you did not mean to keep.
 
 *Start in manual to stay in control; use plan mode when you want a proposal first; move to accept-edits or auto once you trust where it's headed.*
 
@@ -235,7 +240,24 @@ claude
 ```
 {: .yens }
 
-**3 — Sign in** with your **SUNet ID** the first time (see *Meet Claude Code* above).
+**3 — Sign in.** The first launch asks you to log in, and there is no browser on the Yens —
+so the flow runs across both machines:
+
+1. Claude Code prints a long **login URL** and waits. Press <kbd>c</kbd> to copy it, or select it and
+   copy it by hand, then open it in the browser **on your laptop**.
+2. Sign in with your **Stanford account** — SUNet ID and Duo. If you are offered a choice of
+   accounts, pick the Stanford one: a personal Claude account is not covered by Stanford's
+   terms, and your usage would not count against Stanford's allowance.
+3. The browser hands back a **code** rather than returning you to the terminal, because
+   nothing on your laptop can reach a callback server running on the Yens. Copy the code and
+   paste it at the terminal's `Paste code here if prompted` prompt.
+4. The terminal says `Login successful`. Press <kbd>Enter</kbd> to continue.
+
+{: .note }
+> **Once per account, not once per node.** The credential is written to
+> `~/.claude/.credentials.json` in your home directory, which every Yen shares — so logging
+> in on yen1 also logs you in on yen4. Type `/status` to see which account a session is
+> using, and `/logout` to sign out.
 
 **4 — Learn two controls.** Try each once:
 
