@@ -145,6 +145,16 @@ ls /yen/projects/                 # shared project storage
 ```
 {: .yens }
 
+{: .tip }
+> **Two keys that will save you the most typing.** Nobody types these paths out in full — and you shouldn't either.
+>
+> - <kbd>↑</kbd> — the up-arrow key walks back through commands you have already run, newest first. Recall one, edit it, and press <kbd>Enter</kbd>. Retyping a long path by hand is how typos get made.
+> - <kbd>Tab</kbd> — start a file or directory name and press it; the shell finishes the name for you. Press it twice to list every match when more than one fits.
+>
+> <kbd>Tab</kbd> is also the fastest way to check a path *before* you run something. If it refuses to complete, what you have typed so far doesn't exist — a wrong directory caught in a keystroke instead of in an error message. Try it now: type `ls /yen/pro` and press <kbd>Tab</kbd>.
+>
+> Both are features of the **shell**, not of the Yens, so they work the same in a terminal on your laptop. More in [Command Line Basics]({{ '/reference/command-line-basics/' | relative_url }}).
+
 {: .note }
 > 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
 >
