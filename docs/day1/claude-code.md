@@ -282,7 +282,7 @@ so the flow runs across both machines:
 **4 — Learn two controls.** Try each once:
 
 - Type `/cost` — see how many tokens this session has used (the *Tokens* box explains why this matters).
-- Press `Shift+Tab` — cycle through the permission modes: manual, accept edits, plan, and auto (see *Permission modes* above).
+- Press <kbd>Shift</kbd>+<kbd>Tab</kbd> — cycle through the permission modes: manual, accept edits, plan, and auto (see *Permission modes* above).
 
 **5 — Give it a real task.** No need to download anything yourself — just point Claude at a file on GitHub and say what you want:
 
@@ -293,7 +293,7 @@ so the flow runs across both machines:
 
 Claude fetches the file, works out its shape, counts the rows, and answers. Notice what you *didn't* do: no `curl`, no `wc -l`, no `sort` or `tail`, no worrying about the header row — you said what you wanted, and it worked out how. That's the shift Claude Code represents.
 
-**6 — Quit, and move to your project.** Leave Claude Code by typing `/exit` (or pressing `Ctrl+D`). The next section sets things up inside your course repo, so move there now:
+**6 — Quit, and move to your project.** Leave Claude Code by typing `/exit` (or pressing <kbd>Ctrl</kbd>+<kbd>D</kbd>). The next section sets things up inside your course repo, so move there now:
 
 ```bash
 cd ~/yens-onboarding-2026
