@@ -300,6 +300,7 @@ claude
 ```
 > Add --mail-type=ALL and --mail-user=SUNetID@stanford.edu to the #SBATCH directives in slurm/extract_form_3_batch.slurm
 ```
+{: .claude }
 
 {: .warning }
 > **Use your own SUNet ID.** If the literal text `SUNetID@stanford.edu` ends up in the
@@ -410,6 +411,7 @@ cat slurm/chain_step1.slurm slurm/chain_step2.slurm
 ```
 > Add #SBATCH --mail-type=ALL and #SBATCH --mail-user=SUNetID@stanford.edu to slurm/chain_step2.slurm.
 ```
+{: .claude }
 
 **Step 3 — submit both back-to-back.** Step 1 runs for ~2 minutes, so fire them off one after the other and let it crunch while step 2 queues behind it. Submit step 1 and note the `JOBID` it prints:
 
@@ -597,6 +599,7 @@ You already got a batch Slurm script working by hand. Rather than describe the Y
 ```
 > Read slurm/extract_form_3_batch.slurm and turn its reusable Yen conventions into a global skill at ~/.claude/skills/yen-slurm/SKILL.md: partition choice, email, %j log naming, always setting --time/--mem/--cpus-per-task, and checking current limits on [RCpedia](https://rcpedia.stanford.edu/_user_guide/slurm/#current-partitions-and-their-limits). Keep it short and repo-agnostic — no project paths.
 ```
+{: .claude }
 
 **Check what it wrote.** A good skill is short, and its **`description`** is what makes Claude reach for it later — so open the file and read it:
 
@@ -628,6 +631,7 @@ Then invoke it on a fresh job. Claude Code turns each skill's folder name into a
 ```
 > /yen-slurm write a Slurm job for a new run and save it as slurm/extract_form_3_batch_claude.slurm
 ```
+{: .claude }
 
 **Submit and review:** the conventions should come straight from the skill, matching what you hand-wrote.
 

@@ -146,6 +146,7 @@ Then commit it. Ask Claude Code to handle it:
 ```
 > Add and commit my array scripts and README changes with a message like "Day 2: all 992 filings through an array", then push to my fork.
 ```
+{: .claude }
 
 ---
 

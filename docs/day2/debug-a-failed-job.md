@@ -100,6 +100,7 @@ cat logs/fix_me_*.err
 ```
 > Help me troubleshoot logs/fix_me_*.err
 ```
+{: .claude }
 
 **Read the plan it comes back with.** If the fix makes sense, approve it and let Claude apply it — you're the reviewer.
 
@@ -108,6 +109,7 @@ You'll also want a completion email, so ask Claude to add the notification lines
 ```
 > Add #SBATCH --mail-type=ALL and #SBATCH --mail-user=SUNetID@stanford.edu to slurm/fix_me.slurm.
 ```
+{: .claude }
 
 Then resubmit — **keep debugging and resubmitting until the Slurm email says the job succeeded** (exit status `0`).
 
