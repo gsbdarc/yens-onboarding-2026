@@ -45,7 +45,7 @@ When you call an LLM API, three things happen outside your control:
 
 <svg viewBox="0 0 600 164" role="img" aria-labelledby="api-title api-desc" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:600px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="api-title">Calling an LLM API sends your data to a remote server and back</title>
-  <desc id="api-desc">Your code on the left, labelled "on your or Stanford's machines", and the model provider's server on the right, labelled "in the cloud", separated by a dashed vertical boundary line. Your code sends a packet labelled "prompt plus data" across the boundary to the provider, which runs the model and sends a "response" packet back.</desc>
+  <desc id="api-desc">Your code on the left, labeled "on your or Stanford's machines", and the model provider's server on the right, labeled "in the cloud", separated by a dashed vertical boundary line. Your code sends a packet labeled "prompt plus data" across the boundary to the provider, which runs the model and sends a "response" packet back.</desc>
   <!-- side labels, above the boxes — same wording as the "Why Run It Yourself?" figure -->
   <text x="117" y="26" font-size="11" font-weight="700" fill="#2c3e50" text-anchor="middle">On your or Stanford's machines</text>
   <text x="505" y="26" font-size="11" font-weight="700" fill="#2c3e50" text-anchor="middle">In the cloud</text>
@@ -81,7 +81,7 @@ When you call an LLM API, three things happen outside your control:
 
 <svg viewBox="0 0 600 232" role="img" aria-labelledby="local-title local-desc" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:600px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="local-title">Running the model yourself keeps your prompt and data on your side</title>
-  <desc id="local-desc">Your code sits above a local model, both on the left of a dashed vertical boundary — the edge of your, or Stanford's, machines. A labelled bar carries the prompt and data down to the local model and the response back up; neither crosses the boundary. On the right, in the cloud, the model provider's server is greyed out and not contacted.</desc>
+  <desc id="local-desc">Your code sits above a local model, both on the left of a dashed vertical boundary — the edge of your, or Stanford's, machines. A labeled bar carries the prompt and data down to the local model and the response back up; neither crosses the boundary. On the right, in the cloud, the model provider's server is grayed out and not contacted.</desc>
   <!-- boundary: the edge of your machines -->
   <line x1="300" y1="36" x2="300" y2="196" stroke="#b3bccb" stroke-width="1.5" stroke-dasharray="5 4"/>
   <!-- territory labels -->
@@ -279,7 +279,7 @@ all its wall-clock time **waiting on the network** for the API to answer, not co
 >
 > No — and not by a little. Your `real` ≫ `user` measurement from this morning says the job
 > waits on the network rather than computing, and a GPU only accelerates computing. It
-> would sit at 0% utilisation for the whole run while you held it out of a queue somebody
+> would sit at 0% utilization for the whole run while you held it out of a queue somebody
 > else needs.
 >
 > </details>
@@ -411,7 +411,7 @@ The CPU still answers — but slower, and *how much* slower depends on:
 
 A small difference per query can still be a meaningful one, for a task that runs a lot of them — a few seconds each becomes hours across thousands of queries.
 
-And our example is on the favourable end for the CPU: a short query, of low complexity, against a small model. A longer prompt, a longer answer, or a bigger model all widen the gap.
+And our example is on the favorable end for the CPU: a short query, of low complexity, against a small model. A longer prompt, a longer answer, or a bigger model all widen the gap.
 
 </details>
 
@@ -486,7 +486,7 @@ covers the current approach for the larger ones.
 {: .note }
 > **Before you fine-tune, check you need to.** A better prompt, a few examples in the prompt,
 > or retrieval over your own documents will get you most of the way for most research tasks,
-> at a fraction of the effort. Fine-tuning earns its keep when you need a *behaviour* the
+> at a fraction of the effort. Fine-tuning earns its keep when you need a *behavior* the
 > model does not have — a house output format, a domain vocabulary — rather than more facts.
 
 **Choosing a model.** Leaderboards measure what the leaderboard measures, which is rarely
