@@ -289,6 +289,7 @@ so the flow runs across both machines:
 ```
 > Download https://raw.githubusercontent.com/gsbdarc/yens-onboarding-2026/main/data/aws_links.csv and tell me how many SEC filings it lists, then show me the five accession numbers that sort last.
 ```
+{: .claude }
 
 Claude fetches the file, works out its shape, counts the rows, and answers. Notice what you *didn't* do: no `curl`, no `wc -l`, no `sort` or `tail`, no worrying about the header row — you said what you wanted, and it worked out how. That's the shift Claude Code represents.
 
@@ -378,6 +379,7 @@ Now ask the same things in plain English — and notice the first sentence:
 ```
 > Use the github-for-research skill. What research question does this project answer? How was the raw 311 data cleaned and where is that checked? Walk me through reproducing the main finding, and list anything left to do.
 ```
+{: .claude }
 
 {: .important }
 > **Name the skill.** A skill isn't guaranteed to kick in on its own — Claude decides whether it looks relevant, and often it just answers the question without it. Saying *"Use the github-for-research skill"* removes the guesswork. Get in the habit: when you want the research practices applied, ask for them by name. You'll do it again in the next exercise.

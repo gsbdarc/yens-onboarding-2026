@@ -105,6 +105,7 @@ Inside Claude, confirm the skill took:
 ```
 > do you have the github-for-research skill?
 ```
+{: .claude }
 
 If `gh auth status` reports you are not logged in, your token never landed — go back to
 [Step 3 of the Git exercise]({{ '/day1/git-and-github/#exercise' | relative_url }}). If
@@ -173,6 +174,7 @@ The same operation, asked for rather than typed. In Claude Code, on the Yens:
 > Part 1 checkpoint, commit it on the current branch with a message explaining why,
 > and push.
 ```
+{: .claude }
 
 Watch what it does before you approve it. You are checking three things: that it picks
 up the skill, that it shows you the commit message before making it, and that the push
