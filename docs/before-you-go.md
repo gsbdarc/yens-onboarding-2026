@@ -1,9 +1,8 @@
 ---
 layout: default
 title: "Before You Go"
-parent: "Day 2 — The Yen-Slurm Cluster"
-nav_order: 3
-permalink: /day2/before-you-go/
+nav_order: 4
+permalink: /before-you-go/
 ---
 
 # Before You Go
