@@ -397,14 +397,18 @@ Now ask the same things in plain English — and notice the first sentence:
 ## Bonus — Put Claude Code to Work
 
 {: .important }
-> **Bonus:** Have Claude Code make a real change to your course site — switch it to **dark mode** — and open a pull request. A bonus walks the same change the way a pro would: inspect, plan, then act.
+> **Bonus:** Publish your own copy of this site from your fork, then have Claude Code make a real change to it and open a pull request. Both walk the same loop a pro uses: plan, approve, act, review.
 
 Optional — the Day 1 capstone only needs the exercise from Git & GitHub for Research. This is extra practice.
 
 <details markdown="1">
-<summary>Make a real change: dark mode</summary>
+<summary>Publish your own copy of the site</summary>
 
-Now let Claude Code do real work on your own site. First go back to your course repo — if you did the sf311 practice above, you're still sitting in someone else's project:
+Your fork already contains everything needed to publish this site, including the GitHub Actions workflow at `.github/workflows/pages.yml` that builds it. What it doesn't have is the switch turned on: GitHub leaves Actions and Pages off on a new fork until someone asks for them.
+
+You could click through the settings pages yourself. Instead let Claude do it — in **plan mode**, so you see what it intends before anything gets switched on. You have no particular reason to trust its first guess about how this site is wired together, and plan mode is how you find out cheaply.
+
+Go back to your course repo and launch Claude:
 
 ```bash
 cd ~/yens-onboarding-2026
@@ -412,58 +416,65 @@ claude
 ```
 {: .yens }
 
-Press `Shift+Tab` until you're in **auto mode** — so Claude can run the whole task end to end without stopping to ask at every edit and git step. Then give it a concrete, checkable task — switch the site to dark mode and drive the whole git loop for you:
+Press <kbd>Shift</kbd>+<kbd>Tab</kbd> until the mode line reads **plan mode**, then ask:
 
 ```
-> Use the github-for-research skill. Switch this site's theme to dark mode, commit it on a new branch, and open a pull request. You don't have to be thorough, it's a proof of concept.
+> Publish this site publicly from my fork with GitHub Pages. The workflow that builds it is already in this repo. Work out what has to be enabled and how to trigger the first deploy using the gh CLI, and show me the plan before changing anything.
 ```
+{: .claude }
 
-Two things in that prompt are doing real work:
+Claude reads `pages.yml`, works out that the site builds from `docs/` and deploys through Actions, and comes back with a plan — having run nothing. Read it. You should recognize the shape of what it proposes, even if you would not have written the commands yourself:
 
-- **"Use the github-for-research skill"** — the same habit as the last exercise. Without it Claude will happily commit straight to `main` and skip the branch and PR entirely.
-- **"You don't have to be thorough, it's a proof of concept"** — left to itself, Claude will go hunting for every color on the site and spend five minutes doing it. The theme really is one line in `docs/_config.yml`, and this tells Claude that flipping it is enough. Scoping a task like this is one of the most useful things you can say to an AI assistant.
+```bash
+gh api -X PUT repos/YOUR_GITHUB_USERNAME/yens-onboarding-2026/actions/permissions -F enabled=true
+gh api -X POST repos/YOUR_GITHUB_USERNAME/yens-onboarding-2026/pages -f build_type=workflow -f 'source[branch]=main'
+gh workflow run pages.yml
+gh run list --workflow pages.yml --limit 1
+```
+{: .yens }
 
-Then confirm it worked: on your fork on GitHub, a new **branch** and a **pull request** should have appeared with the theme change.
+That is `gh` doing something you have not used it for yet. Until now it has been a git convenience — cloning a repo, opening a pull request. Here it is a client for GitHub's whole REST API: `gh api` will call any endpoint GitHub exposes, authenticated as you. That is why Claude can change a repository's settings from the Yens with no browser anywhere in the loop.
+
+Approve the plan and let it run. When the workflow finishes, your copy is live:
+
+**`https://YOUR_GITHUB_USERNAME.github.io/yens-onboarding-2026/`**
 
 {: .note }
-> Look at what it did: the work went on a **branch**, opened as a **pull request**, and the commit **credits Claude** — the good habits happened automatically, because you asked for the github-for-research skill.
+> **If the workflow never starts**, GitHub is waiting on a human. Open the **Actions** tab on your fork in a browser, click **I understand my workflows, go ahead and enable them**, and run `gh workflow run pages.yml` again. GitHub keeps a hand on this one deliberately: a fork arrives carrying workflow code its new owner has never read.
 
-**See your change.** When Claude opens the PR it prints a link — follow it and open the **Files changed** tab. Reviewing that diff *is* the review, and it's how you confirm Claude did what you asked: one line in `docs/_config.yml`, nothing else touched.
-
-Then merge it, whichever way you like:
-
-- **In the browser** — open the PR and click **Merge pull request**, then **Confirm merge**.
-- **In the terminal** — from your repo, `gh pr merge --merge` (you already signed `gh` in on the Yens).
-- **Ask Claude** — `> merge that pull request`.
-
-{: .note }
-> Reading the diff before you merge is the habit worth taking away. An agent that
-> edits ten files when you expected one is not a disaster if you looked first.
+**Quit Claude Code** with `/exit` — the next bonus starts fresh.
 
 </details>
 
 <details markdown="1">
-<summary>Bonus — Do it like a pro (plan mode + issues)</summary>
+<summary>Add a dark-mode toggle — plan, review, merge</summary>
 
-The task above flipped the whole site to dark in one line. Here's a more ambitious change, handled carefully — add a **toggle** so readers can switch between light and dark themselves. Because it's bigger, you look before you leap and review a plan before any file changes. (Do this on a fresh branch.)
+Your fork is live now, and that raises the stakes in a useful way: anything that lands on `main` rebuilds and redeploys a public site. So here is a real change, handled the way a pro would — add a **dark-mode toggle**, a control readers can click to switch between light and dark that remembers their choice.
 
-1. **Inspect the repo.** In `claude`, ask how the site is themed:
+1. **Plan before acting.** From your repo, start `claude` again and press <kbd>Shift</kbd>+<kbd>Tab</kbd> to enter **plan mode**, then ask:
    ```
-   > How is this site's theme and colors set up, and which files control them?
+   > Use the github-for-research skill. Propose a plan to add a dark-mode toggle to the site — a control readers can click to switch between light and dark that remembers their choice. You don't have to be thorough, it's a proof of concept.
    ```
-2. **Review what's open.** Have Claude survey the project's issue tracker:
-   ```
-   > Summarize the open issues in this project.
-   ```
-3. **Plan before acting.** Press `Shift+Tab` to enter **plan mode**, then ask:
-   ```
-   > Propose a plan to add a dark-mode toggle to the site — a control readers can click to switch between light and dark that remembers their choice.
-   ```
-   Claude investigates and shows a plan **without changing anything**. Read it; refine it if you want.
-4. **Approve, implement, and open a PR.** Approve the plan, let Claude make the changes, and have it open a pull request.
+   {: .claude }
+
+   Claude investigates and shows a plan **without changing anything**. Read it; refine it if you want. Two things in that prompt are doing real work:
+
+   - **"Use the github-for-research skill"** — name it, the same habit as the last exercise. Without it Claude will happily commit straight to `main` and skip the branch and the pull request entirely. On a site that now deploys, straight to `main` means straight to published.
+   - **"You don't have to be thorough, it's a proof of concept"** — left to itself, Claude will go hunting for every color on the site and spend five minutes doing it. Scoping a task like this is one of the most useful things you can say to an AI assistant.
+2. **Approve, implement, and open a PR.** Approve the plan, let Claude make the changes, and have it open a pull request.
+3. **Read the diff, then merge.** When Claude opens the PR it prints a link — follow it and open the **Files changed** tab. Reviewing that diff *is* the review, and it is how you confirm Claude did what you asked and nothing more. Then merge it, whichever way you like:
+
+   - **In the browser** — open the PR and click **Merge pull request**, then **Confirm merge**.
+   - **In the terminal** — from your repo, `gh pr merge --merge`.
+   - **Ask Claude** — `> merge that pull request`.
+
+   Merging runs the Pages workflow again, and a minute later the toggle is live on your public copy.
+
+{: .note }
+> Look at what it did: the work went on a **branch**, opened as a **pull request**, and the commit **credits Claude** — the good habits happened automatically, because you asked for the github-for-research skill.
 
 {: .tip }
-> This is the everyday Claude Code loop for anything non-trivial: **look → plan → approve → act.** Plan mode is your safety net — you see exactly what it intends before a single file changes.
+> This is the everyday Claude Code loop for anything non-trivial: **plan → approve → act → review.** Plan mode is your safety net — Claude does its looking around *inside* the plan, and you see exactly what it intends before a single file changes. And reading the diff before you merge is the habit worth taking away: an agent that edits ten files when you expected one is no disaster if you looked first.
 
 </details>
 
@@ -477,5 +488,6 @@ The task above flipped the whole site to dark in one line. Here's a more ambitio
 - What leaves your machine on an AI call — and why sensitive data can't go to an external LLM
 - How to get Claude through Stanford's managed service
 - Install Claude Code and run your first task on real data — in plain English, no commands to memorize
+- Publish your own copy of the site from your fork — planned in plan mode first, with `gh api` doing the settings changes
 - Have Claude Code make a real change and open a pull request — reviewing the diff, and using plan mode before it acts
 - Interrogate a real research repo with Claude Code
