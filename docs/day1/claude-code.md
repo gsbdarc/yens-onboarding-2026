@@ -12,19 +12,6 @@ permalink: /day1/claude-code/
 
 You've set up Git and made your first commit by hand. Claude Code is a tool that can do that kind of work for you — and much more. This section covers what it is, how it works, how to get it through Stanford, and what data you can and can't give it.
 
-{: .important }
-> **This page is concepts first, then hands-on.**
->
-> **Read** — everything from *Meet Claude Code* down to *Claude Code acts as you*: what it
-> is, the models, permission modes, tokens, context, memory, skills, and the data rules.
-> About 15 minutes, and it is worth doing before you arrive if you can.
->
-> **Then do** — [Take It for a Spin](#take-it-for-a-spin) onwards is all keyboard. It
-> assumes the reading rather than repeating it, so the mode names and the data rule won't
-> mean much if you skip ahead.
->
-> Come back to the first half whenever you need it — that's what it's for.
-
 ---
 
 ## Meet Claude Code
@@ -238,9 +225,6 @@ ssh SUNetID@yen.stanford.edu
 ml claude-code
 ```
 {: .yens }
-
-{: .note }
-> **Already have Claude Code on the Yens?** Some people arrive with their own install, or signed in with a personal (non-Stanford) account. Run `which claude` — if it points somewhere other than the module, **grab an instructor** rather than untangling it yourself. We'll get you switched over to the module and your Stanford login, so your usage runs under Stanford's terms.
 
 **2 — Make a working folder and launch it from there.** Create a `cctest` directory in your home directory, move into it, and start Claude Code:
 
