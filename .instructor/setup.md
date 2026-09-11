@@ -10,22 +10,23 @@ staging entirely. Dropping the leaderboard removed the fork-roster sync.
 
 ## Two weeks before
 
-- [ ] **Book the Slurm reservation.** Day 2 needs a reservation named **`class_day2`**,
+- [ ] **Book the Slurm reservation.** Day 2 needs a reservation named **`class`**,
       covering 9:00–12:00 on Day 2, sized for the cohort.
       **Every `sbatch` and `srun` in the Day 2 pages hardcodes
-      `--reservation=class_day2`** — including all of Part 2 and the GPU bonus page.
+      `--reservation=class`** — including all of Part 2 and the GPU bonus page.
       If the name differs, every command in the docs is wrong. Confirm with:
       ```bash
-      scontrol show reservation class_day2
+      scontrol show reservation class
       ```
       **The GPU nodes are in the reservation this year.** Confirm it actually admits
       `--partition=gpu`, and that the reserved node has **enough GPUs for one per table** —
       `5. Bonus — GPUs & Local LLMs` has one person per table serving a model for the
       others. Fewer, and tables share or fall back to CPU, which works but is slow.
-- [ ] **Confirm `MaxArraySize` is still 512.** `4. Yen-Slurm Array Limits` is built entirely
-      on that ceiling — the index caps at 511, on every submission, which is why ~992
-      filings cannot be one array. Slurm's default is **1001**; if it has been raised, that
-      page's central lesson quietly stops being true.
+- [ ] **Confirm `MaxArraySize` is still 512.** **Verified 512 on 2026-09-11.** Re-check each
+      cohort: `4. Yen-Slurm Array Limits` is built entirely on that ceiling — the index caps
+      at 511, on every submission, which is why ~992 filings cannot be one array. Slurm's
+      default is **1001**; if it is ever raised, that page's central lesson quietly stops
+      being true.
       ```bash
       scontrol show config | grep MaxArraySize
       ```
@@ -51,7 +52,7 @@ staging entirely. Dropping the leaderboard removed the fork-roster sync.
 
 ## Day-of checklist
 
-- [ ] `scontrol show reservation class_day2` returns an active reservation (Day 2)
+- [ ] `scontrol show reservation class` returns an active reservation (Day 2)
 - [ ] Course site loads: <https://gsbdarc.github.io/yens-onboarding-2026/>
 - [ ] The Gateway key works — make one live API call from a Yen
 - [ ] `ml claude-code` and `ml gh-cli` both resolve
