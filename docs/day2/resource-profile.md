@@ -78,6 +78,7 @@ ml claude-code
 cd ~/yens-onboarding-2026
 claude
 ```
+{: .yens }
 
 Then give it your measurements — fill in each `<...>` from your own run, brackets and all:
 
@@ -98,5 +99,6 @@ Then `/exit` to get your shell back, and check the result:
 ```bash
 cat README.md
 ```
+{: .yens }
 
 </details>

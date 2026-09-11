@@ -185,6 +185,7 @@ You request a GPU the same way you set any other resource in a Slurm script — 
 #SBATCH --partition=gpu       # the GPU partition (confirm the name for your setup)
 #SBATCH --gres=gpu:1          # request one GPU
 ```
+{: .yens }
 
 Just like the `#SBATCH` directives you wrote on Day 2, this tells the scheduler what your job needs — here, one GPU. Match the partition name (and any specific-node targeting) to your cluster's current setup.
 
@@ -215,6 +216,7 @@ for `gpu`:
 sinfo -p gpu
 sinfo -p normal
 ```
+{: .yens }
 
 There are far fewer GPU nodes than CPU nodes, and the per-user caps differ too. Those caps
 come from each partition's **QoS** — the policy Slurm attaches to a partition setting how
@@ -224,6 +226,7 @@ much of it one person can hold at once:
 sacctmgr show qos gpu
 sacctmgr show qos normal
 ```
+{: .yens }
 
 **Read the job script.** `slurm/gpu_check.slurm` is already in your repo. Open it — it is
 the shortest Slurm script you have seen today, and two directives are new:
@@ -232,6 +235,7 @@ the shortest Slurm script you have seen today, and two directives are new:
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:1
 ```
+{: .yens }
 
 `--gres` is "generic resource". `gpu:1` asks for one GPU on the node you land on. Miss it
 out and you get a slot on a GPU node with **no GPU allocated to you** — the job runs,
@@ -245,6 +249,7 @@ mkdir -p logs
 sbatch --reservation=class slurm/gpu_check.slurm
 squeue --me
 ```
+{: .yens }
 
 {: .note }
 > **Today the reservation covers the GPU nodes too**, so this should start quickly rather
@@ -256,6 +261,7 @@ Once it finishes:
 ```bash
 cat logs/gpu_check_*.out
 ```
+{: .yens }
 
 The `nvidia-smi` output tells you which model you landed on and how much VRAM it has. Note
 what your own output says, because **VRAM is the binding constraint on a GPU** the way RAM
@@ -266,6 +272,7 @@ was on a Yen node: a model that does not fit does not run slowly, it does not ru
 ```bash
 sacct -j JOBID --format=JobID,State,Elapsed,ReqTRES
 ```
+{: .yens }
 
 and think back to your profiling numbers from this morning. You measured
 `extract_form_3_batch.py` and found `real` far larger than `user` — the script spent almost
@@ -314,6 +321,7 @@ table skips to the next step and waits for a URL.
 srun --partition=gpu --gres=gpu:1 --cpus-per-task=8 --mem=16G \
      --time=01:00:00 --reservation=class --pty bash
 ```
+{: .yens }
 
 That drops you into a shell **on a GPU node**. Confirm with `nvidia-smi`, then start Ollama.
 DARC keeps a helper repo that wraps the container and picks a free port for you:
@@ -326,6 +334,7 @@ apptainer pull ollama.sif docker://ollama/ollama      # slow, the first time onl
 source ollama.sh
 ollama serve
 ```
+{: .yens }
 
 Leave that running. In a **second terminal**, pull the model and read off the address the
 server picked:
@@ -336,6 +345,7 @@ ollama pull llama3.2:1b
 
 echo "http://$(cat /scratch/users/$USER/ollama/host.txt):$(cat /scratch/users/$USER/ollama/port.txt)"
 ```
+{: .yens }
 
 **Give that URL to your table.** Write it on a sticky note; it is the only thing anyone else
 needs.
@@ -352,6 +362,7 @@ services at once, and the port says which door you are knocking on.
 ```bash
 curl <server-url>
 ```
+{: .yens }
 
 You should see `Ollama is running`.
 

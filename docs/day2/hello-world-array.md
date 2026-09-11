@@ -55,12 +55,14 @@ array. Read them both:
 cat slurm/hello.slurm
 cat slurm/hello_array.slurm
 ```
+{: .yens }
 
 You can spot the difference by eye, but let `diff` isolate it:
 
 ```bash
 diff slurm/hello.slurm slurm/hello_array.slurm
 ```
+{: .yens }
 
 <details markdown="1">
 <summary>📖 How to read diff output</summary>
@@ -102,6 +104,7 @@ mkdir -p logs
 sbatch --reservation=class slurm/hello_array.slurm
 squeue --me
 ```
+{: .yens }
 
 You get **one** job ID back, but `squeue` shows four rows — `12345678_0` through
 `12345678_3`. When they finish:
@@ -109,6 +112,7 @@ You get **one** job ID back, but `squeue` shows four rows — `12345678_0` throu
 ```bash
 cat logs/hello_*_*.out
 ```
+{: .yens }
 
 That one `sbatch` produced four logs, each printing a different task number.
 

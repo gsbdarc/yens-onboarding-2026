@@ -56,6 +56,7 @@ Every scheduler puts a ceiling on arrays, and on the Yens' `normal` partition it
 ```bash
 scontrol show config | grep MaxArraySize
 ```
+{: .yens }
 
 What that number caps is the **task index**, not the number of tasks. Slurm allows an index
 of 0, so the highest index you may use is one less than `MaxArraySize` — **511**. An array
@@ -67,6 +68,7 @@ Try to go past it and the submission is simply refused:
 ```bash
 sbatch --reservation=class --array=0-991 slurm/extract_array.slurm
 ```
+{: .yens }
 
 The important part is that this cap applies to **every submission**, independently. There is
 no second window of higher indices waiting for a second `sbatch` — index 512 is out of
@@ -116,12 +118,14 @@ one filing, one `--time` has to cover all of them. You are not guessing this tim
 mkdir -p logs
 watch squeue --me
 ```
+{: .yens }
 
 When it drains, count what landed:
 
 ```bash
 ls results/*.json | wc -l
 ```
+{: .yens }
 
 Short of 992? That is what rerun-safety is for — resubmit. Finished tasks find their output
 and exit immediately, so only the gaps are redone.
@@ -135,6 +139,7 @@ and which route you chose and why.
 ```bash
 sacct -j JOBID --format=JobID,State,Elapsed,MaxRSS
 ```
+{: .yens }
 
 Then commit it. Ask Claude Code to handle it:
 
