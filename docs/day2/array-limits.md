@@ -161,6 +161,14 @@ the answer is easier in person than over Slack.
 | ✉️ | [**gsb_darcresearch@stanford.edu**](mailto:gsb_darcresearch@stanford.edu) | Anything you would rather not post in a channel |
 | 📖 | [**rcpedia.stanford.edu**](https://rcpedia.stanford.edu) | The written documentation, including current limits |
 
+{: .important }
+> **Please fill in the class survey — it takes about 5 minutes.**
+> <https://darc.stanford.edu/class-survey>
+>
+> This is how the class gets better. Tell us what we got right and what could have been
+> better: what dragged, what you would have wanted more time on, and anything that left you
+> stuck. We read every response and rebuild this course from them each year.
+
 ---
 
 ## Stuck?
