@@ -7,14 +7,7 @@ permalink: /before-you-go/
 
 # Before You Go
 
-You started yesterday with a script that ran one filing on a machine you share. You are
-leaving with one that runs a thousand on hardware you asked for by name, and a written
-record of what it cost.
-
-This is also the moment to ask the question you have been saving. The room empties fast and
-the answer is easier in person than over Slack.
-
-**Where to ask, after today:**
+If you need help after today:
 
 | | | |
 |---|---|---|
