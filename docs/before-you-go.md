@@ -17,7 +17,7 @@ If you need help after today:
 
 {: .important }
 > **Please fill in the class survey — it takes about 5 minutes.**
-> <https://darc.stanford.edu/class-survey>
+> [**darc.stanford.edu/class-survey**](https://darc.stanford.edu/class-survey)
 >
 > It is how we make the class better next year — tell us what we got right and what could
 > have been better.
