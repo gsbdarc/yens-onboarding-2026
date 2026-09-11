@@ -37,11 +37,11 @@ You just saw *why* keeping your work in GitHub is worth the trouble (see [Git & 
 
 **Getting access.** You don't need a personal account. Stanford runs **Claude for Education** — a secure, university-managed environment — and it's **free for everyone at Stanford**.
 
-- **Why go through Stanford?** Your work stays under Stanford's data-governance terms. Claude Code is approved for use with Stanford data when terms and conditions allow it. Stanford's [GenAI tool matrix](https://uit.stanford.edu/ai/genai-tool-matrix) has the latest on data categories and approved tools. For research, it is always preferred to use your Stanford account.
+- **Why go through Stanford?** Your work stays under Stanford's data-governance terms. Claude Code is approved for use with Stanford data when terms and conditions allow it. Stanford's <a href="https://uit.stanford.edu/ai/genai-tool-matrix" target="_blank" rel="noopener noreferrer">GenAI tool matrix</a> has the latest on data categories and approved tools. For research, it is always preferred to use your Stanford account.
 - **How to get it.** The **Standard tier is free** for all active faculty, students, postdocs, and staff with a SUNet ID. (A **Premium tier** is available if you have a PTA — a Stanford billing account your lab may hold.) Free still means you request it once, through **ServiceNow** (Stanford's IT request website) — it's a quick approval, not a purchase.
 
 {: .note }
-> Full details and the request links live at [uit.stanford.edu/service/claude](https://uit.stanford.edu/service/claude) — request it there yourself; approval is quick but not instant, so start it before you need it.
+> Full details and the request links live at <a href="https://uit.stanford.edu/service/claude" target="_blank" rel="noopener noreferrer">uit.stanford.edu/service/claude</a> — request it there yourself; approval is quick but not instant, so start it before you need it.
 
 ---
 
@@ -199,7 +199,7 @@ As the diagram above shows, the harness stays on your machine, but the model run
 
 Claude Code does **not** sort safe data from sensitive. It sends whatever you let it read — if you point it at a file full of names, those names go to the server. Nothing keeps personal, restricted, or health data local on its own. **Holding that data back is *your* job** — by not letting Claude read it in the first place.
 
-**Deciding what Claude Code may read is your responsibility.** Public data and your own code are fine; personal (PII), NDA/licensed, or health (PHI) data must not be sent — and the tool won't hold them back for you. What's approved depends on the data and the tool: see [Responsible AI at Stanford](https://uit.stanford.edu/security/responsibleai) for which AI tools are cleared for which data-risk levels, and the [GSB Library's eResources usage policy](https://www.gsb.stanford.edu/library/research-resources/usage-policy) for whether a licensed dataset may be used this way. We map out these data categories in full later this morning, in [Stanford's AI Services]({{ '/day1/stanford-ai-services/' | relative_url }}).
+**Deciding what Claude Code may read is your responsibility.** Public data and your own code are fine; personal (PII), NDA/licensed, or health (PHI) data must not be sent — and the tool won't hold them back for you. What's approved depends on the data and the tool: see <a href="https://uit.stanford.edu/security/responsibleai" target="_blank" rel="noopener noreferrer">Responsible AI at Stanford</a> for which AI tools are cleared for which data-risk levels, and the <a href="https://www.gsb.stanford.edu/library/research-resources/usage-policy" target="_blank" rel="noopener noreferrer">GSB Library's eResources usage policy</a> for whether a licensed dataset may be used this way. We map out these data categories in full later this morning, in [Stanford's AI Services]({{ '/day1/stanford-ai-services/' | relative_url }}).
 
 ### Claude Code acts as you
 
@@ -329,7 +329,7 @@ A repository that follows these practices is one you can actually *understand* �
 <details markdown="1">
 <summary>Show steps</summary>
 
-**By hand.** Open [gsbdarc/sf311](https://github.com/gsbdarc/sf311) on GitHub and try to answer, just by clicking around:
+**By hand.** Open <a href="https://github.com/gsbdarc/sf311" target="_blank" rel="noopener noreferrer">gsbdarc/sf311</a> on GitHub and try to answer, just by clicking around:
 
 - What research question does this project answer? (Start with the README.)
 - How was the raw data cleaned, and where is that checked?

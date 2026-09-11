@@ -55,7 +55,7 @@ Rule of thumb: the project itself — scripts, data, and outputs — lives in **
 
 {: .note }
 > **How to organize your work on the Yens:**
-> - **A project — its scripts, data, and outputs → `/yen/projects/faculty/your_project/`.** This is the shared, backed-up home for the project itself; keep raw data and outputs in **separate subfolders** (e.g. `data/` and `output/`) so they never get mixed up. Access is controlled by the project's **workgroup**: everyone in it can read and write, which is how you, your PI, and collaborators share the same files. You may belong to **several** project workgroups at once, each with its own folder under `/yen/projects/faculty/` (or `/yen/projects/students/`). See [Workgroups](https://rcpedia.stanford.edu/_policies/workgroups/) on RCpedia for who gets access and how it's managed.
+> - **A project — its scripts, data, and outputs → `/yen/projects/faculty/your_project/`.** This is the shared, backed-up home for the project itself; keep raw data and outputs in **separate subfolders** (e.g. `data/` and `output/`) so they never get mixed up. Access is controlled by the project's **workgroup**: everyone in it can read and write, which is how you, your PI, and collaborators share the same files. You may belong to **several** project workgroups at once, each with its own folder under `/yen/projects/faculty/` (or `/yen/projects/students/`). See <a href="https://rcpedia.stanford.edu/_policies/workgroups/" target="_blank" rel="noopener noreferrer">Workgroups</a> on RCpedia for who gets access and how it's managed.
 > - **Personal files → your home, `/home/users/SUNetID/`.** Things that are yours, not any one project's: authentication tokens, R or shell preferences, quick one-off experiments. Backed up, and only you can see it.
 > - **Large, temporary things → `/scratch/users/SUNetID/`.** Created for you automatically. Fast and roomy, but **not backed up**, and anything older than **90 days is deleted**. Use it for things you don't need to keep or that won't fit in your quota — a big public dataset you're exploring, or an LLM you're testing out. Copy anything worth keeping back to `/yen/projects/`.
 
@@ -79,7 +79,7 @@ that looks complete. Two commands keep you ahead of that.
 > and basic system tasks stop working — the first symptom is usually not a failed job but
 > **JupyterHub refusing to start**, because it needs to write to your home directory, along
 > with much else that quietly assumes it can. See
-> [Storage](https://rcpedia.stanford.edu/_user_guide/storage/) on RCpedia.
+> <a href="https://rcpedia.stanford.edu/_user_guide/storage/" target="_blank" rel="noopener noreferrer">Storage</a> on RCpedia.
 
 **How much space am I using?**
 
@@ -312,7 +312,7 @@ want the file to move.
 **No.** `scp` is a single stream with no way to resume: one dropped connection hours in and
 you start the whole thing over. At terabyte scale that is a losing bet.
 
-Use **[Globus](https://rcpedia.stanford.edu/_user_guide/data_transfer/)** instead — the
+Use **<a href="https://rcpedia.stanford.edu/_user_guide/data_transfer/" target="_blank" rel="noopener noreferrer">Globus</a>** instead — the
 Yens collection is **`GSB-Yen`**. RCpedia recommends it for large transfers precisely
 because it parallelizes and checkpoints, so an interrupted transfer picks up where it left
 off rather than starting again.

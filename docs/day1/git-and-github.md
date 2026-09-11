@@ -160,7 +160,7 @@ Set up your copy of the course repo and make your first commit now.
 
 A **fork** is your own copy of the course repo, living under your GitHub account. Everything you write over the next two days goes here — it's yours to keep after the course ends.
 
-1. **Fork the repo.** Go to the [course repo on GitHub](https://github.com/gsbdarc/yens-onboarding-2026) and click **Fork** in the top-right corner.
+1. **Fork the repo.** Go to the <a href="https://github.com/gsbdarc/yens-onboarding-2026" target="_blank" rel="noopener noreferrer">course repo on GitHub</a> and click **Fork** in the top-right corner.
 2. **Turn on Issues.** Open your fork's <a href="https://github.com/YOUR_GITHUB_USERNAME/yens-onboarding-2026/settings" target="_blank" rel="noopener noreferrer">repository settings</a> and, under **Features**, tick ***Issues***. A fork starts with its issue tracker switched off, and you'll be logging issues later today.
 
 **Step 2 — Clone to the Yens**
@@ -232,7 +232,7 @@ You'll want `gh` on your laptop too (for the Claude Code work later). Install it
 
 - **macOS** (Homebrew): `brew install gh`
 - **Windows** (in PowerShell — then it's usable from Git Bash too): `winget install --id GitHub.cli`
-- **Linux** / other: see the [official instructions](https://github.com/cli/cli#installation)
+- **Linux** / other: see the <a href="https://github.com/cli/cli#installation" target="_blank" rel="noopener noreferrer">official instructions</a>
 
 Answer **GitHub.com**, then **HTTPS**, then **Paste an authentication token**:
 
