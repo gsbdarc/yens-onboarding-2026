@@ -38,12 +38,14 @@ The file below is one such snapshot from yen1, taken on July 10, 2026 at 20:56. 
 
 ---
 
-## Exercise: Explore the Usage Data
+## Explore It
 
 {: .important }
-> **Task:** Load the yenstop snapshot, explore it with Claude, make a visualization, and write up one finding in your README.
+> **Task:** Load the snapshot and explore it with Claude, make a visualization, then put what
+> you find against the per-user limits and against the live view from `top`.
 
-Load the file and explore it **with Claude** — ask it about the columns, dig into what's running, and have it help you **make a visualization** of an insight you find.
+Load the file and explore it **with Claude** — ask it about the columns, dig into what's
+running, and have it help you **make a visualization** of an insight you find.
 
 ```python
 import pandas as pd
@@ -57,8 +59,8 @@ df = pd.read_csv(DATA, header=None, names=cols, on_bad_lines='skip')
 df.head()
 ```
 
-{: .optional }
-> **Your turn — pick a thread to pull.** Some directions to start (don't feel limited to these):
+{: .exercise }
+> **Pick a thread to pull.** Some directions to start (don't feel limited to these):
 > - Who is using the most CPU? The most memory? Are they the same person?
 > - How many processes are actually running right now versus just sleeping?
 > - What commands appear most often? What do you think they are?
@@ -84,17 +86,7 @@ Make a plot. Ask Claude to explain something. Follow a thread that looks interes
 
 ---
 
-### Write it up
-
-Find one thing in the data worth keeping. Add a short section to your `README.md` — a few sentences describing what you found and what it tells you about how shared research nodes actually get used.
-
----
-
-## Optional Practice
-{: .note }
-> Finished early? Try any of these.
-
-**Optional practice — Per-User Limits vs. the Whole Node**
+## Per-User Limits vs. the Whole Node
 
 Group the processes by `user` and compute total `cpu_pct` and `mem_pct` per person. Then compare two different ceilings:
 
@@ -105,7 +97,9 @@ Look both up on the [Yen user limits page](https://rcpedia.stanford.edu/_policie
 
 Is anyone close to their per-user limit? And how much of the *entire node* is actually in use? A node can sit far from full even while one user is maxed out — that's the per-user limit doing its job: keeping any one job from starving everyone else on a shared machine.
 
-**Optional practice — Watch It Live (`top`)**
+---
+
+## Watch It Live with `top`
 
 The CSV you've been analyzing is a **photograph** — one frozen instant, captured by a script that ran `top` once and saved the result. `top` itself is the **live view**: the same numbers, refreshing every few seconds. SSH to a Yen node and run it:
 
@@ -123,4 +117,3 @@ While it's running, try these keys:
 - `q` — quit
 
 Watch for a few seconds: which processes churn near a full core, and which just sit `S` (sleeping)? Press `q` to quit when you're done.
-

@@ -4,9 +4,9 @@
 
 Condensed from the four-day
 [GSB Research Computing & AI Skills](https://github.com/gsbdarc/gsb-research-computing-ai-skills)
-course. Both mornings run **9:00–12:00**. Day 1 keeps two 10-minute breaks; **Day 2 has
-none** — it runs as two self-paced blocks and tables break when they reach a stopping
-point.
+course. Both mornings run **9:00–12:00** and share the same shape: two cycles of a short
+lecture opening into a long self-paced work block. **Neither day has scheduled breaks** —
+tables break when they reach a stopping point.
 
 The section times below are **calibrated against a real four-day cohort** rather than
 estimated — see [Where these numbers come from](#where-these-numbers-come-from) at the
@@ -16,24 +16,39 @@ bottom, and please correct them again after this course runs.
 
 ## Day 1 — Foundations & AI
 
-| Clock | Section | min |
-|-------|---------|-----|
-| 9:00  | **Welcome + prereq triage** — the two-day map; find who is missing an account and seat a helper with them (see `.instructor/prereq-triage.md`) | 5 |
-| 9:05  | **Connecting to the Yens** — log in, storage layout, quotas, `module load` | 15 |
-| 9:20  | **Git & GitHub** — fork (2 clicks), clone, **make the PAT as a whole-room step**, `gh auth login`, branch, commit, push | 13 |
-| 9:33  | **Working with Claude Code** — hands-on only: sign in, `/cost`, `Shift+Tab` through modes, one real task, install `github-for-research` | 25 |
-| 9:58  | *slack* | 2 |
-| 10:00 | ☕ **Break** | 10 |
-| 10:10 | **Running Python on the Yens** — `$PATH`, `module load python`, script vs. notebook. JupyterHub is a **tour**, not a lab | 14 |
-| 10:24 | **Python environments** — venv, pip, `requirements.txt`; the Potion Brawl rebuild as a **demo** | 18 |
-| 10:42 | **Stanford services + direct Anthropic + data privacy** — Playground vs. Gateway vs. the public-data API route; governance, throughput, and cost | 14 |
-| 10:56 | *slack* | 4 |
-| 11:00 | ☕ **Break** | 10 |
-| 11:10 | **Managing API keys** — `.env`, `python-dotenv`, `.gitignore`, init the client | 13 |
-| 11:23 | **Extraction → Day 1 capstone** *(one continuous arc)* — first call → one filing → Pydantic; then Genre Tribunal: classify 10 movies, judge with a second model, flag, document, commit | 35 |
-| 11:58 | *slack* | 2 |
+Two blocks, the same shape as Day 2: a 20-minute lecture opening into a 70-minute
+self-paced work block. **No scheduled breaks** — tables break inside the work blocks.
 
-**152 min teaching · 20 min breaks · 8 min slack = 180.**
+| Clock | Block | min |
+|-------|-------|-----|
+| 9:00  | **Lecture 1** — the two-day map and prereq triage (5, see `.instructor/prereq-triage.md`); then logging in to the Yens, the storage layout and quotas, and why the work goes under version control | 20 |
+| 9:20  | **Work block 1** — Part 1: `ssh`, `module load`, fork → clone → branch → commit → push, then Claude Code. Ends in the **Part 1 Checkpoint** | 70 |
+| 10:30 | **Lecture 2** — `$PATH` and `module load python`, script vs. notebook, JupyterHub as a **tour**; then Playground, education accounts, Gateway vs. direct Anthropic, and data privacy | 20 |
+| 10:50 | **Work block 2** — Part 2: venv and `requirements.txt`, `.env` and keys, then extraction → Genre Tribunal capstone | 70 |
+
+**40 min lecture · 140 min work block = 180.**
+
+### Section budgets inside the blocks
+
+Calibrated against the four-day cohort. These are **guidance for pacing the room**, not
+clock times — the work blocks are self-paced, so tables will diverge.
+
+| Section | Where | min |
+|---|---|---|
+| Welcome + prereq triage | Lecture 1 | 5 |
+| Connecting to the Yens | Work block 1 | 15 |
+| Git & GitHub | Work block 1 | 13 |
+| Working with Claude Code | Work block 1 | 25 |
+| Part 1 Checkpoint | Work block 1 | 10 |
+| Running Python on the Yens | Lecture 2 | 14 |
+| Stanford's AI services + data privacy | Lecture 2 | 14 |
+| Python environments | Work block 2 | 18 |
+| Managing API keys | Work block 2 | 13 |
+| Extraction → Day 1 capstone | Work block 2 | 35 |
+
+Work block 1 has 63 min of material in 70; work block 2 has 66 in 70. **Lecture 2 is the
+tight one** — its two sections measure 28 min against a 20-min slot, so the JupyterHub tour
+is what gives. The AI-services half ran only 10 last time, which is what makes 20 possible.
 
 **Protected:** Claude Code (25) and the extraction-to-capstone arc (35). These are the two
 things the four-day cohort never got enough of.
@@ -48,63 +63,6 @@ they *both* overran — extraction ran 25 min and didn't finish, and the capston
 the next morning's first hour. The guided extraction supplies the API and validation skills
 for the Genre Tribunal, which adds a second model and a review rule. Participants **carry on with it in their own time** —
 which is what happened anyway. Day 2 no longer depends on it finishing.
-
-## Day 2 — The Cluster
-
-**Restructured this year.** Two cycles of short lecture → long self-paced work block, with
-participants at small tables helping each other. No whole-room breaks. Full run-of-show in
-`.instructor/day2-teaching-plan.md`.
-
-| Clock | Block | min |
-|-------|-------|-----|
-| 9:00  | **Lecture 1** — compute environments (6, talk only, no demo); then why a scheduler exists, the live queue, and `#SBATCH` anatomy (14) | 20 |
-| 9:20  | **Work block 1** — profiling (all four exercises, ending with the README numbers) → peek at the queue → write & submit a Slurm job → debug `fix_me.slurm` | 70 |
-| 10:30 | **Lecture 2** — parallelization and the three shapes (8); array mechanics and the index cap (7); estimate → request → run → check (5) | 20 |
-| 10:50 | **Work block 2** — hello-world array → estimate + 100-filing array → idempotent tasks → all ~992 | 60 |
-| 11:50 | **Wrap + Q&A** | 10 |
-
-**40 min lecture · 130 min hands-on · 10 min wrap = 180.**
-
-**Mandatory vs. bonus.** Every Day 2 section is marked on the page. Mandatory: profiling,
-the queue, writing/submitting a job, debugging a failed job, job arrays, the capstone.
-Bonus: the remaining `fix_me` puzzles, Slurm with Claude, GPUs, merge-to-CSV, chained jobs,
-interactive `srun`, and the widget/vectorization extras.
-
-**Protected:** the profiling README (it is the input to every `#SBATCH` number that follows)
-and the capstone's write-the-estimate-down step.
-
-**Three deliberate changes from last year's shape:**
-
-- **The recap block is gone.** Day 2 profiles the `extract_form_3_batch.py` committed in the
-  repo, so an unfinished Day 1 capstone blocks nobody. Ask about venv / `.env` / clone by
-  name and start.
-- **`fix_me.slurm` is promoted to mandatory.** Reading a failed job's `.err` is the first
-  debugging skill anyone needs, and it used to be an optional practice that the instructor
-  did live. Self-paced now, so it has to be required.
-- **Slurm with Claude is entirely bonus.** Demo-led delivery has no slot in this format. It
-  is the most self-contained section on the day and was already first on the cut list — but
-  this is a real reduction in guaranteed coverage, not a free win.
-
-{: .warning }
-> **This schedule has never been timed.** The 70/60 split is derived from instructor-led
-> measurements of the old section list, not observed in this format. Self-paced pace at a
-> table could run faster (nobody waits for the slowest person) or slower (nobody is pulling
-> the room forward). **Record the real times and correct these files afterwards.**
-
-{: .important }
-> **Slurm reservation.** Day 2 runs against a dedicated reservation, `class_day2`. Every
-> `sbatch` and `srun` in the Day 2 pages carries `--reservation=class_day2`, **including the
-> job-arrays section and the capstone**. Book it beforehand and confirm the name matches, or
-> every command in the docs is wrong.
->
-> **The GPU nodes are in the reservation this year**, so the bonus page carries
-> `--reservation=class` on its `sbatch` and `srun` like everything else. Two things to check
-> before class: that the reservation really does admit `--partition=gpu`, and that the
-> reserved node has **enough GPUs for one per table** — the local-LLM exercise has one person
-> per table serving a model for the others. If it has fewer, tables share or fall back to
-> CPU, which works but is slow.
-
----
 
 ## Where These Numbers Come From
 
@@ -135,7 +93,7 @@ from the previous day's homework, so there is nothing to spend the hour finishin
 | Claude Code | ~30, then **spilled ~60 min into Day 2** | 25 hands-on | ~180 lines of concept became a pre-read |
 | Running Python on the Yens | **25–35**, flagged too slow | 14 | JupyterHub demoted to a tour |
 | Python environments | 20, "could be streamlined" | 18 | Potion Brawl rebuild is a demo |
-| Stanford services + Anthropic | **10** | 14 | *Given time back*, with privacy and the shared-Gateway rate-limit migration rationale folded in |
+| Stanford AI services | **10** | 14 | *Given time back*, with the privacy discussion folded in |
 | Managing API keys | **20** | 13 | `.env` copy pre-staged |
 | Extraction | **25 and did not finish** | merged into 35 | See above |
 | Compute environments | **27** (the demo alone was 15) | 15 | Demo-led; remaining lecture cut |

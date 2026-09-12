@@ -11,14 +11,30 @@ fork-roster sync.
 
 ## Two weeks before
 
-- [ ] **Book the Slurm reservation.** Day 2 needs a reservation named **`class_day2`**,
+- [ ] **Book the Slurm reservation.** Day 2 needs a reservation named **`class`**,
       covering 9:00–12:00 on Day 2, sized for the cohort.
       **Every `sbatch` and `srun` in the Day 2 pages hardcodes
-      `--reservation=class_day2`** — including the job-arrays section and the capstone.
+      `--reservation=class`** — including all of Part 2 and the GPU bonus page.
       If the name differs, every command in the docs is wrong. Confirm with:
       ```bash
-      scontrol show reservation class_day2
+      scontrol show reservation class
       ```
+      **The GPU nodes are in the reservation this year.** Confirm it actually admits
+      `--partition=gpu`, and that the reserved node has **enough GPUs for one per table** —
+      `5. Bonus — GPUs & Local LLMs` has one person per table serving a model for the
+      others. Fewer, and tables share or fall back to CPU, which works but is slow.
+- [ ] **Confirm `MaxArraySize` is still 512.** **Verified 512 on 2026-09-11.** Re-check each
+      cohort: `4. Yen-Slurm Array Limits` is built entirely on that ceiling — the index caps
+      at 511, on every submission, which is why ~992 filings cannot be one array. Slurm's
+      default is **1001**; if it is ever raised, that page's central lesson quietly stops
+      being true.
+      ```bash
+      scontrol show config | grep MaxArraySize
+      ```
+- [ ] **Decide whether the ~992-filing run stays mandatory.** It is roughly 992 paid API
+      calls per person, all submitted inside one hour. If that is too much, cut only the
+      *submission*: have them work out the batching and size it, and stop short of running
+      it. Steps 1–3 of Part 2 are what everything else depends on.
 - [ ] **Email the two pre-work items** — a GitHub account and Claude via Stanford. See
       `docs/prework.md`. Send it at least a week out: Claude approval goes through
       ServiceNow, and Yens access can take days.
@@ -43,7 +59,7 @@ fork-roster sync.
 
 ## Day-of checklist
 
-- [ ] `scontrol show reservation class_day2` returns an active reservation (Day 2)
+- [ ] `scontrol show reservation class` returns an active reservation (Day 2)
 - [ ] Course site loads: <https://gsbdarc.github.io/yens-onboarding-2026/>
 - [ ] The Anthropic key works from a Yen with both course models; record any `429`, rate
       headers, and `retry-after` response during the dry run
@@ -64,17 +80,21 @@ GPU-vs-CPU timing claim was never measured.
 real task → `module load python` → venv + `requirements.txt` → Potion Brawl rebuild →
 `.env` → the three staged extraction scripts → `extract_form_3_batch.py` over 10 filings.
 
-**Day 2:** profile `mystery_script.py` in two terminals → profile the batch script →
-`squeue`/`sinfo` → write a `.slurm` by hand → `sbatch --reservation=class_day2` →
-read logs → all three `fix_me*.slurm` → author the `yen-slurm` skill → an array job →
-`sacct` for actuals → **the GPU bonus** (`sbatch slurm/gpu_check.slurm`, no reservation
-flag; confirm `nvidia-smi` output lands in `logs/gpu_check_*.out`).
+**Day 2, Part 1:** profile `mystery_script.py` in two terminals → profile the batch script
+→ write the three numbers into the README → `squeue`/`sinfo` → write a `.slurm` by hand and
+submit it → read a working `.out` and a failed `.err`.
 
-**Timing.** Time each section against `.instructor/agenda.md`. If a block overruns, move an
-exercise to `docs/reference/` — do not shave the breaks. Two 10-minute breaks in a 3-hour
-morning is already the minimum on **Day 1**. **Day 2 has no scheduled breaks at all** —
-tables break inside the work blocks — so watch for a room that has not moved in an hour and
-call one anyway.
+**Day 2, Part 2:** `slurm/hello_array.slurm` → turn Part 1's loop into a 100-task array and
+read `sacct` → add the rerun-safety check and resubmit → hit the `MaxArraySize` ceiling and
+get ~992 filings through it → **the GPU bonus** (`sbatch --reservation=class slurm/gpu_check.slurm`
+— it *does* carry the reservation now; confirm `nvidia-smi` output lands in
+`logs/gpu_check_*.out`), then serve a model with `ollama/`.
+
+**Timing.** Time each lecture against `.instructor/agenda.md` — the 20-minute slot is the
+hard part, and Day 1's Lecture 2 is the tightest. If a lecture overruns, move material into
+the work block or to `docs/reference/` rather than eating into the block. **Neither day has
+scheduled breaks** — tables break inside the work blocks — so watch for a room that has not
+moved in an hour and call one anyway.
 
 ---
 
@@ -84,7 +104,8 @@ Not served by GitHub Pages.
 
 | File | Covers |
 |---|---|
-| `capstone.key.md` | Day 2 capstone — which resources scale with the filing count, and why |
+| `loop-to-array.key.md` | Part 2 page 2 — turning the loop into an array; both the working scripts and the failure modes |
+| `array-limits.key.md` | Part 2 page 4 — both routes past the 512-task ceiling, and the wrong turns |
 | `documenting-pipeline.key.md` | A worked README for the extraction pipeline |
 | `yen-slurm-skill.key.md` | Reference `SKILL.md` for the global `yen-slurm` skill; project vs. global scope |
 | `storage_pantry_key.ipynb` | Worked analysis of the Yens `yenstop` snapshot (Reference page) |

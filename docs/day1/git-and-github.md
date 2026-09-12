@@ -20,6 +20,12 @@ Version control tracks every change you make to a project — who changed what, 
 
 **GitHub** is a website that hosts git repositories in the cloud. It's where you share, back up, and submit your work.
 
+{: .tip }
+> **Type your GitHub username** and every command on these pages fills itself in, so you can
+> copy and paste them without editing. It stays in this browser.
+>
+> <span class="username-fill-field"><label class="username-fill-prefix" for="gh-username">github.com/</label><input id="gh-username" type="text" placeholder="username" spellcheck="false" autocapitalize="none" autocorrect="off" autocomplete="off"></span> <span id="gh-username-status" class="username-fill-status"></span>
+
 <svg viewBox="0 0 760 176" role="img" aria-labelledby="gd1-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:680px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="gd1-title">Git saves snapshots on your machine; GitHub stores them in the cloud. You push commits up to your fork and pull updates back down.</title>
   <defs>
@@ -54,11 +60,11 @@ Git saves your work as **commits** — snapshots of your whole project at a mome
   <circle cx="110" cy="58" r="13" fill="#fff" stroke="#e67e22" stroke-width="3"/>
   <text x="110" y="94" text-anchor="middle" font-size="11" fill="#5b6472">init project</text>
   <circle cx="250" cy="58" r="13" fill="#fff" stroke="#e67e22" stroke-width="3"/>
-  <text x="250" y="94" text-anchor="middle" font-size="11" fill="#5b6472">add raw data</text>
+  <text x="250" y="94" text-anchor="middle" font-size="11" fill="#5b6472">add cleaning scripts</text>
   <circle cx="390" cy="58" r="13" fill="#fff" stroke="#e67e22" stroke-width="3"/>
-  <text x="390" y="94" text-anchor="middle" font-size="11" fill="#5b6472">clean data</text>
+  <text x="390" y="94" text-anchor="middle" font-size="11" fill="#5b6472">add plotting scripts</text>
   <circle cx="530" cy="58" r="13" fill="#e67e22" stroke="#e67e22" stroke-width="3"/>
-  <text x="530" y="94" text-anchor="middle" font-size="11" fill="#5b6472">first results</text>
+  <text x="530" y="94" text-anchor="middle" font-size="11" fill="#5b6472">generate paper.pdf</text>
   <text x="530" y="112" text-anchor="middle" font-size="10" font-weight="700" fill="#b3611a">latest</text>
 </svg>
 
@@ -129,26 +135,23 @@ Version control isn't just bookkeeping — it offers a few concrete advantages f
 
 {: .tip }
 > **Why version control helps research:**
-> - **A readable history of what changed and why.** Every commit carries a short message. Instead of guessing what a file used to hold, you scroll its history and read *"clean data: drop 3 duplicate rows"* right next to the exact lines that changed.
+> - **A readable history of what changed and why.** Every commit carries a short message. Instead of guessing what a file used to hold, you scroll its history and read *"add cleaning scripts: drop 3 duplicate rows"* right next to the exact lines that changed.
 > - **No more filename soup.** You don't need `analysis_final_v2_USETHIS_edited.R` to keep track of versions. There's one `analysis.R`, and its history holds every past version with an explanation of each change. The filename says *what the file is*; the history says *how it got there*.
 > - **Experiment safely on a branch.** Try a risky reanalysis without touching your working results. If it doesn't pan out, the branch is a record of what you tried rather than a mess to clean up.
 > - **Project management, even if you barely write code.** GitHub's issues and pull requests aren't only for software teams — you can use issues to track to-dos, data questions, or bugs, and pull requests to review a change before it's merged into your main version.
 > - **Backed up and shareable.** Every version is recoverable, and pushing to GitHub backs your work up and lets a collaborator — or your future self — pick it up.
 
-Version control is powerful, but it isn't a cure-all. A few honest caveats:
-
 {: .warning }
 > **Caveats:**
 > - **Git has a steep learning curve.** It's genuinely confusing for newcomers — expect to lean on notes, cheatsheets, and AI tools at first.
 > - **GitHub is a commercial product.** It's owned by Microsoft, not a community-run open project. Convenient and widely used, but not neutral infrastructure.
-> - **Git is a poor fit for versioning data.** It's built to track line-by-line changes in text and code; large or binary data files make the repository slow and bloated.
-> - **GitHub is not for datasets** — especially large ones. It enforces file-size limits and isn't meant for data storage. Keep data on the cluster (`/yen/projects`, `/scratch`) or in a data repository, not in your GitHub repo.
+> - **Neither is built for data.** Git tracks line-by-line changes in text and code, so large or binary files leave the repository slow and bloated — and GitHub enforces file-size limits on top of that. Keep data on the cluster (`/yen/projects`, `/scratch`) or in a data repository, not in your repo.
 
 ---
 
 ## Exercise
 
-Your work in this course is tracked in your version history. Set up your copy of the course repo and make your first commit now.
+Set up your copy of the course repo and make your first commit now.
 
 {: .important }
 > **Exercise:** Fork the course repo, clone it to the Yens, authenticate with GitHub, create a branch, commit a file, and push it back to your fork.
@@ -157,27 +160,25 @@ Your work in this course is tracked in your version history. Set up your copy of
 
 A **fork** is your own copy of the course repo, living under your GitHub account. Everything you write over the next two days goes here — it's yours to keep after the course ends.
 
-1. **Fork the repo.** Go to the [course repo on GitHub](https://github.com/gsbdarc/yens-onboarding-2026) and click **Fork** in the top-right corner.
-2. **Turn on Issues.** On your fork: **Settings → General → Features → tick *Issues***. A fork starts with its issue tracker switched off, and you'll be logging issues later today — the `github-for-research` skill depends on it.
-
-{: .note }
-> You do **not** need to enable Actions or Pages on your fork. The course site is
-> published from the class repo; your fork is a working copy for your own code.
+1. **Fork the repo.** Go to the <a href="https://github.com/gsbdarc/yens-onboarding-2026" target="_blank" rel="noopener noreferrer">course repo on GitHub</a> and click **Fork** in the top-right corner.
+2. **Turn on Issues.** Open your fork's <a href="https://github.com/YOUR_GITHUB_USERNAME/yens-onboarding-2026/settings" target="_blank" rel="noopener noreferrer">repository settings</a> and, under **Features**, tick ***Issues***. A fork starts with its issue tracker switched off, and you'll be logging issues later today.
 
 **Step 2 — Clone to the Yens**
 
 **Cloning** downloads your fork onto the machine you're working on — here, the Yens.
+
+{: .note }
+> **Run this on the Yens, not on your laptop.** If you are not still connected from
+> [Connecting to the Yens]({{ '/day1/connect-to-the-yens/' | relative_url }}), log back in
+> first — `ssh SUNetID@yen.stanford.edu` — and confirm with `hostname`, which should answer
+> something like `yen1`.
 
 ```bash
 cd ~
 git clone https://github.com/YOUR_GITHUB_USERNAME/yens-onboarding-2026.git
 cd yens-onboarding-2026
 ```
-
-{: .note }
-> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
->
-> Put a sticky note on your laptop lid so instructors can see where you are.
+{: .yens }
 
 **Step 3 — Authenticate with GitHub (one time)**
 
@@ -188,7 +189,7 @@ have it to hand instead and skip to `gh auth login` below.
 
 Do this in your browser, on your laptop:
 
-1. Open this pre-filled link: **[Create your token](https://github.com/settings/tokens/new?scopes=repo,workflow,read:org&description=yen-repo-workflow)**. It's a **classic** token with the three scopes you need already checked — **`repo`** (push to your fork), **`workflow`** (lets you push changes to the GitHub Actions files), and **`read:org`** (lets the GitHub CLI sign you in) — and named `yen-repo-workflow`.
+1. Open this pre-filled link: **<a href="https://github.com/settings/tokens/new?scopes=repo,workflow,read:org&amp;description=yen-repo-workflow" target="_blank" rel="noopener noreferrer">Create your token</a>**. It's a **classic** token with the three scopes you need already checked — **`repo`** (push to your fork), **`workflow`** (lets you push changes to the GitHub Actions files), and **`read:org`** (lets the GitHub CLI sign you in) — and named `yen-repo-workflow`.
 2. Set the **expiration** to **1 year** — long enough to reuse this token for your research work well beyond this course, with an automatic backstop if it's ever forgotten or leaked.
 3. Click **Generate token**, then **copy it right away** — GitHub shows it only once.
 
@@ -202,8 +203,27 @@ ml gh-cli           # make gh available on the Yens
 gh auth login       # answer: GitHub.com → HTTPS → Authenticate Git → Yes → Paste an authentication token
 gh auth setup-git   # let gh remember the token so git never asks you again
 ```
+{: .yens }
 
 Paste the token when `gh auth login` asks. The `gh auth setup-git` step then wires `gh` in as git's credential helper, so it hands over your token automatically on every `git push` — no browser, no device code, and no password prompt, now or in future sessions.
+
+**Check it worked — file an issue from the command line.**
+
+```bash
+gh issue create --repo YOUR_GITHUB_USERNAME/yens-onboarding-2026 \
+  --title "Checkpoint: gh is authenticated" \
+  --body "Filed from the Yens with the GitHub CLI."
+```
+{: .yens }
+
+It prints a URL — open it and your issue is there on your fork. Two things that go wrong:
+
+- **`Issues are disabled for this repository`** — you skipped Step 1's second item. Now that
+  `gh` is authenticated you can fix it without leaving the terminal:
+  `gh repo edit YOUR_GITHUB_USERNAME/yens-onboarding-2026 --enable-issues`
+- **The issue lands on `gsbdarc/yens-onboarding-2026`** instead of yours — that happens if
+  you drop the `--repo` flag inside a clone of a fork, because `gh` offers the parent repo
+  as a target. Keep the flag and it always goes to your own copy.
 
 <details markdown="1">
 <summary>Setting up <code>gh</code> on your own laptop</summary>
@@ -212,11 +232,14 @@ You'll want `gh` on your laptop too (for the Claude Code work later). Install it
 
 - **macOS** (Homebrew): `brew install gh`
 - **Windows** (in PowerShell — then it's usable from Git Bash too): `winget install --id GitHub.cli`
-- **Linux** / other: see the [official instructions](https://github.com/cli/cli#installation)
+- **Linux** / other: see the <a href="https://github.com/cli/cli#installation" target="_blank" rel="noopener noreferrer">official instructions</a>
+
+Answer **GitHub.com**, then **HTTPS**, then **Paste an authentication token**:
 
 ```bash
-gh auth login    # GitHub.com → HTTPS → Paste an authentication token
+gh auth login
 ```
+{: .laptop }
 
 (On a laptop you *can* instead choose "Login with a web browser" — but the token works everywhere, so reusing it is one less thing to think about.)
 
@@ -229,6 +252,7 @@ A **branch** is a safe, separate workspace, so your experiments never disturb th
 ```bash
 git checkout -b experiment
 ```
+{: .yens }
 
 **Step 5 — Make a change and commit**
 
@@ -239,6 +263,7 @@ echo "Hello from Day 1" > my_first_commit.txt
 git add my_first_commit.txt
 git commit -m "Add my first commit from Day 1"
 ```
+{: .yens }
 
 **Step 6 — Push to your fork**
 
@@ -247,6 +272,7 @@ git commit -m "Add my first commit from Day 1"
 ```bash
 git push -u origin experiment
 ```
+{: .yens }
 
 {: .note }
 > This pushes your **branch**, not `main`. Your work is safely on GitHub, but `main` is untouched — which is exactly the point of branching. To fold the branch into `main`, open a pull request on your fork and merge it.
@@ -261,9 +287,148 @@ git push -u origin experiment
 
 ---
 
+## Never Commit a Password
+
+Git's whole purpose is that nothing is ever lost. That is exactly what makes it the wrong
+place for a secret: a password, API key, or token that lands in a commit stays in the
+history, and if that history has been pushed it is on GitHub, in anyone's fork, and in
+GitHub's caches. Deleting the file afterwards does not help — the old commit still holds it.
+
+{: .warning }
+> **A committed secret is a leaked secret.** Do not try to tidy it up first. **Revoke the
+> key** — on GitHub, in the AI Playground, wherever it came from — and issue a new one. Only
+> then worry about scrubbing the history, and assume someone already has the old value.
+
+So keep secrets out of the repository from the start. The mechanism is a **`.gitignore`**: a
+list of paths git should refuse to track. Write it *before* the file exists, because a
+`.gitignore` added afterwards does nothing about a secret you already committed.
+
+### Exercise — write a `.gitignore`
+
+In your clone, create a `.gitignore` and commit it:
+
+```bash
+cd ~/yens-onboarding-2026
+cat > .gitignore <<'EOF'
+# Secrets — never tracked
+.env
+*.pem
+*.key
+EOF
+git add .gitignore
+git commit -m "Ignore secrets"
+```
+{: .yens }
+
+Then prove it works. Make a file that looks like a leaked credential and check that git
+cannot see it:
+
+```bash
+echo "STANFORD_API_KEY=not-a-real-key" > .env
+git status --short
+```
+{: .yens }
+
+`.env` should not appear. `git status` lists what git is tracking or about to track — if
+your secret file is absent from that list, `.gitignore` is doing its job. (If it *does*
+appear, the file was already tracked before you ignored it; `git rm --cached .env` fixes
+that.)
+
+{: .note }
+> The `.env` file itself comes back in [Managing API Keys]({{ '/day1/api-keys/' | relative_url }}),
+> where you put a real Stanford API key in it. Ignoring it now means the key has nowhere
+> dangerous to land later.
+
+---
+
+## Quiz
+
+Answer each one in your head, then open it to check.
+
+<details class="quiz" markdown="1">
+<summary><span class="qnum">1</span><span class="qtext">You commit a file. Is it on GitHub?</span></summary>
+
+**No.** `git commit` saves a snapshot **on the machine you are sitting at** — here, the
+Yens. Nothing reaches GitHub until you `git push`. That is why the two are separate steps:
+you can commit on a plane, or make ten commits and push once.
+
+The practical consequence: work that is committed but never pushed exists in exactly one
+place, and a cluster home directory is not a backup.
+
+</details>
+
+<details class="quiz" markdown="1">
+<summary><span class="qnum">2</span><span class="qtext">You and a collaborator are working on a project and they find a bug. What should they do?</span></summary>
+
+**Open an issue.** It puts the problem on the record where both of you can see it, rather
+than in a message you will lose:
+
+```bash
+gh issue create --title "Row count drops after the 2019 merge" \
+  --body "Expected 4,812 rows, got 4,796. Reproduced on a fresh clone."
+```
+{: .yens }
+
+Then the fix goes on a branch, and its pull request says `Closes #12` — so the problem, the
+reasoning, and the change that resolved it stay linked. Six months on, that trail is how
+either of you reconstructs what happened.
+
+</details>
+
+<details class="quiz" markdown="1">
+<summary><span class="qnum">3</span><span class="qtext">You make improvements to this course and want us to incorporate them. How?</span></summary>
+
+**Open a pull request from your fork back to ours.** That is what a fork is for: you commit
+on a branch in your own copy, push it, and then open a PR whose base is
+`gsbdarc/yens-onboarding-2026` and whose head is your branch.
+
+```bash
+gh pr create --repo gsbdarc/yens-onboarding-2026 \
+  --title "Fix the quota figure on Your Data on the Yens" \
+  --body "RCpedia now says 80 GB, not 50 GB."
+```
+{: .yens }
+
+You never need write access to our repo — you propose, we review. Genuinely: if you find
+something wrong in these pages, this is the way to tell us.
+
+</details>
+
+<details class="quiz" markdown="1">
+<summary><span class="qnum">4</span><span class="qtext">Should you write your password in analysis.py?</span></summary>
+
+**No.** A script is code, code gets committed, and a committed secret is a leaked secret.
+It is also the version that gets shared with a collaborator, pasted into a notebook, and
+emailed to a co-author.
+
+Put it in a `.env` file that `.gitignore` covers, and have the script read it from the
+environment — the pattern you set up above and use for real in
+[Managing API Keys]({{ '/day1/api-keys/' | relative_url }}).
+
+</details>
+
+<details class="quiz" markdown="1">
+<summary><span class="qnum">5</span><span class="qtext">If analysis.py is in your repo and you delete it, can I still find it on GitHub?</span></summary>
+
+**Yes.** Deleting a file is just another commit; every earlier commit still contains it, and
+`git log -- analysis.py` or the file's history on GitHub brings it straight back. That is
+the point of version control — and the reason a secret cannot be un-leaked by deleting the
+file that held it.
+
+Removing something from the history means **rewriting** the history, force-pushing it, and
+still not reaching forks or caches other people already have. Which is why the answer to a
+committed key is always: revoke it first.
+
+</details>
+
+---
+
 ## What You Learned
 
 - Fork, clone, branch, commit, and push with git — version-control every project from day one
+- Commit and push are different steps: a commit is local, and only `git push` puts it on GitHub
+- Secrets never go in a repository — a `.gitignore` keeps them out, and a key that was committed has to be revoked, not deleted
+- Issues record problems and pull requests propose changes, including back to a repo you do not own
 
 ---
 

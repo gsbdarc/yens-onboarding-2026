@@ -72,11 +72,11 @@ Add a pipeline writeup to your `README.md`. Here's a skeleton — fill in each s
 
 ---
 
-## Optional Practice
+## Bonus
 {: .note }
 > Finished early? Try this one.
 
-**Optional practice — Have Claude Stress-Test Your README**
+**Bonus — Have Claude Stress-Test Your README**
 
 Ask Claude Code to read your README as if it were a labmate seeing this pipeline for the first time, and to flag anything that would stop them from rerunning it without asking you a question. Fix at least one thing it flags.
 

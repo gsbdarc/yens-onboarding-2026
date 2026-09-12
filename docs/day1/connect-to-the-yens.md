@@ -17,7 +17,7 @@ first time. Where your files go once you are there is the next section,
 {: .important }
 > **Do this section first — give it about 10 minutes.** Everything else in Day 1 runs on
 > the Yens, so nothing later will work until this does. All you need is a terminal: the
-> built-in **Terminal** app on macOS, or [Git Bash](https://git-scm.com/downloads) on
+> built-in **Terminal** app on macOS, or <a href="https://git-scm.com/downloads" target="_blank" rel="noopener noreferrer">Git Bash</a> on
 > Windows.
 >
 > If your login does not work, put up a red sticky rather than reading ahead. An account
@@ -41,15 +41,11 @@ Your laptop is fine for writing code and running small tests. But research compu
 The Yens are available to all researchers at GSB — faculty, PhD students, post-docs, and research staff alike. This section is where you start using them.
 
 {: .note }
-> *"My regression on the full sample took 14 hours. My laptop died at hour 6. I lost everything. Two days later I reran it on the Yens and went to sleep. It finished while I was gone."* — Ben
+> *"My regression on the full sample took 14 hours. My laptop died at hour 6. I lost everything. Two days later I reran it on the Yens and went to sleep. It finished while I was gone."* — PhD Student
 
 ---
 
-## What Is a Remote Server?
-
-Your laptop is powerful but limited: one machine, one location, and it has to be open and plugged in for work to run. A **remote server** is a computer you connect to over the network — it's always on, more powerful than your laptop, and your work keeps running after you close the lid.
-
-**What are the Yens?**
+## What Are the Yens?
 
 The Yens are a 17-node shared research computing cluster: 5 interactive nodes you SSH into directly, and 12 nodes accessible only through the SLURM scheduler (Day 2). All 17 nodes share the same file system — a file you write on yen1 is instantly visible on every other node.
 
@@ -105,15 +101,13 @@ The Yens are a 17-node shared research computing cluster: 5 interactive nodes yo
   <text x="60" y="482" font-size="11.5" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#5b6472">/scratch/users/SUNetID/<tspan font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#6a7280">   large &amp; fast · NOT backed up</tspan></text>
 </svg>
 
-*Your laptop and the Yens are two separate computers; **SSH** is the connection between them. When you log in you land on one of the shared **interactive Yens** (yen1–yen5) — fine for light work. The powerful **SLURM compute nodes** come later, on Day 2, reached through a scheduler rather than directly. Whichever node you're on, you see the same shared files.*
-
-`ssh` opens an encrypted tunnel: you type locally, commands execute remotely, output streams back to your screen. The interactive Yens are shared — per-user CPU and RAM limits are enforced automatically. See the [current limits](https://rcpedia.stanford.edu/_policies/user_limits/) for details. For heavier jobs, the SLURM scheduler (Day 2) gives you dedicated compute nodes.
+`ssh` opens an encrypted tunnel: you type locally, commands execute remotely, output streams back to your screen. The interactive Yens are shared — per-user CPU and RAM limits are enforced automatically. See the <a href="https://rcpedia.stanford.edu/_policies/user_limits/" target="_blank" rel="noopener noreferrer">current limits</a> for details. For heavier jobs, the SLURM scheduler (Day 2) gives you dedicated compute nodes.
 
 **What's inside a Yen server:**
 
 ![Server hardware diagram showing CPU, cores, and RAM — Yen1 has 256 cores]({{ "/assets/images/server-hardware-cpu-ram.png" | relative_url }})
 
-The **CPU** is the processor chip. **Cores** are the individual workers inside it — each core runs instructions independently, which is what makes parallel work possible. **RAM** holds the data the CPU is actively using. The Yen servers vary in size — see the [current specs on RCPedia](https://rcpedia.stanford.edu/_getting_started/yen-servers/#overview-of-the-yen-computing-infrastructure) for details.
+The **CPU** is the processor chip. **Cores** are the individual workers inside it — each core runs instructions independently, which is what makes parallel work possible. **RAM** holds the data the CPU is actively using. The Yen servers vary in size — see the <a href="https://rcpedia.stanford.edu/_getting_started/yen-servers/#overview-of-the-yen-computing-infrastructure" target="_blank" rel="noopener noreferrer">current specs on RCPedia</a> for details.
 
 ---
 
@@ -128,6 +122,7 @@ Log in to the Yens for the first time and get your bearings.
 ```bash
 ssh SUNetID@yen.stanford.edu
 ```
+{: .laptop }
 
 Replace `SUNetID` with your Stanford username. When prompted for your password, type your Stanford password (nothing will appear — that's normal). You will be prompted for Duo two-factor authentication.
 
@@ -136,6 +131,7 @@ Replace `SUNetID` with your Stanford username. When prompted for your password, 
 hostname      # e.g. yen1, yen2, yen3, yen4, or yen5
 whoami        # confirm you are logged in as yourself
 ```
+{: .yens }
 
 {: .note }
 > The Yens (yen1–yen5) are shared interactive compute servers. You land on whichever one the load balancer picks. They're powerful, but shared — read the login banner when you connect, it describes current usage policies.
@@ -144,9 +140,20 @@ whoami        # confirm you are logged in as yourself
 ```bash
 ls ~                              # your home directory on the Yens
 pwd                               # /home/users/SUNetID
-ls /scratch/users/                # personal scratch — you will create your own folder here later
+ls /scratch/users/$USER           # your personal scratch — created for you automatically
 ls /yen/projects/                 # shared project storage
 ```
+{: .yens }
+
+{: .tip }
+> **Two keys that will save you the most typing.** Nobody types these paths out in full — and you shouldn't either.
+>
+> - <kbd>↑</kbd> — the up-arrow key walks back through commands you have already run, newest first. Recall one, edit it, and press <kbd>Enter</kbd>. Retyping a long path by hand is how typos get made.
+> - <kbd>Tab</kbd> — start a file or directory name and press it; the shell finishes the name for you. Press it twice to list every match when more than one fits.
+>
+> <kbd>Tab</kbd> is also the fastest way to check a path *before* you run something. If it refuses to complete, what you have typed so far doesn't exist — a wrong directory caught in a keystroke instead of in an error message. Try it now: type `ls /yen/pro` and press <kbd>Tab</kbd>.
+>
+> Both are features of the **shell**, not of the Yens, so they work the same in a terminal on your laptop. More in [Command Line Basics]({{ '/reference/command-line-basics/' | relative_url }}).
 
 {: .note }
 > 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
@@ -155,7 +162,7 @@ ls /yen/projects/                 # shared project storage
 
 ---
 
-## Optional Practice
+## Bonus
 
 **Skip the repeated logins with SSH multiplexing**
 
@@ -181,4 +188,4 @@ Then try it:
 1. Open your first connection as usual — `ssh SUNetID@yen.stanford.edu` — and authenticate with your password and Duo. This becomes the shared "master" connection.
 2. Leave it open, and in a **second** terminal run `ssh SUNetID@yen.stanford.edu` again. It connects **instantly** — no password, no Duo — because it's reusing the first connection.
 
-Full write-up: [SSH Setup for the Yen Servers](https://rcpedia.stanford.edu/blog/2026/03/17/ssh-setup-for-the-yen-servers/) on RCpedia.
+Full write-up: <a href="https://rcpedia.stanford.edu/blog/2026/03/17/ssh-setup-for-the-yen-servers/" target="_blank" rel="noopener noreferrer">SSH Setup for the Yen Servers</a> on RCpedia.

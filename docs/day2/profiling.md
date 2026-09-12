@@ -13,8 +13,8 @@ permalink: /day2/profiling/
 > 🔴 **Red sticky** = I need help. Put it up the moment you are stuck — an instructor will
 > come to you.
 >
-> 🟢 **Green sticky** = I have passed the checkpoint. Feel free to go back to the bonus
-> exercises if you still have time, or help your table.
+> 🟢 **Green sticky** = I have done 1–4 and am moving on to the bonus work, and I am ready
+> to help my table.
 
 <svg viewBox="0 0 720 164" role="img" aria-labelledby="daymap-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:720px;height:auto;margin:1.5rem auto" font-family="'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title id="daymap-title">Day 2 arc — you are on step 1, profile.</title>
@@ -342,6 +342,20 @@ Document what changes:
 - How many **Cores** in `userload`?
 - Did the `real` (wall-clock) time go up or down?
 - Does the resource usage match the number you set?
+
+</details>
+
+<details markdown="1">
+<summary>⭐ Bonus — explore real cluster usage data</summary>
+
+You have just measured one script. A live Yen node is running dozens of other people's
+processes at the same time, and reading a real snapshot of that is the fastest way to make
+the vocabulary concrete — what counts as a *process*, how one *user*'s footprint adds up,
+and why **RAM in use** and **virtual memory reserved** are different numbers.
+
+Work through
+[Exploring Cluster Usage Data]({{ '/reference/cluster-usage-data/' | relative_url }}) — a
+real `yenstop` capture, explored with Claude.
 
 </details>
 

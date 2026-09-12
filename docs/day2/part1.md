@@ -16,12 +16,11 @@ to the scheduler instead of holding a terminal open.
 
 ---
 
-## Sections
+## Hands-On Lab
 
-| Section | Format | What you'll learn |
+| | What you'll learn | Bonus |
 |---|---|---|
-| [1. Profile]({{ '/day2/profiling/' | relative_url }}) | 💻 Hands-on | Measure a script you have never seen, then the real workload over 10 filings |
-| [2. Document]({{ '/day2/resource-profile/' | relative_url }}) | 💻 Hands-on | Put the three numbers in your README, where the next step reads them |
-| [3. Submit]({{ '/day2/submit-a-slurm-job/' | relative_url }}) | 💻 Hands-on | Read the live queue, then write `#SBATCH` directives by hand, submit, monitor and cancel |
-| [4. Read Logs]({{ '/day2/debug-a-failed-job/' | relative_url }}) | 💻 Hands-on | Submit a job that fails on purpose, and find out why from its `.err` |
-| [Part 1 Checkpoint]({{ '/day2/part1-checkpoint/' | relative_url }}) | ✅ Checkpoint | Measure a script, write the numbers down, hand it to Slurm, and read what came back |
+| [1. Profile]({{ '/day2/profiling/' | relative_url }}) | Measure a script you have never seen, then the real workload over 10 filings | Profile two more scripts · explore real cluster usage data · size up your own machine |
+| [2. Document]({{ '/day2/resource-profile/' | relative_url }}) | Put the three numbers in your README, where the next step reads them | Let Claude write it into the README |
+| [3. Submit]({{ '/day2/submit-a-slurm-job/' | relative_url }}) | Read the live queue, then write `#SBATCH` directives by hand, submit, monitor and cancel | Other ways to run and inspect jobs · turn this into a Claude skill |
+| [4. Read Logs]({{ '/day2/debug-a-failed-job/' | relative_url }}) | Submit a job that fails on purpose, and find out why from its `.err` | Three more broken jobs · let Claude read the log for you |

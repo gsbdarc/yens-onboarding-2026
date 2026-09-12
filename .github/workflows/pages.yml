@@ -20,6 +20,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Full history, not the default shallow fetch: jekyll-last-modified-at
+          # reads git log for each page's date and falls back to file mtime
+          # without it, which would report the deploy date on every page.
+          fetch-depth: 0
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1

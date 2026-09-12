@@ -262,7 +262,7 @@ months, that note is the difference between a known limitation and a mystery.
 
 ---
 
-## Optional Practice
+## Bonus
 
 **Group by processing state as well**
 
