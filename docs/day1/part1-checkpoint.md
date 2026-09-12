@@ -12,7 +12,7 @@ permalink: /day1/part1-checkpoint/
 Everything in Part 1 was setup. Nothing you have built yet does any
 research — but from here on, every section assumes all of it works.
 
-This checkpoint is how you find out. It is six things, in one continuous run, and it
+This checkpoint is how you find out. It is four things, in one continuous run, and it
 should take about ten minutes — budget for it, because it is the last thing in the block
 before the 10:30 lecture, and it is the point of the block. Do it **before you start
 Part 2**, while there is still someone circulating who can fix whatever is broken.
@@ -27,48 +27,34 @@ Part 2**, while there is still someone circulating who can fix whatever is broke
 
 ## What You Should Be Able to Do
 
-Six things. Each one is a section you just worked through, and each has a one-line
+Four things. Each one is a section you just worked through, and each has a one-line
 check you can run.
 
 | # | Skill | Where you learned it |
 |---|---|---|
-| 1 | Use the command line on your own laptop | [Command Line Basics]({{ '/reference/command-line-basics/' | relative_url }}) — pre-work |
-| 2 | Reach the Yens over SSH | [Connecting to the Yens]({{ '/day1/connect-to-the-yens/' | relative_url }}) |
-| 3 | Have git and Claude configured and authenticated | [Git & GitHub]({{ '/day1/git-and-github/' | relative_url }}) · [Working with Claude Code]({{ '/day1/claude-code/' | relative_url }}) |
-| 4 | Copy files between your laptop and the Yens | [Transferring Files]({{ '/reference/transferring-files/' | relative_url }}) |
-| 5 | Fork, branch, commit and push — on this course's own repo | [Git & GitHub]({{ '/day1/git-and-github/' | relative_url }}) |
-| 6 | Get Claude Code to drive git for you | [Working with Claude Code]({{ '/day1/claude-code/' | relative_url }}) |
+| 1 | Reach the Yens over SSH | [Connecting to the Yens]({{ '/day1/connect-to-the-yens/' | relative_url }}) |
+| 2 | Have git and Claude configured and authenticated | [Git & GitHub]({{ '/day1/git-and-github/' | relative_url }}) · [Working with Claude Code]({{ '/day1/claude-code/' | relative_url }}) |
+| 3 | Fork, branch, commit and push — on this course's own repo | [Git & GitHub]({{ '/day1/git-and-github/' | relative_url }}) |
+| 4 | Get Claude Code to drive git for you | [Working with Claude Code]({{ '/day1/claude-code/' | relative_url }}) |
 
-The order matters. Each one is the thing the next one stands on: a terminal gets you an
-SSH session, the session is where git and Claude are configured, and those are what let
-you move work — by hand in (5), and by asking in (6).
+The order matters. Each one is the thing the next one stands on: the SSH session is where
+git and Claude are configured, and those are what let you move work — by hand in (3), and
+by asking in (4).
+
+These four are what the rest of the course actually runs on. Nothing else in Day 1 or Day 2
+will work until all four do.
 
 ---
 
 ## The Run
 
 {: .exercise }
-> Work down the six. Run each check, and stop at the first one that doesn't do what it
+> Work down the four. Run each check, and stop at the first one that doesn't do what it
 > says — a later step failing is almost always an earlier step that only looked fine.
 
-### 1 — A terminal on your own laptop
+### 1 — SSH to the Yens
 
-On **your laptop**, not the Yens. Terminal on macOS, Git Bash or PowerShell on Windows.
-
-Run `pwd` to see where you are, then `ls -a ~` to list your home directory including
-hidden files:
-
-```bash
-pwd
-ls -a ~
-```
-{: .laptop }
-
-You are looking for two things: the commands run at all, and `ls -a` shows you dotfiles
-that a plain `ls` hides. That second one matters more than it looks — `.env`, `.gitignore`
-and `.claude` are all coming, and all three are invisible without `-a`.
-
-### 2 — SSH to the Yens
+From **your laptop**, in a terminal — Terminal on macOS, Git Bash or PowerShell on Windows:
 
 ```bash
 ssh SUNetID@yen.stanford.edu
@@ -88,7 +74,7 @@ whoami              # am I logged in as myself?
 > problem, not a typo — put up a red sticky now. You will pair with someone for
 > the rest of the day and can redo the hands-on work that evening.
 
-### 3 — git and Claude are configured
+### 2 — git and Claude are configured
 
 Still on the Yens:
 
@@ -112,33 +98,7 @@ If `gh auth status` reports you are not logged in, your token never landed — g
 `credential.helper` is empty, you ran `gh auth login` but not `gh auth setup-git`, and
 your first `git push` will ask for a password it won't accept.
 
-### 4 — Move a file both ways
-
-This is the one skill on the list you have not practiced yet, and it is the one people
-discover is missing at the worst possible moment — usually with data they need on the
-cluster and no way to get it there.
-
-Run these **from your laptop**, in a second terminal — not from inside your SSH session.
-`scp` needs to name a machine it can reach, and your laptop has no address the Yens can
-send to.
-
-```bash
-echo "checkpoint" > ~/checkpoint.txt
-scp ~/checkpoint.txt SUNetID@yen.stanford.edu:/scratch/users/SUNetID/
-scp SUNetID@yen.stanford.edu:/scratch/users/SUNetID/checkpoint.txt ~/checkpoint_back.txt
-cat ~/checkpoint_back.txt
-```
-{: .laptop }
-
-Up, then back down. If `checkpoint` prints, you can move data in both directions —
-which is what the rest of the course will ask of you.
-
-{: .note }
-> `scp` is `scp SOURCE DESTINATION`, always. Upload and download are the same command
-> with the arguments swapped. The full treatment, including directories and the
-> trailing-slash trap, is in [Transferring Files]({{ '/reference/transferring-files/' | relative_url }}).
-
-### 5 — git and GitHub, on this very site
+### 3 — git and GitHub, on this very site
 
 You already forked and cloned this course's repo. Worth noticing what that means: **the
 page you are reading is a file in it.** `docs/day1/part1-checkpoint.md` is this
@@ -165,7 +125,7 @@ working — that is the real thing this step tests.
 > Committing to a branch, not `main`. That is the habit the whole course runs on, and
 > the reason your `main` still matches the class repo.
 
-### 6 — Let Claude drive
+### 4 — Let Claude drive
 
 The same operation, asked for rather than typed. In Claude Code, on the Yens:
 
@@ -183,26 +143,26 @@ but not *why*, tell it so and have it try again.
 
 {: .tip }
 > This is the loop for the rest of the two days: you know what the git command is, so
-> you can tell when Claude gets it wrong. That is the whole reason step 5 comes before
-> step 6 and not the other way round.
+> you can tell when Claude gets it wrong. That is the whole reason step 3 comes before
+> step 4 and not the other way round.
 
 ---
 
 ## Before You Move On
 
 {: .note }
-> 🟢 **Green sticky** = all six ran &nbsp;&nbsp; 🔴 **Red sticky** = one of them didn't
+> 🟢 **Green sticky** = all four ran &nbsp;&nbsp; 🔴 **Red sticky** = one of them didn't
 >
 > Put the sticky up before you take a break, not after — an instructor can come to you
 > while you are away from the keyboard anyway.
 
-If you are green on all six, you have a working research setup: a machine you can reach,
-an identity it recognizes, a way to move data to it, and a version-controlled place to
-put the results — plus an assistant that can operate all of it on your behalf.
+If you are green on all four, you have a working research setup: a machine you can reach,
+an identity it recognizes, and a version-controlled place to put the results — plus an
+assistant that can operate all of it on your behalf.
 
 Everything in Part 2 is what you *do* with that.
 
 {: .aside }
-> Nothing here is specific to this course. The same six are what a new collaborator on
+> Nothing here is specific to this course. The same four are what a new collaborator on
 > any Stanford research project needs on their first day, and roughly the checklist worth
 > running whenever you get access to an unfamiliar machine.
