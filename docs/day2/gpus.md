@@ -23,6 +23,7 @@ permalink: /day2/gpus/
 > cd ~/yens-onboarding-2026
 > source .venv/bin/activate
 > ```
+> {: .yens }
 
 Everything today has run on CPUs, against a model living on somebody else's servers. This
 page is the other axis: **hardware you ask for by name, and models that run on it.**
@@ -195,6 +196,7 @@ Just like the `#SBATCH` directives you wrote on Day 2, this tells the scheduler 
 > ```bash
 > srun --partition=gpu --gres=gpu:1 --cpus-per-task=4 --mem=16G --time=01:00:00 --pty bash
 > ```
+> {: .yens }
 >
 > This drops you into a shell *on a GPU node* with one GPU reserved — run `nvidia-smi` to confirm. To pin a specific GPU type, add `--constraint="GPU_MODEL:<type>"`, substituting one of the types from the table above. Reach for an interactive session when you're exploring or testing; use a batch job for long or production runs that should queue unattended.
 

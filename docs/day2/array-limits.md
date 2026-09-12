@@ -43,6 +43,7 @@ permalink: /day2/array-limits/
 > cd ~/yens-onboarding-2026
 > source .venv/bin/activate
 > ```
+> {: .yens }
 
 {: .important }
 > **Task:** Work out how to get **all ~992 filings** through an array when Slurm will not

@@ -43,6 +43,7 @@ permalink: /day2/debug-a-failed-job/
 > cd ~/yens-onboarding-2026
 > source .venv/bin/activate
 > ```
+> {: .yens }
 
 ## Read your own job's logs
 

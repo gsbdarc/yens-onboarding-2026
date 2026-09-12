@@ -43,6 +43,7 @@ permalink: /day2/hello-world-array/
 > cd ~/yens-onboarding-2026
 > source .venv/bin/activate
 > ```
+> {: .yens }
 
 {: .important }
 > **Task:** Submit `slurm/hello_array.slurm` unchanged, and confirm you got
@@ -182,3 +183,4 @@ The task number is what makes this general. Every task runs the identical script
 > ```bash
 > python scripts/extract_array.py 0
 > ```
+> {: .yens }

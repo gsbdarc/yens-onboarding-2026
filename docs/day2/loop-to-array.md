@@ -43,6 +43,7 @@ permalink: /day2/loop-to-array/
 > cd ~/yens-onboarding-2026
 > source .venv/bin/activate
 > ```
+> {: .yens }
 
 {: .important }
 > **Task:** Turn Part 1's loop over filings into a job array that processes **100 filings**,

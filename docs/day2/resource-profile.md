@@ -43,6 +43,7 @@ permalink: /day2/resource-profile/
 > cd ~/yens-onboarding-2026
 > source .venv/bin/activate
 > ```
+> {: .yens }
 
 {: .important }
 > **Task:** Write down the resources you measured for the 10-filing run in your README.

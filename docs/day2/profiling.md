@@ -94,6 +94,7 @@ ssh SUNetID@yen2.stanford.edu   # replace yen2 with whatever hostname showed abo
 > cd ~/yens-onboarding-2026
 > source .venv/bin/activate
 > ```
+> {: .yens }
 
 {: .note }
 > 💡 **Skip the second login.** A fresh `ssh` means another password + Duo prompt. To avoid re-authenticating, open a terminal through JupyterHub instead: browse to that node's hub (e.g. `https://yen2.stanford.edu/jupyter/`), then **New → Terminal**. You're already authenticated there, and it drops you onto that exact node — ideal for the second monitoring terminal.
@@ -216,6 +217,7 @@ You saw about **4 `python` processes** in `htop` and roughly **4 Cores** in `use
 > cd ~/yens-onboarding-2026
 > source .venv/bin/activate
 > ```
+> {: .yens }
 
 {: .important }
 > **Task:** Profile the real batch script on 10 filings using the same two-terminal technique.

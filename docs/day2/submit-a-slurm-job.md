@@ -43,6 +43,7 @@ permalink: /day2/submit-a-slurm-job/
 > cd ~/yens-onboarding-2026
 > source .venv/bin/activate
 > ```
+> {: .yens }
 
 ## Read the Queue First
 
