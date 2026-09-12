@@ -21,7 +21,7 @@ after today.
 
 {: .important }
 > This part assumes the [Part 1 Checkpoint]({{ '/day1/part1-checkpoint/' | relative_url }})
-> passed. If any of its six items is still broken, fix that first — a venv you cannot
+> passed. If any of its four items is still broken, fix that first — a venv you cannot
 > create or a fork you cannot push to will stop you here rather than politely waiting.
 
 ---
