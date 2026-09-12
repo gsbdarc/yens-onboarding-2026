@@ -30,7 +30,7 @@ bottom, and please correct them again after this course runs.
 | 10:56 | *slack* | 4 |
 | 11:00 | ☕ **Break** | 10 |
 | 11:10 | **Managing API keys** — `.env`, `python-dotenv`, `.gitignore`, init the client | 13 |
-| 11:23 | **Extraction → Day 1 capstone** *(one continuous arc)* — first call → one filing → Pydantic; then straight into 10 filings, README, commit via Claude Code | 35 |
+| 11:23 | **Extraction → Day 1 capstone** *(one continuous arc)* — first call → one filing → Pydantic; then Genre Tribunal: classify 10 movies, judge with a second model, flag, document, commit | 35 |
 | 11:58 | *slack* | 2 |
 
 **152 min teaching · 20 min breaks · 8 min slack = 180.**
@@ -45,8 +45,8 @@ committed in the repo, so it no longer depends on this finishing.)
 
 **Why extraction and the capstone are one block.** Run separately in the four-day course
 they *both* overran — extraction ran 25 min and didn't finish, and the capstone consumed
-the next morning's first hour. As a single arc the guided build flows straight into
-scaling it, with no context switch. Participants **carry on with it in their own time** —
+the next morning's first hour. The guided extraction supplies the API and validation skills
+for the Genre Tribunal, which adds a second model and a review rule. Participants **carry on with it in their own time** —
 which is what happened anyway. Day 2 no longer depends on it finishing.
 
 ## Day 2 — The Cluster

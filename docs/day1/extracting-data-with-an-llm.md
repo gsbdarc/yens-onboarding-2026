@@ -280,7 +280,8 @@ Before scaling:
 5. add bounded retries that respect `retry-after` and avoid repeating successful work
 6. require human review before using results for consequential decisions
 
-The capstone keeps the run at ten filings so every result can still be inspected.
+The [Day 1 Part 2 Capstone]({{ '/day1/capstone/' | relative_url }}) applies these skills
+to ten movie overviews, using a second model to check each classification.
 
 ---
 

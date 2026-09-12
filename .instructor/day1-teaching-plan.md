@@ -45,15 +45,15 @@ will be stuck, and the order you check matters.
 | **Python environments** (18) | Ran 20, "could be streamlined" | **Demo** the Potion Brawl rebuild rather than having 20 people pip-install a heavy tree. They still see reproducibility land; you save 8 minutes and a dozen support questions |
 | **Stanford services + Anthropic** (14) | Ran only **10** | You have time here — this is where privacy and the migration rationale now live. Distinguish the browser Playground from the programmatic Gateway. Say that the prior shared Gateway key hit rate limits under synchronized class load; the direct Anthropic workspace has more expected headroom, not unlimited throughput. Keep the public-data boundary explicit |
 | **API keys** (13) | Ran **20** | Pre-stage the shared Anthropic `.env` where students can `cp` it. Never display its contents; verify only the variable name/presence and `git check-ignore`. Keep "a committed key is a leaked key" |
-| **Extraction → capstone** (35) | Extraction ran 25 **and didn't finish**; capstones ran 60+ whenever run | **Protected, and one continuous arc.** Run Haiku for stages 1–2, then walk `diff scripts/extract_form_3_step2_logged.py scripts/extract_form_3_one_file.py` on screen. The switch to Sonnet 5 plus `messages.parse(output_format=Form3Filing)` is the Pydantic lesson. Then go straight into the 10-filing Haiku batch. Start it early and let it work while you talk |
+| **Extraction → capstone** (35) | Extraction ran 25 **and didn't finish**; capstones ran 60+ whenever run | **Protected, and one continuous arc.** Run Haiku for stages 1–2, then walk `diff scripts/extract_form_3_step2_logged.py scripts/extract_form_3_one_file.py` on screen. The switch to Sonnet 5 plus `messages.parse(output_format=Form3Filing)` is the Pydantic lesson. Then introduce the Genre Tribunal: ten movies, Haiku classification, Sonnet judging, and a Python review rule. Participants build the script and finish outside class if needed |
 
 ## If you are behind at 11:10
 
 In order:
 
 1. Trim the extraction walkthrough to the `diff` plus one live call, and let the capstone's
-   10-filing run carry the rest.
-2. Drop the "What to Look For" list in the capstone to one question asked aloud.
+   two-model movie exercise carry the rest.
+2. Review one movie disagreement aloud instead of extending the capstone discussion.
 3. Let the capstone run out of the room — participants carry on with it in their own time.
 
 **Do not** cut the Pydantic validation step — it is the payoff of the whole arc. (Day 2 no

@@ -36,10 +36,10 @@ Work through them in order — each builds on the one before.
 | [AI Services & Data Privacy]({{ '/day1/stanford-ai-services/' | relative_url }}) | 💬 Demo + discussion | Try the Playground, distinguish APIs from agent harnesses, and check what data each service can receive |
 | [Managing API Keys]({{ '/day1/api-keys/' | relative_url }}) | 💻 Hands-on | Load `ANTHROPIC_API_KEY` from `.env`, verify it safely, and prove Git ignores it |
 | [Extracting Data with an LLM]({{ '/day1/extracting-data-with-an-llm/' | relative_url }}) | 💻 Hands-on | Native Anthropic calls, then structured fields from a real SEC filing validated with Pydantic |
-| [Day 1 Capstone]({{ '/day1/capstone/' | relative_url }}) | 🔑 Capstone | Scale to 10 filings, document it, commit. **Keep going on your own afterwards** |
+| [Day 1 Part 2 Capstone]({{ '/day1/capstone/' | relative_url }}) | 🔑 Capstone | Classify 10 movies, check with a second model, flag cases for review, and push your results |
 
 {: .note }
-> The last two run as **one continuous block**: the guided build flows straight into
-> scaling it. You are not expected to finish the capstone in the room — carry on with it in
+> The capstone builds on the extraction lesson: use the same API and validation skills
+> to classify movies and check the labels with a second model. You are not expected to finish the capstone in the room — carry on with it in
 > your own time. Day 2 does not depend on it: it profiles the copy of the batch script
 > that ships in the repo, so everyone starts Day 2 from the same working code.
