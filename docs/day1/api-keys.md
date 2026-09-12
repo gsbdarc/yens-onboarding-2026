@@ -3,38 +3,37 @@ layout: default
 title: "Managing API Keys"
 parent: "Part 2 — Python & AI"
 grand_parent: "Day 1 — Foundations & AI"
-nav_order: 5
+nav_order: 4
 permalink: /day1/api-keys/
 ---
 
 # Managing API Keys
 
-An API key is a credential. Anyone holding it can use the service and spend its budget,
-so it must not appear in source code, Git history, notebook output, screenshots, chat, or
-logs. You will copy the course's Anthropic key into a local `.env`, prove that Git ignores
-it, and initialize the client without ever displaying the secret.
+An API key lets your code use a service and charge requests to an account. You'll copy
+the course's Anthropic key into a `.env` file in your repo on the Yens, check that Git
+ignores it, and load it in Python.
 
 ---
 
-## Exercise
-
 {: .important }
-> **In this section:** Load `ANTHROPIC_API_KEY` from `.env`, verify the variable without
-> revealing its value, confirm `.env` is ignored by Git, and initialize Anthropic's native
-> Python client.
+> **Start in your SSH terminal connected to the Yens.** A JupyterHub terminal works too.
+> You'll switch to a notebook in Step 5.
+>
+> Use the course's **direct Anthropic API key**. Your Stanford education account and a
+> Stanford Gateway key are separate from this credential.
 
 ## Step 1: Keep Configuration Out of Code
 
-This is unsafe:
+Avoid putting a key directly in code. This example uses a placeholder:
 
 ```python
 import anthropic
 
-client = anthropic.Anthropic(api_key="sk-ant-the-real-secret")
+client = anthropic.Anthropic(api_key="REPLACE_WITH_REAL_KEY")
 ```
 
-The key now travels wherever the file travels. Deleting it later does not remove it from
-old Git commits, saved notebook outputs, messages, or copies on other machines.
+If you replace the placeholder with a real key, anyone who receives the file receives
+the key too. Deleting it later does not remove earlier copies or Git commits.
 
 A `.env` file holds environment-variable assignments outside your program:
 
@@ -42,54 +41,51 @@ A `.env` file holds environment-variable assignments outside your program:
 ANTHROPIC_API_KEY=<secret value>
 ```
 
-Your code asks for the value by name at runtime. The code can be shared; the `.env` cannot.
+Your code reads the value by name when it runs. Share the code and keep the credential
+file out of Git.
 
 {: .note }
 > A Python **virtual environment** is a directory containing an isolated interpreter and
-> packages. An **environment variable** is a named runtime setting. A `.env` file is a
-> convenient way to load environment variables. The similar names describe different
-> things.
+> packages. An **environment variable** is a named runtime setting. A `.env` file stores
+> settings that a library such as `python-dotenv` can load as environment variables.
 
-## Step 2: Confirm the Shared File Safely
+## Step 2: Check the Shared Credential File
 
-The instructor has staged the course credential on the Yens. Print only the names of
-variables it defines:
+The instructor provides the course key in a shared file on the Yens. View it in your
+own terminal:
 
 ```bash
-awk -F= '/^[A-Za-z_][A-Za-z0-9_]*=/{print $1}' /scratch/shared/yens-onboarding-2026/.env
+cat /scratch/shared/yens-onboarding-2026/.env
 ```
+{: .yens }
 
-You should see:
-
-```text
-ANTHROPIC_API_KEY
-```
-
-{: .warning }
-> Do **not** run `cat` on a credential file. Terminal output is easy to capture in a
-> screenshot, scrollback buffer, recording, support message, or agent context. Seeing the
-> secret adds no useful information; the variable name is enough.
+You'll see `ANTHROPIC_API_KEY=` followed by the course key.
 
 ## Step 3: Copy It to the Repository Root
 
 ```bash
 cd ~/yens-onboarding-2026
 cp /scratch/shared/yens-onboarding-2026/.env .env
-test -s .env && echo ".env exists and is not empty"
+ls -a
 ```
+{: .yens }
 
-The scripts run from the repository root, so `load_dotenv()` will find this file without
-an absolute path. Use one project-level copy rather than duplicating a secret across
-folders.
+Look for `.env` in the listing. Keep this file at the repo root so the notebook below
+can load it.
 
-## Step 4: Prove Git Ignores It
+{: .note }
+> **Files starting with a dot are hidden by default.** A plain `ls` won't show `.env`
+> or `.gitignore`; use `ls -a` to include them. Hidden files still work normally, and
+> being hidden does not protect their contents.
 
-The repository already contains the `.env` rule. Verify the protection instead of
-appending a duplicate:
+## Step 4: Check That Git Ignores It
+
+The repo's `.gitignore` already includes `.env`. Check that the rule applies:
 
 ```bash
 git check-ignore -v .env
 ```
+{: .yens }
 
 The command should print the matching `.gitignore` rule. You can also check how Git sees
 the file:
@@ -97,21 +93,29 @@ the file:
 ```bash
 git status --short --ignored .env
 ```
+{: .yens }
 
 `!! .env` means ignored.
 
-{: .warning }
-> **A committed key is a leaked key.** Removing the line in a later commit does not repair
-> the leak because Git preserves history. Revoke the credential immediately, replace it,
-> and ask the repository owner for help removing the exposed value from history.
+If no ignore rule appears, add `.env` to `.gitignore` before committing your work.
 
-{: .important }
-> Stop here if `git check-ignore -v .env` prints nothing. Do not stage or commit until the
-> ignore rule is fixed.
+## Step 5: Load It in Python
 
-## Step 5: Load It Without Printing It
+First, create the notebook folder from your Yen terminal:
 
-In a notebook located in `day1/`, use the **GSB AI 2026** kernel:
+```bash
+cd ~/yens-onboarding-2026
+mkdir -p day1
+```
+{: .yens }
+
+Then open [JupyterHub](https://yen1.stanford.edu/jupyter/hub/home), or return to your
+existing browser session:
+
+1. Open **`yens-onboarding-2026/day1`** in the file browser.
+2. Use the **blue "+"** Launcher button to create a **GSB AI 2026** notebook.
+3. Name it **`anthropic_test.ipynb`**. You'll continue using it in the next section.
+4. Run this cell with **Shift+Enter**:
 
 ```python
 import os
@@ -121,10 +125,15 @@ load_dotenv("../.env")
 print("ANTHROPIC_API_KEY loaded:", bool(os.getenv("ANTHROPIC_API_KEY")))
 ```
 
-You want `True`. That answers whether the key loaded without saving any part of it in the
-notebook.
+Expected output: `ANTHROPIC_API_KEY loaded: True`.
 
-Scripts launched from the repository root use:
+This confirms that the variable has a value. It does not check whether the service
+accepts the key; the next section tests that with an API call.
+
+<details markdown="1">
+<summary>Loading the key in a script</summary>
+
+A script at the repository root can use:
 
 ```python
 from dotenv import load_dotenv
@@ -132,16 +141,19 @@ from dotenv import load_dotenv
 load_dotenv()
 ```
 
-`python-dotenv` adds the values to the current Python process's environment. It does not
-rewrite your source file.
+`python-dotenv` reads the file and adds its settings to the current Python process's
+environment. It does not change your source code or activate a virtual environment.
+By default, it keeps any value already set in that process.
 
-{: .warning }
-> Never run `print(os.environ)`, `print(key)`, or a masking function that exposes even a
-> key prefix in a notebook. Notebook outputs are stored inside the `.ipynb` file. If you
-> printed a secret, clear all outputs, save the notebook, and notify the instructor so the
-> key can be revoked.
+</details>
+
+{: .note }
+> Viewing the file in your own terminal is fine. Keep the key out of shared screenshots,
+> chats, and notebook output, since notebook output is saved with the file.
 
 ## Step 6: Initialize the Anthropic Client
+
+In the same notebook, run a new cell:
 
 ```python
 import anthropic
@@ -149,9 +161,8 @@ import anthropic
 client = anthropic.Anthropic()
 ```
 
-No key or base URL appears in the constructor. By convention, Anthropic's client reads
-`ANTHROPIC_API_KEY` from the environment and uses Anthropic's API endpoint. This is both
-safer and simpler than passing the secret through your code.
+The client reads `ANTHROPIC_API_KEY` from the environment and uses Anthropic's API
+endpoint. You do not need to put the key in the constructor.
 
 Confirm that the object exists without making a paid request:
 
@@ -159,29 +170,32 @@ Confirm that the object exists without making a paid request:
 print(type(client).__name__)
 ```
 
-The next section makes the first authenticated API call.
+Expected output: `Anthropic`. Creating the client does not send a model request.
+
+{: .note }
+> 🟢 **Green sticky** = Git shows `!! .env`, the notebook reports `True`, and the client
+> was created &nbsp;&nbsp; 🔴 **Red sticky** = I need help
+>
+> Put a sticky note on your laptop lid so instructors can see where you are.
+
+Continue to [Extracting Data with an LLM]({{ '/day1/extracting-data-with-an-llm/' | relative_url }})
+to make the first API call.
 
 ### Common Errors
 
 | Symptom | Likely cause | Check |
 |---|---|---|
-| `ANTHROPIC_API_KEY loaded: False` | Wrong `.env` path | Run `pwd`; notebooks in `day1/` need `../.env` |
-| Authentication error / HTTP `401` | Missing, mistyped, or revoked key | Re-copy the instructor file; do not print either copy |
+| `ANTHROPIC_API_KEY loaded: False` | Wrong `.env` path or missing value | In a notebook cell, run `import os; print(os.getcwd())`. This notebook belongs in the repo's `day1/` folder and loads `../.env` |
+| HTTP `401` on the next section's API call | Invalid or revoked key | Ask the instructor to confirm the key. After replacing `.env`, restart the notebook kernel and rerun the setup cells |
 | `.env` appears in `git status` | Ignore rule missing or file was already tracked | Stop and ask an instructor before committing |
-| HTTP `429` | Request or token rate limit | Read the error and `retry-after`; do not keep rerunning immediately |
 
-## If a Key Leaks
+## If You Share a Key Accidentally
 
-1. Stop using it and tell the key owner or instructor immediately.
-2. Revoke and replace it. Treat this as the actual fix.
-3. Clear notebook and terminal artifacts you control.
-4. Remove the value from Git history with the repository owner's help.
-5. Review logs and usage for unexpected calls.
+Tell the instructor or key owner so they can replace it. If it was committed to Git,
+removing it from the latest file does not remove it from earlier commits.
 
-Do not search GitHub for live secrets as an exercise. Finding a credential does not give
-you permission to inspect or use it.
-
-## Class Brainstorm: What Else Belongs in `.env`?
+<details markdown="1">
+<summary>What else belongs in .env?</summary>
 
 - API keys and access tokens
 - database connection credentials
@@ -192,12 +206,14 @@ you permission to inspect or use it.
 Secrets always belong outside source. Non-secret settings may also live in environment
 variables when they differ between a laptop, the Yens, and a production job.
 
+</details>
+
 ---
 
 ## Skills Learned
 
 - Keep `ANTHROPIC_API_KEY` in `.env`, not in code or notebook output
-- Verify a credential by name and presence without displaying its value
-- Use `git check-ignore` to prove `.env` is excluded before committing
-- Let `anthropic.Anthropic()` use the SDK's standard environment convention
-- Revoke and replace a credential immediately if it leaks
+- Load the key from `.env` and check that Python can find it
+- Check that Git ignores `.env` before committing
+- Initialize the Anthropic client using the loaded environment variable
+- Ask the key owner to replace a key if it is shared accidentally

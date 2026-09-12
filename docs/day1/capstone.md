@@ -3,7 +3,7 @@ layout: default
 title: "Day 1 Capstone"
 parent: "Part 2 — Python & AI"
 grand_parent: "Day 1 — Foundations & AI"
-nav_order: 7
+nav_order: 6
 permalink: /day1/capstone/
 ---
 

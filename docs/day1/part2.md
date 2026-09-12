@@ -33,8 +33,7 @@ Work through them in order — each builds on the one before.
 |---|---|---|
 | [Running Python on the Yens]({{ '/day1/python-on-the-yens/' | relative_url }}) | 💻 Hands-on | How `$PATH` decides which `python3` answers, and the three ways to run Python |
 | [Python Environments]({{ '/day1/python-environments/' | relative_url }}) | 💻 Hands-on | Build an isolated venv and rebuild a whole project from its `requirements.txt` |
-| [Stanford's AI Services]({{ '/day1/stanford-ai-services/' | relative_url }}) | 🖊️ Concept + demo | Playground vs. Gateway vs. direct Anthropic, including governance and throughput tradeoffs |
-| [AI Agents & Data Privacy]({{ '/day1/ai-agents-and-data-privacy/' | relative_url }}) | 💬 Discussion | What agents send where, how to classify your data, and how to keep a pipeline defensible |
+| [AI Services & Data Privacy]({{ '/day1/stanford-ai-services/' | relative_url }}) | 💬 Demo + discussion | Try the Playground, distinguish APIs from agent harnesses, and check what data each service can receive |
 | [Managing API Keys]({{ '/day1/api-keys/' | relative_url }}) | 💻 Hands-on | Load `ANTHROPIC_API_KEY` from `.env`, verify it safely, and prove Git ignores it |
 | [Extracting Data with an LLM]({{ '/day1/extracting-data-with-an-llm/' | relative_url }}) | 💻 Hands-on | Native Anthropic calls, then structured fields from a real SEC filing validated with Pydantic |
 | [Day 1 Capstone]({{ '/day1/capstone/' | relative_url }}) | 🔑 Capstone | Scale to 10 filings, document it, commit. **Keep going on your own afterwards** |

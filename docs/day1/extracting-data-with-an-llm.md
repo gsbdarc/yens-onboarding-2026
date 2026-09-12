@@ -3,7 +3,7 @@ layout: default
 title: "Extracting Data with an LLM"
 parent: "Part 2 — Python & AI"
 grand_parent: "Day 1 — Foundations & AI"
-nav_order: 6
+nav_order: 5
 permalink: /day1/extracting-data-with-an-llm/
 ---
 
@@ -16,7 +16,7 @@ a minimal call, a logged and saved result, and schema-constrained structured out
 {: .important }
 > **Data boundary:** These exercises use public, Low Risk SEC filings. The course's direct
 > Anthropic credential is not approved for sensitive research data. Revisit
-> [Stanford's AI Services]({{ '/day1/stanford-ai-services/' | relative_url }}) before
+> [AI Services & Data Privacy]({{ '/day1/stanford-ai-services/' | relative_url }}) before
 > substituting another dataset.
 
 ---
@@ -30,7 +30,8 @@ a minimal call, a logged and saved result, and schema-constrained structured out
 
 ## 1. Make the Smallest Live Call
 
-Create `day1/anthropic_test.ipynb` in JupyterHub and select the **GSB AI 2026** kernel.
+Continue in `day1/anthropic_test.ipynb`, which you created in Managing API Keys,
+and confirm that it uses the **GSB AI 2026** kernel.
 The kernel contains `anthropic`, `python-dotenv`, and `pydantic` from your project
 environment.
 
@@ -68,6 +69,29 @@ argument. The conversation in `messages` contains user and assistant turns; ther
 
 The response content is a list of typed blocks because Claude can return more than plain
 text. Filtering for `block.type == "text"` makes the assumption explicit.
+
+### Read Token Usage
+
+Models process **tokens**, chunks of text that can be smaller than a word. The
+**context window** limits how much material a model can work with in a request,
+including instructions, messages, and the response. Your prompt and filing contribute
+input tokens; the generated answer contributes output tokens.
+
+After the call above, inspect its usage:
+
+```python
+print("input:", response.usage.input_tokens)
+print("output:", response.usage.output_tokens)
+```
+
+Use these counts with the current model price to estimate cost. Measure several
+representative filings before estimating a full run.
+
+**Cost and rate limits are separate.** A project may have budget remaining and still
+send requests too quickly. Request and input/output token rate limits constrain how
+much traffic the account can send in a period. Exceeding them can return HTTP `429`.
+See [Anthropic's rate-limit documentation](https://platform.claude.com/docs/en/api/rate-limits)
+for the current limits and retry guidance.
 
 ### Common Errors
 
@@ -249,11 +273,12 @@ required. It cannot prove that a plausible date, CIK, or name is factually corre
 
 Before scaling:
 
-1. compare several outputs with their source filings
-2. decide how you will score accuracy
-3. record model and prompt versions
-4. preserve failed record identifiers and stop reasons
-5. add bounded retries only after defining idempotency and `429` behavior
+1. confirm that the dataset and service are approved for the project
+2. measure latency and token usage on representative filings and estimate the run's cost
+3. compare outputs with their source filings and decide how you will score accuracy
+4. record model and prompt versions, failed record identifiers, and stop reasons without logging secrets or restricted content
+5. add bounded retries that respect `retry-after` and avoid repeating successful work
+6. require human review before using results for consequential decisions
 
 The capstone keeps the run at ten filings so every result can still be inspected.
 
@@ -293,18 +318,6 @@ Read Anthropic's
 and its
 <a href="https://platform.claude.com/docs/en/build-with-claude/embeddings" target="_blank" rel="noopener noreferrer">embeddings guidance</a>
 if a future project needs semantic search.
-
-### Inspect Actual Usage
-
-For a normal `messages.create` response:
-
-```python
-print("input:", response.usage.input_tokens)
-print("output:", response.usage.output_tokens)
-```
-
-Count before a request when planning; inspect usage after a request when measuring. Use
-these values with the current Anthropic pricing for cost estimates.
 
 ### Compare the Two Course Models
 

@@ -184,6 +184,68 @@
   border: 1px solid #e8e3db;
   border-radius: 6px;
 }
+/* ── Which machine am I on? ───────────────────────────────────────────────
+   Half the commands in Part 1 run on the Yens and half on the student's own
+   laptop, and running one in the wrong place is the commonest way to get
+   stuck — `scp` from inside an SSH session, `ssh` from the cluster. Tag a
+   fenced block with `{: .yens }` or `{: .laptop }` (kramdown puts the class on
+   the highlighter-rouge container) to label it.
+
+   The label is a folder tab reading YEN TERMINAL or LOCAL TERMINAL: same fill
+   and same 1px dark edge as the code box the theme draws on div.highlight,
+   bottom border dropped, and pulled down a pixel so its base merges into the
+   box's top edge. The machine colour is a 3px edge carried by *both* the tab
+   and the box, so it runs as one unbroken line from the top of the tab to the
+   bottom of the block. Widening that edge from 1px to 3px costs nothing in
+   alignment: a tagged container drops the 1px border and radius it would
+   otherwise carry, so the code still starts at the same x as every untagged
+   block on the page — measured, not assumed. */
+.main-content div.highlighter-rouge.yens,
+.main-content div.highlighter-rouge.laptop {
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+.main-content div.highlighter-rouge.yens::before,
+.main-content div.highlighter-rouge.laptop::before {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  margin-bottom: -1px;           /* merge the tab's base into the box edge */
+  padding: 0.2rem 0.7rem 0.26rem 0.6rem;
+  border: 1px solid #1c1e21;     /* the theme's own code-box edge */
+  border-bottom: 0;
+  border-left-width: 3px;
+  border-radius: 4px 4px 0 0;
+  background: #f7f5f2;           /* the theme's own code-box fill */
+  font-family: "Source Sans 3", system-ui, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.085em;
+  text-transform: uppercase;
+}
+.main-content div.highlighter-rouge.yens > div.highlight,
+.main-content div.highlighter-rouge.laptop > div.highlight {
+  border-top-left-radius: 0;     /* the tab sits on this corner */
+  border-left-width: 3px;
+}
+.main-content div.highlighter-rouge.yens::before {
+  content: "\276F_  Yen Terminal";
+  color: #8c1515;
+  border-left-color: #8c1515;
+}
+.main-content div.highlighter-rouge.yens > div.highlight {
+  border-left-color: #8c1515;
+}
+.main-content div.highlighter-rouge.laptop::before {
+  content: "💻  Local Terminal";
+  color: #1f4e79;
+  border-left-color: #1f4e79;
+}
+.main-content div.highlighter-rouge.laptop > div.highlight {
+  border-left-color: #1f4e79;
+}
+
 /* Inline code shouldn't look like a miniature block — no border, just tint.
    Mirrors the theme's own `:not(pre, figure) > code` selector rather than
    listing parent elements: inline code turns up inside <strong>, <em> and
