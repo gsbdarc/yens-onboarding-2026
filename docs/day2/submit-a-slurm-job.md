@@ -385,7 +385,7 @@ htop -u SUNetID                  # or: top -u SUNetID
 ```
 {: .yens }
 
-You'll see the mystery script's Python workers pinning the cores you requested. Press `q` to quit `htop`, then `exit` to leave the node.
+You'll see the mystery script's Python workers pinning the cores you requested. Press <kbd>q</kbd> to quit `htop`, then `exit` to leave the node.
 
 {: .note }
 > You can only SSH to a compute node **while you have a job running on it** — once the job ends (or if you never had one there), SSH to that node is refused. You can't hop onto arbitrary compute nodes.
@@ -434,7 +434,7 @@ watch squeue --me
 ```
 {: .yens }
 
-Step 1 shows `R` (running) while step 2 sits `PD` with reason `(Dependency)`. When step 1 finishes, step 2 flips to `R` on its own — you do nothing. Press `Ctrl-C` to stop watching.
+Step 1 shows `R` (running) while step 2 sits `PD` with reason `(Dependency)`. When step 1 finishes, step 2 flips to `R` on its own — you do nothing. Press <kbd>Ctrl</kbd>+<kbd>C</kbd> to stop watching.
 
 {: .note }
 > 💡 If step 1 **fails**, `afterok` is never satisfied, so step 2's reason in `squeue` changes from `(Dependency)` to `(DependencyNeverSatisfied)`. That job will never run — but it won't clear itself either. It sits in the queue until **you** cancel it with `scancel JOBID`. Clear it, fix step 1, then requeue the chain.

@@ -142,7 +142,7 @@ sys     0m2.212s
 
 **Step 5 — Run the script again, this time watching it in `htop`.**
 
-First, in **Terminal 2**, stop `watch userload` by pressing **`Ctrl+C`**. Then start `htop`, filtered to just your own processes:
+First, in **Terminal 2**, stop `watch userload` by pressing <kbd>Ctrl</kbd>+<kbd>C</kbd>. Then start `htop`, filtered to just your own processes:
 
 ```bash
 htop -u SUNetID
@@ -158,19 +158,19 @@ the node don't drown yours out.
 Some Yens have 256 cores, and if `htop` is drawing one bar per core the header fills the
 window and pushes the process list off the bottom.
 
-- **`H`** — hide threads, so each process is one row
-- **`t`** — tree mode, which nests the workers a process spawned underneath it. Useful
+- <kbd>H</kbd> — hide threads, so each process is one row
+- <kbd>t</kbd> — tree mode, which nests the workers a process spawned underneath it. Useful
   here, because that nesting is exactly what you are trying to count
 
 **To hide the header,** swap the per-core meters for a single average bar:
 
-1. **`F2`** — opens Setup, with **Meters** already selected on the left
-2. **`→`** to move into the **Left column** list
-3. **`↓`** to the CPU entry — it reads something like `CPUs (1/1) [Bar]`
-4. **`Delete`** to remove it
-5. **`→`** again to reach **Available meters**, then **`↓`** to **CPU average**
-6. **`Enter`** to add it back as one bar
-7. **`F10`** to leave Setup
+1. <kbd>F2</kbd> — opens Setup, with **Meters** already selected on the left
+2. <kbd>→</kbd> to move into the **Left column** list
+3. <kbd>↓</kbd> to the CPU entry — it reads something like `CPUs (1/1) [Bar]`
+4. <kbd>Delete</kbd> to remove it
+5. <kbd>→</kbd> again to reach **Available meters**, then <kbd>↓</kbd> to **CPU average**
+6. <kbd>Enter</kbd> to add it back as one bar
+7. <kbd>F10</kbd> to leave Setup
 
 You only do this once — `htop` writes it to `~/.config/htop/htoprc` and remembers it next
 time. If your header already shows a single `Avg[...]` bar, it is set up correctly and you

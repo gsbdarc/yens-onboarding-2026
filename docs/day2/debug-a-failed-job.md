@@ -95,7 +95,7 @@ cat logs/fix_me_*.err
 ```
 {: .yens }
 
-**Put Claude Code in plan mode first** (press `Shift`+`Tab` to switch) so it lays out *what* it would change and *why* instead of editing right away. Then point it at the error log — a simple prompt is enough:
+**Put Claude Code in plan mode first** (press <kbd>Shift</kbd>+<kbd>Tab</kbd> to switch) so it lays out *what* it would change and *why* instead of editing right away. Then point it at the error log — a simple prompt is enough:
 
 ```
 > Help me troubleshoot logs/fix_me_*.err
