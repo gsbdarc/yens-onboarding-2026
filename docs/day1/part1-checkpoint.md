@@ -18,8 +18,8 @@ capstones, and all of tomorrow's cluster work stands on them. So before you move
 point is not to prove you have mastered any of it — just that you can still do each one.
 
 {: .important }
-> **If one of these fails, put up a red sticky right away.** It is much easier to sort out
-> now, while instructors are walking around, than in the middle of Part 2.
+> **If one of these fails, put up a red sticky right away.** Part 2 will build on this, so
+> let's get it straightened out as soon as possible.
 
 ---
 
