@@ -13,9 +13,9 @@ Nobody learns the terminal, cluster storage, git and Claude Code in an hour, and
 did not try to. What it did was get each of them working once, in your hands, on a real
 repo — which is the part you cannot read your way to.
 
-We keep using these skills for the rest of the class. Every Part 2 section, both
-capstones, and all of tomorrow's cluster work stands on them. So before you move on, the
-point is not to prove you have mastered any of it — just that you can still do each one.
+Before moving on, here is a sanity check to make sure you're ready for Part 2. If you had
+to skip over some material in Part 1, that's OK! You can always come back and review it
+later.
 
 {: .important }
 > **If one of these fails, put up a red sticky right away.** Part 2 will build on this, so
@@ -25,9 +25,6 @@ point is not to prove you have mastered any of it — just that you can still do
 
 ## What You Should Be Able to Do
 
-Four things. Each one is a section you just worked through, and each has a one-line
-check you can run.
-
 | # | Skill | Where you learned it |
 |---|---|---|
 | 1 | Reach the Yens over SSH | [Connecting to the Yens]({{ '/day1/connect-to-the-yens/' | relative_url }}) |
@@ -35,20 +32,9 @@ check you can run.
 | 3 | Fork, branch, commit and push — on this course's own repo | [Git & GitHub]({{ '/day1/git-and-github/' | relative_url }}) |
 | 4 | Get Claude Code to drive git for you | [Working with Claude Code]({{ '/day1/claude-code/' | relative_url }}) |
 
-The order matters. Each one is the thing the next one stands on: the SSH session is where
-git and Claude are configured, and those are what let you move work — by hand in (3), and
-by asking in (4).
-
-These four are what the rest of the course actually runs on. Nothing else in Day 1 or Day 2
-will work until all four do.
-
 ---
 
 ## The Run
-
-{: .exercise }
-> Work down the four. Run each check, and stop at the first one that doesn't do what it
-> says — a later step failing is almost always an earlier step that only looked fine.
 
 ### 1 — SSH to the Yens
 
