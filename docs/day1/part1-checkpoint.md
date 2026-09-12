@@ -9,19 +9,21 @@ permalink: /day1/part1-checkpoint/
 
 # Part 1 Checkpoint
 
-Everything in Part 1 was setup. Nothing you have built yet does any
-research — but from here on, every section assumes all of it works.
+Nobody learns the terminal, cluster storage, git and Claude Code in an hour, and Part 1
+did not try to. What it did was get each of them working once, in your hands, on a real
+repo — which is the part you cannot read your way to.
 
-This checkpoint is how you find out. It is four things, in one continuous run, and it
-should take about ten minutes — budget for it, because it is the last thing in the block
-before the 10:30 lecture, and it is the point of the block. Do it **before you start
-Part 2**, while there is still someone circulating who can fix whatever is broken.
+We keep using these skills for the rest of the class. Every Part 2 section, both
+capstones, and all of tomorrow's cluster work stands on them. So before you move on, the
+point is not to prove you have mastered any of it — just that you can still do each one.
+
+Four checks, one continuous run, about ten minutes. It is the last thing in this block, so
+budget for it, and do it **before you start Part 2** while there is still someone
+circulating who can fix whatever is broken.
 
 {: .important }
-> **A red sticky here is the cheapest one you will ever put up.** Everything in Part 2 —
-> Python environments, API keys, the extraction script, tomorrow's cluster jobs — builds
-> directly on this. A login that half-works costs you ten minutes now and the rest of the
-> morning later.
+> **A red sticky here is the cheapest one you will ever put up.** A login that half-works
+> costs you ten minutes now and the rest of the morning later.
 
 ---
 
