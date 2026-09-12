@@ -60,7 +60,6 @@ Still on the Yens:
 ```bash
 ml gh-cli claude-code       # both are modules — load them first
 gh auth status              # should say: Logged in to github.com account YOUR_USERNAME
-git config --get credential.https://github.com.helper
 claude                      # should open, signed in, not asking you to log in
 ```
 {: .yens }
@@ -72,15 +71,10 @@ Inside Claude, confirm the skill took:
 ```
 {: .claude }
 
-The `git config` line should print a path ending in `gh auth git-credential`. It is a
-mouthful because `gh auth setup-git` configures the helper *per host* rather than
-globally — so the plain `git config --get credential.helper` shows you something else
-entirely, or nothing at all, even when everything is set up correctly.
-
 If `gh auth status` reports you are not logged in, your token never landed — go back to
-[Step 3 of the Git exercise]({{ '/day1/git-and-github/#exercise' | relative_url }}). If
-the helper line prints nothing, you ran `gh auth login` but not `gh auth setup-git`, and
-your first `git push` will ask for a password it won't accept.
+[Step 3 of the Git exercise]({{ '/day1/git-and-github/#exercise' | relative_url }}). The
+push in check 3 proves the other half: if it asks you for a password, you ran
+`gh auth login` but not `gh auth setup-git`.
 
 ### 3 — git and GitHub, on this very site
 
