@@ -58,7 +58,7 @@ whoami              # am I logged in as myself?
 Still on the Yens:
 
 ```bash
-ml gh-cli
+ml gh-cli claude-code               # both are modules — load them first
 gh auth status                      # should say: Logged in to github.com as YOUR_USERNAME
 git config --get credential.helper  # should mention gh — that's `gh auth setup-git`
 claude                              # should open, signed in, not asking you to log in
