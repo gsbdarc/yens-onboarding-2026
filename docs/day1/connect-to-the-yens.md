@@ -17,7 +17,7 @@ first time. Where your files go once you are there is the next section,
 {: .important }
 > **Do this section first — give it about 10 minutes.** Everything else in Day 1 runs on
 > the Yens, so nothing later will work until this does. All you need is a terminal: the
-> built-in **Terminal** app on macOS, or [Git Bash](https://git-scm.com/downloads) on
+> built-in **Terminal** app on macOS, or <a href="https://git-scm.com/downloads" target="_blank" rel="noopener noreferrer">Git Bash</a> on
 > Windows.
 >
 > If your login does not work, put up a red sticky rather than reading ahead. An account
@@ -101,13 +101,13 @@ The Yens are a 17-node shared research computing cluster: 5 interactive nodes yo
   <text x="60" y="482" font-size="11.5" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#5b6472">/scratch/users/SUNetID/<tspan font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#6a7280">   large &amp; fast · NOT backed up</tspan></text>
 </svg>
 
-`ssh` opens an encrypted tunnel: you type locally, commands execute remotely, output streams back to your screen. The interactive Yens are shared — per-user CPU and RAM limits are enforced automatically. See the [current limits](https://rcpedia.stanford.edu/_policies/user_limits/) for details. For heavier jobs, the SLURM scheduler (Day 2) gives you dedicated compute nodes.
+`ssh` opens an encrypted tunnel: you type locally, commands execute remotely, output streams back to your screen. The interactive Yens are shared — per-user CPU and RAM limits are enforced automatically. See the <a href="https://rcpedia.stanford.edu/_policies/user_limits/" target="_blank" rel="noopener noreferrer">current limits</a> for details. For heavier jobs, the SLURM scheduler (Day 2) gives you dedicated compute nodes.
 
 **What's inside a Yen server:**
 
 ![Server hardware diagram showing CPU, cores, and RAM — Yen1 has 256 cores]({{ "/assets/images/server-hardware-cpu-ram.png" | relative_url }})
 
-The **CPU** is the processor chip. **Cores** are the individual workers inside it — each core runs instructions independently, which is what makes parallel work possible. **RAM** holds the data the CPU is actively using. The Yen servers vary in size — see the [current specs on RCPedia](https://rcpedia.stanford.edu/_getting_started/yen-servers/#overview-of-the-yen-computing-infrastructure) for details.
+The **CPU** is the processor chip. **Cores** are the individual workers inside it — each core runs instructions independently, which is what makes parallel work possible. **RAM** holds the data the CPU is actively using. The Yen servers vary in size — see the <a href="https://rcpedia.stanford.edu/_getting_started/yen-servers/#overview-of-the-yen-computing-infrastructure" target="_blank" rel="noopener noreferrer">current specs on RCPedia</a> for details.
 
 ---
 
@@ -145,6 +145,16 @@ ls /yen/projects/                 # shared project storage
 ```
 {: .yens }
 
+{: .tip }
+> **Two keys that will save you the most typing.** Nobody types these paths out in full — and you shouldn't either.
+>
+> - <kbd>↑</kbd> — the up-arrow key walks back through commands you have already run, newest first. Recall one, edit it, and press <kbd>Enter</kbd>. Retyping a long path by hand is how typos get made.
+> - <kbd>Tab</kbd> — start a file or directory name and press it; the shell finishes the name for you. Press it twice to list every match when more than one fits.
+>
+> <kbd>Tab</kbd> is also the fastest way to check a path *before* you run something. If it refuses to complete, what you have typed so far doesn't exist — a wrong directory caught in a keystroke instead of in an error message. Try it now: type `ls /yen/pro` and press <kbd>Tab</kbd>.
+>
+> Both are features of the **shell**, not of the Yens, so they work the same in a terminal on your laptop. More in [Command Line Basics]({{ '/reference/command-line-basics/' | relative_url }}).
+
 {: .note }
 > 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
 >
@@ -178,4 +188,4 @@ Then try it:
 1. Open your first connection as usual — `ssh SUNetID@yen.stanford.edu` — and authenticate with your password and Duo. This becomes the shared "master" connection.
 2. Leave it open, and in a **second** terminal run `ssh SUNetID@yen.stanford.edu` again. It connects **instantly** — no password, no Duo — because it's reusing the first connection.
 
-Full write-up: [SSH Setup for the Yen Servers](https://rcpedia.stanford.edu/blog/2026/03/17/ssh-setup-for-the-yen-servers/) on RCpedia.
+Full write-up: <a href="https://rcpedia.stanford.edu/blog/2026/03/17/ssh-setup-for-the-yen-servers/" target="_blank" rel="noopener noreferrer">SSH Setup for the Yen Servers</a> on RCpedia.

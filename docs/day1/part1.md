@@ -39,7 +39,7 @@ Work through them in order — each builds on the one before.
 | [Connecting to the Yens]({{ '/day1/connect-to-the-yens/' | relative_url }}) | 💻 Hands-on | 10 min | Log in over SSH, and understand what a remote server is and why research uses one |
 | [Your Data on the Yens]({{ '/day1/your-data/' | relative_url }}) | 💻 Hands-on | 5 min | Home, projects and scratch — which are backed up, how to check your quota, and what's eating it |
 | [Git & GitHub for Research]({{ '/day1/git-and-github/' | relative_url }}) | 💻 Hands-on | 13 min | Fork, clone, branch, commit, push — and why a research project wants version control |
-| [Working with Claude Code]({{ '/day1/claude-code/' | relative_url }}) | 📖 Read + 💻 hands-on | 20 min | Concepts first, then you set it up, learn the controls, and give it a real task |
+| [Working with Claude Code]({{ '/day1/claude-code/' | relative_url }}) | 📖 Read + 💻 hands-on | 22 min | Concepts first, then you set it up, learn the controls, and give it a real task |
 | [Part 1 Checkpoint]({{ '/day1/part1-checkpoint/' | relative_url }}) | ✅ Checkpoint | 10 min | Ten minutes proving the six things Part 2 depends on actually work |
 
 {: .note }
