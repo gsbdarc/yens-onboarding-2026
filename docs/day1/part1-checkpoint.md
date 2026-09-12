@@ -53,11 +53,6 @@ whoami              # am I logged in as myself?
 ```
 {: .yens }
 
-{: .warning }
-> **This is the one you cannot fix yourself.** If you cannot log in, it is an account
-> problem, not a typo — put up a red sticky now. You will pair with someone for
-> the rest of the day and can redo the hands-on work that evening.
-
 ### 2 — git and Claude are configured
 
 Still on the Yens:
