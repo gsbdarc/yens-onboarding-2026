@@ -5,8 +5,8 @@ This is the finished script. Day 2 profiles it and runs it under Slurm.
 New since stage 2:
     Form3Filing            a Pydantic model declaring the fields you expect, and their types
     the schema in the prompt   so the model calls each field what your code calls it
-    response_format        constrains the reply to valid JSON while the model writes it
-    model_validate_json    checks the finished reply and raises if it doesn't match
+    output_format          gives the API the Pydantic schema to generate and validate
+    parsed_output          returns a validated Form3Filing object
 
 Two other deliberate changes: it asks for more fields than stage 2 (the company and
 the filing date), and it switches to a stronger model now that the prompt is settled.
@@ -22,9 +22,9 @@ import logging
 import os
 from typing import List
 
+import anthropic
 from dotenv import load_dotenv
-from openai import OpenAI
-from pydantic import BaseModel, ValidationError
+from pydantic import BaseModel
 
 logging.basicConfig(
     level=logging.INFO,
@@ -43,14 +43,11 @@ load_dotenv()   # reads .env from the repo root
 FILING = "Cheniere_Energy_Inc"
 FILING_PATH = f"data/sec_filings/{FILING}.txt"
 
-MODEL = "gpt-5.2"        # stronger model, now that the prompt has settled
+MODEL = "claude-sonnet-5"   # stronger model, now that the prompt has settled
 RESULTS_DIR = "results"
 OUTPUT_PATH = f"{RESULTS_DIR}/form3_result.json"
 
-client = OpenAI(
-    base_url="https://aiapi-prod.stanford.edu/v1",
-    api_key=os.getenv("STANFORD_API_KEY"),
-)
+client = anthropic.Anthropic()   # reads ANTHROPIC_API_KEY from the environment
 
 
 class Form3Filing(BaseModel):
@@ -71,7 +68,7 @@ Extract the following fields:
 - company_cik: The CIK number of the issuer (from issuerCik or COMPANY DATA).
 - filing_date: The filing date (prefer signatureDate or FILED AS OF DATE).
 
-Return valid JSON matching the schema exactly.
+Return one object matching the schema exactly.
 """
 
 logger.info("Reading filing %s", FILING)
@@ -82,32 +79,29 @@ with open(FILING_PATH) as f:
 # and the fields above are spread through the whole document rather than bunched at
 # the top. Keep the slice when the documents are long and the cost is real.
 logger.info("Sending %d characters to %s", len(filing_text), MODEL)
-response = client.chat.completions.create(
+response = client.messages.parse(
     model=MODEL,
-    response_format={"type": "json_object"},
-    messages=[
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": filing_text},
-    ],
+    max_tokens=4096,
+    thinking={"type": "disabled"},
+    system=system_prompt,
+    messages=[{"role": "user", "content": filing_text}],
+    output_format=Form3Filing,
 )
 logger.info("Model responded")
 
-raw = response.choices[0].message.content
+raw = "".join(block.text for block in response.content if block.type == "text").strip()
+result = response.parsed_output
+if result is None:
+    raise RuntimeError(f"No structured output returned (stop reason: {response.stop_reason})")
 
 os.makedirs(RESULTS_DIR, exist_ok=True)
 
-# Save the raw reply BEFORE validating it. If validation fails two lines from now,
-# this file is your evidence, and you don't have to pay for the call a second time.
+# messages.parse validates before returning. Keep the raw JSON text as an audit artifact,
+# then save the normalized Pydantic representation used by the rest of the pipeline.
 raw_path = f"{RESULTS_DIR}/form3_{FILING}.txt"
 with open(raw_path, "w") as f:
     f.write(raw)
 logger.info("Wrote %s", raw_path)
-
-try:
-    result = Form3Filing.model_validate_json(raw)
-except ValidationError as e:
-    logger.error("Model output failed validation: %s", e)
-    raise
 
 logger.info("Validated extraction for %s", result.company_name)
 

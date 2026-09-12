@@ -1,147 +1,280 @@
 ---
 layout: default
-title: "Day 1 Capstone"
+title: "Day 1 Part 2 Capstone"
 parent: "Part 2 — Python & AI"
 grand_parent: "Day 1 — Foundations & AI"
-nav_order: 7
+nav_order: 6
 permalink: /day1/capstone/
 ---
 
-# Day 1 Capstone
+# Day 1 Part 2 Capstone
 
-One filing proves the code runs. Ten filings prove it's a pipeline — and surface the
-things a single happy-path run never does.
+## The Genre Tribunal
 
-Everything you need you already built this morning — this runs straight on from the
-extraction section, as one continuous block.
+Research often requires judgment calls: coding an interview response, deciding whether a
+paper meets inclusion criteria, or classifying a firm's activity. Movie genres give us a
+small example of the same problem. A film can fit more than one category, so two reasonable
+classifiers may disagree.
 
-{: .important }
-> **You are not expected to finish this in the room.** Carry on with it in your own time —
-> nothing to submit. Day 2 profiles a batch script just like this one, and a working copy
-> ships in the repo, so you will not be stuck tomorrow if you don't get to the end today.
-
----
-
-## The Task
+You'll build a pipeline that labels movies, checks each label with a second model, and
+flags cases for human review. Keep a record of how each decision was reached.
 
 {: .exercise }
-> Run your extraction across **10 filings**, write the results to `results/`,
-> document the pipeline in your `README.md`, and commit and push the lot to your fork.
+> **The challenge:** Classify the first **10 movies** in `data/top_rated_movies.csv`.
+> Have a different model check each classification, flag contested results in Python,
+> and write `results/genre_verdicts.json`. Commit your script, results, and a short README
+> section, then push them to your fork.
 
-You are not writing anything new. `scripts/extract_form_3_batch.py` in your repo
-already does the loop — it reads URLs from `data/aws_links.csv`, sends each filing
-through the Gateway, validates the reply against your Pydantic model, and writes one
-JSON file per filing into `results/`.
+{: .note }
+> Start here in class and finish in your own time. An unfinished capstone does not block
+> Day 2, which uses the batch extraction script supplied in the repo.
+
+## The Pipeline
+
+| Step | What happens |
+|---|---|
+| **Menu** | Define a fixed set of genre labels with a Pydantic-compatible `Enum` |
+| **Pick** | Haiku selects one genre and gives a one-sentence reason |
+| **Check** | Sonnet sees the overview and selected genre, but not Haiku's reason |
+| **Decide** | Python flags disagreements or certainty scores below 70 |
+| **Record** | Save both judgments, reasons, model IDs, and the review flag |
+
+<svg viewBox="0 0 660 660" role="img" aria-labelledby="genre-title genre-desc" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:660px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+  <title id="genre-title">The Genre Tribunal pipeline</title>
+  <desc id="genre-desc">Each movie goes to Haiku for classification. Sonnet checks the overview and predicted genre without seeing Haiku's reason. Python flags disagreements or certainty below 70 and saves every row, both reasons, and model IDs to genre_verdicts.json.</desc>
+  <defs><marker id="genre-arrow" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#e67e22"/></marker></defs>
+<rect x="36" y="16" width="588" height="88" rx="12" fill="#fff8ef" stroke="#e6cfa8" stroke-width="1.5"/>
+<text x="330" y="47" text-anchor="middle" font-size="16" font-weight="700" fill="#2c3e50">Movie input</text>
+<text x="330" y="75" text-anchor="middle" font-size="14" fill="#5b6472">id, title, and overview from the first 10 CSV rows</text>
+<line x1="62" y1="106" x2="62" y2="142" stroke="#e67e22" stroke-width="2.5" marker-end="url(#genre-arrow)"/>
+<text x="82" y="129" font-size="14" fill="#b3611a">overview</text>
+<rect x="36" y="144" width="588" height="88" rx="12" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
+<text x="330" y="175" text-anchor="middle" font-size="16" font-weight="700" fill="#2c3e50">Classifier: Haiku</text>
+<text x="330" y="203" text-anchor="middle" font-size="14" fill="#5b6472">Choose one of 17 labels and give a one-sentence reason.</text>
+<line x1="62" y1="234" x2="62" y2="270" stroke="#e67e22" stroke-width="2.5" marker-end="url(#genre-arrow)"/>
+<text x="82" y="257" font-size="14" fill="#b3611a">overview + predicted genre; classifier reason withheld</text>
+<rect x="36" y="272" width="588" height="88" rx="12" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
+<text x="330" y="303" text-anchor="middle" font-size="16" font-weight="700" fill="#2c3e50">Judge: Sonnet</text>
+<text x="330" y="331" text-anchor="middle" font-size="14" fill="#5b6472">Report agreement, certainty, reason, and an alternative.</text>
+<line x1="62" y1="362" x2="62" y2="398" stroke="#e67e22" stroke-width="2.5" marker-end="url(#genre-arrow)"/>
+<text x="82" y="385" font-size="14" fill="#b3611a">validated judge fields</text>
+<rect x="36" y="400" width="588" height="88" rx="12" fill="#e3f2e6" stroke="#b7ddba" stroke-width="1.5"/>
+<text x="330" y="431" text-anchor="middle" font-size="16" font-weight="700" fill="#2c3e50">Review rule: Python</text>
+<text x="330" y="459" text-anchor="middle" font-size="14" fill="#5b6472">Flag when the judge disagrees or certainty is below 70.</text>
+<line x1="62" y1="490" x2="62" y2="526" stroke="#e67e22" stroke-width="2.5" marker-end="url(#genre-arrow)"/>
+<text x="82" y="513" font-size="14" fill="#b3611a">keep flagged rows and both model judgments</text>
+<rect x="36" y="528" width="588" height="88" rx="12" fill="#fff8ef" stroke="#e6cfa8" stroke-width="1.5"/>
+<text x="330" y="559" text-anchor="middle" font-size="16" font-weight="700" fill="#2c3e50">Save all 10 verdicts</text>
+<text x="330" y="587" text-anchor="middle" font-size="14" fill="#5b6472">results/genre_verdicts.json + printed summary</text>
+<text x="330" y="646" text-anchor="middle" font-size="14" fill="#6a7280">Two model calls per movie; your code decides what needs review.</text></svg>
+
+Use **`claude-haiku-4-5`** as the classifier and **`claude-sonnet-5`** as the judge, the
+same models used in the extraction lesson. Both calls use your existing Anthropic client
+and the course's direct API key. No Stanford Gateway key is needed.
+
+The judge gets a different model ID and does not receive the classifier's explanation.
+This reduces one source of influence, but it does not make the judgments statistically
+independent. The judge still sees the proposed label, and both models may make similar errors.
+
+## 1. Read the First 10 Movies
+
+Create `day1/genre_tribunal.py` beside your `anthropic_test.ipynb` notebook. Run it from
+the `day1/` folder, so `../data/`, `../results/`, and `../.env` point to the repo root.
+
+Start with the environment and client setup from the previous lesson:
+
+```python
+from dotenv import load_dotenv
+import anthropic
+import pandas as pd
+
+load_dotenv("../.env")
+client = anthropic.Anthropic()
+
+df = pd.read_csv("../data/top_rated_movies.csv").head(10)
+for row in df.itertuples():
+    print(row.id, row.title, row.overview[:80])
+```
+
+Use `id`, `title`, and `overview`. The CSV has no genre column; you are creating the labels.
+Keep the run to ten movies while developing the pipeline. Each movie needs two model calls.
+
+## 2. Classify Each Movie
+
+Send the overview to Haiku and request:
+
+- `genre`: one label from the list below
+- `reason`: one sentence explaining the choice
+
+```text
+Action, Adventure, Animation, Comedy, Crime, Documentary, Drama, Family,
+Fantasy, Horror, Mystery, Romance, Science Fiction, Thriller, War, Western, Other
+```
+
+There are **17 labels, including Other**. Define them in an `Enum` and use that type in
+your Pydantic classifier schema. Validate the returned genre and reason before continuing.
+Reuse the structured-output approach from
+[Extracting Data with an LLM]({{ '/day1/extracting-data-with-an-llm/' | relative_url }}).
+
+<details markdown="1">
+<summary>Hint: using the Anthropic structured-output helper</summary>
+
+Pass your Pydantic class to `client.messages.parse(output_format=YourSchema, ...)`,
+then read `response.parsed_output`. Supply the model, messages, and a sufficient
+`max_tokens` budget as in the extraction lesson. Check for missing parsed output and
+record a failure rather than inventing a result.
+
+</details>
+
+Keep the reason in your results even though you will not send it to the judge. It helps
+a reviewer assess whether the explanation supports the label.
+
+{: .note }
+> **The label list is a research choice.** Animation describes a medium, while Action
+> describes a genre; a movie may fit both. Choosing one label loses information. Frequent
+> use of Other or repeated disagreements may indicate that the categories need revision.
+
+## 3. Check with a Second Model
+
+Call Sonnet with the movie's overview and the predicted genre. **Do not include the
+classifier's reason.** Start a separate request rather than continuing the classifier's
+conversation.
+
+Define and validate these fields with Pydantic:
+
+| Field | Type | Meaning |
+|---|---|---|
+| `agrees` | `bool` | Whether the judge agrees with the proposed genre |
+| `certainty` | `int`, 0 to 100 | The judge's reported certainty |
+| `reason` | `str` | A one-sentence explanation |
+| `suggested_genre` | `Genre` or `None` | An alternative when the judge disagrees; otherwise `None` |
+
+Enforce the certainty range in the schema. Check that a disagreement includes an
+alternative and that an agreement uses `None`.
+
+The certainty score is a model report, not a measured probability of correctness.
+
+## 4. Flag Cases for Human Review
+
+Apply the review rule in Python:
+
+```python
+needs_human_review = (not verdict.agrees) or (verdict.certainty < 70)
+```
+
+Keep every row, including flagged ones. Record `suggested_genre` without automatically
+replacing the original prediction. A human reviewer can then compare both judgments.
+
+Log progress by movie ID and use a warning when a row is flagged. If a request or
+validation fails, record which movie failed and why. A failure is not an agreement.
+
+## 5. Save the Results and Summarize
+
+Write a JSON array to `../results/genre_verdicts.json`, with one object per movie. Include
+all the fields in this illustrative example; your judgments and scores may differ:
+
+```json
+[
+  {
+    "id": 13448,
+    "title": "Angels & Demons",
+    "predicted_genre": "Thriller",
+    "classifier_reason": "The overview describes a conspiracy investigation under time pressure.",
+    "agrees": true,
+    "certainty": 85,
+    "judge_reason": "The investigation and suspense support the Thriller label.",
+    "suggested_genre": null,
+    "needs_human_review": false,
+    "classifier_model": "claude-haiku-4-5",
+    "judge_model": "claude-sonnet-5"
+  }
+]
+```
+
+Create the output folder if needed:
+
+```python
+from pathlib import Path
+
+Path("../results").mkdir(exist_ok=True)
+```
+
+Print a summary with the agreement count and rate, minimum/median/maximum certainty,
+and number flagged. For example:
+
+```text
+agreement rate ........  7/10 (70%)
+certainty min/med/max ..  60 / 85 / 95
+flagged for review ....  4/10
+```
+
+**Agreement is not accuracy.** There is no reference genre column, and both models can
+agree on a poor label. Read the flagged cases and a few agreements against the overviews.
+Note which cases you would resolve differently and why. Do not treat a high certainty
+score as proof that a label is correct.
+
+## 6. Run, Document, and Push
+
+From your Yen terminal:
 
 ```bash
 cd ~/yens-onboarding-2026
 source .venv/bin/activate
-python3 scripts/extract_form_3_batch.py
+cd day1
+python3 genre_tribunal.py
 ```
+{: .yens }
 
-Then look at what came back:
+Add a short **Genre Tribunal** section to the repo's `README.md` covering:
+
+- How to run the script and where it saves results
+- Which model performs each role and the review threshold
+- Your summary counts and what you found when reviewing the labels
+- Any failed requests or unresolved cases
+
+Commit the script, output, and README from the repo root:
 
 ```bash
-ls results/ | wc -l          # how many filings produced a result?
-cat results/*.json | head -40
-```
-
-{: .important }
-> **Ten is deliberate.** Every filing is a paid API call, and `NUM_FILINGS` at the
-> top of the script is set to 10 for exactly that reason. Resist the urge to raise
-> it — tomorrow you'll estimate the cost of a bigger run *before* submitting it,
-> which is the habit worth having.
-
----
-
-## What to Look For
-
-A loop that finishes is not a loop that worked. Before you commit, answer these:
-
-1. **Did every filing produce a file?** If `ls results/ | wc -l` is fewer than 10,
-   which ones are missing, and does the log say why?
-2. **Did any field come back empty or obviously wrong?** Pydantic catches the wrong
-   *type*; it cannot catch a plausible-looking wrong *answer*. Open two or three
-   results and read them against the filing they came from.
-3. **Would a second run give you the same answers?** You have no way to know yet.
-   Note the question — it is the whole subject of
-   [Handling LLM Failure Modes]({{ '/reference/llm-failure-modes/' | relative_url }}).
-
-{: .note }
-> Finding one bad extraction in ten is a **success**, not a setback. It tells you the
-> error rate is non-zero at a scale where you can still read every record by hand —
-> which is the only point at which that is affordable.
-
----
-
-## Document It
-
-Open `README.md` at your repo root and write the section a colleague would need to
-rerun this without you. Four things, briefly:
-
-- **What it does** — one sentence on the input and the output
-- **How to run it** — the three commands above, exactly
-- **Where the output lands** — `results/`, one JSON per filing, named how
-- **What you noticed** — anything from *What to Look For*, including failures
-
-Claude Code is good at the first three and useless at the fourth. Write that one
-yourself.
-
-{: .tip }
-> Have Claude read it back as a first-time reader:
->
-> ```
-> > Read my README as someone who has never seen this project. What would stop you
-> > from reproducing this run? Don't fix anything, just tell me what's missing.
-> ```
-
----
-
-## Commit and Push
-
-Use Claude Code, with the skill you installed this morning:
-
-```
-> Use the github-for-research skill. Commit my results and README changes on a new
-> branch with a message describing the 10-filing extraction run, then push and open
-> a pull request.
-```
-
-Or by hand:
-
-```bash
-git add results/ README.md
-git commit -m "Extract structured fields from 10 SEC Form 3 filings"
+cd ~/yens-onboarding-2026
+git add day1/genre_tribunal.py results/genre_verdicts.json README.md
+git commit -m "Complete Day 1 Part 2 Genre Tribunal capstone"
 git push
 ```
+{: .yens }
 
-**Zoom out:** what you just saved is a documented, version-controlled pipeline that
-turns unstructured filings into validated records. Tomorrow it stops depending on
-your terminal staying open.
+You can use Claude Code to help build the script. Review its code and the movie labels
+before committing. Keep `.env` out of the commit.
+
+## Completion Check
+
+- The output has ten movie records with validated classifier and judge fields
+- The classifier and judge use different model IDs
+- The judge did not receive the classifier's reason
+- Python applies the review rule and retains flagged rows
+- The script prints a summary, and the README records your review
+- The script, results, and README are pushed to your fork
 
 {: .note }
-> 🟢 **Green sticky** = I'm done and ready &nbsp;&nbsp; 🔴 **Red sticky** = I need help
+> 🟢 **Green sticky** = I completed the checks and pushed my work &nbsp;&nbsp;
+> 🔴 **Red sticky** = I need help
+>
+> Put a sticky note on your laptop lid so instructors can see where you are.
 
----
+<details markdown="1">
+<summary>Optional practice: inspect the review rule</summary>
 
-## Finished Early?
+Using your saved results, recalculate the flags with certainty thresholds of 60 and 80.
+How many additional cases would a human need to review? No new model calls are needed.
 
-- The optional practice in [Extracting Data with an LLM]({{ '/day1/extracting-data-with-an-llm/' | relative_url }}) — listing available models, pricing a call, comparing a reasoning model against a plain one
-- The leaked-key exercise in [Managing API Keys]({{ '/day1/api-keys/' | relative_url }})
-- [LLM-as-a-Judge]({{ '/reference/llm-as-a-judge/' | relative_url }}), the extension assignment — a second model checks the first one's calls, and your code routes the contested ones to a human
+Consider whether a multi-label codebook would fit these movies better. Record your
+proposed change and the cases that motivated it.
 
----
+</details>
 
-## Day 1 — What You Learned
+## Day 1 Skills Applied
 
-- **The cluster** — logging in over SSH, where files live, quotas, and `module load`
-- **Version control** — fork, clone, branch, commit, push, and why research wants it
-- **Claude Code** — models, permission modes, tokens, context, skills, and what data may never be sent
-- **Python that travels** — `$PATH`, virtual environments, and rebuilding a project from `requirements.txt`
-- **Stanford's AI services** — the Playground vs. the API Gateway, and the data-risk levels each is cleared for
-- **Secrets** — a key in `.env`, out of git, and why a committed key is a leaked key
-- **Structured extraction** — an API call, a Pydantic schema, validation that fails loudly, and a logged script
-- **Judgment** — what leaves your machine, what it costs, and which calls stay human
+You used the Yens, a Python environment, an API key loaded from `.env`, structured model
+responses, validation, logging, and Git. You also made a research decision explicit in
+code: when a model's output needs human review.
 
-Tomorrow: what this run actually costs in CPU, memory, and time — and how to hand it
-to a scheduler so it runs without you.
+Day 2 covers measuring resource use and running jobs through the cluster scheduler.

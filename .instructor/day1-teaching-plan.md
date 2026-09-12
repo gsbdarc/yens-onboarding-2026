@@ -44,15 +44,15 @@ Code (25) in block 1 and the extraction-to-capstone arc (35) in block 2.
 | **Python environments** (18) | Ran 20, "could be streamlined" | **Demo** the Potion Brawl rebuild rather than having 20 people pip-install a heavy tree. They still see reproducibility land; you save 8 minutes and a dozen support questions |
 | **Stanford's AI services** (14) | Ran only **10** | You have time here — this is where the privacy discussion now lives. The data-risk table is the one thing everyone must leave with |
 | **API keys** (13) | Ran **20** | Pre-stage the shared `.env` somewhere they can `cp` it, rather than typing a key. Keep "a committed key is a leaked key" |
-| **Extraction → capstone** (35) | Extraction ran 25 **and didn't finish**; capstones ran 60+ whenever run | **Protected, and one continuous arc.** Walk `diff scripts/extract_form_3_step2_logged.py scripts/extract_form_3_one_file.py` on screen — the diff *is* the Pydantic lesson. Then straight into 10 filings. Start the batch run early and let it work while you talk |
+| **Extraction → capstone** (35) | Extraction ran 25 **and didn't finish**; capstones ran 60+ whenever run | **Protected, and one continuous arc.** Walk `diff scripts/extract_form_3_step2_logged.py scripts/extract_form_3_one_file.py` on screen — the diff *is* the Pydantic lesson. Then introduce the Genre Tribunal: ten movies, Haiku classification, Sonnet judging, and a Python review rule. Participants build the script and finish outside class if needed |
 
 ## If you are behind at 11:10
 
 In order:
 
 1. Trim the extraction walkthrough to the `diff` plus one live call, and let the capstone's
-   10-filing run carry the rest.
-2. Drop the "What to Look For" list in the capstone to one question asked aloud.
+   two-model movie exercise carry the rest.
+2. Review one movie disagreement aloud instead of extending the capstone discussion.
 3. Let the capstone run out of the room — participants carry on with it in their own time.
 
 **Do not** cut the Pydantic validation step — it is the payoff of the whole arc. (Day 2 no

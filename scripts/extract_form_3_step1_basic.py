@@ -10,30 +10,30 @@ What the next two stages add:
 Run it from the repo root:
     python3 scripts/extract_form_3_step1_basic.py
 """
-import os
-
+import anthropic
 from dotenv import load_dotenv
-from openai import OpenAI
 
 load_dotenv()   # reads .env from the repo root
 
 FILING_PATH = "data/sec_filings/Cheniere_Energy_Inc.txt"
-MODEL = "gemini-2.5-flash-lite"   # cheap and fast, which is what you want while experimenting
+MODEL = "claude-haiku-4-5"   # fast and economical while the prompt is still changing
 
-client = OpenAI(
-    base_url="https://aiapi-prod.stanford.edu/v1",
-    api_key=os.getenv("STANFORD_API_KEY"),
-)
+client = anthropic.Anthropic()   # reads ANTHROPIC_API_KEY from the environment
 
 with open(FILING_PATH) as f:
     filing_text = f.read()
 
-response = client.chat.completions.create(
+response = client.messages.create(
     model=MODEL,
+    max_tokens=256,
+    system="You extract data from SEC filings. Be precise and concise.",
     messages=[
-        {"role": "system", "content": "You extract data from SEC filings. Be precise and concise."},
         {"role": "user", "content": f"Extract the insider's name and role.\nReply with only: NAME | ROLE\n\n{filing_text[:4000]}"},
     ],
 )
 
-print(response.choices[0].message.content)
+answer = "".join(block.text for block in response.content if block.type == "text").strip()
+if not answer:
+    raise RuntimeError(f"No text returned (stop reason: {response.stop_reason})")
+
+print(answer)

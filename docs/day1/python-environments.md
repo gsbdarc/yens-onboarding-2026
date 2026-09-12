@@ -9,102 +9,88 @@ permalink: /day1/python-environments/
 
 # Python Environments
 
-
-A virtual environment is a sealed Python of your own: its own interpreter and its own installed packages, isolated so one project's dependencies never collide with another's. You'll build one with `python3 -m venv`, then **activate** it — which simply prepends its `bin/` to your `$PATH`, the same trick `module load` played in Running Python on the Yens — install the packages this course needs, and register it as a named **kernel** so JupyterHub notebooks can use it. Finally you'll capture the whole environment as a `requirements.txt` recipe: the one file that lets a collaborator, or future you, rebuild your exact setup and reproduce your results on any machine. One project, one environment.
-
----
-
-## Exercise
+A virtual environment gives a project its own Python packages. In this section, you'll create one, install the course dependencies, and make it available to JupyterHub notebooks. You'll also record the installed versions and use another project's requirements file to run its code.
 
 {: .important }
-> **In this section:** Create a Python virtual environment on the Yens, **activate** it, install packages, and connect it to JupyterHub as a named kernel.
+> **In this section:** Create and activate a virtual environment on the Yens, install packages, and register a Jupyter kernel.
+>
+> **Start in your SSH terminal connected to the Yens.** You do not need a JupyterHub terminal. If you already have one open, you can use it instead. All commands labeled **Yen Terminal** run on the cluster. You'll open a notebook in Step 4.
 
 ---
 
-## 🖊️ There Has Been a Switch Up
+## Check Which Python You're Using
 
-By now you should have **two terminals** open: a **JupyterHub terminal** and your **login (SSH) shell**. They look identical. Are they running the *same* Python?
-
-### Practical Exercise
-
-In your **JupyterHub terminal**, install a package:
+If you are still at the Python `>>>` prompt, run `exit()` to return to the shell. Then check the interpreter and its package installer:
 
 ```bash
-pip install seaborn
+which python3
+python3 -m pip --version
 ```
+{: .yens }
 
-Then start Python in that same terminal and import it:
+The paths tell you which Python and pip this terminal uses. An SSH terminal, a JupyterHub terminal, and a notebook can each use a different Python environment. Installing a package in one does not necessarily make it available in another.
 
-```bash
-python3
-```
+Using `python3 -m pip` runs pip through the Python you selected. Next, you'll create an environment and use it for both terminal commands and notebooks.
 
-```python
-import seaborn   # this works, seaborn is installed here
-```
+---
 
-Now try the exact same thing in your **login shell**. This time `import seaborn` fails with `ModuleNotFoundError`.
+## Step 1: Create a Virtual Environment
 
-**❓ Same command, same package name — so why would `import seaborn` work in one terminal but not the other?** Think it through before you reveal the answer.
-
-<details markdown="1">
-<summary>💡 Answer — click to reveal</summary>
-
-The two terminals are using **different Pythons**, each with its own set of installed packages. `pip install seaborn` in the JupyterHub terminal installed it for *that* Python only — your login shell runs a different Python that never got it. That is the problem this section solves: stop leaving your environment to chance and build one you control.
-</details>
-
-## Step 1: Create a Working Directory and Venv
-
-In your **Jupyter terminal** (or SSH terminal), move into your cloned repo and make a folder for today's work:
+In your Yen terminal, move into the cloned repo:
 
 ```bash
 cd ~/yens-onboarding-2026
-mkdir -p day2
 ```
+{: .yens }
 
-Now create the virtual environment at the repo root, using the system Python:
+Create the environment at the repo root using the system Python:
 
 ```bash
 /usr/bin/python3 -m venv .venv
 ```
+{: .yens }
 
 {: .note }
-> 💡 This single `.venv` at `~/yens-onboarding-2026/.venv` is the environment you'll use for the rest of the course, and it's the exact path Days 3 and 4 **activate**. (Potion Brawl in Step 6 is a *separate* project, so it gets its own venv, which is the "one project, one environment" rule in action.)
+> Use `~/yens-onboarding-2026/.venv` for the rest of this course, including Day 2. Potion Brawl in Step 6 is a separate project and gets its own environment.
 
 ---
 
-## Step 2: Activate and Explore the PATH Change
+## Step 2: Activate the Environment
 
 ```bash
 source ~/yens-onboarding-2026/.venv/bin/activate
 ```
+{: .yens }
 
-Your prompt now shows `(.venv)`, meaning you are inside the environment. Check what changed:
+Your prompt should now show `(.venv)`. Check which Python will run:
 
 ```bash
 echo $PATH          # .venv/bin is now at the front
-which python3       # now points inside .venv/
+which python3       # points inside the repo's .venv/
 ```
+{: .yens }
 
-Try **deactivating** and checking again:
+Deactivate the environment and compare the paths:
 
 ```bash
 deactivate
-which python3       # back to system python
+which python3       # the Python this shell used before activation
 echo $PATH
 ```
+{: .yens }
 
-**Reactivate:**
+Reactivate it before continuing:
 
 ```bash
 source ~/yens-onboarding-2026/.venv/bin/activate
 ```
+{: .yens }
 
 {: .note }
-> 💡 The `activate` script works by prepending `.venv/bin/` to your `$PATH`, the same mechanism as `module load` from Running Python on the Yens. **Deactivating** removes it.
+> Activation adds `.venv/bin/` to the front of `$PATH`, similar to `module load` in the previous section. Deactivation removes it. This change applies only to the current terminal; activate the environment again in each new terminal you use.
 
 {: .note }
-> 🟢 **Green sticky** = my environment is up and running (my prompt shows `(.venv)`) &nbsp;&nbsp; 🔴 **Red sticky** = I need help
+> 🟢 **Green sticky** = my prompt shows `(.venv)` and `which python3` points inside the repo's `.venv/` &nbsp;&nbsp; 🔴 **Red sticky** = I need help
 >
 > Put a sticky note on your laptop lid so instructors can see where you are.
 
@@ -112,256 +98,301 @@ source ~/yens-onboarding-2026/.venv/bin/activate
 
 ## Step 3: Install Packages
 
-With the venv **active**, install what the rest of the course needs. The repo already ships the list, so read it before you install anything:
+With the environment active, read the course's requirements file:
 
 ```bash
 cd ~/yens-onboarding-2026
 cat requirements.txt
 ```
+{: .yens }
 
-Eight packages, one per line. Install them all in one command:
+It lists eight packages. Install them with:
 
 ```bash
-pip install -r requirements.txt
+python3 -m pip install -r requirements.txt
 ```
+{: .yens }
 
-`-r` means "read the packages from this file." That flag is the entire reason a project ships a `requirements.txt`: the list lives **in the repo**, not in someone's memory or a Slack message.
+`-r` tells pip to read package requirements from the file.
 
 <details markdown="1">
-<summary>The same thing, the long way — click to reveal</summary>
+<summary>Installing packages by name</summary>
 
-Nothing magic is happening. `-r` only saves you from typing the names out, which you could do instead:
+You could also list the packages in the command:
 
 ```bash
-pip install openai python-dotenv pydantic pandas requests ipykernel jupyter matplotlib
+python3 -m pip install anthropic python-dotenv pydantic pandas requests ipykernel jupyter matplotlib
 ```
+{: .yens }
 
-Same packages, same environment at the end of it. The difference isn't the install, it's that the first version is **written down**. Install by hand today and next month you're guessing which packages you used; a collaborator has no way to find out at all. You'll write a `requirements.txt` of your own in Step 5, and rebuild a stranger's project from theirs in Step 6.
+Keeping the list in `requirements.txt` lets collaborators install the dependencies without finding the original command. In Step 5, you'll record the installed versions as well.
 
 </details>
 
-Here's what each one is for, and where you'll meet it:
-
-| Package | What it's for | Where you'll use it |
+| Package | Purpose | Where you'll use it |
 |---|---|---|
-| `openai` | Calling the Stanford AI API Gateway | Extracting Data with an LLM, today |
-| `python-dotenv` | Loading your API key from `.env` | Managing API Keys, today |
-| `pydantic` | Validating the model's output against a schema | Extracting Data with an LLM, today |
-| `pandas` | Tabular data (`numpy` rides along with it) | the extraction exercise, then Day 2 |
+| `anthropic` | Calling Claude through Anthropic's API | Extracting Data with an LLM |
+| `python-dotenv` | Loading your API key from `.env` | Managing API Keys |
+| `pydantic` | Validating model output against a schema | Extracting Data with an LLM |
+| `pandas` | Working with tabular data; also installs `numpy` | Extraction exercises |
 | `requests` | Downloading filings over HTTP | Day 2's batch extraction |
-| `ipykernel` | Registering this venv as a JupyterHub kernel | Step 4, next |
-| `jupyter` | The notebook machinery itself | Throughout |
-| `matplotlib` | Plots | Day 2's cluster usage data |
+| `ipykernel` | Running this environment's Python in a notebook | Step 4 |
+| `jupyter` | Notebook tools | Notebook exercises |
+| `matplotlib` | Creating plots | Plotting exercises |
 
-These land **only inside this venv** — not for anyone else on the cluster, and not for your own other projects.
-
-Verify by testing in the venv terminal:
+These packages are installed in this environment. Check that Python can import one:
 
 ```bash
 python3 -c "import dotenv; print('dotenv ok')"
 ```
+{: .yens }
 
-Now **deactivate** and try the same import:
+Deactivate the environment and compare:
 
 ```bash
 deactivate
-python3 -c "import dotenv"    # should fail: not installed in system python
+python3 -c "import sys; print(sys.executable)"
+python3 -c "import dotenv"
 ```
+{: .yens }
 
-**Reactivate** when done testing.
+The import may fail with `ModuleNotFoundError`. If it succeeds, that Python already has `dotenv` available. The interpreter path shows which environment you're testing.
+
+Reactivate the course environment:
+
+```bash
+source ~/yens-onboarding-2026/.venv/bin/activate
+```
+{: .yens }
 
 ---
 
-## Step 4: Register as a Jupyter Kernel
+## Step 4: Register a Jupyter Kernel
 
-{: .note }
-> 💡 **What's a kernel?** A notebook in your browser doesn't run any code itself. It ships each cell off to a **kernel**: a separate process running on the Yens that executes the code and sends the output back. The kernel picker in the top-right of a notebook is really a list of *which interpreter* you want on the other end of that connection.
->
-> - **Kernels aren't only Python.** The name *Jupyter* comes from **Ju**lia, **Py**thon, and **R**, and the protocol is language-agnostic: R, Stata, Julia, and others all have kernels. A notebook is a front-end; the kernel decides what language the cells are written in. Run `jupyter kernelspec list` in a terminal to see everything registered for you on the Yens.
-> - The default **Python 3** kernel is a shared, system-wide Python you don't control. That's the `import seaborn` mystery from the top of this section: a kernel you didn't choose, with packages you didn't install.
-> - Registering your venv adds **your** Python to that list, so a notebook can use exactly the packages you installed in Step 3.
-> - One kernel per project is the same discipline as one venv per project. Switching kernels swaps the entire package set the notebook can see.
-> - A kernel is stateful and long-lived: it holds your variables in memory. If you `pip install` something in a terminal while a notebook is running, that kernel won't see it until you restart it (*Kernel → Restart*).
+A **kernel** is the process that runs a notebook's code and holds its variables in memory. Selecting a Python kernel chooses the interpreter and packages the notebook uses. Activating a virtual environment in a terminal does not change an open notebook's kernel.
 
-With the venv **active**, register it as a kernel JupyterHub can use:
+With the course environment active, run this in the same Yen terminal:
 
 ```bash
 python3 -m ipykernel install --user --name=gsb-ai-2026 --display-name "GSB AI 2026"
 ```
+{: .yens }
 
-Now go to JupyterHub:
-- Open your `day1/` folder in the file browser
-- Create a new notebook and name it `venv_check.ipynb`
-- Select **"GSB AI 2026"** as the kernel from the kernel menu
+This registers the environment for your account. You can run the command through SSH; a JupyterHub terminal is not required.
 
-In the notebook, confirm the environment is **active** — that the packages you installed in Step 3 are importable from this kernel:
+Now open a notebook in your browser:
+
+1. Open [JupyterHub on Yen1](https://yen1.stanford.edu/jupyter/hub/home) and log in with your SUNetID, or return to the JupyterHub session from the previous section.
+2. In the file browser, open **`yens-onboarding-2026`**.
+3. Click the **blue "+"** to open the Launcher, then select **GSB AI 2026** under Notebook. If it isn't listed yet, refresh the browser.
+4. Name the notebook **`venv_check.ipynb`**. Confirm that **GSB AI 2026** appears in the notebook's kernel menu.
+
+Run this in a notebook cell with **Shift+Enter**:
 
 ```python
+import sys
 import dotenv
-import openai
-print("dotenv and openai are available!")
+import anthropic
+
+print(sys.executable)
+print("dotenv and anthropic are available!")
 ```
 
-If this runs without error, your venv is correctly connected.
+The interpreter path should end in `yens-onboarding-2026/.venv/bin/python3`, and both imports should succeed.
 
 {: .note }
-> 🟢 **Green sticky** = my notebook is running on the **GSB AI 2026** kernel and both imports worked &nbsp;&nbsp; 🔴 **Red sticky** = I need help
+> If the path points elsewhere, select **GSB AI 2026** from the kernel menu. If you install or upgrade packages while a notebook is open, restart its kernel before testing them again. Restarting clears the notebook's variables, so run the cells again afterward.
+
+{: .note }
+> 🟢 **Green sticky** = my notebook uses **GSB AI 2026** and both imports worked &nbsp;&nbsp; 🔴 **Red sticky** = I need help
 >
 > Put a sticky note on your laptop lid so instructors can see where you are.
 
-{: .note }
-> 💡 Never commit a venv to git: it holds hundreds of megabytes of packages and machine-specific paths. The repo's `.gitignore` already lists `.venv/`, so yours is covered.
-
 ---
 
-## Step 5: Share the Recipe, Not the Environment
+## Step 5: Record the Installed Versions
 
-You may need to share an environment with a collaborator or recreate it on another machine. Do not copy the venv folder itself: virtual environments contain machine-specific paths and can break when moved.
+Virtual environments contain machine-specific paths and should be rebuilt when moving to another machine. Use a requirements file to record which packages to install.
 
-Instead you share the **recipe**: a text file listing the packages needed to run your code. In Step 3 you installed from one you didn't write — **we** wrote it, and it came with the repo when you cloned it. That's the normal case, and it's the point: you inherited a working environment from a file. Now go the other direction and produce a recipe from the environment you just built.
-
-With your virtual environment **activated**, ask pip what's actually in it:
+Return to your Yen terminal. Activate the course environment and record its installed packages:
 
 ```bash
+cd ~/yens-onboarding-2026
+source .venv/bin/activate
 python3 -m pip freeze > requirements.lock.txt
 cat requirements.lock.txt
 ```
+{: .yens }
 
-That's a lot more than the eight lines you installed from. `pip freeze` reports **every** package in the environment at its **exact** version, including the dozens nobody asked for — the dependencies of your dependencies. `pandas` alone dragged in `numpy`, `pytz`, and `python-dateutil`.
+`pip freeze` lists installed packages with their versions. The list is longer than `requirements.txt` because it includes dependencies installed by the eight packages you requested.
 
-So you now have two files describing this same environment, written by different authors for different jobs:
-
-| File | Where it came from | What it holds | What it's for |
+| File | How it's made | Contents | Purpose |
 |---|---|---|---|
-| `requirements.txt` | **a human**, by hand — here, us, when we built this repo | only the packages the project deliberately asked for | saying what the project *needs* |
-| `requirements.lock.txt` | **`pip freeze`**, just now | every package in the venv, pinned to an exact version | reproducing one *specific* environment, exactly |
+| `requirements.txt` | Written by the project authors | The packages the project needs | Installing project dependencies |
+| `requirements.lock.txt` | Generated with `pip freeze` | Installed packages and their versions | Reinstalling the recorded package versions |
 
 {: .warning }
-> ⚠️ **Freeze to `requirements.lock.txt`, not `requirements.txt`.** You're standing in the repo root, so `pip freeze > requirements.txt` would **overwrite** the curated list the repo gave you in Step 3 — replacing eight readable lines with forty machine-generated ones, in a file that's tracked by git. Different filename, no collision, both files kept.
+> Save the output to **`requirements.lock.txt`**. Running `pip freeze > requirements.txt` would overwrite the course's existing requirements list.
 
-On your own project you'd be the one writing the curated file, and it's worth seeing how short it stays: you add a line when you deliberately reach for a new package, and you leave the transitive dependencies to pip. Which file to commit depends on what you're promising a reader. Commit `requirements.txt` always — it's the human-readable statement of intent, and it's what a collaborator reads first. Commit the lock file too when a result has to be reproducible **exactly** — the numbers in a paper, a run someone might audit — because a package that silently went from 2.1.4 to 2.2.0 is a real way for a result to move.
+For your own projects, commit `requirements.txt` so collaborators can install the dependencies. Include the recorded versions when they need to reproduce a particular run. Keep `.venv/` out of git; this repo already excludes it in `.gitignore`.
 
-To recreate the environment elsewhere, from either file:
+<details markdown="1">
+<summary>Rebuilding an environment later</summary>
+
+In a fresh project checkout on the Yens, create and activate an environment:
 
 ```bash
 /usr/bin/python3 -m venv .venv
 source .venv/bin/activate
-python3 -m pip install -r requirements.txt        # the packages the project asked for, at whatever's current
-# ...or, for a bit-for-bit rebuild of this exact environment:
-python3 -m pip install -r requirements.lock.txt   # every package, at the exact versions you had
 ```
+{: .yens }
 
-Keep `.venv/` out of git either way (it's already in `.gitignore`).
+Install the project's requirements:
+
+```bash
+python3 -m pip install -r requirements.txt
+```
+{: .yens }
+
+Or use the recorded versions if you have a lock file:
+
+```bash
+python3 -m pip install -r requirements.lock.txt
+```
+{: .yens }
+
+</details>
 
 {: .note }
-> Neither file copies data, API keys, notebooks, or Python itself. A recipe lists ingredients; it isn't the meal.
+> Requirements files record packages, not Python itself, data, API keys, or notebooks. Record your Python version and preserve the code and inputs too. Matching package versions alone does not guarantee identical results across machines.
 
 ---
 
-## Step 6: Rebuild a Real Project from Its requirements.txt
+## Step 6: Run Another Project
 
-Step 3 already had you install from a `requirements.txt` — but that was *this* repo, whose environment we'd sized for you, in a room that told you exactly what to type. The real test is inheriting **someone else's project** and having to make it run: you don't know which packages it needs, you don't know what versions, and "it works on my machine" is not a specification. All you should need is the code and its `requirements.txt`.
+The repo includes **Potion Brawl**, a simulation in which three potion types interact using rock-paper-scissors rules. You'll use its requirements file to install its dependencies in a separate environment.
 
-Your cloned repo includes one: **Potion Brawl**, a small simulation in which three potions interact rock-paper-scissors style until one of them takes over. It depends on `numpy`, `scipy`, `matplotlib`, `plotly`, `networkx`, and several others.
-
-Move into the project and read its requirements:
+In your Yen terminal, open the project and read its requirements:
 
 ```bash
 cd ~/yens-onboarding-2026/data/potion_brawl
 cat requirements.txt
 ```
+{: .yens }
 
-That's **13 pinned dependencies**, each at an exact version. Nobody is expected to memorise a list like that; recording it in a file is precisely the point.
+The file lists 13 packages with pinned versions.
 
-### Create a separate environment for this project
+### Create the Project's Environment
 
-Potion Brawl gets its **own** environment, independent of the one you built earlier: one project, one environment.
+Deactivate the course environment before creating Potion Brawl's environment:
 
 ```bash
+deactivate
 /usr/bin/python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+python3 -m pip install -r requirements.txt
 ```
-
-A single command installs the full dependency set at the exact versions the author used.
+{: .yens }
 
 {: .note }
-> `.venv/` and the project's `output/` folder are already in the repo's `.gitignore`, so you won't accidentally commit hundreds of megabytes of packages or generated artifacts.
+> Potion Brawl's `.venv/` and generated `output/` folder are already excluded from git.
 
-### Run it
+### Run the Script
 
 ```bash
 python3 potion_brawl.py
 ```
+{: .yens }
 
-The script prints a `POTION BRAWL` banner, a progress bar, and a populations table, then writes a fresh `output/` folder:
+The script prints a banner, progress bar, and population table, then writes these files to `output/`:
 
-| file | what it is |
-|------|------------|
-| `brawl.gif` | top-down animation of the bouncing brawl |
-| `populations.png` | stacked-area chart of the war over time |
-| `law_of_the_brawl.png` | the 3-potion cycle diagram |
-| `victor.txt` | the tick count and final tally |
-| `lab_journal.pkl` | the **save state**: positions, velocities, and the random-number generator |
+| File | Contents |
+|---|---|
+| `brawl.gif` | Animation of the simulation |
+| `populations.png` | Population chart over time |
+| `law_of_the_brawl.png` | Diagram of the three-potion cycle |
+| `victor.txt` | Tick count and final population tally |
+| `lab_journal.pkl` | Saved positions, velocities, and random-number generator state |
 
-### Confirm that the result is reproducible
+### Resume the Simulation
 
 Run it again:
 
 ```bash
 python3 potion_brawl.py
 ```
+{: .yens }
 
-The script finds `lab_journal.pkl` and **resumes the same run**. Because the journal restored the random-number generator's state, the continuation is **bit-for-bit identical** to a run that was never interrupted. Copy the folder (code, `requirements.txt`, and `output/lab_journal.pkl`) to a new directory or a different machine, rebuild the environment from `requirements.txt`, and the run continues from exactly where it stopped.
+The script loads `output/lab_journal.pkl` and continues from the saved state, including the random-number generator's state. Check the terminal message for the tick at which it resumes.
 
-This is the practical point of the section. In research it is the difference between:
+To continue the simulation in a new directory, you need the code, requirements file, and saved journal. Rebuild the environment there rather than copying `.venv/`.
 
-- **"It ran last spring on my laptop"**, where neither a collaborator nor future-you can reproduce the number in the paper; and
-- **"Here is the code and `requirements.txt`"**, where a collaborator, a reviewer, or the cluster rebuilds your environment and gets your result.
+<details markdown="1">
+<summary>Run the notebook version</summary>
 
-Your code plus a recorded environment produces the same result for anyone, on any machine.
+With Potion Brawl's environment active, register its kernel from your Yen terminal:
 
-{: .note }
-> 💡 There's also a notebook version with the figures inline. With `.venv` **active**, register it as a kernel:
-> ```bash
-> python3 -m ipykernel install --user --name potion-brawl --display-name "Potion Brawl (venv)"
-> ```
-> Then open **`the_alchemists_lab.ipynb`** in JupyterHub, choose the **"Potion Brawl (venv)"** kernel, and *Kernel → Restart & Run All*.
+```bash
+python3 -m ipykernel install --user --name potion-brawl --display-name "Potion Brawl (venv)"
+```
+{: .yens }
+
+In JupyterHub's file browser, open `yens-onboarding-2026/data/potion_brawl/the_alchemists_lab.ipynb`. Select **Potion Brawl (venv)**, then choose **Kernel → Restart Kernel and Run All Cells**.
+
+</details>
+
+### Return to the Course Environment
+
+Before continuing to the next section, switch back in your Yen terminal:
+
+```bash
+deactivate
+cd ~/yens-onboarding-2026
+source .venv/bin/activate
+which python3
+```
+{: .yens }
+
+The path should point to `~/yens-onboarding-2026/.venv/bin/python3`.
 
 ---
 
-## Bonus
-{: .note }
-> Finished early? Try any of these.
+## Optional Practice
 
-**Bonus — Find Where Kernels Live**
+### Find the Kernel Configuration
 
-A kernel is just a folder on disk. Track yours down:
+List the registered kernels from your Yen terminal:
 
 ```bash
 jupyter kernelspec list
 ```
+{: .yens }
 
-This prints every registered kernel and its path (a `--user` install like yours lands in `~/.local/share/jupyter/kernels/`). `ls` the **GSB AI 2026** kernel's folder and open its `kernel.json`. Notice it points straight at your venv's Python. That link is the whole trick behind connecting a venv to JupyterHub, and it's why deleting a venv leaves a broken kernel behind until you remove its folder too.
+Your user-installed kernels are usually under `~/.local/share/jupyter/kernels/`. Open the configuration for the course kernel:
 
+```bash
+cat ~/.local/share/jupyter/kernels/gsb-ai-2026/kernel.json
+```
+{: .yens }
 
-**Bonus — Why You Can't Copy a Environment**
+The file points to your environment's Python. Deleting that environment leaves the kernel entry pointing to a missing interpreter.
 
-Step 5 said never to copy a venv folder. See for yourself why. Peek inside your environment:
+### Inspect the Environment's Paths
 
 ```bash
 ls -l ~/yens-onboarding-2026/.venv/bin/python
 cat ~/yens-onboarding-2026/.venv/pyvenv.cfg
 ```
+{: .yens }
 
-The `python` inside a venv is just a **symlink** back to one specific system Python, and `pyvenv.cfg` hardcodes that interpreter's path. Move or copy the folder to another machine (or another user's account) and those paths point at nothing. That is exactly why you rebuild from `requirements.txt` instead of copying the environment.
+On the Yens, the environment's Python links to the system interpreter, and `pyvenv.cfg` records the base Python's location. These paths may not exist on another machine, which is why you recreate the environment there.
 
 ---
 
-## 🧠 Skills Learned
+## Skills Learned
 
-- A virtual environment is an isolated Python installation: packages installed in one venv don't affect any other project
-- `source .venv/bin/activate` prepends `.venv/bin/` to `$PATH`, making the venv's Python the first match
-- JupyterHub kernels are just named Python environments: you can have one per project
-- Never commit `.venv/` to git: it's too large and machine-specific
-- A `requirements.txt` lets anyone rebuild a complex environment (exact packages and versions) from a single command, which is what makes your research reproducible
+- Create and activate a project environment on the Yens
+- Install packages using `python3 -m pip` and a requirements file
+- Select the project's environment as a JupyterHub notebook kernel
+- Record installed package versions without overwriting the project's requirements
+- Rebuild an environment from its requirements and keep `.venv/` out of git

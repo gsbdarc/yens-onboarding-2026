@@ -17,7 +17,7 @@ on the course website.
 
 | Day | Focus | Topics, in order |
 |-----|-------|------------------|
-| **Day 1** | Foundations & AI | SSH & the Yens file system · Git & GitHub · Claude Code · Python on the Yens · virtual environments · Stanford's AI Gateway · AI agents & data privacy · API keys · LLM extraction with Pydantic validation |
+| **Day 1** | Foundations & AI | SSH & the Yens file system · Git & GitHub · Claude Code · Python on the Yens · virtual environments · AI services & data privacy · Anthropic API keys · LLM extraction with Pydantic validation · Genre Tribunal capstone |
 | **Day 2** | The cluster | resource profiling · documenting what a job needs · writing & submitting `#SBATCH` jobs · reading logs & debugging failures · job arrays · rerun-safe tasks · array limits at scale · GPUs & local LLMs |
 
 Both days build one pipeline over the same dataset — SEC Form 3 filings — turning

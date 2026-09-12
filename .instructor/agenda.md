@@ -23,8 +23,8 @@ self-paced work block. **No scheduled breaks** — tables break inside the work 
 |-------|-------|-----|
 | 9:00  | **Lecture 1** — the two-day map and prereq triage (5, see `.instructor/prereq-triage.md`); then logging in to the Yens, the storage layout and quotas, and why the work goes under version control | 20 |
 | 9:20  | **Work block 1** — Part 1: `ssh`, `module load`, fork → clone → branch → commit → push, then Claude Code. Ends in the **Part 1 Checkpoint** | 70 |
-| 10:30 | **Lecture 2** — `$PATH` and `module load python`, script vs. notebook, JupyterHub as a **tour**; then Playground vs. Gateway, the data-risk table, and cost | 20 |
-| 10:50 | **Work block 2** — Part 2: venv and `requirements.txt`, `.env` and keys, then the extraction → capstone arc | 70 |
+| 10:30 | **Lecture 2** — `$PATH` and `module load python`, script vs. notebook, JupyterHub as a **tour**; then Playground, education accounts, Gateway vs. direct Anthropic, and data privacy | 20 |
+| 10:50 | **Work block 2** — Part 2: venv and `requirements.txt`, `.env` and keys, then extraction → Genre Tribunal capstone | 70 |
 
 **40 min lecture · 140 min work block = 180.**
 
@@ -60,8 +60,8 @@ committed in the repo, so it no longer depends on this finishing.)
 
 **Why extraction and the capstone are one block.** Run separately in the four-day course
 they *both* overran — extraction ran 25 min and didn't finish, and the capstone consumed
-the next morning's first hour. As a single arc the guided build flows straight into
-scaling it, with no context switch. Participants **carry on with it in their own time** —
+the next morning's first hour. The guided extraction supplies the API and validation skills
+for the Genre Tribunal, which adds a second model and a review rule. Participants **carry on with it in their own time** —
 which is what happened anyway. Day 2 no longer depends on it finishing.
 
 ## Where These Numbers Come From

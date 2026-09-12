@@ -1,290 +1,380 @@
 ---
 layout: default
-title: "Stanford's AI Services"
+title: "AI Services & Data Privacy"
 parent: "Part 2 — Python & AI"
 grand_parent: "Day 1 — Foundations & AI"
 nav_order: 3
 permalink: /day1/stanford-ai-services/
 ---
 
-# Stanford's AI Services
+# AI Services & Data Privacy
 
+Before using AI with research data, check the data's risk classification, the dataset's
+usage rules, and the service's approval. Your use must meet all three requirements.
 
-"Can I analyze this data with AI?" is really three questions at once, and you have to satisfy all three: what risk level is the data, what does your Data Use Agreement allow, and what is the machine you're working on cleared to hold. This section covers those rules, then Stanford's two ways to work under them — the AI Playground, a chat window you log into with your SUNetID, and the AI API Gateway, which reaches the same class of models from your code. Both put every prompt under a University contract instead of a personal account's consumer terms. You'll send your first prompt through the Playground and learn which data you may, and may not, put through it.
+You'll try Stanford's AI Playground in your browser, then use Anthropic's API from
+Python to process public SEC filings. These are separate services with different access
+and data-handling rules.
 
 ---
 
 ## Exercise
 
 {: .important }
-> **In this section:** Log in to the Stanford AI Playground with your SUNetID credentials, send your first prompt through Stanford's governed gateway, and know which data-risk levels you may (and may not) send through it.
+> **In this section:** Check which data a service can handle, try Stanford's AI
+> Playground, and distinguish an LLM, an API, and an agent harness. Then review what
+> your code or agent sends to the model service.
 
----
+## Check the Data and Service
 
-## 🖊️ Data Security
-
-Datasets that aren't public come with rules, and those rules are imposed by **three** different entities at once. They are independent of each other, they don't consult each other, and you have to satisfy all three. When they disagree, the **strictest one wins**.
-
-**1. Stanford's data risk classification**
+### 1. Stanford's data-risk classification
 
 ![Stanford Data Risk]({{ "/assets/images/Stanford_data_risk.png" | relative_url }})
 
-*Stanford's data risk classification guidelines.*
+Read Stanford's current
+<a href="https://uit.stanford.edu/guide/riskclassifications" target="_blank" rel="noopener noreferrer">data-risk classification guidance</a>.
 
-<a href="https://uit.stanford.edu/guide/riskclassifications" target="_blank" rel="noopener noreferrer">
-  Read Stanford's data risk classification guidance
-</a>
+### 2. The dataset's rules
 
-**2. Data Use Agreements (DUAs)**
+A Data Use Agreement (DUA), license, IRB protocol, or contract can impose stricter rules
+than a service technically supports. "De-identified" does not automatically mean "safe
+to send to AI," and a vendor license may forbid automated analysis entirely.
 
-DUAs come from datasets purchased or licensed for faculty use. Stanford's lawyers negotiate these agreements so you can do cutting-edge research, but the terms vary widely, from permissive to restrictive:
+### 3. The system and service
 
-| | Example clause |
-|-|-----------------|
-| 🟢 Permissive | "You may publish no more than 5% of the data publicly" |
-| 🟢 Permissive | "You must keep all analysis on Stanford servers" |
-| 🔴 Restrictive | "You may not use ANY form of AI on this data" |
-| 🔴 Restrictive | "All analysis must be done on company servers with approved libraries" |
+The Yens, a Stanford-managed AI service, and a vendor API are separate systems with
+different approvals. A file can be allowed on one and forbidden on another. Nothing in
+Python checks whether a transfer is permitted. Check the requirements before sending data.
 
-**3. The computing system you're working on**
+| Service | Role in this course | Data requirements |
+|---|---|---|
+| Stanford AI Playground | Manual browser demonstration | Follow Stanford's current approval and the dataset's rules |
+| Stanford AI API Gateway | Institutional programmatic option, discussed for context | Use its current approval process, DRA/DUA, and project requirements |
+| Direct Anthropic API | The SEC extraction exercises | **Public, Low Risk filings only** |
 
-Every system you touch is itself approved up to some maximum risk level, and that ceiling belongs to the **machine**, not to your data or your good intentions. This is the one researchers forget, because nothing stops you: you can copy a restricted file onto a system that isn't cleared for it and everything will appear to work fine. The violation is the copy, not the crash.
-
-| Where you're working | Approved up to |
-|----------------------|----------------|
-| **<a href="https://rcpedia.stanford.edu/_policies/security/?h=high+risk#data-risk" target="_blank" rel="noopener noreferrer">The Yens</a>** (GSB research computing) | 🟡 Moderate |
-| **<a href="https://www.sherlock.stanford.edu/docs/concepts/" target="_blank" rel="noopener noreferrer">Sherlock</a>** (Stanford's shared HPC cluster) | 🟡 Moderate |
-| **<a href="https://docs.carina.stanford.edu/" target="_blank" rel="noopener noreferrer">Carina</a>** (secure on-prem cluster for regulated data) | 🔴 High, **including** PHI |
-| **<a href="https://nero-docs.stanford.edu/" target="_blank" rel="noopener noreferrer">Nero GCP</a>** (secure cloud platform for regulated data) | 🔴 High, **including** PHI |
-| **AI Playground** (chat window) | 🔴 High, but **not** PHI |
-| **AI API Gateway** (from your code) | 🔴 High, **including** PHI |
-| A personal laptop or consumer AI account | 🟢 Low |
-
-So "can I analyze this data with AI?" is really three questions: *what risk level is the data*, *what does my DUA allow*, and *what is this machine cleared to hold*. High-risk data on the Yens fails the third test even when the first two are satisfied.
-
-{: .note }
-> 💡 **Know which machine to reach for.** The Yens are your home for this course and for most GSB research; their data-risk policy is spelled out in <a href="https://rcpedia.stanford.edu/_policies/security/?h=high+risk#data-risk" target="_blank" rel="noopener noreferrer">RCpedia</a>. <a href="https://www.sherlock.stanford.edu/docs/concepts/" target="_blank" rel="noopener noreferrer">**Sherlock**</a> is Stanford's shared HPC cluster, where you go when a job outgrows the Yens — still Moderate, so it is not the answer to a High-Risk problem.
->
-> High-Risk work, including anything involving PHI, belongs on a platform built for it, and Stanford runs **two**: <a href="https://docs.carina.stanford.edu/" target="_blank" rel="noopener noreferrer">**Carina**</a> is the on-premises option, run by Stanford Research Computing with the School of Medicine, and it is **Slurm-based** — so the job scripts you write on Day 2 transfer almost unchanged. <a href="https://nero-docs.stanford.edu/" target="_blank" rel="noopener noreferrer">**Nero GCP**</a> is the cloud option, the same idea built on Google Cloud. Both need a PI-led team and go through Stanford's Data Risk Assessment, so neither is something you spin up on a Tuesday afternoon. Sort that out *before* you copy a single file, because the moment restricted data lands on a system that isn't cleared for it, the problem already exists.
-
-You satisfy all three (Stanford's classification, your DUA, and the ceiling of the system you're on) so both you and Stanford stay protected.
+For current service approvals, check
+<a href="https://uit.stanford.edu/ai/services" target="_blank" rel="noopener noreferrer">AI services at Stanford</a>
+and the
+<a href="https://uit.stanford.edu/service/ai-api-gateway/faqs" target="_blank" rel="noopener noreferrer">AI API Gateway FAQ</a>
+before using research data.
 
 {: .warning }
-> **Improper use of a dataset can mean lawsuits, and losing access to the data or the tools entirely.**
+> Direct access to Anthropic is **not the same service** as Claude provisioned by Stanford
+> and is not a shortcut around a DUA, IRB, Data Risk Assessment, or platform restriction.
+> In this course it is limited to public SEC filings. For Moderate or High Risk data,
+> stop and use the Stanford-approved route for that project.
 
-**🖊️ Exercise: Classify These Five**
+### Practice: Classify the Data
 
-For each, is it **Low**, **Moderate**, or **High** Risk under Stanford's definitions above?
+For each item, decide whether it is Low, Moderate, or High Risk, then ask whether a DUA
+could make the handling requirements stricter.
 
-1. A published, peer-reviewed journal article
+1. A published journal article
 2. Social Security numbers
-3. An unreleased internal budget or financial projection
+3. An unreleased internal financial projection
 4. Student grades and transcripts
-5. De-identified, aggregated survey data
-
-*Discuss as a class: which ones surprised you? Where did opinions differ?*
+5. De-identified, aggregated survey results
 
 <details markdown="1">
-<summary>💡 Answer key: click to reveal</summary>
+<summary>Answer key</summary>
 
-| # | Item | Risk | Why |
-|---|------|------|-----|
-| 1 | Published, peer-reviewed article | 🟢 **Low** | Already public, no restriction on sharing. |
-| 2 | Social Security numbers | 🔴 **High** | Regulated personal identifiers; a textbook High-Risk example. |
-| 3 | Unreleased internal budget / projection | 🟡 **Moderate** | Confidential business information, but not regulated personal data. |
-| 4 | Student grades and transcripts | 🟡 **Moderate** | Education records protected by **FERPA**. |
-| 5 | De-identified, aggregated survey data | 🟢 **Low** | De-identification *and* aggregation remove the personal risk. |
+| # | Item | Starting classification | Why |
+|---|---|---|---|
+| 1 | Published article | Low | Already public |
+| 2 | Social Security numbers | High | Regulated personal identifiers |
+| 3 | Internal projection | Moderate | Confidential business information |
+| 4 | Grades and transcripts | Moderate | FERPA-protected education records |
+| 5 | De-identified aggregate results | Often Low | Re-identification and contract terms still matter |
 
-A **DUA or IRB protocol can push any of these higher**: de-identified data that can be re-identified, or a budget under a confidentiality agreement, may need stricter handling. Classify by the data **and** its contract.
+The classification is only the first check. A DUA, IRB protocol, or other agreement can
+require stricter treatment.
 </details>
 
 ---
 
-Since AI is permeating every facet of research, Stanford has worked hard to give you a space to submit AI queries with certain guarantees.
+## Stanford's Browser and API Routes
 
-## 🖊️ Stanford's AI Offerings
+### AI Playground: an easy place to start
 
-Stanford builds and runs **two** of its own AI services, two different ways in to the same governed idea:
+For everyday research questions, drafting, and trying prompts, **Stanford's AI Playground
+is usually the easiest starting point**. You use it in a browser with your SUNetID;
+there is no Python setup or API key to manage. You can choose among the available models
+and compare their responses. Follow the data checks above before uploading material.
 
-- **The AI Playground:** a **chat window** in your browser. Point, click, and type; nothing to install. *(Covered here.)*
-- **The AI API Gateway:** **API access** to the same class of models for your *code*, over an OpenAI-compatible endpoint (`aiapi-prod.stanford.edu`). A separate system you call programmatically. You'll wire into it from [Managing API Keys]({{ '/day1/api-keys/' | relative_url }}) onward.
+#### Try the Playground
 
-{: .note }
-> 💡 **Two words before we go further, in case they're new.**
->
-> **An API** (Application Programming Interface) is a door into a service built for **programs** rather than for people. The chat window and the API reach the very same models; what differs is who is standing at the door. You type into a chat window and read the reply yourself. Your *code* sends a request to an API and gets structured data back that the rest of your script can use.
->
-> Why a researcher should care: reading one SEC filing in a chat window is easy. Reading **ten thousand** of them means a `for` loop, and a loop needs a door that code can open. Same models, same Stanford contract, different door.
->
-> **An API key** is the credential that opens that door. A server has no other way to know who is knocking, so your key identifies you and carries your permissions and your budget with it. That leads to the two rules you'll practise next room: keep it **secret**, because anyone holding it can spend against your account, and never let it end up in your code, a screenshot, a chat window, or a commit. [Managing API Keys]({{ '/day1/api-keys/' | relative_url }}) is entirely about handling it properly.
+1. Open the [Stanford AI Playground quick start page](https://uit.stanford.edu/aiplayground),
+   follow its link to the Playground, and sign in with your SUNetID.
+2. Choose an available model and send this prompt:
 
-Both put every prompt under one of Stanford's enterprise agreements rather than a personal account's consumer terms. The rest of this section walks the **chat window** first, then the **API**.
+   > Explain the difference between a Python interpreter and a Jupyter kernel in two sentences.
 
-Stanford also brokers access to a growing list of **third-party** services (each with its own data rules):
+3. Ask a follow-up question. If time allows, try the same prompt with another model and
+   compare the answers.
 
-| Category | Offering | Provider |
-|----------|----------|----------|
-| Education accounts | Claude for Education | Anthropic |
-| Education accounts | Google Gemini Enterprise | Google |
-| Education accounts | OpenAI ChatGPT Edu | OpenAI |
-| Education accounts | Microsoft Copilot | Microsoft |
-| Cloud AI | AWS Bedrock | Amazon |
-| Cloud AI | Azure OpenAI | Microsoft |
-| Cloud AI | Google Vertex | Google |
+**Why use an API for this exercise?** We want a Python script to read filings, send the
+same extraction instructions for each one, validate the responses, and save the results.
+An API lets those steps run together without manually copying text between a browser
+and a file. The Playground remains useful for testing a prompt before putting it into code.
 
-*This list keeps growing. See the <a href="https://uit.stanford.edu/ai/services/explore" target="_blank" rel="noopener noreferrer">full directory</a> for the latest.*
+### Stanford Claude and ChatGPT Education Accounts
 
----
+Stanford also provides university-managed accounts for **Claude for Education** and
+**ChatGPT Edu**. These give you access to the providers' own apps for research, writing,
+analysis, and coding.
 
-## 🖊️ The AI Playground: A Chat Window
+| Account | What you can use | Sign up |
+|---|---|---|
+| [Claude for Education](https://uit.stanford.edu/service/claude) | Claude Chat, Claude Code, and Claude Cowork | [Request a Standard account](https://stanford.service-now.com/it_services?id=sc_cat_item&sys_id=d0605d9c2b558b10ee36fd3fc891bfe2) |
+| [ChatGPT Edu](https://uit.stanford.edu/service/openai-chatgpt-edu) | ChatGPT for research and analysis, document creation, and coding tools including Codex | [Request a Standard account](https://stanford.service-now.com/it_services?id=sc_cat_item&sys_id=0c3324ad2be5cf90ee36fd3fc891bf6f) |
 
-The AI Playground is a University-hosted **chat interface** that gives every Stanford researcher one safe, governed space to work with many cutting-edge models. You log in with your SUNetID credentials and chat much as you would with ChatGPT, but every prompt is covered by Stanford's enterprise agreement with the cloud provider instead of consumer terms, and it is cleared for data up to **High Risk, but *not* PHI** (protected health information).
+The Standard accounts are free for active Stanford faculty, students, postdocs, and
+staff. Use your SUNetID to request access. The service pages above also list affiliate
+options, paid tiers, and the current data rules for each tool.
 
-It offers many of the same models you'd reach commercially (Claude Opus 4.8, GPT-5.2, and Gemini 2.5 Flash, among others) with no personal account or credit card. (The exact model ids come from the models endpoint you'll query in [Extracting Data with an LLM]({{ '/day1/extracting-data-with-an-llm/' | relative_url }}).)
+The Claude education account connects to the Claude Code work you did earlier. For
+the upcoming Python exercises, you'll use the course's separate **Anthropic API key**.
+Requesting an education account does not replace that setup.
 
-### 🔰 Try the AI Playground
+### AI API Gateway: Stanford's programmatic route
 
-Open <a href="https://uit.stanford.edu/aiplayground" target="_blank" rel="noopener noreferrer">https://uit.stanford.edu/aiplayground</a> in your browser and log in with SUNetID.
+The
+<a href="https://uit.stanford.edu/service/ai-api-gateway" target="_blank" rel="noopener noreferrer">Stanford AI API Gateway</a>
+lets code call models under Stanford's service controls. It remains the institutional
+route to evaluate when a research project needs Stanford governance, sensitive-data
+approval, centralized budget controls, or access to several providers through one API.
 
-Ask it something:
-- *"Summarize what a virtual environment is in one sentence."*
-- *"What is the difference between a kernel and a Python interpreter?"*
+Use the Playground in your browser. Use the Gateway when you want code to call a
+Stanford-managed AI service.
 
-Notice: the responses come from the same models you'd reach through the API. You're already using the Stanford AI Playground.
 
-### Upsides and Downsides
+#### How the Gateway Works
 
-| | Detail |
-|-|--------|
-| ✅ **Free to you** | Stanford covers the cost. No credit card to attach and no per-use charge to keep an eye on, unlike a personal ChatGPT or Claude subscription |
-| ✅ **Stanford's agreement applies** | Your prompts fall under Stanford's enterprise contract and data processing agreement, not a consumer account's terms |
-| ✅ **No account required** | Every Stanford researcher has access via SUNetID login |
-| ⚠️ **Prompts are logged** | Stanford can review usage logs, so it isn't anonymous. The upside: that audited, contracted arrangement is exactly what clears the Playground for sensitive data up to **High Risk, though not PHI** (and always subject to your DUA) |
-| ⚠️ **Model selection** | Available models are determined by Stanford's contract, not your preference |
+Your code sends its request to Stanford's Gateway with a Stanford-issued API key.
+The Gateway checks the key's model access and budget, routes the request to the model
+service, and returns the response. Stanford manages the service and its provider agreements.
 
----
-
-## 🖊️ The AI API Gateway: API Access
-
-The Playground's sibling, the Stanford <a href="https://uit.stanford.edu/service/ai-api-gateway" target="_blank" rel="noopener noreferrer"><strong>AI API Gateway</strong></a>, exposes the same class of models to your *code* and is fully OpenAI-compatible. Code that already calls the OpenAI API can call Stanford's gateway with two changes:
-
-```python
-from openai import OpenAI
-
-client = OpenAI(
-    api_key="YOUR_STANFORD_KEY",           # Stanford-issued key, not OpenAI key
-    base_url="https://aiapi-prod.stanford.edu/v1",  # Stanford gateway, not api.openai.com
-)
-```
-
-Here's what happens on the wire when that code runs:
-
-<svg viewBox="0 0 1000 420" role="img" aria-labelledby="api-flow-title" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:1000px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
-  <title id="api-flow-title">How the Stanford AI API Gateway works: your code sends a request to Stanford's gateway. The gateway authenticates you through SUNetID, applies Stanford's contract, enforces budget caps, and logs the call, then routes it to the model, which is served by an enterprise cloud provider under one of Stanford's enterprise agreements rather than on a personal vendor account. The response returns along the same path.</title>
+<svg viewBox="0 0 660 536" role="img" aria-labelledby="gateway-title gateway-desc" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:660px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+  <title id="gateway-title">Your code calls a model through Stanford's AI API Gateway</title>
+  <desc id="gateway-desc">Your code sends a request authenticated by a Stanford-issued API key to the Gateway. The Gateway checks model access, enforces the key's budget, and tracks usage under Stanford's service agreements. It forwards the request to the model service and sends the response back to your code.</desc>
   <defs>
-    <marker id="api-ah-green" markerWidth="10" markerHeight="10" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#2e8b57"/></marker>
-    <marker id="api-ah-slate" markerWidth="10" markerHeight="10" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#556a95"/></marker>
+    <marker id="gateway-arrow" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#e67e22"/></marker>
   </defs>
-
-  <!-- your code -->
-  <rect x="40" y="170" width="230" height="130" rx="14" fill="#fdf6ea" stroke="#e6cfa8" stroke-width="1.5"/>
-  <text x="155" y="214" text-anchor="middle" font-size="21" font-weight="700" fill="#2c3e50">💻  Your code</text>
-  <text x="155" y="244" text-anchor="middle" font-size="16" fill="#9a8a68">laptop or the Yens</text>
-  <text x="155" y="270" text-anchor="middle" font-size="14.5" fill="#9a8a68">OpenAI-compatible client</text>
-
-  <!-- gateway: the governed door -->
-  <rect x="385" y="118" width="250" height="234" rx="16" fill="#fbe9cf" stroke="#dcae6a" stroke-width="2"/>
-  <text x="510" y="150" text-anchor="middle" font-size="18" font-weight="700" fill="#2c3e50">🛡️  Stanford AI API Gateway</text>
-  <text x="510" y="174" text-anchor="middle" font-size="14" fill="#8a6d3b">aiapi-prod.stanford.edu</text>
-  <line x1="410" y1="190" x2="610" y2="190" stroke="#e0c48a" stroke-width="1"/>
-  <text x="510" y="222" text-anchor="middle" font-size="15" fill="#6a5326">🪪  authenticates you (SUNetID)</text>
-  <text x="510" y="252" text-anchor="middle" font-size="15" fill="#6a5326">🔒  applies Stanford's contract</text>
-  <text x="510" y="282" text-anchor="middle" font-size="15" fill="#6a5326">💵  enforces budget caps</text>
-  <text x="510" y="312" text-anchor="middle" font-size="15" fill="#6a5326">📋  keeps an audit trail</text>
-
-  <!-- model -->
-  <rect x="755" y="170" width="205" height="130" rx="16" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
-  <text x="857" y="214" text-anchor="middle" font-size="21" font-weight="700" fill="#2c3e50">🧠  The model</text>
-  <text x="857" y="244" text-anchor="middle" font-size="14.5" fill="#6a7280">served by an enterprise</text>
-  <text x="857" y="266" text-anchor="middle" font-size="14.5" fill="#6a7280">cloud provider</text>
-  <text x="857" y="288" text-anchor="middle" font-size="12.5" fill="#8a94a6">under Stanford's agreement</text>
-
-  <!-- your code <-> gateway (green) -->
-  <line x1="270" y1="205" x2="383" y2="205" stroke="#2e8b57" stroke-width="2.5" marker-end="url(#api-ah-green)"/>
-  <text x="326" y="196" text-anchor="middle" font-size="14.5" font-weight="700" fill="#1f6b45" stroke="#ffffff" stroke-width="5" paint-order="stroke" stroke-linejoin="round">① request</text>
-  <line x1="383" y1="265" x2="272" y2="265" stroke="#2e8b57" stroke-width="2.5" marker-end="url(#api-ah-green)"/>
-  <text x="326" y="284" text-anchor="middle" font-size="14.5" font-weight="700" fill="#1f6b45" stroke="#ffffff" stroke-width="5" paint-order="stroke" stroke-linejoin="round">④ response</text>
-
-  <!-- gateway <-> model (slate) -->
-  <line x1="637" y1="205" x2="753" y2="205" stroke="#556a95" stroke-width="2.5" marker-end="url(#api-ah-slate)"/>
-  <text x="695" y="196" text-anchor="middle" font-size="14.5" font-weight="700" fill="#3f4f74" stroke="#ffffff" stroke-width="5" paint-order="stroke" stroke-linejoin="round">② forward</text>
-  <line x1="753" y1="265" x2="639" y2="265" stroke="#556a95" stroke-width="2.5" marker-end="url(#api-ah-slate)"/>
-  <text x="695" y="284" text-anchor="middle" font-size="14.5" font-weight="700" fill="#3f4f74" stroke="#ffffff" stroke-width="5" paint-order="stroke" stroke-linejoin="round">③ response</text>
+  <rect x="16" y="16" width="628" height="104" rx="16" fill="#fffaf2" stroke="#ecdcc0" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <rect x="36" y="32" width="588" height="72" rx="12" fill="#fff8ef" stroke="#e6cfa8" stroke-width="1.5"/>
+  <text x="330" y="61" text-anchor="middle" font-size="16" font-weight="700" fill="#2c3e50">Your code on the Yens or your laptop</text>
+  <text x="330" y="86" text-anchor="middle" font-size="14" fill="#5b6472">Uses a Stanford-issued API key</text>
+  <line x1="174" y1="122" x2="174" y2="196" stroke="#e67e22" stroke-width="2.5" marker-end="url(#gateway-arrow)"/>
+  <text x="158" y="162" text-anchor="end" font-size="14" font-weight="700" fill="#b3611a">1. Request</text>
+  <line x1="486" y1="196" x2="486" y2="122" stroke="#e67e22" stroke-width="2.5" marker-end="url(#gateway-arrow)"/>
+  <text x="502" y="162" font-size="14" font-weight="700" fill="#b3611a">4. Response</text>
+  <rect x="36" y="198" width="588" height="140" rx="12" fill="#e3f2e6" stroke="#b7ddba" stroke-width="1.5"/>
+  <text x="330" y="228" text-anchor="middle" font-size="17" font-weight="700" fill="#2c3e50">Stanford AI API Gateway</text>
+  <text x="330" y="254" text-anchor="middle" font-size="14" fill="#5b6472">Checks key and model access · Enforces budget</text>
+  <text x="330" y="279" text-anchor="middle" font-size="14" fill="#5b6472">Tracks usage · Routes requests to the model service</text>
+  <text x="330" y="312" text-anchor="middle" font-size="14" font-weight="700" fill="#2e7d46">Managed by Stanford under its service agreements</text>
+  <line x1="174" y1="340" x2="174" y2="414" stroke="#e67e22" stroke-width="2.5" marker-end="url(#gateway-arrow)"/>
+  <text x="158" y="380" text-anchor="end" font-size="14" font-weight="700" fill="#b3611a">2. Forward</text>
+  <line x1="486" y1="414" x2="486" y2="340" stroke="#e67e22" stroke-width="2.5" marker-end="url(#gateway-arrow)"/>
+  <text x="502" y="380" font-size="14" font-weight="700" fill="#b3611a">3. Response</text>
+  <rect x="16" y="416" width="628" height="104" rx="16" fill="#f7f9fc" stroke="#bcd4f2" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <rect x="36" y="432" width="588" height="72" rx="12" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
+  <text x="330" y="461" text-anchor="middle" font-size="16" font-weight="700" fill="#2c3e50">Model service</text>
+  <text x="330" y="486" text-anchor="middle" font-size="14" fill="#5b6472">Processes the request and generates a response</text>
 </svg>
 
-Every model call, prompt, and response flows through `aiapi-prod.stanford.edu`, Stanford's contracted endpoint, instead of going straight to the provider. Your code looks identical; only the endpoint changes.
+*The request and response both pass through Stanford's Gateway.*
 
-### Why Stanford Runs Its Own Server
+#### Request a Gateway Key for Your Research
 
-That gateway is a server Stanford stands up and maintains itself, placed between your code and the model provider on purpose. Owning the middle is what lets the University put every request under its contract with the provider (the **DPA**), authenticate you through **SUNetID**, enforce **budget caps**, and keep an **audit trail**. Send data straight to a vendor on a personal account instead, and none of those protections apply. One governed door for all of campus beats thousands of ungoverned ones.
+The Gateway is billed by usage and requires a **PTA (Project, Task, and Award)**.
+Agree on the billing account and budget with your advisor or project lead first.
 
-{: .important }
-> **The chat window and the API have different PHI ceilings.** The Playground **chat window** is cleared for data up to High Risk but **not PHI** (protected health information). The **API Gateway** *is* approved for High Risk **including PHI** (always subject to your DUA). So when PHI is involved, reach for the **API path**, not the chat window.
+1. Open Stanford's [Add AI API Gateway Key form](https://stanford.service-now.com/it_services?id=sc_cat_item&sys_id=fd75ec563b90265079a53434c3e45a65)
+   and sign in with your SUNetID.
+2. Prepare the request details:
 
-### The API Gateway Is Metered
+   | Detail | What to provide |
+   |---|---|
+   | Organization and requester | Your institution and who will own the key |
+   | Models | The models your project needs |
+   | Key alias and purpose | A short name and description of the research use |
+   | Budget and volume | Maximum monthly spend and estimated requests per day |
+   | Due date | When you need access |
+   | Billing | Your PTA and the appropriate billing approver |
 
-Here's the other way the two services differ, and it's the one that surprises people. The chat window is **free to you** — type all day, nothing accrues. The API Gateway is **pay-per-use**: every call is billed on the amount of text you send plus the amount the model generates back, at a rate that depends on which model you picked. That's what the budget cap in the diagram is capping.
+3. Submit the request and complete any required approval. Stanford sends the key through
+   secure email after processing the request.
+4. Follow the setup instructions linked from the [Gateway service page](https://uit.stanford.edu/service/ai-api-gateway).
+   Keep the key out of source code, prompts, and Git.
 
-At the scale of today — a handful of calls on one filing — this is fractions of a cent, and you're spending against a shared course key rather than your own. It starts to matter the moment a `for` loop is involved. Ten thousand filings is ten thousand billable calls, and the difference between the cheapest and most expensive model on the menu is not small.
-
-So two habits, starting now: know that a loop over documents is a loop over charges, and measure the cost on a few records before you launch the full run. [AI Agents & Data Privacy]({{ '/day1/ai-agents-and-data-privacy/' | relative_url }}) takes this apart properly later today — what drives the bill, how to estimate one from a sample, and the trap where a model charges you for reasoning you never see.
-
-### Requesting Your Own Key
-
-Today you're using the shared course key. If you or your PI need a personal Stanford AI API Gateway key later, you'll submit a request with:
-
-- **Organization**: Stanford University, Stanford Health Care (SHC), or Stanford Children's Health (SCH)
-- **Requester**: yourself, someone else, or your department/service team
-- **Model(s)**: which AI model(s) you need access to
-- **Key alias**: a short, descriptive, alphanumeric name (20 characters max)
-- **Business purpose**: what the key will be used for
-- **Budget**: your maximum monthly spend
-- **Volume**: approximate number of requests per day
-- **Due date**: when you need the key by
-- **Billing**: your Project, Task, and Award (the PTA), plus an approver for the billing account if your request requires approval (Ask Your Advisor)
+The monthly budget is a spending cap, not a flat fee. For current billing and access
+details, see the [Gateway FAQ](https://uit.stanford.edu/service/ai-api-gateway/faqs).
 
 {: .note }
-> If your request needs approval, the designated approver gets notified before the key is issued. If you're the designated approver yourself, the request is auto-approved.
-
-In the next room (Managing API Keys), you'll load the key securely from a `.env` file rather than hardcoding it.
-
-
-## Bonus
-{: .note }
-> Finished early? Try any of these.
->
-> 🌐 **All three happen in the <a href="https://uit.stanford.edu/aiplayground" target="_blank" rel="noopener noreferrer">AI Playground</a> chat window in your browser** — the same tab you logged into above. No code, no API key, nothing to install. You're exploring what the chat window can do before you start driving the same models from Python.
-
-**Bonus — Save a Course Context Prompt**
-
-**In the AI Playground**, save a reusable prompt that gives the AI quick background on the class you're taking: what the course is, what you're working on, and what tools you have access to. Paste it in at the top of a new conversation instead of re-explaining yourself every time.
-
-
-**Bonus — Compare Two Models**
-
-**In the AI Playground**, use the model picker to ask two different cutting-edge models the same Yen-specific question. Compare the answers: which one do you trust more, and why?
-
-
-**Bonus — Customize the System Prompt**
-
-**In the AI Playground**, set the system prompt so the AI knows who you are, your current knowledge level, and how you like to be spoken to. Ask the same question with the system prompt empty versus filled in, and see whether the tone or depth actually changes.
+> **For a future research project:** These are the steps for requesting your own Stanford
+> Gateway key. Today's exercises use the course's separate Anthropic key, so you can
+> continue without submitting this request.
 
 ---
 
-## 🧠 Skills Learned
+## Why This Course Calls Anthropic Directly
 
-- Stanford AI Playground gives every researcher access to models such as Claude Opus 4.8, GPT-5.2, and Gemini 2.5 Flash; no personal account needed
-- The AI Playground (a **chat window**) and the AI API Gateway (**API access** for code) are two *separate* Stanford services: the chat window is cleared to High Risk but **not PHI**, while the API Gateway handles High Risk **including PHI**
-- The chat window is free to you; the API Gateway is **metered per call**, billed on text in plus text out, which is why a loop over 10,000 documents is a budgeting decision and not just a coding one
-- The API is OpenAI-compatible: only `base_url` and the key change; all code is the same
-- Prompts sent through either service are logged and subject to audit; classify your data before sending it
+In earlier classroom runs, many students sent requests at the same time through a shared
+Stanford Gateway key. That synchronized load ran into rate limits and stalled the exercise.
+For this public-data pipeline, the course now uses a directly provisioned Anthropic
+organization with more usable headroom for the expected class traffic.
+
+The Python exercises call **Anthropic's API directly**, using the course's Anthropic
+account and an `ANTHROPIC_API_KEY`. These requests do **not** go through Stanford's AI API
+Gateway. Use only the public SEC filings provided for the exercises.
+
+---
+
+## Models, APIs, and Agent Harnesses
+
+These terms describe different parts of an AI tool:
+
+| Term | What it does | Example in this course |
+|---|---|---|
+| **LLM (large language model)** | Processes the supplied context and generates a response, which can include a request to use a tool | Claude |
+| **LLM API (application programming interface)** | Lets software send requests to a model service and receive responses | Your Python script calls Anthropic's Messages API |
+| **Agent harness** | Manages the model's context, tool access, permissions, and repeated steps toward a task | Claude Code reads a file, asks the model what to change, applies an edit, and runs a check |
+
+The **model** generates a response. The **harness** supplies context and executes permitted
+tool actions. A model does not read your repo or run a terminal command on its own; the
+surrounding software provides those capabilities. An API can support both a simple
+request-and-response script and a harness that makes many model calls while working.
+
+The Playground provides a browser interface, conversation history, and optional tools.
+You do not need to build that software yourself. In the extraction exercise, your Python
+script controls the requests and saves the results. It follows a fixed sequence rather
+than letting an agent choose the next action.
+
+## What Leaves the Yens?
+
+In the extraction script, your code chooses the prompt and filing text to send:
+
+<svg viewBox="0 0 660 432" role="img" aria-labelledby="api-flow-title api-flow-desc" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:660px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+  <title id="api-flow-title">A direct API request from the Yens to Anthropic</title>
+  <desc id="api-flow-desc">On the Yens, Python reads the public filing and builds a prompt. The request leaves the Yens through Anthropic's API. Claude returns a response, which Python validates and saves on the Yens. This request does not pass through Stanford's API Gateway.</desc>
+  <defs>
+    <marker id="api-flow-arrow" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#e67e22"/></marker>
+  </defs>
+  <rect x="16" y="16" width="628" height="172" rx="16" fill="#fffaf2" stroke="#ecdcc0" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="36" y="43" font-size="14" font-weight="700" letter-spacing="0.6" fill="#6a7280">ON THE YENS</text>
+  <rect x="36" y="58" width="280" height="108" rx="12" fill="#fff8ef" stroke="#e6cfa8" stroke-width="1.5"/>
+  <text x="54" y="87" font-size="16" font-weight="700" fill="#2c3e50">1. Build the request</text>
+  <text x="54" y="114" font-size="14" fill="#5b6472">Python reads the public filing</text>
+  <text x="54" y="138" font-size="14" fill="#5b6472">and adds your instructions.</text>
+  <rect x="344" y="58" width="280" height="108" rx="12" fill="#e3f2e6" stroke="#b7ddba" stroke-width="1.5"/>
+  <text x="362" y="87" font-size="16" font-weight="700" fill="#2c3e50">3. Check and save</text>
+  <text x="362" y="114" font-size="14" fill="#5b6472">Python validates the response</text>
+  <text x="362" y="138" font-size="14" fill="#5b6472">and writes the result to a file.</text>
+  <line x1="176" y1="168" x2="176" y2="258" stroke="#e67e22" stroke-width="2.5" marker-end="url(#api-flow-arrow)"/>
+  <text x="160" y="219" text-anchor="end" font-size="14" font-weight="700" fill="#b3611a">prompt + filing</text>
+  <text x="160" y="242" text-anchor="end" font-size="14" fill="#5b6472">API request</text>
+  <line x1="484" y1="260" x2="484" y2="168" stroke="#e67e22" stroke-width="2.5" marker-end="url(#api-flow-arrow)"/>
+  <text x="500" y="219" font-size="14" font-weight="700" fill="#b3611a">response</text>
+  <text x="500" y="242" font-size="14" fill="#5b6472">back to Python</text>
+  <rect x="16" y="260" width="628" height="156" rx="16" fill="#f7f9fc" stroke="#bcd4f2" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="36" y="286" font-size="14" font-weight="700" letter-spacing="0.6" fill="#6a7280">ANTHROPIC'S SERVICE</text>
+  <rect x="36" y="300" width="588" height="94" rx="12" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
+  <text x="330" y="332" text-anchor="middle" font-size="16" font-weight="700" fill="#2c3e50">2. Claude processes the request</text>
+  <text x="330" y="361" text-anchor="middle" font-size="14" fill="#5b6472">The model receives the text your script sends.</text>
+</svg>
+
+*The prompt and filing leave the Yens. This course calls Anthropic directly.*
+
+With a coding agent, the harness may gather additional context before calling the model:
+
+<svg viewBox="0 0 660 556" role="img" aria-labelledby="harness-flow-title harness-flow-desc" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;max-width:660px;height:auto;margin:1.5rem auto" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+  <title id="harness-flow-title">An agent harness manages context and tool actions</title>
+  <desc id="harness-flow-desc">On the Yens, a harness such as Claude Code sends your task and gathered context to a remote model through an API. The model returns a reply or tool request. The harness runs permitted tools, such as reading a file or running a check. Tool results return to the harness and may be included in its next model call. This loop continues until the harness returns an answer or stops.</desc>
+  <defs>
+    <marker id="harness-flow-arrow" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#e67e22"/></marker>
+  </defs>
+  <rect x="16" y="16" width="628" height="300" rx="16" fill="#fffaf2" stroke="#ecdcc0" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="36" y="43" font-size="14" font-weight="700" letter-spacing="0.6" fill="#6a7280">ON THE YENS</text>
+  <rect x="36" y="58" width="260" height="108" rx="12" fill="#fff8ef" stroke="#e6cfa8" stroke-width="1.5"/>
+  <text x="54" y="87" font-size="16" font-weight="700" fill="#2c3e50">Agent harness</text>
+  <text x="54" y="114" font-size="14" fill="#5b6472">Claude Code manages your task,</text>
+  <text x="54" y="138" font-size="14" fill="#5b6472">context, and tool permissions.</text>
+  <rect x="420" y="58" width="204" height="108" rx="12" fill="#e3f2e6" stroke="#b7ddba" stroke-width="1.5"/>
+  <text x="438" y="87" font-size="16" font-weight="700" fill="#2c3e50">Permitted tools</text>
+  <text x="438" y="114" font-size="14" fill="#5b6472">Read or edit files</text>
+  <text x="438" y="138" font-size="14" fill="#5b6472">Run terminal checks</text>
+  <line x1="298" y1="101" x2="418" y2="101" stroke="#e67e22" stroke-width="2.5" marker-end="url(#harness-flow-arrow)"/>
+  <text x="358" y="87" text-anchor="middle" font-size="14" font-weight="700" fill="#b3611a">run action</text>
+  <path d="M522,168 L522,208 L166,208 L166,168" fill="none" stroke="#e67e22" stroke-width="2.5" marker-end="url(#harness-flow-arrow)"/>
+  <text x="350" y="233" text-anchor="middle" font-size="14" font-weight="700" fill="#b3611a">tool results return to the harness</text>
+  <text x="330" y="285" text-anchor="middle" font-size="14" fill="#5b6472">The harness may include those results in the next API call.</text>
+  <path d="M74,168 L74,386" fill="none" stroke="#e67e22" stroke-width="2.5" marker-end="url(#harness-flow-arrow)"/>
+  <text x="92" y="346" font-size="14" font-weight="700" fill="#b3611a">task + context</text>
+  <text x="92" y="369" font-size="14" fill="#5b6472">sent through the API</text>
+  <path d="M586,388 L586,250 L270,250 L270,168" fill="none" stroke="#e67e22" stroke-width="2.5" marker-end="url(#harness-flow-arrow)"/>
+  <text x="568" y="346" text-anchor="end" font-size="14" font-weight="700" fill="#b3611a">reply or tool request</text>
+  <text x="568" y="369" text-anchor="end" font-size="14" fill="#5b6472">returned to the harness</text>
+  <rect x="16" y="388" width="628" height="152" rx="16" fill="#f7f9fc" stroke="#bcd4f2" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="36" y="414" font-size="14" font-weight="700" letter-spacing="0.6" fill="#6a7280">REMOTE MODEL SERVICE</text>
+  <rect x="36" y="426" width="588" height="92" rx="12" fill="#eef5ff" stroke="#bcd4f2" stroke-width="1.5"/>
+  <text x="330" y="457" text-anchor="middle" font-size="16" font-weight="700" fill="#2c3e50">LLM</text>
+  <text x="330" y="486" text-anchor="middle" font-size="14" fill="#5b6472">Uses the supplied context to generate a reply or request a tool.</text>
+</svg>
+
+*The harness runs tools. The model receives context and returns responses. An agent task can repeat this loop many times.*
+
+**Context** is the material supplied to the model for a response. It can include
+instructions, earlier messages, file contents, and tool results. With a remote model,
+anything included in that context is sent to the model service. Running the harness on
+the Yens does not mean the model runs there too.
+
+An API key identifies the account making a request. The model name alone does not tell
+you which account, contract, or data-handling terms apply. Check the service and account
+used by the script or harness.
+
+For this course's direct calls, the prompt and public filing go to Anthropic. See its
+[commercial training policy](https://privacy.anthropic.com/en/articles/7996885-how-do-you-use-personal-data-in-model-training)
+and [retention policy](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data)
+for the current terms. Those terms do not replace Stanford's requirements or a dataset's rules.
+
+## Keep Sensitive Material Out of Context
+
+- Keep API keys in `.env`, exclude that file from Git, and do not paste its contents into
+  prompts or print them in notebook output or logs.
+- Use public or synthetic examples when writing and testing code. Keep real restricted
+  records out of comments, example prompts, and error output.
+- Give an agent access only to the files it needs. Review its actions before letting it
+  read additional data or run commands that might print records.
+- Check the tool's access controls. A Git ignore rule prevents a file from being tracked;
+  it does not necessarily prevent an agent from reading it.
+
+{: .note }
+> **Discuss:** A Slurm script contains a path to a restricted file. Does reading the
+> script send the file's contents to the model? What changes if the agent opens that
+> file, or a command prints a row from it?
+
+<details markdown="1">
+<summary>Discussion notes</summary>
+
+A path by itself does not include the file's contents, although the path can reveal
+information too. If a tool reads the file or prints a record and the harness includes
+that result in a model call, the contents are sent. Review both what the tool can access
+and what it returns.
+
+</details>
+
+Next, [Managing API Keys]({{ '/day1/api-keys/' | relative_url }}) shows you how to set up
+your Anthropic API key and keep it out of Git. In
+[Extracting Data with an LLM]({{ '/day1/extracting-data-with-an-llm/' | relative_url }}),
+you'll measure token usage and check results before scaling the pipeline.
+
+---
+
+## Skills Learned
+
+- Choose the Playground for browser-based work and an API for scripted requests
+- Distinguish the model, its API, and the agent harness that manages tools and context
+- Check data classification, dataset rules, and service approval before sending data
+- Identify what a script or harness sends to a remote model
+- Use Anthropic's direct API with the course's public filings
