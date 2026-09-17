@@ -67,13 +67,21 @@ You are going to run a script you have never seen before and work out what resou
 {: .important }
 > **Task:** Run `mystery_script.py` and measure its resource usage in real time using two terminals — both on the **same Yen node**.
 
-**Step 1 — Open a terminal in JupyterHub, and note which Yen you are on.**
+**Step 1 — Log in to a Yen through JupyterHub, and note which one.**
 
 Everything on this page runs in **JupyterHub terminals** — no `ssh`, and no Duo prompt.
 
-1. Open JupyterHub on any node, `yen1` through `yen5` — for example
-   [yen1.stanford.edu/jupyter/hub/home](https://yen1.stanford.edu/jupyter/hub/home) — and log
-   in with your SUNetID.
+1. **Pick one of the five Yens** and open its JupyterHub, then log in with your SUNetID:
+
+   [yen1](https://yen1.stanford.edu/jupyter/hub/home) ·
+   [yen2](https://yen2.stanford.edu/jupyter/hub/home) ·
+   [yen3](https://yen3.stanford.edu/jupyter/hub/home) ·
+   [yen4](https://yen4.stanford.edu/jupyter/hub/home) ·
+   [yen5](https://yen5.stanford.edu/jupyter/hub/home)
+
+   Pick a different one from the person next to you. You are about to measure a node's load,
+   and thirty of us on the same Yen makes everyone's numbers someone else's noise.
+
 2. Click the **blue "+"** to open the Launcher, then open a **Terminal**.
 
 In that terminal, run:
