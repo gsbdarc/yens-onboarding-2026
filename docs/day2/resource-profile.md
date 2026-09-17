@@ -57,15 +57,18 @@ Now that you've profiled **10 filings**, write down what you measured. Open the 
 - Yen node used:
 - Wall-clock time (real):
 - CPU cores used:
-- RAM used (RES from htop, or % Mem from userload):
+- RAM used (RES from htop, in MB or GB):
 - Serial or parallel:
 ```
 {: .file }
 
-{: .tip }
-> If your RAM here is tiny — just a few MB (`RES`), showing as 0% Mem in `userload` — you can't ask for 0, so a good tip is to write down a small round number like `1G`.
-
 Fill in the actual numbers from your `time`, `userload`, and `htop` output.
+
+Five fields, and **three of them are the ones that matter next**: the wall-clock time, the
+cores and the RAM become the `--time`, `--cpus-per-task` and `--mem` of the job you submit on
+[the next page]({{ '/day2/submit-a-slurm-job/' | relative_url }}). That is why they are worth
+writing down rather than trusting to memory. The node and serial-or-parallel are for you —
+context for reading these numbers again in a month.
 
 {: .important }
 > **Finish all four pages before you start any bonus.** The numbers you write down on one

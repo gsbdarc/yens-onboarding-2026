@@ -187,6 +187,12 @@ What each one is:
 - `--output` / `--error` — files where the job's normal output and errors get written; `%j` is auto-filled with the job ID, so each run gets its own log. **Leave these as-is.**
 - `--time`, `--mem`, `--cpus-per-task` — the resources you're **requesting**. Fill these in from the **time**, **RAM**, and **CPU cores** you recorded in your Profiling README.
 
+{: .tip }
+> **Round up, and you cannot ask for 0.** `--mem` wants a size like `500M` or `1G`, and the
+> `RES` you measured will not be a round number. Ask for a bit more than you measured: a job
+> that exceeds its `--mem` is killed outright, while asking slightly high costs you only a
+> little longer in the queue. If your run barely touched memory, `1G` is a sane floor.
+
 {: .warning }
 > **The `<...>` are placeholders — delete the angle brackets too.** Replace the whole thing,
 > brackets included: `--time=00:30:00`, not `--time=<00:30:00>`. Slurm reads a leftover `<`
