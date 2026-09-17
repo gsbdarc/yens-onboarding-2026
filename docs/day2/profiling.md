@@ -79,9 +79,6 @@ Everything on this page runs in **JupyterHub terminals** — no `ssh`, and no Du
    [yen4](https://yen4.stanford.edu/jupyter/) ·
    [yen5](https://yen5.stanford.edu/jupyter/)
 
-   Pick a different one from the person next to you. You are about to measure a node's load,
-   and thirty of us on the same Yen makes everyone's numbers someone else's noise.
-
 2. Click the **blue "+"** to open the Launcher, then open a **Terminal**.
 
 In that terminal, run:
@@ -97,7 +94,7 @@ hostname
 >
 > <span class="personalize-field"><select id="yen-node" data-personalize="yen"><option value="">choose…</option><option>yen1</option><option>yen2</option><option>yen3</option><option>yen4</option><option>yen5</option></select><label class="personalize-affix personalize-affix-end" for="yen-node">.stanford.edu</label></span>
 
-**Step 2 — Open a second terminal *beside* the first, not behind it.**
+**Step 2 — Open a second terminal *beside* the first.**
 
 Click the **blue "+"** again and start another **Terminal**. Then **drag its tab to the right
 edge of the first terminal** and drop it when the blue guide appears — JupyterLab splits the
