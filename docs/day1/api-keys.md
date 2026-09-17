@@ -19,28 +19,37 @@ ignores it, and load it in Python.
 > **Start in your SSH terminal connected to the Yens.** A JupyterHub terminal works too.
 > You'll switch to a notebook in Step 5.
 
-## Step 1: Keep Configuration Out of Code
+## Step 1: Check the Shared Credential File
 
-Avoid putting a key directly in code. This example uses a placeholder:
+The instructor provides the course key in a shared file on the Yens. View it in your
+own terminal:
 
-```python
-import anthropic
-
-client = anthropic.Anthropic(api_key="REPLACE_WITH_REAL_KEY")
+```bash
+cat /scratch/shared/yens-onboarding-2026/.env
 ```
+{: .yens }
 
-If you replace the placeholder with a real key, anyone who receives the file receives
-the key too. Deleting it later does not remove earlier copies or Git commits.
+You'll see `ANTHROPIC_API_KEY=` followed by the course key. In Step 3, you'll copy this
+file into your repo.
 
-A `.env` file holds environment-variable assignments outside your program:
+## Step 2: Keep the Key Out of Your Code
 
-```text
-ANTHROPIC_API_KEY=<secret value>
-```
-{: .file }
+{: .warning }
+> **Do not do this. This is an example of what to avoid, not a step to run.**
+>
+> Do not copy the code below into your notebook or replace the placeholder with your key:
+>
+> ```python
+> # WRONG: putting the key directly in your code
+> client = anthropic.Anthropic(api_key="REPLACE_WITH_REAL_KEY")
+> ```
+>
+> Anyone who receives that code would receive the key too. Deleting it later does not
+> remove earlier copies or Git commits.
 
-Your code reads the value by name when it runs. Share the code and keep the credential
-file out of Git.
+The `.env` file you just viewed stores the key outside your Python code as a
+`NAME=value` line. Your code reads the value by name when it runs. You'll load it in
+Step 5; there is no Python code to run in this step.
 
 {: .note }
 > **Three different meanings of “environment”**
@@ -57,18 +66,6 @@ file out of Git.
 >
 > Activating `.venv` selects your Python environment. Loading `.env` supplies settings
 > such as your API key. They are separate steps.
-
-## Step 2: Check the Shared Credential File
-
-The instructor provides the course key in a shared file on the Yens. View it in your
-own terminal:
-
-```bash
-cat /scratch/shared/yens-onboarding-2026/.env
-```
-{: .yens }
-
-You'll see `ANTHROPIC_API_KEY=` followed by the course key.
 
 ## Step 3: Copy It to the Repository Root
 
@@ -110,11 +107,12 @@ If no ignore rule appears, add `.env` to `.gitignore` before committing your wor
 
 ## Step 5: Load It in Python
 
-First, create the notebook folder from your Yen terminal:
+First, create the notebook folder and move into it from your Yen terminal:
 
 ```bash
 cd ~/yens-onboarding-2026
 mkdir -p day1
+cd day1
 ```
 {: .yens }
 
