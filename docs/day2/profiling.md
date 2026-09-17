@@ -74,7 +74,7 @@ Everything on this page runs in **JupyterHub terminals** — no `ssh`, and no Du
 1. Open JupyterHub on any node, `yen1` through `yen5` — for example
    [yen1.stanford.edu/jupyter/hub/home](https://yen1.stanford.edu/jupyter/hub/home) — and log
    in with your SUNetID.
-2. Click the **blue "+"** to open the Launcher, then open a **Terminal** tab.
+2. Click the **blue "+"** to open the Launcher, then open a **Terminal**.
 
 In that terminal, run:
 
@@ -118,7 +118,7 @@ watch userload
 ```
 {: .yens }
 
-- `userload` shows how many **cores** you're using and what **% of the node's memory** you're holding — your total footprint across all your processes on this node:
+- `userload` shows how many **cores** you're using and what **% of the node's memory** you're holding — your total footprint on this node:
 
   ```text
   SUNetID  |  0.34 Cores  |  0.00% Mem  on YENNODE
