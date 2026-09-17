@@ -159,7 +159,7 @@ Set up your copy of the course repo and make your first commit now.
 **Step 1 — Fork the course repo**
 {: #fork-and-clone }
 
-A **fork** is your own copy of the course repo, living under your GitHub account. Everything you write over the next two days goes here — it's yours to keep after the course ends.
+A **fork** is your own copy of the course repo, living under your GitHub account. Everything you write over the next two days goes here.
 
 1. **Fork the repo.** Go to the <a href="https://github.com/gsbdarc/yens-onboarding-2026" target="_blank" rel="noopener noreferrer">course repo on GitHub</a> and click **Fork** in the top-right corner.
 2. **Turn on Issues.** Open your fork's <a href="https://github.com/YOUR_GITHUB_USERNAME/yens-onboarding-2026/settings" target="_blank" rel="noopener noreferrer">repository settings</a> and, under **Features**, tick ***Issues***. A fork starts with its issue tracker switched off, and you'll be logging issues later today.
@@ -206,7 +206,7 @@ gh auth setup-git   # let gh remember the token so git never asks you again
 ```
 {: .yens }
 
-Paste the token when `gh auth login` asks. The `gh auth setup-git` step then wires `gh` in as git's credential helper, so it hands over your token automatically on every `git push` — no browser, no device code, and no password prompt, now or in future sessions.
+Paste the token when `gh auth login` asks. The `gh auth setup-git` step then wires `gh` in as git's credential helper, so it hands over your token automatically on every `git push`. In the future, you can use git without needing to authenticate again.
 
 **Check it worked — file an issue from the command line.**
 
@@ -323,19 +323,41 @@ git commit -m "Ignore secrets"
 ```
 {: .yens }
 
-Then prove it works. Make a file that looks like a leaked credential and check that git
-cannot see it:
+Then prove it works. Make a file that looks like a leaked credential, and try to commit it
+the way you would by mistake:
 
 ```bash
 echo "ANTHROPIC_API_KEY=not-a-real-key" > .env
-git status --short
+git add .env
+git check-ignore -v .env
 ```
 {: .yens }
 
-`.env` should not appear. `git status` lists what git is tracking or about to track — if
-your secret file is absent from that list, `.gitignore` is doing its job. (If it *does*
-appear, the file was already tracked before you ignored it; `git rm --cached .env` fixes
-that.)
+Git should refuse the `git add`, and say so:
+
+```
+The following paths are ignored by one of your .gitignore files:
+.env
+hint: Use -f if you really want to add them.
+```
+{: .output }
+
+Then `check-ignore` names the rule that stopped it — here, line 2 of `.gitignore`:
+
+```
+.gitignore:2:.env	.env
+```
+{: .output }
+
+**Both of those are things you can see.** That matters more than it sounds: the obvious
+test is to run `git status` and check that `.env` is *missing* from the list, but an empty
+list looks the same whether the rule worked, you are in the wrong directory, or you never
+created the file at all. With a secret, "no warning" is not the same as "safe". Here,
+working is loud and broken is silent — `check-ignore` prints nothing if no rule matches,
+and `git add` quietly stages the file.
+
+(If `git add` *succeeds*, the file was already tracked before you ignored it.
+`git rm --cached .env` fixes that.)
 
 {: .note }
 > The `.env` file itself comes back in [Managing API Keys]({{ '/day1/api-keys/' | relative_url }}),
@@ -392,8 +414,8 @@ gh pr create --repo gsbdarc/yens-onboarding-2026 \
 ```
 {: .yens }
 
-You never need write access to our repo — you propose, we review. Genuinely: if you find
-something wrong in these pages, this is the way to tell us.
+You never need write access to our repo, but you can still propose changes using pull
+requests from your own fork.
 
 </details>
 

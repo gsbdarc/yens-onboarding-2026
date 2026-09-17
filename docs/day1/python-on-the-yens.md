@@ -85,6 +85,7 @@ pwd    # confirm: /home/users/SUNetID/yens-onboarding-2026
 ...
 /zfs/tools/darc/bin
 ```
+{: .output }
 
 When you type a command, the shell walks these directories top to bottom and runs the **first** matching executable it finds.
 
@@ -111,6 +112,7 @@ The module adds a directory to the **front** of the list:
 ```text
 /software/free/python/3.10.5/bin
 ```
+{: .output }
 
 Run `which python3` again. It should now point to Python in the module's directory.
 
@@ -235,6 +237,7 @@ cat my_plot.png   # try to "read" the image
 �PNG
 IHDR....IDATx...��KѐP....
 ```
+{: .output }
 A PNG is a binary image file, so `cat` cannot display it as readable text. In JupyterHub's file browser, open **`yens-onboarding-2026/my_plot.png`** to see the plot.
 
 {: .note }

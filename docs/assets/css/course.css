@@ -351,6 +351,18 @@
   color: #1c1e21;
 }
 .main-content .personalize-field input:focus { outline: none; }
+/* Profiling's node field is a <select> rather than a text box — only five
+   interactive Yens exist, so picking one removes the typo — but it sits in the
+   same chip as the text fields and must not look like a stray form control. */
+.main-content .personalize-field select {
+  padding: 0.25rem 0.55rem;
+  border: 0;
+  background: none;
+  font-family: "Source Code Pro", "SFMono-Regular", menlo, monospace;
+  font-size: 0.9rem;
+  color: #1c1e21;
+}
+.main-content .personalize-field select:focus { outline: none; }
 /* A trailing affix — @stanford.edu on the SUNet field — is the same chip with
    its divider on the other side. */
 .main-content .personalize-affix-end {
@@ -412,12 +424,23 @@
   margin-bottom: 0.45rem;
   cursor: text;
 }
+/* Flex rather than block so the label can carry its service's mark beside the
+   text. Still full-width, so the input stays stacked underneath. */
 .personalize-name {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
   margin-bottom: 0.12rem;
   font-size: 0.7rem;
   font-weight: 600;
   color: #55524d;
+}
+/* Both marks are squared in their viewBox, so the two labels start at the same
+   x. Sized in em to track the label instead of pinning a pixel height. */
+.personalize-name svg {
+  width: 1.6em;
+  height: 1.6em;
+  flex: none;
 }
 .personalize-input {
   display: block;
@@ -506,7 +529,8 @@ tspan.personalize-token-unset {
 .main-content div.highlighter-rouge.notebook,
 .main-content div.highlighter-rouge.jupyter-terminal,
 .main-content div.highlighter-rouge.python-repl,
-.main-content div.highlighter-rouge.file {
+.main-content div.highlighter-rouge.file,
+.main-content div.highlighter-rouge.output {
   border: 0;
   border-radius: 0;
   background: none;
@@ -517,7 +541,8 @@ tspan.personalize-token-unset {
 .main-content div.highlighter-rouge.notebook::before,
 .main-content div.highlighter-rouge.jupyter-terminal::before,
 .main-content div.highlighter-rouge.python-repl::before,
-.main-content div.highlighter-rouge.file::before {
+.main-content div.highlighter-rouge.file::before,
+.main-content div.highlighter-rouge.output::before {
   display: inline-block;
   position: relative;
   z-index: 1;
@@ -540,7 +565,8 @@ tspan.personalize-token-unset {
 .main-content div.highlighter-rouge.notebook > div.highlight,
 .main-content div.highlighter-rouge.jupyter-terminal > div.highlight,
 .main-content div.highlighter-rouge.python-repl > div.highlight,
-.main-content div.highlighter-rouge.file > div.highlight {
+.main-content div.highlighter-rouge.file > div.highlight,
+.main-content div.highlighter-rouge.output > div.highlight {
   border-top-left-radius: 0;     /* the tab sits on this corner */
   border-left-width: 3px;
 }
@@ -615,20 +641,39 @@ tspan.personalize-token-unset {
   border-left-color: #444444;
 }
 
+/* What the terminal printed back, rather than something to type. Deliberately
+   the quiet one: the other five tabs are saturated because each answers "where
+   do I run this?", and output answers a different question. Grey keeps it
+   legible as a label without competing with the block a student is meant to
+   act on. */
+.main-content div.highlighter-rouge.output::before {
+  content: "\21B3  Output";
+  color: #6a7280;
+  border-left-color: #6a7280;
+}
 /* The tab butts against the box's top-left corner, so that corner has to be
-   square — but the corner, and the border it belongs to, are on `pre.highlight`
-   (see the box-edge rule near the top of this file), not on `div.highlight`.
-   The two `> div.highlight` rules above therefore never reached anything: the
-   box kept its 6px radius, which is the notch that shows beside the tab and
-   moves with the zoom level, and the 3px coloured edge never drew at all.
-   Squaring the corner on the element that actually has the border.
+   square. It is squared on `div.highlight` above, which does work — measured:
+   that element carries both the 3px coloured rail and a 0px radius on every
+   tagged block.
 
-   Scoped to `.file` on purpose — the other three tabs have the identical bug,
-   and this is the one we are checking against the live site first. If it holds,
-   fold all four into one selector group and delete the inert rules. */
-.main-content div.highlighter-rouge.file > div.highlight > pre.highlight {
+   What it does not fix is `pre.highlight` *inside* it, which keeps the 6px
+   radius from the box-edge rule near the top of this file. That is the notch
+   that shows beside the tab. Squaring it here, on all eight tabs.
+
+   Only the radius. An earlier pass also gave `pre.highlight` a
+   `border-left: 3px`, which drew a second coloured rail 15px inside the
+   first — two nested boxes, most visible on `.file` where the rail is a
+   strong green. `div.highlight` already draws the rail; `pre.highlight` only
+   needs its corner squared. */
+.main-content div.highlighter-rouge.yens > div.highlight > pre.highlight,
+.main-content div.highlighter-rouge.laptop > div.highlight > pre.highlight,
+.main-content div.highlighter-rouge.claude > div.highlight > pre.highlight,
+.main-content div.highlighter-rouge.notebook > div.highlight > pre.highlight,
+.main-content div.highlighter-rouge.jupyter-terminal > div.highlight > pre.highlight,
+.main-content div.highlighter-rouge.python-repl > div.highlight > pre.highlight,
+.main-content div.highlighter-rouge.file > div.highlight > pre.highlight,
+.main-content div.highlighter-rouge.output > div.highlight > pre.highlight {
   border-top-left-radius: 0;
-  border-left: 3px solid #166534;
 }
 
 /* ── Keys look like keys ──────────────────────────────────────────────────
