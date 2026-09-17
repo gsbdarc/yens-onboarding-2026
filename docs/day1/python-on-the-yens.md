@@ -22,7 +22,8 @@ In this section, you'll check which Python version you're using and run Python t
 
 ## Review
 
-Before opening any notebooks, confirm you're on the Yens.
+Start in your laptop's terminal and connect to the Yens over SSH. Use this SSH session
+for the Review and Step 1; you'll switch to JupyterHub in Step 2.
 
 ```bash
 ssh SUNetID@yen.stanford.edu
@@ -130,18 +131,60 @@ which python3               # back to the system python3 again
 
 ---
 
-## Step 2: Running Standalone Python Code
+## Step 2: Open a JupyterHub Terminal and Install the Packages
+
+**Switch from your SSH terminal to your web browser.** JupyterHub runs in your browser,
+but its terminals and notebooks run on the Yens.
+
+Choose a node and log in with your SUNetID:
+
+| Node | URL |
+|------|-----|
+| Yen1 | [yen1.stanford.edu/jupyter/hub/home](https://yen1.stanford.edu/jupyter/hub/home) |
+| Yen2 | [yen2.stanford.edu/jupyter/hub/home](https://yen2.stanford.edu/jupyter/hub/home) |
+| Yen3 | [yen3.stanford.edu/jupyter/hub/home](https://yen3.stanford.edu/jupyter/hub/home) |
+| Yen4 | [yen4.stanford.edu/jupyter/hub/home](https://yen4.stanford.edu/jupyter/hub/home) |
+| Yen5 | [yen5.stanford.edu/jupyter/hub/home](https://yen5.stanford.edu/jupyter/hub/home) |
+
+Click the **blue "+"** to open the Launcher, then select **Terminal**. Keep this tab
+open for the rest of the exercise. JupyterHub and your SSH session access the same files,
+but this is a new terminal session, so move into the repo again.
+
+{: .important }
+> **Run these commands in JupyterHub's Terminal tab.** Install the packages before
+> starting Python. At this point you should be at a shell prompt, not the Python `>>>`
+> prompt or a notebook cell.
+
+```bash
+cd ~/yens-onboarding-2026
+python3 -m pip install matplotlib numpy
+```
+{: .jupyter-terminal }
+
+Wait for the installation to finish. `Requirement already satisfied` means a package
+is already installed. Using `python3 -m pip` installs for the Python you will start with
+`python3` in this terminal.
+
+| Label on a code block | Where to enter it |
+|---|---|
+| **JupyterHub Terminal** | The shell in JupyterHub's Terminal tab |
+| **Python Prompt (>>>)** | The same Terminal tab after you start `python3` |
+| **Jupyter Notebook Cell** | A code cell in a notebook; run it with **Shift+Enter** |
+
+---
+
+## Step 3: Run Python in the JupyterHub Terminal
 
 You do not need a file to run Python. The **interactive interpreter** lets you type code straight into the terminal and run it immediately, one line at a time.
 
-Still in your repo folder from Step 1 (check with `pwd` if you're unsure), start Python:
+Stay in the **same JupyterHub Terminal tab** where you installed the packages. Start Python:
 
 ```bash
 python3
 ```
-{: .yens }
+{: .jupyter-terminal }
 
-The prompt changes to `>>>`. You are now *inside* Python. Type (or paste) this code:
+The prompt changes to `>>>`. You are now **inside Python**, in the same Terminal tab. Paste the plotting code below at that prompt:
 
 ```python
 import matplotlib.pyplot as plt   # plotting library
@@ -156,31 +199,33 @@ plt.show()
 fig.savefig("my_plot.png", dpi=300, bbox_inches="tight")
 plt.close(fig)
 ```
+{: .python-repl }
 
 When you are done, leave the interpreter and return to the shell:
 
 ```python
 exit()
 ```
+{: .python-repl }
 
 {: .note }
 > 💡 `plt.show()` would normally pop open a window, but a terminal has no screen to draw on, so nothing appears. That is why we also call `fig.savefig(...)`: it writes the plot to `my_plot.png` in your current directory.
 
 <details> <summary>💡 Help with ModuleNotFoundError</summary>
 
-Leave Python with <code>exit()</code>, run <code>pip install matplotlib numpy</code> in the same environment, then start <code>python3</code> again.
+In the JupyterHub Terminal tab, leave Python with <code>exit()</code>. Run <code>python3 -m pip install matplotlib numpy</code> at the shell prompt, then start <code>python3</code> again.
 </details>
 
 ### Look at What You Made
 
-Back at the normal shell prompt:
+After <code>exit()</code>, you are back at the shell prompt in the **JupyterHub Terminal tab**:
 
 ```bash
 pwd               # where am I? this is where the file was written
 ls                # you should now see my_plot.png
 cat my_plot.png   # try to "read" the image
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 `savefig` wrote `my_plot.png` into your current directory. Since you started Python from the repo, the image should be there too. If you started from your home directory, look there instead.
 
@@ -190,50 +235,28 @@ cat my_plot.png   # try to "read" the image
 �PNG
 IHDR....IDATx...��KѐP....
 ```
-A PNG is a binary image file, so `cat` cannot display it as readable text. Open it in JupyterHub to see the plot.
+A PNG is a binary image file, so `cat` cannot display it as readable text. In JupyterHub's file browser, open **`yens-onboarding-2026/my_plot.png`** to see the plot.
 
 {: .note }
 > 🟢 **Green sticky** = the plotting code ran in the interpreter and `ls` shows `my_plot.png` in my repo folder &nbsp;&nbsp; 🔴 **Red sticky** = I got a `ModuleNotFoundError`, or no `my_plot.png` appeared
 >
 > Put a sticky note on your laptop lid so instructors can see where you are.
 
-## Step 3: Open JupyterHub
+## Step 4: Open a Notebook Alongside the Terminal
 
-JupyterHub is the development environment we offer on the Yens. It runs in your browser, but your code executes on the cluster's hardware, not your laptop. Instead of the bare command line from Step 2, you get an interactive workspace: write and run code in notebooks, edit files, open a terminal, and see plots and tables right on the screen.
-
-Choose any node to log in:
-
-| Node | URL |
-|------|-----|
-| Yen1 | [yen1.stanford.edu/jupyter/hub/home](https://yen1.stanford.edu/jupyter/hub/home) |
-| Yen2 | [yen2.stanford.edu/jupyter/hub/home](https://yen2.stanford.edu/jupyter/hub/home) |
-| Yen3 | [yen3.stanford.edu/jupyter/hub/home](https://yen3.stanford.edu/jupyter/hub/home) |
-| Yen4 | [yen4.stanford.edu/jupyter/hub/home](https://yen4.stanford.edu/jupyter/hub/home) |
-| Yen5 | [yen5.stanford.edu/jupyter/hub/home](https://yen5.stanford.edu/jupyter/hub/home) |
-
-Log in with your SUNetID credentials. The file browser on the left starts in your home directory on the Yens, showing the same files you'd see from `ls` in a terminal. Double-click into **`yens-onboarding-2026`** and you'll find the `my_plot.png` you just made. JupyterHub and your SSH session access the same files.
-
-{: .note }
-> 🟢 **Green sticky** = I'm logged in to JupyterHub and I can see `my_plot.png` in my repo folder &nbsp;&nbsp; 🔴 **Red sticky** = I need help
->
-> Put a sticky note on your laptop lid so instructors can see where you are.
-
----
-
-## Step 4: Start a Notebook and a Terminal
-
+- In JupyterHub's file browser, open **`yens-onboarding-2026`** so the notebook is saved in your repo
 - Click the **blue "+"** to open the Launcher
 - Start a **Python 3** notebook
-- Open a **Terminal** tab as well
+- Keep the **Terminal** tab from Step 2 open
 
-A **notebook** runs code in *cells* you execute one at a time, with the results (text, tables, even images) appearing right below each cell. The **Terminal** is a shell similar to the one you used in Step 2, though not identical. You will explore that difference in [Python Environments]({{ '/day1/python-environments/' | relative_url }}). You'll switch between the two throughout today.
+A **notebook** runs code in *cells* you execute one at a time, with the results (text, tables, even images) appearing right below each cell. The **Terminal** tab is where you installed packages and started the Python interpreter. Its Python can differ from the notebook's kernel; you will connect both to the same environment in [Python Environments]({{ '/day1/python-environments/' | relative_url }}). You'll switch between the two throughout today.
 
 ---
 
 ## Step 5: Run a Cell
 
 Blocks labeled **Jupyter Notebook Cell** go in a notebook code cell. Blocks labeled
-**Yen Terminal** go at the shell prompt, including when you use JupyterHub's Terminal tab.
+**JupyterHub Terminal** go at the shell prompt in your Terminal tab.
 
 Type this into the first cell and run it with **Shift+Enter**:
 
@@ -245,7 +268,7 @@ print(sum(numbers))
 
 Expected output: `15`
 
-Now run the plotting code from Step 2 in a new cell:
+Now run the plotting code from Step 3 in a new cell:
 
 ```python
 import matplotlib.pyplot as plt   # plotting library
@@ -269,16 +292,17 @@ The graph appears **right below the cell**. In a notebook, `plt.show()` displays
 
 ## Step 6: Run the Same Code as a Script
 
-You have now run Python two ways: the interactive interpreter (Step 2) and a notebook (Step 5). The third way is a **script**, a `.py` file that runs start to finish on its own. This is what you submit to the cluster.
+You have now run Python two ways: the interactive interpreter (Step 3) and a notebook (Step 5). The third way is a **script**, a `.py` file that runs start to finish on its own. This is what you submit to the cluster.
 
 1. In the Launcher, open a **Text File** (or run `nano plotting_code.py` in the Terminal) and name it `plotting_code.py`.
-2. Paste in the plotting code from Step 2, keeping the `fig.savefig("my_plot.png", ...)` and `plt.close(fig)` lines so it writes the image to a file.
-3. Run it from the Terminal:
+2. Paste in the plotting code from Step 3, keeping the `fig.savefig("my_plot.png", ...)` and `plt.close(fig)` lines so it writes the image to a file.
+3. Return to the **JupyterHub Terminal tab**. If you see `>>>`, run `exit()` first. Run the script from the repo root:
 
 ```bash
+cd ~/yens-onboarding-2026
 python3 plotting_code.py
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 The script creates the same plot. Notebooks are useful for exploration; scripts let you run the full sequence as a cluster job. For the rest of the course, you will write scripts.
 
@@ -308,7 +332,7 @@ cd ~/yens-onboarding-2026   # the folder holding your notebook
 ml claude-code
 claude
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 Start Claude Code from the repo folder so it has the notebook in its working directory.
 
@@ -359,7 +383,7 @@ Starting Python from `~/yens-onboarding-2026` keeps the exercise's output in the
 </details>
 
 <details class="quiz" markdown="1">
-<summary><span class="qnum">3</span><span class="qtext">You run <code>python3 plotting_code.py</code> from the shell in your Yen SSH terminal. The script finishes, but no plot window opens. Does that mean the script failed?</span></summary>
+<summary><span class="qnum">3</span><span class="qtext">You run <code>python3 plotting_code.py</code> from the shell in your JupyterHub terminal on the Yens. The script finishes, but no plot window opens. Does that mean the script failed?</span></summary>
 
 **Not necessarily.** In this terminal session, there is no graphical display for
 `plt.show()` to open a window. Check whether `fig.savefig(...)` created `my_plot.png`,
