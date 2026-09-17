@@ -67,9 +67,16 @@ You are going to run a script you have never seen before and work out what resou
 {: .important }
 > **Task:** Run `mystery_script.py` and measure its resource usage in real time using two terminals — both on the **same Yen node**.
 
-**Step 1 — Note which Yen you are on.**
+**Step 1 — Open a terminal in JupyterHub, and note which Yen you are on.**
 
-In your current terminal, run:
+Everything on this page runs in **JupyterHub terminals** — no `ssh`, and no Duo prompt.
+
+1. Open JupyterHub on any node, `yen1` through `yen5` — for example
+   [yen1.stanford.edu/jupyter/hub/home](https://yen1.stanford.edu/jupyter/hub/home) — and log
+   in with your SUNetID.
+2. Click the **blue "+"** to open the Launcher, then open a **Terminal** tab.
+
+In that terminal, run:
 
 ```bash
 hostname
@@ -78,31 +85,27 @@ hostname
 
 {: .tip }
 > **Pick what it printed** and every command on this page fills itself in, so you can copy
-> them without editing. The load balancer hands out yen1–yen5, and both terminals have to
-> land on the *same* node.
+> them without editing. Both terminals have to be on that *same* node.
 >
 > <span class="personalize-field"><select id="yen-node" data-personalize="yen"><option value="">choose…</option><option>yen1</option><option>yen2</option><option>yen3</option><option>yen4</option><option>yen5</option></select><label class="personalize-affix personalize-affix-end" for="yen-node">.stanford.edu</label></span>
 
-**Step 2 — Open a second terminal on the same node.**
+**Step 2 — Open a second Terminal tab, on the same node.**
 
-In the new terminal, SSH directly to that node by name — not the load-balanced
-`yen.stanford.edu`, which could land you on a different machine:
+In the same JupyterHub window, click the **blue "+"** again and open another **Terminal** tab.
+Both terminals are now on the node you just picked — which is what this exercise needs — and
+you did not log in a second time.
 
-```bash
-ssh SUNetID@YENNODE.stanford.edu
-```
-{: .laptop }
+Drag one tab to the side so you can see both at once; you will be switching between them
+constantly.
 
-Everything on this page runs from your clone, with the environment active:
+Everything on this page runs from your clone, with the environment active — in **both**
+terminals:
 
 ```bash
 cd ~/yens-onboarding-2026
 source .venv/bin/activate
 ```
 {: .yens }
-
-{: .note }
-> 💡 **Skip the second login.** A fresh `ssh` means another password + Duo prompt. To avoid re-authenticating, open a terminal through JupyterHub instead: browse to that node's hub, `https://YENNODE.stanford.edu/jupyter/`, then **New → Terminal**. You're already authenticated there, and it drops you onto that exact node — ideal for the second monitoring terminal.
 
 **Step 3 — Start `watch userload` in Terminal 2 *first*, before running anything.**
 
