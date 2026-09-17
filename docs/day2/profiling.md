@@ -103,6 +103,8 @@ Click the **blue "+"** again and start another **Terminal**. Then **drag its tab
 edge of the first terminal** and drop it when the blue guide appears — JupyterLab splits the
 window and you get both terminals side by side.
 
+![JupyterLab with the file browser on the left and two terminals open side by side, tabbed Terminal 1 and Terminal 2, both sitting in the yens-onboarding-2026 directory]({{ "/assets/images/jupyterlab-two-terminals-side-by-side.png" | relative_url }})
+
 Seeing both at once is the technique. The script runs on the left while the numbers move on the
 right, live, and you watch it happen. Left as stacked tabs, one always hides the other, and you
 would be clicking back and forth guessing what changed while you were not looking.
