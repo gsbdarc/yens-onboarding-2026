@@ -67,42 +67,58 @@ You are going to run a script you have never seen before and work out what resou
 {: .important }
 > **Task:** Run `mystery_script.py` and measure its resource usage in real time using two terminals — both on the **same Yen node**.
 
-**Step 1 — Note which Yen you are on.**
+**Step 1 — Log in to a Yen through JupyterHub, and note which one.**
 
-In your current terminal, run:
+Everything on this page runs in **JupyterHub terminals** — no `ssh`, and no Duo prompt.
+
+1. **Pick one of the five Yens** and open its JupyterHub, then log in with your SUNetID:
+
+   [yen1](https://yen1.stanford.edu/jupyter/) ·
+   [yen2](https://yen2.stanford.edu/jupyter/) ·
+   [yen3](https://yen3.stanford.edu/jupyter/) ·
+   [yen4](https://yen4.stanford.edu/jupyter/) ·
+   [yen5](https://yen5.stanford.edu/jupyter/)
+
+   Pick a different one from the person next to you. You are about to measure a node's load,
+   and thirty of us on the same Yen makes everyone's numbers someone else's noise.
+
+2. Click the **blue "+"** to open the Launcher, then open a **Terminal**.
+
+In that terminal, run:
 
 ```bash
 hostname
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 {: .tip }
 > **Pick what it printed** and every command on this page fills itself in, so you can copy
-> them without editing. The load balancer hands out yen1–yen5, and both terminals have to
-> land on the *same* node.
+> them without editing. Both terminals have to be on that *same* node.
 >
 > <span class="personalize-field"><select id="yen-node" data-personalize="yen"><option value="">choose…</option><option>yen1</option><option>yen2</option><option>yen3</option><option>yen4</option><option>yen5</option></select><label class="personalize-affix personalize-affix-end" for="yen-node">.stanford.edu</label></span>
 
-**Step 2 — Open a second terminal on the same node.**
+**Step 2 — Open a second terminal *beside* the first, not behind it.**
 
-In the new terminal, SSH directly to that node by name — not the load-balanced
-`yen.stanford.edu`, which could land you on a different machine:
+Click the **blue "+"** again and start another **Terminal**. Then **drag its tab to the right
+edge of the first terminal** and drop it when the blue guide appears — JupyterLab splits the
+window and you get both terminals side by side.
 
-```bash
-ssh SUNetID@YENNODE.stanford.edu
-```
-{: .laptop }
+![JupyterLab with the file browser on the left and two terminals open side by side, tabbed Terminal 1 and Terminal 2, both sitting in the yens-onboarding-2026 directory]({{ "/assets/images/jupyterlab-two-terminals-side-by-side.png" | relative_url }})
 
-Everything on this page runs from your clone, with the environment active:
+Seeing both at once is the technique. The script runs on the left while the numbers move on the
+right, live, and you watch it happen. Left as stacked tabs, one always hides the other, and you
+would be clicking back and forth guessing what changed while you were not looking.
+
+Both terminals are on the node you picked, and you did not log in a second time.
+
+Everything on this page runs from your clone, with the environment active — in **both**
+terminals:
 
 ```bash
 cd ~/yens-onboarding-2026
 source .venv/bin/activate
 ```
-{: .yens }
-
-{: .note }
-> 💡 **Skip the second login.** A fresh `ssh` means another password + Duo prompt. To avoid re-authenticating, open a terminal through JupyterHub instead: browse to that node's hub, `https://YENNODE.stanford.edu/jupyter/`, then **New → Terminal**. You're already authenticated there, and it drops you onto that exact node — ideal for the second monitoring terminal.
+{: .jupyter-terminal }
 
 **Step 3 — Start `watch userload` in Terminal 2 *first*, before running anything.**
 
@@ -110,18 +126,20 @@ Terminal 2:
 ```bash
 watch userload
 ```
-{: .yens }
+{: .jupyter-terminal }
 
-- `userload` shows how many **cores** you're using and what **% of the node's memory** you're holding — your total footprint across all your processes on this node:
+- `userload` shows how many **cores** you're using and what **% of the node's memory** you're holding — your total footprint on this node:
 
   ```text
   SUNetID  |  0.34 Cores  |  0.00% Mem  on YENNODE
   ```
 
 - `watch` re-runs it every 2 seconds, so the numbers refresh live
-- Jupyter processes are tracked separately from processes started in a terminal shell — not a Jupyter terminal — and are not included
+- It counts what you are running **in a terminal** — both of yours. A **notebook** is not a
+  substitute: kernels run with no terminal attached, so `userload` never sees them. Run the
+  script in a terminal, not in a notebook cell
 
-**What are we seeing?** Right now — before you run anything — this is your **baseline**: **Cores** near 0 and **% Mem** near 0. That's what an idle account looks like. Keep this terminal visible; you'll watch these numbers move once the script starts. See the [current per-user limits](https://rcpedia.stanford.edu/_policies/user_limits/) for how much CPU and RAM any one user can use on an interactive Yen.
+**What are we seeing?** Right now — before you run anything — this is your **baseline**: **Cores** near 0 and **% Mem** near 0. That's what an idle account looks like. Keep this terminal visible; you'll watch these numbers move once the script starts. See the [current per-user limits](https://rcpedia.stanford.edu/_policies/user_limits/) for how much CPU and RAM any one user can use on an interactive Yen. Those limits cover your notebooks and kernels too — `userload` not showing them does not make them free.
 
 **Step 4 — Now run the script in Terminal 1 and watch Terminal 2 change.**
 
@@ -129,7 +147,7 @@ Terminal 1:
 ```bash
 time python scripts/mystery_script.py
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 {: .note }
 > **What's the `time` in front?** `time` is a wrapper — it runs whatever command follows (`python scripts/mystery_script.py`) exactly as normal, then, once it finishes, prints how long it took. It doesn't change what your script does; it just measures it. That's where the `real` / `user` / `sys` lines below come from.
@@ -154,7 +172,7 @@ First, in **Terminal 2**, stop `watch userload` by pressing <kbd>Ctrl</kbd>+<kbd
 ```bash
 htop -u SUNetID
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 The `-u` flag limits `htop` to your processes, so the hundreds of other users' processes on
 the node don't drown yours out.
@@ -197,7 +215,7 @@ Now, in **Terminal 1**, run the script again and watch your rows in `htop` light
 ```bash
 time python scripts/mystery_script.py
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 As the script runs, watch new `python` rows appear — that's it spawning work. Count them to answer "how many processes did it run?"
 
@@ -240,7 +258,7 @@ Everything on this page runs from your clone, with the environment active:
 cd ~/yens-onboarding-2026
 source .venv/bin/activate
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 {: .important }
 > **Task:** Profile the real batch script on 10 filings using the same two-terminal technique.
@@ -262,13 +280,13 @@ The script is set to process **10 filings** (see `NUM_FILINGS` near the top — 
 ```bash
 watch userload
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 Terminal 1 — run it and note the `real`, `user`, and `sys` times when it finishes:
 ```bash
 time python scripts/extract_form_3_batch.py
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 **Second run — watch the processes.** Switch Terminal 2 to `htop`, then run the script once more so you can see the processes live:
 
@@ -276,13 +294,13 @@ Terminal 2:
 ```bash
 htop -u SUNetID
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 Terminal 1:
 ```bash
 time python scripts/extract_form_3_batch.py
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 Watch Terminal 2 as the 10 filings process one after another.
 
@@ -389,13 +407,13 @@ Terminal 1 — run it:
 source .venv/bin/activate
 time python scripts/vectorize_demo.py
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 Terminal 2 — watch the load while it runs:
 ```bash
 watch userload
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 Both versions produce the identical result; the script prints how much faster the vectorized one was (often 10× or more). Notice the slow Python loop pins a core the whole time, while the NumPy version finishes almost before you can look at Terminal 2.
 

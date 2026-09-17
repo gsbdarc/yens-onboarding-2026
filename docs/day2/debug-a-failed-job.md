@@ -36,11 +36,11 @@ permalink: /day2/debug-a-failed-job/
   <circle cx="630" cy="80" r="20" fill="#f3f4f7" stroke="#6a7280" stroke-width="3"/><text x="630" y="87" text-anchor="middle" font-size="20" font-weight="700" fill="#6a7280">5</text>
 </svg>
 
-Everything on this page runs from your clone, with the environment active:
+Everything on this page runs from your clone. Unlike the other pages, this one needs no
+virtual environment — every command here is `sbatch`, `squeue`, `sacct`, `cat` or Claude:
 
 ```bash
 cd ~/yens-onboarding-2026
-source .venv/bin/activate
 ```
 {: .yens }
 
@@ -66,6 +66,21 @@ Your repo ships several Slurm scripts that are **deliberately broken**. Fix `slu
 
 {: .note }
 > 💡 **Let it fail before you fix it.** A `logs/fix_me_*.err` file has to exist for you to read, and a bonus exercise later reuses it — so submit it and let it fail rather than reading the script and spotting the bug by eye.
+
+{: .warning }
+> **Deactivate your virtual environment before you submit.** If your prompt still shows
+> `(.venv)` from the Profiling page, turn it off:
+>
+> ```bash
+> deactivate
+> ```
+> {: .yens }
+>
+> `sbatch` copies your current environment into the job — `--export=ALL` is its default — so
+> the job inherits whatever you had active when you submitted. The bug planted in
+> `slurm/fix_me.slurm` is a **missing** `source .venv/bin/activate`. Leave your own venv on
+> and the job inherits it, finds the packages, and **succeeds** — leaving you an empty `.err`
+> and nothing to debug.
 
 Submit the first one:
 
