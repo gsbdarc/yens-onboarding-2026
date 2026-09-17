@@ -510,7 +510,8 @@ tspan.personalize-token-unset {
    kind of block isn't a command at all: it's a prompt you type *to Claude*,
    which people paste at a shell prompt if nothing tells them otherwise. Tag a
    fenced block with `{: .yens }`, `{: .laptop }`, `{: .claude }`,
-   `{: .file }` or `{: .notebook }` (kramdown
+   `{: .file }`, `{: .notebook }`, `{: .jupyter-terminal }` or
+   `{: .python-repl }` (kramdown
    puts the class on the highlighter-rouge container) to label it.
 
    The label is a folder tab reading YEN TERMINAL or LOCAL TERMINAL: same fill
@@ -526,6 +527,8 @@ tspan.personalize-token-unset {
 .main-content div.highlighter-rouge.laptop,
 .main-content div.highlighter-rouge.claude,
 .main-content div.highlighter-rouge.notebook,
+.main-content div.highlighter-rouge.jupyter-terminal,
+.main-content div.highlighter-rouge.python-repl,
 .main-content div.highlighter-rouge.file,
 .main-content div.highlighter-rouge.output {
   border: 0;
@@ -536,6 +539,8 @@ tspan.personalize-token-unset {
 .main-content div.highlighter-rouge.laptop::before,
 .main-content div.highlighter-rouge.claude::before,
 .main-content div.highlighter-rouge.notebook::before,
+.main-content div.highlighter-rouge.jupyter-terminal::before,
+.main-content div.highlighter-rouge.python-repl::before,
 .main-content div.highlighter-rouge.file::before,
 .main-content div.highlighter-rouge.output::before {
   display: inline-block;
@@ -558,6 +563,8 @@ tspan.personalize-token-unset {
 .main-content div.highlighter-rouge.laptop > div.highlight,
 .main-content div.highlighter-rouge.claude > div.highlight,
 .main-content div.highlighter-rouge.notebook > div.highlight,
+.main-content div.highlighter-rouge.jupyter-terminal > div.highlight,
+.main-content div.highlighter-rouge.python-repl > div.highlight,
 .main-content div.highlighter-rouge.file > div.highlight,
 .main-content div.highlighter-rouge.output > div.highlight {
   border-top-left-radius: 0;     /* the tab sits on this corner */
@@ -612,6 +619,27 @@ tspan.personalize-token-unset {
   color: #6b21a8;
   border-left-color: #6b21a8;
 }
+.main-content div.highlighter-rouge.notebook > div.highlight {
+  border-left-color: #6b21a8;
+}
+
+/* Distinguish the browser's shell from Python running inside that shell. */
+.main-content div.highlighter-rouge.jupyter-terminal::before {
+  content: "\276F_  JupyterHub Terminal";
+  color: #0f5964;
+  border-left-color: #0f5964;
+}
+.main-content div.highlighter-rouge.jupyter-terminal > div.highlight {
+  border-left-color: #0f5964;
+}
+.main-content div.highlighter-rouge.python-repl::before {
+  content: "Python Prompt (>>>)";
+  color: #444444;
+  border-left-color: #444444;
+}
+.main-content div.highlighter-rouge.python-repl > div.highlight {
+  border-left-color: #444444;
+}
 
 /* What the terminal printed back, rather than something to type. Deliberately
    the quiet one: the other five tabs are saturated because each answers "where
@@ -630,7 +658,7 @@ tspan.personalize-token-unset {
 
    What it does not fix is `pre.highlight` *inside* it, which keeps the 6px
    radius from the box-edge rule near the top of this file. That is the notch
-   that shows beside the tab. Squaring it here, on all six tabs.
+   that shows beside the tab. Squaring it here, on all eight tabs.
 
    Only the radius. An earlier pass also gave `pre.highlight` a
    `border-left: 3px`, which drew a second coloured rail 15px inside the
@@ -641,6 +669,8 @@ tspan.personalize-token-unset {
 .main-content div.highlighter-rouge.laptop > div.highlight > pre.highlight,
 .main-content div.highlighter-rouge.claude > div.highlight > pre.highlight,
 .main-content div.highlighter-rouge.notebook > div.highlight > pre.highlight,
+.main-content div.highlighter-rouge.jupyter-terminal > div.highlight > pre.highlight,
+.main-content div.highlighter-rouge.python-repl > div.highlight > pre.highlight,
 .main-content div.highlighter-rouge.file > div.highlight > pre.highlight,
 .main-content div.highlighter-rouge.output > div.highlight > pre.highlight {
   border-top-left-radius: 0;
