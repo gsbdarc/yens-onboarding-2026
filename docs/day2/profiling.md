@@ -100,7 +100,7 @@ Click the **blue "+"** again and start another **Terminal**. Then **drag its tab
 edge of the first terminal** and drop it when the blue guide appears — JupyterLab splits the
 window and you get both terminals side by side.
 
-![JupyterLab with the file browser on the left and two terminals open side by side, tabbed Terminal 1 and Terminal 2, both sitting in the yens-onboarding-2026 directory]({{ "/assets/images/jupyterlab-two-terminals-side-by-side.png" | relative_url }})
+![JupyterLab with the file browser on the left and two terminals open side by side, tabbed Terminal 1 and Terminal 2]({{ "/assets/images/jupyterlab-two-terminals-side-by-side.png" | relative_url }})
 
 Seeing both at once is the technique. The script runs on the left while the numbers move on the
 right, live, and you watch it happen. Left as stacked tabs, one always hides the other, and you
@@ -108,14 +108,16 @@ would be clicking back and forth guessing what changed while you were not lookin
 
 Both terminals are on the node you picked, and you did not log in a second time.
 
-Everything on this page runs from your clone, with the environment active — in **both**
-terminals:
+**Terminal 1** is the one that runs your code, so it needs your clone and the environment:
 
 ```bash
 cd ~/yens-onboarding-2026
 source .venv/bin/activate
 ```
 {: .jupyter-terminal }
+
+**Terminal 2 needs neither.** It only ever watches — `userload` and `htop` are system tools,
+and no code of yours runs there.
 
 **Step 3 — Start `watch userload` in Terminal 2 *first*, before running anything.**
 
@@ -248,14 +250,6 @@ and cores you see change with it.
 </details>
 
 ## The Batch Script
-
-Everything on this page runs from your clone, with the environment active:
-
-```bash
-cd ~/yens-onboarding-2026
-source .venv/bin/activate
-```
-{: .jupyter-terminal }
 
 {: .important }
 > **Task:** Profile the real batch script on 10 filings using the same two-terminal technique.
