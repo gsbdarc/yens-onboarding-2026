@@ -89,7 +89,7 @@ In that terminal, run:
 ```bash
 hostname
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 {: .tip }
 > **Pick what it printed** and every command on this page fills itself in, so you can copy
@@ -118,7 +118,7 @@ terminals:
 cd ~/yens-onboarding-2026
 source .venv/bin/activate
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 **Step 3 — Start `watch userload` in Terminal 2 *first*, before running anything.**
 
@@ -126,7 +126,7 @@ Terminal 2:
 ```bash
 watch userload
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 - `userload` shows how many **cores** you're using and what **% of the node's memory** you're holding — your total footprint on this node:
 
@@ -147,7 +147,7 @@ Terminal 1:
 ```bash
 time python scripts/mystery_script.py
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 {: .note }
 > **What's the `time` in front?** `time` is a wrapper — it runs whatever command follows (`python scripts/mystery_script.py`) exactly as normal, then, once it finishes, prints how long it took. It doesn't change what your script does; it just measures it. That's where the `real` / `user` / `sys` lines below come from.
@@ -172,7 +172,7 @@ First, in **Terminal 2**, stop `watch userload` by pressing <kbd>Ctrl</kbd>+<kbd
 ```bash
 htop -u SUNetID
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 The `-u` flag limits `htop` to your processes, so the hundreds of other users' processes on
 the node don't drown yours out.
@@ -215,7 +215,7 @@ Now, in **Terminal 1**, run the script again and watch your rows in `htop` light
 ```bash
 time python scripts/mystery_script.py
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 As the script runs, watch new `python` rows appear — that's it spawning work. Count them to answer "how many processes did it run?"
 
@@ -258,7 +258,7 @@ Everything on this page runs from your clone, with the environment active:
 cd ~/yens-onboarding-2026
 source .venv/bin/activate
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 {: .important }
 > **Task:** Profile the real batch script on 10 filings using the same two-terminal technique.
@@ -280,13 +280,13 @@ The script is set to process **10 filings** (see `NUM_FILINGS` near the top — 
 ```bash
 watch userload
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 Terminal 1 — run it and note the `real`, `user`, and `sys` times when it finishes:
 ```bash
 time python scripts/extract_form_3_batch.py
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 **Second run — watch the processes.** Switch Terminal 2 to `htop`, then run the script once more so you can see the processes live:
 
@@ -294,13 +294,13 @@ Terminal 2:
 ```bash
 htop -u SUNetID
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 Terminal 1:
 ```bash
 time python scripts/extract_form_3_batch.py
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 Watch Terminal 2 as the 10 filings process one after another.
 
@@ -407,13 +407,13 @@ Terminal 1 — run it:
 source .venv/bin/activate
 time python scripts/vectorize_demo.py
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 Terminal 2 — watch the load while it runs:
 ```bash
 watch userload
 ```
-{: .yens }
+{: .jupyter-terminal }
 
 Both versions produce the identical result; the script prints how much faster the vectorized one was (often 10× or more). Notice the slow Python loop pins a core the whole time, while the NumPy version finishes almost before you can look at Terminal 2.
 

@@ -59,11 +59,12 @@ Where yesterday left you:
 
 ## Before You Start
 
-Three things need to be in place. **Say so now if any of them are missing:**
+Four things need to be in place. **Say so now if any of them are missing:**
 
-1. Your fork, cloned to the Yens at `~/yens-onboarding-2026`
-2. A virtual environment at `~/yens-onboarding-2026/.venv`, with `requirements.txt` installed
-3. A `.env` holding your `ANTHROPIC_API_KEY`, and `.env` in `.gitignore`
+1. You can log in to a Yen through JupyterHub with your SUNetID
+2. Your fork, cloned to the Yens at `~/yens-onboarding-2026`
+3. A virtual environment at `~/yens-onboarding-2026/.venv`, with `requirements.txt` installed
+4. A `.env` holding your `ANTHROPIC_API_KEY`, and `.env` in `.gitignore`
 
 {: .important }
 > **If you finish a section early, check whether anyone at your table is stuck before you

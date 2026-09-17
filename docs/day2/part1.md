@@ -16,6 +16,20 @@ to the scheduler instead of holding a terminal open.
 
 **9:00 to 10:30.** A short lecture, then the work block.
 
+{: .important }
+> **First, get back on the Yens.** Pick one of the five Yens and open its JupyterHub, then log
+> in with your SUNetID:
+>
+> [yen1](https://yen1.stanford.edu/jupyter/) ·
+> [yen2](https://yen2.stanford.edu/jupyter/) ·
+> [yen3](https://yen3.stanford.edu/jupyter/) ·
+> [yen4](https://yen4.stanford.edu/jupyter/) ·
+> [yen5](https://yen5.stanford.edu/jupyter/)
+>
+> Click the **blue "+"** to open the Launcher and open a **Terminal** — no `ssh`, and no Duo
+> prompt. Blocks labelled **JupyterHub Terminal** and **Yen Terminal** both go at that shell
+> prompt; a **Jupyter Notebook Cell** does not.
+
 ---
 
 ## Hands-On Lab
