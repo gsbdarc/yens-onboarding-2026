@@ -89,14 +89,17 @@ hostname
 >
 > <span class="personalize-field"><select id="yen-node" data-personalize="yen"><option value="">choose…</option><option>yen1</option><option>yen2</option><option>yen3</option><option>yen4</option><option>yen5</option></select><label class="personalize-affix personalize-affix-end" for="yen-node">.stanford.edu</label></span>
 
-**Step 2 — Open a second Terminal tab, on the same node.**
+**Step 2 — Open a second terminal *beside* the first, not behind it.**
 
-In the same JupyterHub window, click the **blue "+"** again and open another **Terminal** tab.
-Both terminals are now on the node you just picked — which is what this exercise needs — and
-you did not log in a second time.
+Click the **blue "+"** again and start another **Terminal**. Then **drag its tab to the right
+edge of the first terminal** and drop it when the blue guide appears — JupyterLab splits the
+window and you get both terminals side by side.
 
-Drag one tab to the side so you can see both at once; you will be switching between them
-constantly.
+Seeing both at once is the technique. The script runs on the left while the numbers move on the
+right, live, and you watch it happen. Left as stacked tabs, one always hides the other, and you
+would be clicking back and forth guessing what changed while you were not looking.
+
+Both terminals are on the node you picked, and you did not log in a second time.
 
 Everything on this page runs from your clone, with the environment active — in **both**
 terminals:
@@ -122,9 +125,11 @@ watch userload
   ```
 
 - `watch` re-runs it every 2 seconds, so the numbers refresh live
-- Jupyter processes are tracked separately from processes started in a terminal shell — not a Jupyter terminal — and are not included
+- It counts what you are running **in a terminal** — both of yours. A **notebook** is not a
+  substitute: kernels run with no terminal attached, so `userload` never sees them. Run the
+  script in a terminal, not in a notebook cell
 
-**What are we seeing?** Right now — before you run anything — this is your **baseline**: **Cores** near 0 and **% Mem** near 0. That's what an idle account looks like. Keep this terminal visible; you'll watch these numbers move once the script starts. See the [current per-user limits](https://rcpedia.stanford.edu/_policies/user_limits/) for how much CPU and RAM any one user can use on an interactive Yen.
+**What are we seeing?** Right now — before you run anything — this is your **baseline**: **Cores** near 0 and **% Mem** near 0. That's what an idle account looks like. Keep this terminal visible; you'll watch these numbers move once the script starts. See the [current per-user limits](https://rcpedia.stanford.edu/_policies/user_limits/) for how much CPU and RAM any one user can use on an interactive Yen. Those limits cover your notebooks and kernels too — `userload` not showing them does not make them free.
 
 **Step 4 — Now run the script in Terminal 1 and watch Terminal 2 change.**
 
