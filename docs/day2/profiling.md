@@ -73,11 +73,11 @@ Everything on this page runs in **JupyterHub terminals** — no `ssh`, and no Du
 
 1. **Pick one of the five Yens** and open its JupyterHub, then log in with your SUNetID:
 
-   [yen1](https://yen1.stanford.edu/jupyter/hub/home) ·
-   [yen2](https://yen2.stanford.edu/jupyter/hub/home) ·
-   [yen3](https://yen3.stanford.edu/jupyter/hub/home) ·
-   [yen4](https://yen4.stanford.edu/jupyter/hub/home) ·
-   [yen5](https://yen5.stanford.edu/jupyter/hub/home)
+   [yen1](https://yen1.stanford.edu/jupyter/) ·
+   [yen2](https://yen2.stanford.edu/jupyter/) ·
+   [yen3](https://yen3.stanford.edu/jupyter/) ·
+   [yen4](https://yen4.stanford.edu/jupyter/) ·
+   [yen5](https://yen5.stanford.edu/jupyter/)
 
    Pick a different one from the person next to you. You are about to measure a node's load,
    and thirty of us on the same Yen makes everyone's numbers someone else's noise.
