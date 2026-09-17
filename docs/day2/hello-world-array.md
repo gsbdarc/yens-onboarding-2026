@@ -177,7 +177,9 @@ The task number is what makes this general. Every task runs the identical script
 {: .note }
 > The script could equally read the variable straight from its environment with
 > `os.environ["SLURM_ARRAY_TASK_ID"]` and take no argument at all. Passing it in keeps the
-> handover visible in the `.slurm`, and lets you run a single task by hand to test it:
+> handover visible in the `.slurm`, and lets you run a single task by hand to test it.
+> `scripts/extract_array.py` is the file you write on the **next** page — so this is what
+> testing one task of it will look like, once you have it:
 >
 > ```bash
 > python scripts/extract_array.py 0

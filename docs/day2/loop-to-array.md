@@ -58,7 +58,14 @@ source .venv/bin/activate
   Python.
 - **`data/aws_links.csv`** — already in your clone, with a `urls` column listing the filings.
 
-You will end up writing two files: something in Python, and a `.slurm` to launch it.
+You will end up writing two files:
+
+- **`scripts/extract_array.py`** — the Python that one task runs
+- **`slurm/extract_array.slurm`** — the array job that launches it
+
+Make them the same way you made Part 1's `.slurm` — a terminal editor, or **+ New → Text
+File** in JupyterHub's file browser. Keep those names — the pages either side of this one
+already use them in commands you will run.
 
 {: .note }
 > **Claude is fair game.** Use it to draft, to debug, to explain an error you have not seen
@@ -173,15 +180,15 @@ month than the fix is.
 The array leaves you a directory of JSON files, one per filing. For analysis you want a
 single table instead — one row per filing, one column per field.
 
-Have Claude write you a short script that reads every JSON and writes them out as one CSV,
-then **document it as a step** in your README. It is part of your pipeline now, not a
-one-off you ran once and forgot.
+Have Claude write you a short script — **`scripts/merge_results.py`** — that reads every
+JSON and writes them out as one CSV, then **document it as a step** in your README. It is
+part of your pipeline now, not a one-off you ran once and forgot.
 
 *Think before you type: what happens to a task that failed and never wrote a file? And what
 does the row count tell you afterwards?*
 
-**Going further.** Make the merge its own Slurm job, and have Slurm run it only if the array
-finished cleanly:
+**Going further.** Give the merge a `.slurm` of its own — **`slurm/merge_results.slurm`** —
+so Slurm runs it only if the array finished cleanly:
 
 ```bash
 sbatch --dependency=afterok:ARRAYJOBID slurm/merge_results.slurm

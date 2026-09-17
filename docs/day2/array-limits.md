@@ -63,7 +63,8 @@ of 0, so the highest index you may use is one less than `MaxArraySize` — **511
 therefore holds at most 512 tasks, numbered `0` to `511`, and `--array=0-511` is the largest
 one you can submit.
 
-Try to go past it and the submission is simply refused:
+Try to go past it — with the array you wrote on the previous page — and the submission is
+simply refused:
 
 ```bash
 sbatch --reservation=class_cpu --array=0-991 slurm/extract_array.slurm
