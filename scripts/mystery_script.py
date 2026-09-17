@@ -5,7 +5,8 @@ import math
 
 def crunch_numbers():
     # Hold data in memory while doing CPU work
-    data = list(range(12_500_000))  # ~100 MB per process
+    data = list(range(12_500_000))  # ~485 MB per process: 95 MB of pointers,
+                                    # plus the 12.5M int objects behind them
     end_time = time.time() + 30    # run for 30 seconds
     while time.time() < end_time:
         for i in range(10000):

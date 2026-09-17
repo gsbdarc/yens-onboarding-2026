@@ -117,7 +117,8 @@ source .venv/bin/activate
 {: .jupyter-terminal }
 
 **Terminal 2 needs neither.** It only ever watches — `userload` and `htop` are system tools,
-and no code of yours runs there.
+and no code of yours runs there. So only Terminal 1's prompt will start with `(.venv)`, which
+is how you tell the two apart at a glance for the rest of this page.
 
 **Step 3 — Start `watch userload` in Terminal 2 *first*, before running anything.**
 
@@ -142,7 +143,7 @@ watch userload
 
 **Step 4 — Now run the script in Terminal 1 and watch Terminal 2 change.**
 
-Terminal 1:
+Terminal 1 — the one with `(.venv)` in its prompt:
 ```bash
 time python scripts/mystery_script.py
 ```
@@ -151,7 +152,7 @@ time python scripts/mystery_script.py
 {: .note }
 > **What's the `time` in front?** `time` is a wrapper — it runs whatever command follows (`python scripts/mystery_script.py`) exactly as normal, then, once it finishes, prints how long it took. It doesn't change what your script does; it just measures it. That's where the `real` / `user` / `sys` lines below come from.
 
-As it runs, watch Terminal 2: **your Cores number climbs and % Mem grows** — that's the script's footprint stacking on top of your baseline. If Cores climbs above 1, the script is using more than one core at once. When it finishes, the numbers fall back toward baseline, and `time` prints three lines:
+As it runs, watch Terminal 2: **your Cores number climbs to about 4** — that's the script's footprint stacking on top of your baseline. If Cores climbs above 1, the script is using more than one core at once. When it finishes, it falls back toward baseline, and `time` prints three lines:
 
 ```
 real    0m31.234s
@@ -159,6 +160,15 @@ user    2m0.682s
 sys     0m2.212s
 ```
 {: .output }
+
+{: .note }
+> **`% Mem` will not move, and that is correct.** The four workers hold about **485 MB each**,
+> roughly **1.9 GB** between them — which on a 1 TB Yen is **0.19% of the node**. `userload`
+> gets its memory figure from `ps`, which reports one decimal place, so each worker rounds to
+> `0.0` and the total reads `0.00% Mem` the whole way through. **Cores is the number to watch
+> here.** For memory, read **`RES`** in `htop` in Step 5 — and the fact that 1.9 GB is
+> invisible as a share of this machine is worth sitting with: that is the scale you are
+> sharing.
 
 - **real** — wall-clock time: how long you actually waited
 - **user** — CPU time your code consumed across all cores; if `user` > `real`, the script used multiple cores in parallel
@@ -273,7 +283,8 @@ watch userload
 ```
 {: .jupyter-terminal }
 
-Terminal 1 — run it and note the `real`, `user`, and `sys` times when it finishes:
+Terminal 1 again — the `(.venv)` one; this script really does need the environment. Run it
+and note the `real`, `user`, and `sys` times when it finishes:
 ```bash
 time python scripts/extract_form_3_batch.py
 ```
